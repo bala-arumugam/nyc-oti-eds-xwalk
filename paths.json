@@ -5,6 +5,6 @@
     "/content/nyc-oti-xwalk/metadata:/metadata.json"
   ],
   "includes": [
-    "/content/nyc-oti-xwalk/"
+    "/content/nyc-oti-xwalk/:/"
   ]
 }
