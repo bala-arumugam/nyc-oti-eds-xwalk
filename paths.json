@@ -1,11 +1,11 @@
 {
   "mappings": [
-    "/content/nyc-oti-xwalk/:/",
-    "/content/nyc-oti-xwalk/configuration:/.helix/config.json",
-    "/content/nyc-oti-xwalk/metadata:/metadata.json"
+    "/content/nyc-oti-eds-xwalk/:/",
+    "/content/nyc-oti-eds-xwalk/configuration:/.helix/config.json",
+    "/content/nyc-oti-eds-xwalk/metadata:/metadata.json"
   ],
   "includes": [
-    "/content/nyc-oti-xwalk/"
+    "/content/nyc-oti-eds-xwalk/"
   ]
 }
 
