@@ -2,8 +2,7 @@
   "mappings": [
     "/content/nyc-oti-eds-xwalk/:/",
     "/content/nyc-oti-eds-xwalk/configuration:/.helix/config.json",
-    "/content/nyc-oti-eds-xwalk/metadata:/metadata.json",
-    "/content/nyc-oti-eds-xwalk/demo:/demo"
+    "/content/nyc-oti-eds-xwalk/metadata:/metadata.json"
   ],
   "includes": [
     "/content/nyc-oti-eds-xwalk/"
