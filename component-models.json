@@ -142,6 +142,10 @@
     ]
   },
   {
+    "id": "body",
+    "fields": []
+  },
+  {
     "id": "card",
     "fields": [
       {
