@@ -27,6 +27,7 @@
     {
       "id":"body",
       "components":[
+        "title",
         "text"
       ]
     }
