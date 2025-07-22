@@ -162,5 +162,81 @@ export default async function decorate(block) {
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
+
+  // Add a section above nav-wrapper with logo and text containers
+  const navAbove = document.createElement('div');
+  navAbove.className = 'nav-above';
+
+  // Inner container for logo and text
+  const navAboveInner = document.createElement('div');
+  navAboveInner.className = 'nav-above-inner';
+
+  // Logo container
+  const navAboveLogo = document.createElement('div');
+  navAboveLogo.className = 'nav-above-logo';
+
+
+
+  // Replace the src with your logo path
+  const logoImg = document.createElement('img');
+  logoImg.src = '/icons/MyCity.svg'; 
+  logoImg.alt = 'Logo';
+  navAboveLogo.appendChild(logoImg);
+  
+  const logoTxt = document.createElement('div');
+  logoTxt.textContent = 'MyCity'; 
+  navAboveLogo.appendChild(logoTxt);
+
+  // Text container
+  const navAboveText = document.createElement('div');
+  navAboveText.className = 'nav-above-text';
+  navAboveText.textContent = 'Official website of the City of New York'; 
+
+  navAboveInner.appendChild(navAboveLogo);
+  navAboveInner.appendChild(navAboveText);
+  
+  navAbove.appendChild(navAboveInner);
+
+  // Add a section below nav-wrapper
+  const navBelow = document.createElement('div');
+  navBelow.className = 'nav-below';
+
+    // Language selector container for navBelow
+  const langSelector = document.createElement('div');
+  langSelector.className = 'header-language-selector';
+
+  // Language icon
+  const langIcon = document.createElement('span');
+  langIcon.className = 'language-icon';
+  langSelector.appendChild(langIcon);
+
+  // Language label
+  const langLabel = document.createElement('span');
+  langLabel.className = 'language-label';
+  langLabel.textContent = 'Language';
+  langSelector.appendChild(langLabel);
+
+  // Divider
+  const langDivider = document.createElement('span');
+  langDivider.className = 'language-divider';
+  langDivider.textContent = '|';
+  langSelector.appendChild(langDivider);
+
+  // Current language
+  const langCurrent = document.createElement('span');
+  langCurrent.className = 'language-current';
+  langCurrent.textContent = 'English';
+  langSelector.appendChild(langCurrent);
+
+  // Dropdown arrow
+  const langDropdown = document.createElement('span');
+  langDropdown.className = 'language-dropdown';
+  langDropdown.innerHTML = '&#9660;';
+  langSelector.appendChild(langDropdown);
+
+  navBelow.appendChild(langSelector);
+
+  block.append(navAbove);
   block.append(navWrapper);
+  block.append(navBelow);
 }
