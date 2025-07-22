@@ -21,6 +21,12 @@
     ]
   },
   {
+    "id": "body",
+    "components": [
+      "text"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"

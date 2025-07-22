@@ -22,5 +22,12 @@
       "fields": []
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id":"body",
+      "components":[
+        "text"
+      ]
+    }
+  ]
 }
