@@ -97,13 +97,27 @@
                   ],
                   "hero": {
                     "name": "Hero",
-                    "model": "hero"
+                    "model": "hero",
+                    "classes": [
+                      "1",
+                      "left"
+                    ]
                   },
                   "regulation-tabs": {
-                    "name": "Regulation Tabs"
+                    "name": "Regulation Tabs",
+                    "model": "regulation-tabs",
+                    "classes": [
+                      "2",
+                      "left"
+                    ]
                   },
                   "step-cta": {
-                    "name": "Step CTA"
+                    "name": "Step CTA",
+                    "model": "step-cta",
+                    "classes": [
+                      "3",
+                      "left"
+                    ]
                   }
                 }
               }
