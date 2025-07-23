@@ -2,7 +2,8 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "body"
     ]
   },
   {
@@ -16,7 +17,17 @@
       "cards",
       "columns",
       "fragment",
-      "section"
+      "section",
+      "container",
+      "body"
+    ]
+  },
+  {
+    "id": "body",
+    "components": [
+      "hero",
+      "regulation-tabs",
+      "step-cta"
     ]
   },
   {
