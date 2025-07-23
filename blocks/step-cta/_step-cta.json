@@ -26,6 +26,12 @@
           "name": "name",
           "value": "",
           "label": "Name"
+        },    {
+          "component": "text",
+          "valueType": "string",
+          "name": "idea",
+          "value": "",
+          "label": "Idea"
         }
       ]
     }],
