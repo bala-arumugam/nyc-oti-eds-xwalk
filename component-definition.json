@@ -93,7 +93,14 @@
                   "name": "Body",
                   "filter": "body",
                   "hero": {
-                    "text": "Hero"
+                    "name": "Hero",
+                    "model": "hero"
+                  },
+                  "regulation-tabs": {
+                    "name": "Regulation Tabs"
+                  },
+                  "step-cta": {
+                    "name": "Step CTA"
                   }
                 }
               }
