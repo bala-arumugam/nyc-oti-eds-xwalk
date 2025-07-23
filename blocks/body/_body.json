@@ -10,6 +10,7 @@
             "template": {
               "name": "Body",
               "filter":"body",
+              "classes":["body-js"],
               "hero":{
                 "name": "Hero",
                 "model":"hero"
@@ -27,7 +28,20 @@
       }
     }
   ],
-  "models": [],
+  "models": [
+    {
+      "id":"body",
+      "fields":[
+           {
+          "component": "text",
+          "valueType": "string",
+          "name": "name",
+          "value": "",
+          "label": "Name"
+        }
+      ]
+    }
+  ],
   "filters": [
     {
       "id":"body",
