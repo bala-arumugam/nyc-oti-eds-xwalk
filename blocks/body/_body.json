@@ -12,14 +12,16 @@
               "filter":"body",
               "hero":{
                 "name": "Hero",
-                "model":"hero"
+                "model":"hero",
+                "classes": ["hero-tabs"]
               },
               "regulation-tabs":{
-                "name":"Regulation Tabs"
+                "name":"Regulation Tabs",
+                "classes": ["regulation-tabs"]
               },
               "step-cta":{
-                "name":"Step CTA"
-
+                "name":"Step CTA",
+                "classes": ["step-cta"]
               }
             }
           }
