@@ -92,7 +92,11 @@
                 "template": {
                   "name": "Body",
                   "model": "body",
-                  "filter": "body"
+                  "filter": "body",
+                  "hero": {
+                    "name": "Hero",
+                    "model": "hero"
+                  }
                 }
               }
             }

@@ -1,4 +1,4 @@
-export default function decorate(doc){
+export default function decorateBlock(doc){
   const firstChild = doc.firstElementChild;
   const secondChild = firstChild.firstElementChild;
   
