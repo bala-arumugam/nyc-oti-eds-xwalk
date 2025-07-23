@@ -10,11 +10,7 @@
             "template": {
               "name": "Body",
               "model": "body",
-              "filter":"body",
-              "hero":{
-                "name": "Hero",
-                "model": "hero"
-              }
+              "filter":"body"
             }
           }
         }
@@ -33,9 +29,9 @@
     {
       "id":"body",
       "components":[
-        "title",
-        "text",
-        "hero"
+        "hero",
+        "regulation-tabs",
+        "step-cta"
       ]
     }
   ]

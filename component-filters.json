@@ -25,9 +25,9 @@
   {
     "id": "body",
     "components": [
-      "title",
-      "text",
-      "hero"
+      "hero",
+      "regulation-tabs",
+      "step-cta"
     ]
   },
   {
