@@ -147,7 +147,7 @@
       {
         "component": "text",
         "name": "text",
-        "value": "",
+        "value": "AAA",
         "label": "Text",
         "valueType": "string",
         "hidden": true
@@ -160,7 +160,7 @@
       {
         "component": "text",
         "name": "text",
-        "value": "",
+        "value": "BBB",
         "label": "Text",
         "valueType": "string",
         "hidden": true
@@ -173,7 +173,7 @@
       {
         "component": "text",
         "name": "text",
-        "value": "",
+        "value": "CCC",
         "label": "Text",
         "valueType": "string",
         "hidden": true
