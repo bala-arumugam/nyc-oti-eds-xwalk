@@ -145,11 +145,12 @@
     "id": "a",
     "fields": [
       {
-        "component": "richtext",
+        "component": "text",
         "name": "text",
         "value": "",
         "label": "Text",
-        "valueType": "string"
+        "valueType": "string",
+        "hidden": true
       }
     ]
   },
@@ -157,11 +158,12 @@
     "id": "b",
     "fields": [
       {
-        "component": "richtext",
+        "component": "text",
         "name": "text",
         "value": "",
         "label": "Text",
-        "valueType": "string"
+        "valueType": "string",
+        "hidden": true
       }
     ]
   },
@@ -169,11 +171,12 @@
     "id": "c",
     "fields": [
       {
-        "component": "richtext",
+        "component": "text",
         "name": "text",
         "value": "",
         "label": "Text",
-        "valueType": "string"
+        "valueType": "string",
+        "hidden": true
       }
     ]
   },
