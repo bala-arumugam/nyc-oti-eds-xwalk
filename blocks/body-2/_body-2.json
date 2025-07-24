@@ -50,7 +50,6 @@
             "template": {
               "name": "Step CTA 2",
               "model":"step-cta-2"
-
             }
           }
         }
@@ -90,12 +89,6 @@
           "name": "name",
           "value": "",
           "label": "Name"
-        },    {
-          "component": "text",
-          "valueType": "string",
-          "name": "idea",
-          "value": "",
-          "label": "Idea"
         }
       ]
     }
