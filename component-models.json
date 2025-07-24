@@ -142,52 +142,8 @@
     ]
   },
   {
-    "id": "body-2",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "name",
-        "value": "",
-        "label": "Name"
-      }
-    ]
-  },
-  {
-    "id": "regulation-tabs-2",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "name",
-        "value": "",
-        "label": "Name"
-      }
-    ]
-  },
-  {
-    "id": "step-cta-2",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "name",
-        "value": "",
-        "label": "Name"
-      }
-    ]
-  },
-  {
     "id": "body",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "name",
-        "value": "",
-        "label": "Name"
-      }
-    ]
+    "fields": []
   },
   {
     "id": "card",
