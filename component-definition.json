@@ -92,6 +92,8 @@
                 "template": {
                   "name": "Body",
                   "filter": "body",
+                  "key-value": true,
+                  "component": "body",
                   "item_0": {
                     "name": "Hero",
                     "model": "hero",
