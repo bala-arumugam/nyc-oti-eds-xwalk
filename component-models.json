@@ -142,84 +142,6 @@
     ]
   },
   {
-    "id": "a",
-    "fields": [
-      {
-        "component": "text",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string",
-        "hidden": true
-      }
-    ]
-  },
-  {
-    "id": "b",
-    "fields": [
-      {
-        "component": "text",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string",
-        "hidden": true
-      }
-    ]
-  },
-  {
-    "id": "c",
-    "fields": [
-      {
-        "component": "text",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string",
-        "hidden": true
-      }
-    ]
-  },
-  {
-    "id": "a",
-    "fields": [
-      {
-        "component": "text",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string",
-        "hidden": true
-      }
-    ]
-  },
-  {
-    "id": "b",
-    "fields": [
-      {
-        "component": "text",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string",
-        "hidden": true
-      }
-    ]
-  },
-  {
-    "id": "c",
-    "fields": [
-      {
-        "component": "text",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string",
-        "hidden": true
-      }
-    ]
-  },
-  {
     "id": "body",
     "fields": []
   },
@@ -318,6 +240,45 @@
         "name": "component",
         "value": "",
         "label": "Component"
+      }
+    ]
+  },
+  {
+    "id": "a",
+    "fields": [
+      {
+        "component": "text",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "id": "b",
+    "fields": [
+      {
+        "component": "text",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "id": "c",
+    "fields": [
+      {
+        "component": "text",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string",
+        "hidden": true
       }
     ]
   }

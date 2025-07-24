@@ -23,22 +23,6 @@
     ]
   },
   {
-    "id": "body2",
-    "components": [
-      "a",
-      "b",
-      "c"
-    ]
-  },
-  {
-    "id": "body2",
-    "components": [
-      "a",
-      "b",
-      "c"
-    ]
-  },
-  {
     "id": "body",
     "components": []
   },
@@ -61,6 +45,14 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "test",
+    "components": [
+      "a",
+      "b",
+      "c"
     ]
   }
 ]
