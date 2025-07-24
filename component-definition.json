@@ -149,19 +149,19 @@
                   "filter": "body",
                   "key-value": true,
                   "component": "body",
-                  "item_0": {
+                  "hero": {
                     "name": "Hero",
                     "model": "hero",
                     "key-value": true,
                     "component": "hero"
                   },
-                  "item_1": {
+                  "regulation-tabs": {
                     "name": "Regulation Tabs",
                     "model": "regulation-tabs",
                     "key-value": true,
                     "component": "regulation-tabs"
                   },
-                  "item_2": {
+                  "step-cta": {
                     "name": "Step CTA",
                     "model": "step-cta",
                     "key-value": true,
