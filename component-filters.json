@@ -31,6 +31,14 @@
     ]
   },
   {
+    "id": "body2",
+    "components": [
+      "a",
+      "b",
+      "c"
+    ]
+  },
+  {
     "id": "body",
     "components": []
   },
