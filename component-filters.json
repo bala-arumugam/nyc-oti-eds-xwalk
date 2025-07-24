@@ -19,11 +19,11 @@
       "section",
       "container",
       "body",
-      "body-2"
+      "body2"
     ]
   },
   {
-    "id": "body-2",
+    "id": "body2",
     "components": [
       "a",
       "b",

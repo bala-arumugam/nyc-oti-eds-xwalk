@@ -1,3 +1,3 @@
 export default function decorateBlock(doc){
-  console.log("block-2")
+  console.log("block2")
 }
