@@ -10,21 +10,24 @@
             "template": {
               "name": "Body",
               "filter":"body",
-              "classes":["body-js"],
               "hero":{
                 "name": "Hero",
                 "model":"hero",
-                "classes": ["1", "left"]
+              "key-value":true,
+              "component":"hero"
+                
               },
               "regulation-tabs":{
                 "name":"Regulation Tabs",
                 "model":"regulation-tabs",
-                "classes": ["2", "left"]
+                 "key-value":true,
+              "component":"regulation-tabs"
               },
             "step-cta": {
                 "name":"Step CTA",
                 "model": "step-cta",
-                "classes": ["3", "left"]
+                 "key-value":true,
+              "component":"step-cta"
               }
             }
           }
