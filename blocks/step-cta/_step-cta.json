@@ -10,7 +10,9 @@
             "template": {
               "name": "Step CTA",
               "model":"step-cta",
-              "classes": ["step-cta"]
+              "classes": ["step-cta"],
+                        "key-value":true,
+               "component":"regulation-tab"
             }
           }
         }
