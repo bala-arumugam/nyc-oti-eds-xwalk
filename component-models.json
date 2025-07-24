@@ -225,9 +225,9 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "name",
+        "name": "component",
         "value": "",
-        "label": "Name"
+        "label": "Component"
       }
     ]
   },
@@ -237,16 +237,9 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "name",
+        "name": "component",
         "value": "",
-        "label": "Name"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "idea",
-        "value": "",
-        "label": "Idea"
+        "label": "Component"
       }
     ]
   }

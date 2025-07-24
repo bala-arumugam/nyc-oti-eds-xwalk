@@ -13,15 +13,19 @@
               "filter": "body",
               "hero": {
                 "name": "Hero",
-                "model": "hero"
+                "model": "hero",
+                "text":"hero"
               },
               "regulation-tabs": {
                 "name": "Regulation Tabs",
-                "model": "regulation-tabs"
+                "model": "regulation-tabs",
+                    "component":"regulation-tabs"
+            
               },
               "step-cta": {
                 "name": "Step CTA",
-                "model": "step-cta"
+                "model": "step-cta",
+                "component":"step-cta"
               }
             }
           }
