@@ -19,8 +19,7 @@
               "regulation-tabs": {
                 "name": "Regulation Tabs",
                 "model": "regulation-tabs",
-                    "component":"regulation-tabs"
-            
+                "component":"regulation-tabs"
               },
               "step-cta": {
                 "name": "Step CTA",
