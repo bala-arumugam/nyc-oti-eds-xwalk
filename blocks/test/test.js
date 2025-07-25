@@ -1,7 +1,7 @@
 
 
 export default function decorateBlock(doc){
-  console.log("test")
+  console.log("test", doc)
 
 
 }
