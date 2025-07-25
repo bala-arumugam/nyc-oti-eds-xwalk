@@ -41,6 +41,14 @@
           "value": "",
           "label": "Text",
           "valueType": "string"
+        },
+           {
+          "component": "text",
+          "valueType": "string",
+          "name": "component",
+          "value": "",
+          "label": "Component",
+          "hidden": true
         }
       ]
     }

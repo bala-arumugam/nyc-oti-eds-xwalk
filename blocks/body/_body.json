@@ -14,7 +14,7 @@
               "hero": {
                 "name": "Hero",
                 "model": "hero",
-                "text":"hero"
+                "component":"hero"
               },
               "regulation-tabs": {
                 "name": "Regulation Tabs",
