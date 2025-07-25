@@ -1,3 +1,3 @@
-export default function decorate(doc){
+export default function decorateHero(doc){
   console.log("hero",{doc})
 }

@@ -1,4 +1,4 @@
-export default function decorate(block){  
+export default function decorateSC(block){  
   console.log("step-cta")
     const firstChild = doc.firstElementChild; 
   firstChild.className = "oit-step-cta"
