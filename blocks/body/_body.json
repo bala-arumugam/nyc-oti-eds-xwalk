@@ -14,17 +14,17 @@
               "hero": {
                 "name": "Hero",
                 "model": "hero",
-                "component":"hero"
+                "component":"component:hero"
               },
               "regulation-tabs": {
                 "name": "Regulation Tabs",
                 "model": "regulation-tabs",
-                "component":"regulation-tabs"
+                "component":"component:regulation-tabs"
               },
               "step-cta": {
                 "name": "Step CTA",
                 "model": "step-cta",
-                "component":"step-cta"
+                "component":"component:step-cta"
               }
             }
           }
