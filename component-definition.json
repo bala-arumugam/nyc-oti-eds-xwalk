@@ -262,7 +262,7 @@
                   "component": "component:regulation-tabs",
                   "regulation-tab": {
                     "name": "Regulation Tab",
-                    "model": "regulation-tabs",
+                    "model": "regulation-tab",
                     "component": "component:regulation-tab"
                   }
                 }
