@@ -283,6 +283,13 @@
         "value": "",
         "label": "Component",
         "hidden": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "Hello",
+        "value": "",
+        "label": "Hello"
       }
     ]
   },

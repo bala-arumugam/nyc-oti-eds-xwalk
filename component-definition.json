@@ -229,11 +229,12 @@
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
+                "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
                   "name": "Regulation Tab",
                   "model": "regulation-tab",
                   "filter": "regulation-tab",
+                  "metadataBlock": false,
                   "component": "component:regulation-tab",
                   "row": "2",
                   "regulation-tab-main": {
@@ -257,11 +258,12 @@
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
+                "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
                   "name": "Regulation Tabs",
                   "model": "regulation-tabs",
                   "filter": "regulation-tabs",
+                  "metadataBlock": false,
                   "component": "component:regulation-tabs",
                   "regulation-tab": {
                     "name": "Regulation Tab",
