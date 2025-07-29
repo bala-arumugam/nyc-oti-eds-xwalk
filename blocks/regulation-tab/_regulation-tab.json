@@ -42,5 +42,8 @@
       ]
     }
   ],
-  "filters": []
+  "filters": [
+    "regulation-tab-main",
+    "regulation-tab-additional"
+  ]
 }
