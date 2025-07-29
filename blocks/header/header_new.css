@@ -1,0 +1,345 @@
+/* NYC Business Portal Header Styles */
+
+/* Skip to main content link */
+.skip-main {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  color: #fff;
+  background: #025ADF;
+  padding: 8px;
+  z-index: 1001;
+  transition: top 0.3s;
+}
+
+.skip-main:focus {
+  top: 0;
+}
+
+/* Header layout */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo band (top section) */
+.logo-band-wrapper {
+  background: #0042A7;
+  width: 100%;
+  padding: 0;
+}
+
+.logo-band {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.nav-logo a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.nav-logo-img {
+  height: 24px;
+  width: auto;
+}
+
+/* Main navigation */
+nav {
+  background: #025ADF;
+  width: 100%;
+}
+
+.clean-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav-desktop {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.nav-tag-line {
+  margin-right: auto;
+}
+
+.nav-tag-line a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 21px;
+  padding: 12px 0;
+  display: block;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link > a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 16px;
+  font-size: 16px;
+}
+
+.nav-link > a:hover,
+.nav-link > a:focus {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Submenu styling */
+.nav-submenu {
+  display: none;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  min-width: 200px;
+}
+
+.nav-submenu-text-9-row-list {
+  column-count: 3;
+  width: 600px;
+}
+
+.nav-submenu-title {
+  margin: 0;
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+}
+
+.nav-submenu-items {
+  padding: 8px 0;
+}
+
+.nav-submenu-items li {
+  padding: 0;
+}
+
+.nav-submenu-items a {
+  display: block;
+  padding: 8px 16px;
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-submenu-items a:hover,
+.nav-submenu-items a:focus {
+  background: #f5f5f5;
+}
+
+/* Block link containers */
+.block-link {
+  display: block;
+  text-decoration: none;
+}
+
+.nav-submenu-items .block-link {
+  padding: 0;
+}
+
+.simplified-header-text {
+  display: block;
+  padding: 8px 16px;
+  color: #333;
+  text-decoration: none;
+}
+
+/* Icon links */
+.nav-icon-link a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #fff;
+}
+
+.nav-icon-link img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1); /* Make icons white */
+}
+
+.hidden-text span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Close and back buttons */
+.sub-menu-close,
+.sub-menu-back {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 24px;
+  height: 24px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E") no-repeat center;
+}
+
+.sub-menu-back {
+  left: 10px;
+  right: auto;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z'/%3E%3C/svg%3E") no-repeat center;
+}
+
+/* Language toggle section */
+.language-toggle-wrap {
+  background: #EAEEF1;
+  border-bottom: 1px solid #ADB2B9;
+  width: 100%;
+}
+
+.language-toggle {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4px 16px;
+}
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.language-header {
+  font-weight: 700;
+  color: #080707;
+  position: relative;
+  padding-left: 24px;
+}
+
+.translate-icon::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath d='M480-120q-151 0-255.5-104.5T120-480q0-150 104.5-255T480-840q149 0 254.5 105T840-480q0 150-105.5 254.5T480-120Zm0-82q54 0 104-25t81-61q-35-31-80.5-48.5T480-354q-55 0-102 16.5T298-289q30 38 81 62.5T480-202Zm-168-87q45-51 106-82t145-31q84 0 145 30.5T814-290q39-48 62.5-108.5T900-517q-34 7-68 10.5t-68 3.5q-63 0-127.5-15T517-566v7q0 87-56 149t-149 74v47Zm-67-99q39 0 68-24t29-73q0-35-29-59t-68-24q-42 0-68.5 24T148-445q0 49 27.5 73t69.5 24Z'/%3E%3C/svg%3E") no-repeat center;
+}
+
+.language-selector-box {
+  display: flex;
+  align-items: center;
+  color: #080707;
+}
+
+/* Mobile menu specific styling */
+.nav-mobile-menu {
+  display: none;
+}
+
+.nav-submenu-mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  z-index: 1001;
+  overflow-y: auto;
+}
+
+.nav-submenu-main {
+  padding: 0 16px;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 900px) {
+  .main-nav-desktop {
+    justify-content: space-between;
+  }
+  
+  .nav-link {
+    display: none;
+  }
+  
+  .nav-mobile-menu {
+    display: block;
+  }
+  
+  .nav-icon-link {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .logo-band {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .nav-tag-line a {
+    font-size: 18px;
+  }
+  
+  .nav-submenu-text-9-row-list {
+    column-count: 1;
+    width: 100%;
+  }
+}
+
+/* Utility classes */
+.my-city-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.block-link {
+  display: block;
+  text-decoration: none;
+}
+
+/* Accessibility focus styles */
+a:focus,
+button:focus {
+  outline: 2px solid #005DA5;
+  outline-offset: 2px;
+}
+
+/* State for mobile menu open */
+body.mobile-menu-open {
+  overflow: hidden;
+}
