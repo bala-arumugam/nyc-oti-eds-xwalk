@@ -53,9 +53,19 @@
       "title"
     ]
   },
-  "regulation-tab-main",
-  "regulation-tab-additional",
-  "regulation-tab",
+  {
+    "id": "regulation-tab",
+    "components": [
+      "regulation-tab-main",
+      "regulation-tab-additional"
+    ]
+  },
+  {
+    "id": "regulation-tabs",
+    "components": [
+      "regulation-tab"
+    ]
+  },
   {
     "id": "test",
     "components": [

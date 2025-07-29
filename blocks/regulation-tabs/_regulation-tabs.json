@@ -10,7 +10,13 @@
             "template": {
               "name": "Regulation Tabs",
               "model": "regulation-tabs",
-              "component": "component:regulation-tabs"
+              "filter": "regulation-tabs",
+              "component": "component:regulation-tabs",
+              "regulation-tab": {
+                "name": "Regulation Tab",
+                "model": "regulation-tab",
+                "component": "component:regulation-tab"
+              }
             }
           }
         }
@@ -26,12 +32,18 @@
           "valueType": "string",
           "name": "component",
           "value": "",
-          "label": "Component"
+          "label": "Component",
+          "hidden": true
         }
       ]
     }
   ],
   "filters": [
-    "regulation-tab"
+    {
+      "id": "regulation-tabs",
+      "components": [
+        "regulation-tab"
+      ]
+    }
   ]
 }

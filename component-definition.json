@@ -233,6 +233,7 @@
                 "template": {
                   "name": "Regulation Tab",
                   "model": "regulation-tab",
+                  "filter": "regulation-tab",
                   "component": "component:regulation-tab",
                   "regulation-tab-main": {
                     "name": "Regulation Tab Main",
@@ -259,7 +260,13 @@
                 "template": {
                   "name": "Regulation Tabs",
                   "model": "regulation-tabs",
-                  "component": "component:regulation-tabs"
+                  "filter": "regulation-tabs",
+                  "component": "component:regulation-tabs",
+                  "regulation-tab": {
+                    "name": "Regulation Tab",
+                    "model": "regulation-tab",
+                    "component": "component:regulation-tab"
+                  }
                 }
               }
             }
