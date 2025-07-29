@@ -235,6 +235,7 @@
                   "model": "regulation-tab",
                   "filter": "regulation-tab",
                   "component": "component:regulation-tab",
+                  "row": "2",
                   "regulation-tab-main": {
                     "name": "Regulation Tab Main",
                     "model": "regulation-tab-main",
