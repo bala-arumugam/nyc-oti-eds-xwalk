@@ -274,8 +274,7 @@
         "valueType": "string",
         "name": "component",
         "value": "",
-        "label": "Component",
-        "hidden": true
+        "label": "Component"
       }
     ]
   },
