@@ -16,11 +16,12 @@
   max-width: 1200px;
   height: auto;
   width: auto;
-  color: var(--Grays-White, #FFF);
+  color: #FFF;
   font-size: 48px;
   font-style: normal;
   font-weight: 700;
   line-height: 62px; /* 129.167% */
+
     /* top | right | bottom | left */
     padding: 60px 0 60px 144.5px;
 }
@@ -57,6 +58,7 @@
     min-width: 390px;
     min-height: 182px;
 }
+
   .hero {
     position: relative;
     background-color: #0042A799;
@@ -64,21 +66,25 @@
     height: 182px;
     min-width: 390px;
     min-height: 182px;
+
     /* top | right | bottom | left */
     padding: 0;
   }
+
   .hero h1 {
     max-width: 1200px;
     height: auto;
     width: auto;
-    color: var(--Grays-White, #FFF);
+    color: #FFF;
     font-size: 32px;
     font-style: normal;
     font-weight: 700;
     line-height: 48px; /* 150% */
+
     /* top | right | bottom | left */
     padding: 43px 67px 43px 24px;
   }
+
   .hero picture {
     position: absolute;
     z-index: -1;

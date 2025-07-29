@@ -1,6 +1,7 @@
 .oit-fluid-container{
   width: 100%;
 }
+
 .oit-fluid-container .oit-row{
   margin: 16px auto;
   max-width: 1224px;
@@ -8,7 +9,7 @@
 }
 
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .oit-fluid-container .oit-row{
     margin: 16px;
     background-color: yellow;
