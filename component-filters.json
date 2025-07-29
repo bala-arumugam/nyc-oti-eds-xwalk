@@ -25,7 +25,11 @@
   },
   {
     "id": "body",
-    "components": []
+    "components": [
+      "hero",
+      "regulation-tabs",
+      "step-cta"
+    ]
   },
   {
     "id": "cards",
