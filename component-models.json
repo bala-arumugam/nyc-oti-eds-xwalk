@@ -145,6 +145,10 @@
     "id": "section-ri",
     "fields": [
       {
+        "component": "accordion",
+        "name": "Accordion"
+      },
+      {
         "component": "text",
         "name": "tab-name",
         "label": "Group Name",
