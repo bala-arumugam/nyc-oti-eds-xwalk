@@ -154,6 +154,10 @@
   },
   {
     "id": "accordion",
+    "fields": []
+  },
+  {
+    "id": "accordion-item",
     "fields": [
       {
         "component": "text",
@@ -171,26 +175,6 @@
         "description": "Sets the main title of the teaser.",
         "multi": true,
         "raw": true
-      }
-    ]
-  },
-  {
-    "id": "accordion-item",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "content",
-        "value": "",
-        "label": "Content",
-        "valueType": "string",
-        "multi": true
       }
     ]
   },
