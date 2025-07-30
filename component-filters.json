@@ -103,6 +103,8 @@
   {
     "id": "process",
     "components": [
+      "text",
+      "button",
       "step"
     ]
   },
