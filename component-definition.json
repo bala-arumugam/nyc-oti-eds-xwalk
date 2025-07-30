@@ -166,7 +166,7 @@
                 "template": {
                   "model": "card-fee-item",
                   "filter": "card-fee-item",
-                  "name": "Contact Item"
+                  "name": "Card Fee Item"
                 }
               }
             }
