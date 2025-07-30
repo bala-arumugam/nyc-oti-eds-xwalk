@@ -166,6 +166,18 @@
     ]
   },
   {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "value": "Accordion Item",
+        "label": "Name",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "body",
     "fields": []
   },
