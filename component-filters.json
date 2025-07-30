@@ -98,5 +98,19 @@
       "title",
       "button"
     ]
+  },
+  {
+    "id": "process",
+    "components": [
+      "step"
+    ]
+  },
+  {
+    "id": "step",
+    "components": [
+      "title",
+      "text",
+      "button"
+    ]
   }
 ]
