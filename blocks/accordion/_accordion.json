@@ -42,25 +42,11 @@
     {
       "id": "accordion",
       "fields": [
-        {
-          "component": "text",
-          "name": "name",
-          "value": "",
-          "label": "Name",
-          "valueType": "string"
-        }
       ]
     },
     {
       "id": "accordion-item",
       "fields": [
-        {
-          "component": "text",
-          "name": "name",
-          "value": "",
-          "label": "Name",
-          "valueType": "string"
-        },
         {
           "component": "text",
           "name": "title",
