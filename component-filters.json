@@ -3,10 +3,7 @@
     "id": "main",
     "components": [
       "section",
-      "section-about",
-      "section-hta",
-      "section-aya",
-      "section-or"
+      "section-ri"
     ]
   },
   {
@@ -26,6 +23,7 @@
     "id": "section-ri",
     "components": [
       "text",
+      "button",
       "accordion",
       "contact",
       "card-fee",
@@ -89,15 +87,10 @@
   {
     "id": "contact",
     "components": [
-      "contact-item"
-    ]
-  },
-  {
-    "id": "contact-item",
-    "components": [
       "text",
       "title",
-      "button"
+      "button",
+      "phone"
     ]
   },
   {

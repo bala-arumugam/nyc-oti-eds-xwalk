@@ -146,6 +146,12 @@
     "fields": [
       {
         "component": "text",
+        "name": "name",
+        "label": "Group Name",
+        "description": "Helper Metadata"
+      },
+      {
+        "component": "text",
         "name": "tab-name",
         "label": "Group Name",
         "description": "Helper Metadata"
@@ -244,23 +250,12 @@
   },
   {
     "id": "contact",
-    "fields": []
-  },
-  {
-    "id": "contact-item",
     "fields": [
       {
         "component": "text",
-        "name": "title",
+        "name": "fullname",
         "value": "",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "content",
-        "value": "",
-        "label": "Content",
+        "label": "Full Name",
         "valueType": "string"
       }
     ]
@@ -297,6 +292,25 @@
         "name": "text",
         "value": "",
         "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "phone",
+    "fields": [
+      {
+        "component": "text",
+        "name": "fullname",
+        "value": "",
+        "label": "Full Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "phone-number",
+        "value": "",
+        "label": "Phone Number",
         "valueType": "string"
       }
     ]

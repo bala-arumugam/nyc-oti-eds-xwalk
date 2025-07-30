@@ -3,10 +3,7 @@
     "id": "main",
     "components": [
       "section",
-      "section-about",
-      "section-hta",
-      "section-aya",
-      "section-or"
+      "section-ri"
     ]
   },
   {

@@ -1,68 +1,15 @@
 {
   "definitions": [
     {
-      "title": "Section About",
-      "id": "section-about",
+      "title": "Section",
+      "id": "section-ri",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
               "model": "section-ri",
-              "filter": "section-ri",
-              "name": "About",
-              "tab-name":"About"
-            }
-          }
-        }
-      }
-    },
-     {
-      "title": "Section How to Apply",
-      "id": "section-hta",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
-            "template": {
-              "model": "section-ri",
-              "filter": "section-ri",
-              "name": "How to Apply",
-              "tab-name":"How to Apply"
-            }
-          }
-        }
-      }
-    },
-     {
-      "title": "Section After Apply",
-      "id": "section-aya",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
-            "template": {
-              "model": "section-ri",
-              "filter": "section-ri",
-              "name": "After you Apply",
-              "tab-name":"After you Apply"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Oporate & Renew",
-      "id": "section-or",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
-            "template": {
-              "model": "section-ri",
-              "filter": "section-ri",
-              "name": "Operate & Renew",
-              "tab-name":"Operate & Renew"
+              "filter": "section-ri"
             }
           }
         }
@@ -73,6 +20,12 @@
     {
       "id": "section-ri",
       "fields": [
+        {
+          "component": "text",
+          "name": "name",
+          "label": "Group Name",
+          "description": "Helper Metadata"
+        },
         {
           "component": "text",
           "name": "tab-name",
@@ -87,6 +40,7 @@
       "id": "section-ri",
       "components": [
         "text",
+        "button",
         "accordion",
         "contact",
         "card-fee",
