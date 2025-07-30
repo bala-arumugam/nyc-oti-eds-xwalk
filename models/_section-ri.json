@@ -52,23 +52,6 @@
       }
     },
     {
-      "title": "Section After Apply",
-      "id": "section-aya",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
-            "template": {
-              "model": "section-ri",
-              "filter": "section-ri",
-              "name": "After you Apply",
-              "tab-name":"After you Apply"
-            }
-          }
-        }
-      }
-    },
-    {
       "title": "Oporate & Renew",
       "id": "section-or",
       "plugins": {
