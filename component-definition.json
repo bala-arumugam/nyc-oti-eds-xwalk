@@ -93,7 +93,11 @@
                   "model": "accordion",
                   "filter": "accordion",
                   "name": "Accordion",
-                  "accordion-item": {}
+                  "accordion-item": {
+                    "model": "accordion-item",
+                    "filter": "accordion-item",
+                    "name": "Accordion Item"
+                  }
                 }
               }
             }
