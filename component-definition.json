@@ -347,7 +347,14 @@
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
                   "model": "section-ri",
-                  "filter": "section-ri"
+                  "filter": "section-ri",
+                  "name": "About",
+                  "accordion": {
+                    "name": "About Accordion"
+                  },
+                  "contact": {
+                    "name": "About Contact"
+                  }
                 }
               }
             }
