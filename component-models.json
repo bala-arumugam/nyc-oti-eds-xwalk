@@ -312,7 +312,8 @@
         "valueType": "string"
       },
       {
-        "component": "richtext",
+        "component": "text",
+        "name": "component",
         "label": "Content",
         "valueType": "string",
         "multi": true
