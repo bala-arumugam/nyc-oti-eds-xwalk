@@ -312,7 +312,7 @@
         "valueType": "string"
       },
       {
-        "component": "ridchtext",
+        "component": "richtext",
         "name": "component",
         "label": "Content",
         "valueType": "string"
