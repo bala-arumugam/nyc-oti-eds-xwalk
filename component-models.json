@@ -176,15 +176,15 @@
         "valueType": "string"
       },
       {
-        "component": "title",
-        "name": "Title",
+        "component": "text",
+        "name": "title",
         "value": "",
-        "label": "Name",
+        "label": "Title",
         "valueType": "string"
       },
       {
         "component": "richtext",
-        "name": "Content",
+        "name": "content",
         "value": "",
         "label": "Content",
         "valueType": "string"
