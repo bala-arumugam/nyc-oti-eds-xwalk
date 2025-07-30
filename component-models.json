@@ -154,7 +154,24 @@
   },
   {
     "id": "accordion",
-    "fields": []
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "content",
+        "value": "",
+        "label": "Heading",
+        "description": "Sets the main title of the teaser.",
+        "multi": true
+      }
+    ]
   },
   {
     "id": "accordion-item",

@@ -14,17 +14,7 @@
               "accordion-item": {
                 "model": "accordion-item",
                 "filter": "accordion-item",
-                "name": "Accordion Item",
-                "item_0": {
-                  "model": "accordion-item",
-                  "filter": "accordion-item",
-                  "name": "Accordion Item 1"
-                },
-                "item_1": {
-                  "model": "accordion-item",
-                  "filter": "accordion-item",
-                  "name": "Accordion Item 2"
-                }
+                "name": "Accordion Item"
               }
             }
           }
@@ -51,7 +41,24 @@
   "models": [
     {
       "id": "accordion",
-      "fields": []
+      "fields": [
+        {
+          "component": "text",
+          "name": "title",
+          "value": "",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "content",
+          "value": "",
+          "label": "Heading",
+          "description": "Sets the main title of the teaser.",
+          "multi": true
+        }
+      ]
     },
     {
       "id": "accordion-item",
