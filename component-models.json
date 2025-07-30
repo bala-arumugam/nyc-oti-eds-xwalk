@@ -167,7 +167,7 @@
         "valueType": "string"
       },
       {
-        "component": "block",
+        "component": "richtext",
         "name": "content",
         "value": "",
         "label": "Content",
