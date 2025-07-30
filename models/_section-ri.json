@@ -23,15 +23,21 @@
         {
           "component": "text",
           "name": "name",
-          "label": "Group Name",
+          "label": "Section Name",
+          "description": "Helper Metadata"
+        },
+         {
+          "component": "text",
+          "name": "tab-name",
+          "label": "Tab Name",
           "description": "Helper Metadata"
         },
         {
           "component": "text",
-          "name": "tab-name",
+          "name": "tab-group",
           "label": "Group Name",
           "description": "Helper Metadata"
-        }
+        } 
       ]
     }
   ],
