@@ -170,11 +170,10 @@
         "component": "richtext",
         "valueType": "string",
         "name": "content",
-        "value": "",
-        "label": "Heading",
-        "description": "Sets the main title of the teaser.",
+        "label": "Content",
+        "description": "Content",
         "multi": true,
-        "raw": true
+        "raw": false
       }
     ]
   },
