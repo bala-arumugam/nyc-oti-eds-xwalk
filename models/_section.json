@@ -38,14 +38,14 @@
         },
          {
           "component": "text",
-          "name": "group",
+          "name": "tabName",
           "label": "Group Name",
           "description": "Helper Metadata"
         },
          {
           "component": "text",
-          "name": "sectionName",
-          "label": "Section Name",
+          "name": "tabSectionName",
+          "label": "Section Group Name",
           "description": "Helper Metadata"
         }
       ]

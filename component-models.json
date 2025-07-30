@@ -141,14 +141,14 @@
       },
       {
         "component": "text",
-        "name": "group",
+        "name": "tabName",
         "label": "Group Name",
         "description": "Helper Metadata"
       },
       {
         "component": "text",
-        "name": "sectionName",
-        "label": "Section Name",
+        "name": "tabSectionName",
+        "label": "Section Group Name",
         "description": "Helper Metadata"
       }
     ]
@@ -215,6 +215,29 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
+      }
+    ]
+  },
+  {
+    "id": "contact",
+    "fields": []
+  },
+  {
+    "id": "contact-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
       }
     ]
   },

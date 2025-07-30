@@ -58,5 +58,19 @@
       "title",
       "regulation-tabs"
     ]
+  },
+  {
+    "id": "contact",
+    "components": [
+      "contact-item"
+    ]
+  },
+  {
+    "id": "contact-item",
+    "components": [
+      "text",
+      "title",
+      "button"
+    ]
   }
 ]
