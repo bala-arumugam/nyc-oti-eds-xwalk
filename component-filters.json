@@ -103,9 +103,7 @@
   {
     "id": "process",
     "components": [
-      "text",
-      "button",
-      "richtext"
+      "button"
     ]
   },
   {
