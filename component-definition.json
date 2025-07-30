@@ -350,10 +350,14 @@
                   "filter": "section-ri",
                   "name": "About",
                   "accordion": {
-                    "name": "About Accordion"
+                    "name": "About Accordion",
+                    "model": "accordion",
+                    "filter": "accordion"
                   },
                   "contact": {
-                    "name": "About Contact"
+                    "name": "About Contact",
+                    "model": "contact",
+                    "filter": "contact"
                   }
                 }
               }
