@@ -169,7 +169,8 @@
         "value": "",
         "label": "Heading",
         "description": "Sets the main title of the teaser.",
-        "multi": true
+        "multi": true,
+        "raw": true
       }
     ]
   },
