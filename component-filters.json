@@ -105,7 +105,7 @@
     "components": [
       "text",
       "button",
-      "step"
+      "richtext"
     ]
   },
   {

@@ -10,7 +10,9 @@
             "template": {
               "model": "process",
               "filter": "process",
-              "name": "Process"
+              "name": "Process",
+              "key-value": true,
+              "Group": "one"
             }
           }
         }
@@ -37,7 +39,7 @@
       "components": [
         "text",
         "button",
-        "step"
+        "richtext"
       ]
     }
   ]
