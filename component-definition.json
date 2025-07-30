@@ -91,23 +91,8 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Body",
-                  "model": "body",
-                  "filter": "body",
-                  "hero": {
-                    "name": "Hero",
-                    "model": "hero",
-                    "component": "component:hero"
-                  },
-                  "regulation-tabs": {
-                    "name": "Regulation Tabs",
-                    "model": "regulation-tabs",
-                    "component": "component:regulation-tabs"
-                  },
-                  "step-cta": {
-                    "name": "Step CTA",
-                    "model": "step-cta",
-                    "component": "component:step-cta"
-                  }
+                  "model": "hero",
+                  "filter": "body"
                 }
               }
             }
@@ -192,162 +177,45 @@
           }
         },
         {
-          "title": "Regulation Tab Additional",
-          "id": "regulation-tab-additional",
+          "title": "Regulation Tab Additional Contacts",
+          "id": "regulation-tab-additional-contacts",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Regulation Tab Additional",
-                  "model": "regulation-tab-additional",
-                  "component": "component:regulation-tab-additional"
+                  "model": "regulation-tab-additional-contacts",
+                  "name": "Regulation Tab Additional Contacts"
                 }
               }
             }
           }
         },
         {
-          "title": "Regulation Tab Main",
-          "id": "regulation-tab-main",
+          "title": "Regulation Tab Additional Process",
+          "id": "regulation-tab-additional-process",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Regulation Tab Main",
-                  "model": "regulation-tab-main",
-                  "component": "regulation-tab-main"
+                  "model": "regulation-tab-additional-process",
+                  "name": "Regulation Tab Additional Process"
                 }
               }
             }
           }
         },
         {
-          "title": "Regulation Tab",
-          "id": "regulation-tab",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/section/v1/section",
-                "template": {
-                  "name": "Regulation Tab",
-                  "model": "regulation-tab",
-                  "filter": "regulation-tab",
-                  "metadataBlock": false,
-                  "component": "component:regulation-tab",
-                  "row": "2",
-                  "regulation-tab-main": {
-                    "name": "Regulation Tab Main",
-                    "model": "regulation-tab-main",
-                    "component": "component:regulation-tab-main"
-                  },
-                  "regulation-tab-additional": {
-                    "name": "Regulation Tab Additional",
-                    "model": "regulation-tab-additional",
-                    "component": "component:regulation-tab-additional"
-                  }
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Regulation Tabs",
-          "id": "regulation-tabs",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/section/v1/section",
-                "template": {
-                  "name": "Regulation Tabs",
-                  "model": "regulation-tabs",
-                  "filter": "regulation-tabs",
-                  "metadataBlock": false,
-                  "component": "component:regulation-tabs",
-                  "regulation-tab": {
-                    "name": "Regulation Tab",
-                    "model": "regulation-tab",
-                    "component": "component:regulation-tab"
-                  }
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Step CTA",
-          "id": "step-cta",
+          "title": "Regulation Tab Main Process",
+          "id": "regulation-tab-main-process",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Step CTA",
-                  "model": "step-cta"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Test",
-          "id": "test",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Test",
-                  "filter": "test"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "A",
-          "id": "a",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "A",
-                  "model": "a",
-                  "text": "AA"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "B",
-          "id": "b",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "B",
-                  "model": "b",
-                  "text": "BB"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "C",
-          "id": "c",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "C",
-                  "model": "c",
-                  "text": "CC"
+                  "model": "regulation-tab-main-process",
+                  "name": "Regulation Tab Main Process"
                 }
               }
             }

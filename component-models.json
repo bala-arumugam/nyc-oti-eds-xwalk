@@ -138,6 +138,12 @@
             "value": "highlight"
           }
         ]
+      },
+      {
+        "component": "text",
+        "name": "group",
+        "label": "Group Name",
+        "description": "Helper Metadata"
       }
     ]
   },
@@ -216,132 +222,6 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "component",
-        "value": "",
-        "label": "Component",
-        "hidden": true
-      }
-    ]
-  },
-  {
-    "id": "regulation-tab-additional",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "component",
-        "value": "",
-        "label": "Component",
-        "hidden": true
-      }
-    ]
-  },
-  {
-    "id": "regulation-tab-main",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "component",
-        "value": "",
-        "label": "Component",
-        "hidden": true
-      }
-    ]
-  },
-  {
-    "id": "regulation-tab",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "component",
-        "value": "",
-        "label": "Component",
-        "hidden": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "Hello",
-        "value": "",
-        "label": "Hello"
-      }
-    ]
-  },
-  {
-    "id": "regulation-tabs",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "component",
-        "value": "",
-        "label": "Component",
-        "hidden": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "Hello",
-        "value": "",
-        "label": "Hello"
-      }
-    ]
-  },
-  {
-    "id": "step-cta",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "component",
-        "value": "",
-        "label": "Component",
-        "hidden": true
-      }
-    ]
-  },
-  {
-    "id": "a",
-    "fields": [
-      {
-        "component": "text",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string",
-        "hidden": true
-      }
-    ]
-  },
-  {
-    "id": "b",
-    "fields": [
-      {
-        "component": "text",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string",
-        "hidden": true
-      }
-    ]
-  },
-  {
-    "id": "c",
-    "fields": [
-      {
-        "component": "text",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string",
-        "hidden": true
       }
     ]
   }

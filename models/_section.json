@@ -35,6 +35,12 @@
               "value": "highlight"
             }
           ]
+        },
+         {
+          "component": "text",
+          "name": "group",
+          "label": "Group Name",
+          "description": "Helper Metadata"
         }
       ]
     }
@@ -50,13 +56,7 @@
         "hero",
         "cards",
         "columns",
-        "fragment",
-        "section", 
-        "container",
-        "body",
-        "test",
-        "regulation-tabs",
-        "step-cta"
+        "fragment"
 
       ]
     }

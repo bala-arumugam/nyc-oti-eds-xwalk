@@ -15,22 +15,12 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "section",
-      "container",
-      "body",
-      "test",
-      "regulation-tabs",
-      "step-cta"
+      "fragment"
     ]
   },
   {
     "id": "body",
-    "components": [
-      "hero",
-      "regulation-tabs",
-      "step-cta"
-    ]
+    "components": []
   },
   {
     "id": "cards",
@@ -52,27 +42,6 @@
       "button",
       "title",
       "regulation-tabs"
-    ]
-  },
-  {
-    "id": "regulation-tab",
-    "components": [
-      "regulation-tab-main",
-      "regulation-tab-additional"
-    ]
-  },
-  {
-    "id": "regulation-tabs",
-    "components": [
-      "regulation-tab"
-    ]
-  },
-  {
-    "id": "test",
-    "components": [
-      "a",
-      "b",
-      "c"
     ]
   }
 ]
