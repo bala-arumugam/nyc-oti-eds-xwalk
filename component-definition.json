@@ -333,6 +333,26 @@
           }
         }
       ]
+    },
+    {
+      "title": "Sections Regulation index",
+      "id": "sections-ri",
+      "components": [
+        {
+          "title": "Section Regulation Index",
+          "id": "section-ri",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "model": "section-ri"
+                }
+              }
+            }
+          }
+        }
+      ]
     }
   ]
 }

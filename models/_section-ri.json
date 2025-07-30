@@ -1,14 +1,14 @@
 {
   "definitions": [
     {
-      "title": "Section",
-      "id": "section",
+      "title": "Section Regulation Index",
+      "id": "section-ri",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
-              "model": "section"
+              "model": "section-ri"
             }
           }
         }
@@ -17,7 +17,7 @@
   ],
   "models": [
     {
-      "id": "section",
+      "id": "section-ri",
       "fields": [
         {
           "component": "text",
@@ -25,32 +25,22 @@
           "label": "Section Name",
           "description": "The label shown for this section in the Content Tree"
         },
-        {
-          "component": "multiselect",
-          "name": "style",
-          "label": "Style",
-          "options": [
-            {
-              "name": "Highlight",
-              "value": "highlight"
-            }
-          ]
+         {
+          "component": "text",
+          "name": "tab-name",
+          "label": "Group Name",
+          "description": "Helper Metadata"
         }
       ]
     }
   ],
   "filters": [
     {
-      "id": "section",
+      "id": "section-ri",
       "components": [
-        "text",
-        "image",
-        "button",
-        "title",
-        "hero",
-        "cards",
-        "columns",
-        "fragment"
+        "accordion",
+        "contact",
+        "card-fee"
       ]
     }
   ]

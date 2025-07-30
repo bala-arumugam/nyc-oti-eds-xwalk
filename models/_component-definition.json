@@ -35,6 +35,15 @@
           "...": "../blocks/*/_*.json#/definitions"
         }
       ]
+    },
+     {
+      "title": "Sections Regulation index",
+      "id": "sections-ri",
+      "components": [
+        {
+          "...": "./_section-ri.json#/definitions"
+        }
+      ]
     }
   ]
 }

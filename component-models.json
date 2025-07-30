@@ -138,18 +138,6 @@
             "value": "highlight"
           }
         ]
-      },
-      {
-        "component": "text",
-        "name": "tabName",
-        "label": "Group Name",
-        "description": "Helper Metadata"
-      },
-      {
-        "component": "text",
-        "name": "tabSectionName",
-        "label": "Section Group Name",
-        "description": "Helper Metadata"
       }
     ]
   },

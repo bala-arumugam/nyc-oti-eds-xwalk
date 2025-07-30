@@ -2,7 +2,8 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "section-ri"
     ]
   },
   {
@@ -15,7 +16,12 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
+      "fragment"
+    ]
+  },
+  {
+    "id": "section-ri",
+    "components": [
       "accordion",
       "contact",
       "card-fee"
