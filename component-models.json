@@ -313,7 +313,8 @@
       },
       {
         "component": "richtext",
-        "name": "component",
+        "name": "content",
+        "value": "",
         "label": "Content",
         "valueType": "string"
       }
