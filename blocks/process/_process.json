@@ -31,11 +31,10 @@
           "valueType": "string"
         },
         {
-          "component": "text",
+          "component": "ridchtext",
           "name": "component",
           "label": "Content",
-          "valueType": "string",
-          "multi": true
+          "valueType": "string"
         }
       ]
     }
