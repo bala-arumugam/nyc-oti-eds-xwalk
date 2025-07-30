@@ -18,6 +18,8 @@
       "fragment"
     ]
   },
+  "title",
+  "richtext",
   {
     "id": "body",
     "components": []

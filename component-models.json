@@ -144,6 +144,24 @@
         "name": "group",
         "label": "Group Name",
         "description": "Helper Metadata"
+      },
+      {
+        "component": "text",
+        "name": "sectionName",
+        "label": "Section Name",
+        "description": "Helper Metadata"
+      }
+    ]
+  },
+  {
+    "id": "accordion",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "value": "Accordion",
+        "label": "Name",
+        "valueType": "string"
       }
     ]
   },
