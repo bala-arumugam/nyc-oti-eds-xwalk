@@ -11,6 +11,7 @@
               "model": "section-ri",
               "filter": "section-ri",
               "name": "About",
+              "tab-name":"About",
               "accordion": {
                 "name": "About Accordion",
                 "model": "accordion",
@@ -31,12 +32,6 @@
     {
       "id": "section-ri",
       "fields": [
-        {
-          "component": "text",
-          "name": "name",
-          "label": "Section Name",
-          "description": "The label shown for this section in the Content Tree"
-        },
         {
           "component": "text",
           "name": "tab-name",

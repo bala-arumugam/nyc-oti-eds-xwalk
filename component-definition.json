@@ -349,6 +349,7 @@
                   "model": "section-ri",
                   "filter": "section-ri",
                   "name": "About",
+                  "tab-name": "About",
                   "accordion": {
                     "name": "About Accordion",
                     "model": "accordion",
