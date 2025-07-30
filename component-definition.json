@@ -113,7 +113,17 @@
                 "template": {
                   "model": "accordion-item",
                   "filter": "accordion-item",
-                  "name": "Accordion Item"
+                  "name": "Accordion Item",
+                  "item_0": {
+                    "model": "accordion-item",
+                    "filter": "accordion-item",
+                    "name": "Accordion Item"
+                  },
+                  "item_1": {
+                    "model": "accordion-item",
+                    "filter": "accordion-item",
+                    "name": "Accordion Item"
+                  }
                 }
               }
             }

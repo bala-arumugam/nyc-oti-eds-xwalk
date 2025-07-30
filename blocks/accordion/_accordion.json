@@ -31,7 +31,17 @@
             "template": {
               "model": "accordion-item",
               "filter": "accordion-item",
-              "name": "Accordion Item"
+              "name": "Accordion Item",
+              "item_0": {
+                "model": "accordion-item",
+                "filter": "accordion-item",
+                "name": "Accordion Item"
+              },
+              "item_1": {
+                "model": "accordion-item",
+                "filter": "accordion-item",
+                "name": "Accordion Item"
+              }
             }
           }
         }
@@ -41,8 +51,7 @@
   "models": [
     {
       "id": "accordion",
-      "fields": [
-      ]
+      "fields": []
     },
     {
       "id": "accordion-item",
@@ -52,10 +61,10 @@
           "name": "title",
           "value": "",
           "label": "Title",
-          "valueType": "string"          
+          "valueType": "string"
         },
         {
-          "component": "richtext",
+          "component": "block",
           "name": "content",
           "value": "",
           "label": "Content",
