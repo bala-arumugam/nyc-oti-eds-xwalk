@@ -316,7 +316,8 @@
         "name": "content",
         "value": "",
         "label": "Content",
-        "valueType": "string"
+        "valueType": "string",
+        "multi": true
       }
     ]
   },
