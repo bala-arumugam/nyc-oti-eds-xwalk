@@ -136,6 +136,43 @@
           }
         },
         {
+          "title": "Card Fee",
+          "id": "card-fee",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "model": "card-fee",
+                  "filter": "card-fee",
+                  "name": "Card Fee",
+                  "card-fee-item": {
+                    "model": "card-fee-item",
+                    "filter": "card-fee-item",
+                    "name": "Contact Item"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Card Fee Item",
+          "id": "card-fee-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "model": "card-fee-item",
+                  "filter": "card-fee-item",
+                  "name": "Contact Item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Cards",
           "id": "cards",
           "plugins": {

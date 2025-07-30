@@ -38,6 +38,20 @@
     "components": []
   },
   {
+    "id": "card-fee",
+    "components": [
+      "card-fee-item"
+    ]
+  },
+  {
+    "id": "card-fee-item",
+    "components": [
+      "text",
+      "title",
+      "button"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
