@@ -25,6 +25,7 @@
   {
     "id": "section-ri",
     "components": [
+      "text",
       "accordion",
       "contact",
       "card-fee"
