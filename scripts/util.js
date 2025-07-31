@@ -21,12 +21,15 @@ export function preTabs(main) {
   const order = new Set()
 
   function createTabDiv(tab) {
-    const { sectionStatus, tabName, tabGroup } = tab.dataset;
+    const dataset = tab.dataset;
     const div = document.createElement('div');
     div.className = "section session";
-    div.dataset.sectionStatus = sectionStatus;
-    div.dataset.tabName = tabName;
-    div.dataset.tabGroup = tabGroup;
+
+    // Copy all dataset properties from tab to div
+    Object.keys(dataset).forEach(function(key) {
+      div.dataset[key] = dataset[key];
+    });
+
     // Copy style properties from tab to div
     if (tab.style && div.style) {
       for (let i = 0; i < tab.style.length; i++) {
