@@ -63,7 +63,8 @@
         "cards",
         "columns",
         "fragment",
-        "body"
+        "body",
+        "accordion"
       ]
     }
   ]

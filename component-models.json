@@ -175,6 +175,20 @@
         "description": "Content",
         "multi": true,
         "raw": false
+      },
+      {
+        "component": "container",
+        "name": "content",
+        "label": "Tab Content",
+        "multi": true,
+        "allowedComponents": [
+          "text",
+          "image",
+          "hero",
+          "cards",
+          "columns",
+          "button"
+        ]
       }
     ]
   },
