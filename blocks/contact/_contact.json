@@ -1,7 +1,7 @@
 {
   "definitions": [
     {
-      "title": "Contacts",
+      "title": "Contact",
       "id": "contact",
       "plugins": {
         "xwalk": {
@@ -10,7 +10,7 @@
             "template": {
               "model": "contact",
               "filter": "contact",
-              "name": "Contacts"
+              "name": "Contact"
             }
           }
         }
