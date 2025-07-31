@@ -95,6 +95,6 @@ export function preTags(main) {
  */
 export async function autoBlock(main) {
   if (main.querySelectorAll('[data-tab-name]')) {
-    preTags(main);
+    // preTags(main);
   }
 }
