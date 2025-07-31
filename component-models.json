@@ -138,17 +138,6 @@
             "value": "highlight"
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "section-ri",
-    "fields": [
-      {
-        "component": "text",
-        "name": "name",
-        "label": "Section Name",
-        "description": "Helper Metadata"
       },
       {
         "component": "text",

@@ -21,18 +21,6 @@
     ]
   },
   {
-    "id": "section-ri",
-    "components": [
-      "text",
-      "button",
-      "accordion",
-      "contact",
-      "card-fee",
-      "process",
-      "body"
-    ]
-  },
-  {
     "id": "accordion",
     "components": [
       "accordion-item"

@@ -329,8 +329,8 @@
               "page": {
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
-                  "model": "section-ri",
-                  "filter": "section-ri"
+                  "model": "section",
+                  "filter": "section"
                 }
               }
             }

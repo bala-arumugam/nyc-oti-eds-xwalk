@@ -8,8 +8,8 @@
           "page": {
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
-              "model": "section-ri",
-              "filter": "section-ri"
+              "model": "section",
+              "filter":"section"
             }
           }
         }
@@ -17,42 +17,8 @@
     }
   ],
   "models": [
-    {
-      "id": "section-ri",
-      "fields": [
-        {
-          "component": "text",
-          "name": "name",
-          "label": "Section Name",
-          "description": "Helper Metadata"
-        },
-         {
-          "component": "text",
-          "name": "tab-name",
-          "label": "Tab Name",
-          "description": "Helper Metadata"
-        },
-        {
-          "component": "text",
-          "name": "tab-group",
-          "label": "Group Name",
-          "description": "Helper Metadata"
-        } 
-      ]
-    }
+  
   ],
   "filters": [
-    {
-      "id": "section-ri",
-      "components": [
-        "text",
-        "button",
-        "accordion",
-        "contact",
-        "card-fee",
-        "process",
-        "body"
-      ]
-    }
   ]
 }

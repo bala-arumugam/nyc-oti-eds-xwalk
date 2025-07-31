@@ -35,7 +35,19 @@
               "value": "highlight"
             }
           ]
-        }
+        },
+         {
+          "component": "text",
+          "name": "tab-name",
+          "label": "Tab Name",
+          "description": "Helper Metadata"
+        },
+        {
+          "component": "text",
+          "name": "tab-group",
+          "label": "Group Name",
+          "description": "Helper Metadata"
+        } 
       ]
     }
   ],
