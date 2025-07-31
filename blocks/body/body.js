@@ -1,37 +1,44 @@
 import { createElement } from "../../scripts/util.js";
 
 
-// function createMenu(){
-//   const order = new Set();
-//   const main = document.querySelector('main');
-//   const tabs = main.querySelectorAll('[data-tab-name]')
+function createMenu(main){
+  const order = new Set();
+  const tabs = main.querySelectorAll(".tabs > .tab")
 
-//   if (tabs.length) {
-//     tabs.forEach((tab, idx) => {
-//       const { tabName } = tab.dataset;
-//       order.add(tabName);
-//     });
+  if (tabs.length) {
+    tabs.forEach((tab) => {
+      const { tabName } = tab.dataset;
+      order.add(tabName);
+    });
 
-//     const orderArray = Array.from(order);
+    const orderArray = Array.from(order);
+    
+    // Create the menu container
+    const menu = createElement("div", { props: { className: "menu-regulation-index" } });
+    
+    // Create the unordered list
+    const ul = createElement("ul");
+    
+    // Create and append list items
+    orderArray.forEach(item => {
+      const li = createElement("li", { 
+        props: { 
+          className: `menu-item ${item.toLowerCase().replace(/\s+/g, "-")}` 
+        } 
+      });
+      li.textContent = item;
+      ul.appendChild(li);
+    });
+    
+    // Assemble the menu
+    menu.appendChild(ul);
 
-//     const listItems = orderArray.map(item => `<li class="menu-item ${item}">${item}</li>`).join('');
-
-//     const menu = document.createElement('div')
-//     menu.classList.add("menu-regulation-index")
-
-//     menu.innerHTML = `<ul>${listItems}</ul>`;
-//     main.prepend(menu)
-//   }
-// }
+    return menu;
+  }
+}
 
 
 export default async function decorate(doc) {
-  const tabs = createElement("div",{props:{className:"regulation-tabs"}});
-
-  const tab = createElement("div",{props:{className:"regulation-tab"}});
-  const tab_description  = createElement("div", {props:{className:"tab-content-description"}})
-  const tab_additional = createElement("div", {props:{className:"tab-content-additional"}})
-
   const list = {}
 
   document.querySelectorAll('[data-tab-name]').forEach(t=>{
@@ -57,6 +64,7 @@ export default async function decorate(doc) {
     // Create a new tab for each entry in the list
     const newTab = createElement("div", { props: { className: "tab" } });
     newTab.setAttribute('data-tab-name', tabName);
+    newTab.classList.add(tabName.toLowerCase().replace(/\s+/g, "-"));
     
     // Create a header element for the tab name
     const tabHeader = createElement("h3", { props: { className: "tab-header" } });
@@ -92,6 +100,21 @@ export default async function decorate(doc) {
   //Clear any existing content from main if needed
   main.innerHTML = ''; // Uncomment if you want to clear main first
   
-  // Add the tabs container to the main element
-  main.appendChild(tabsContainer);
+
+  // Create a wrapper with the class "regulation-index"
+  const regulationIndexWrapper = createElement("div", { props: { className: "regulation-index" } });
+
+  // Append the menu to the regulation-index wrapper (if it exists)
+  const menu = createMenu(tabsContainer);
+
+  if (menu) {
+    regulationIndexWrapper.appendChild(menu);
+  }
+  regulationIndexWrapper.appendChild(tabsContainer);
+
+  // Append the regulation-index wrapper to the main element
+  main.appendChild(regulationIndexWrapper);
+
+ 
+
 }
