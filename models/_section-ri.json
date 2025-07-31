@@ -8,8 +8,8 @@
           "page": {
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
-              "model": "section",
-              "filter":"section"
+              "model": "section-ri",
+              "filter": "section-ri"
             }
           }
         }
@@ -17,8 +17,42 @@
     }
   ],
   "models": [
-  
+    {
+      "id": "section-ri",
+      "fields": [
+        {
+          "component": "text",
+          "name": "name",
+          "label": "Section Name",
+          "description": "The label shown for this section in the Content Tree"
+        },
+        {
+          "component":"text",
+          "name": "tab-name",
+          "label": "Tab Name",
+          "description": "Helper Metadata"
+        },
+        {
+          "component": "text",
+          "name": "tab-section-name",
+          "label": "Tab Section Name",
+          "description": "Helper Metadata"
+        }
+      ]
+    }
   ],
   "filters": [
+     {
+      "id": "section-ri",
+      "components": [
+        "text",
+        "image",
+        "button",
+        "title",
+        "body",
+        "process",
+        "accordion"
+      ]
+    }
   ]
 }

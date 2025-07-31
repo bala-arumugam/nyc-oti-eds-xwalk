@@ -138,6 +138,17 @@
             "value": "highlight"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "section-ri",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
       },
       {
         "component": "text",
@@ -147,8 +158,8 @@
       },
       {
         "component": "text",
-        "name": "tab-group",
-        "label": "Group Name",
+        "name": "tab-section-name",
+        "label": "Tab Section Name",
         "description": "Helper Metadata"
       }
     ]
