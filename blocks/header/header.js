@@ -1,4 +1,560 @@
-import { getMetadata } from "../../scripts/aem.js";
+/**
+ * Initializes the header interactivity including navigation menus, mobile handling and more
+ * @param {Element} header - The header DOM element
+ */
+function initializeHeaderInteractivity(header) {
+  let activeAssociation = null;
+  let zIndexAcc = 900;
+
+  // Helper functions matching header-nav-bindings.js
+  const isDesktopBreakPoint = () => {
+    if (!window.matchMedia) {
+      return false; // Mobile-first approach
+    }
+    return window.matchMedia('(min-width: 810px)').matches;
+  };
+
+  const setVisibilityOfElements = (elementList, visibleStyle) => {
+    elementList.forEach((el) => {
+      if (el.tagName.toLowerCase() === 'header') {
+        return;
+      }
+      el.style.visibility = typeof visibleStyle === 'string' && visibleStyle.toLowerCase() === 'hidden' ? visibleStyle : '';
+    });
+  };
+
+  const handleTabTrap = (forceRestore) => {
+    const trapSelector = 'footer, body > *, header .language-toggle-wrap, header .nav-text-links .nav-icon, header .nav-mobile-menu a[data-menu-id="mobile-menu"], header .logo-band, header .nav-tag-line';
+    const hasOpenMenu = !!Array.from(header.querySelector('nav').classList).find((className) => className.indexOf('submenu::') >= 0);
+    const elements = Array.from(document.querySelectorAll(trapSelector));
+
+    if ((hasOpenMenu && !isDesktopBreakPoint()) && !forceRestore) {
+      setVisibilityOfElements(elements, 'hidden');
+      return;
+    }
+    setVisibilityOfElements(elements);
+  };
+
+  // Function to find all menu links with submenus
+  const topNav = header.querySelector('nav');
+  const subMenus = Array.from(topNav.querySelectorAll('[data-submenu-for]'));
+  const subMenuButton = header.querySelector('.nav-mobile-menu > a');
+
+  // Create map of links with their associated submenus
+  const linksWithSubMenus = Array.from(topNav.querySelectorAll('[data-menu-id]')).map((link) => {
+    const menuId = link.getAttribute('data-menu-id');
+
+    return {
+      revealDelayId: null,
+      hideDelayId: null,
+      link,
+      subMenus: subMenus.filter((menu) => menu.getAttribute('data-submenu-for') === menuId),
+    };
+  });
+
+  // Find association by link
+  const findAssociated = (link) => {
+    const target = link.tagName.toUpperCase() === 'A' ? link : link.closest('a');
+    return linksWithSubMenus.find((item) => item.link === target) || null;
+  };
+
+  const findOpenMenus = () => {
+    const menuIds = Array.from(topNav.classList).filter((c) => c.indexOf('submenu::') === 0).map((c) => c.replace(/^submenu::/i, ''));
+    return menuIds;
+  };
+
+  // Helper function to cancel timers
+  const cancelRevealAndHide = (associated) => {
+    if (associated.revealDelayId) {
+      cancelAnimationFrame(associated.revealDelayId);
+      associated.revealDelayId = null;
+    }
+    if (associated.hideDelayId) {
+      clearTimeout(associated.hideDelayId);
+      associated.hideDelayId = null;
+    }
+  };
+
+  // Show submenu with optional delay
+  const showSubmenu = (associated, delayAction, openCallback) => {
+    const menuAction = () => {
+      if (associated.revealDelayId !== null) {
+        clearTimeout(associated.revealDelayId);
+        associated.revealDelayId = null;
+      }
+
+      const menuId = associated.link.getAttribute('data-menu-id');
+      topNav.classList.add(`submenu::${menuId}`);
+      associated.subMenus.forEach((m) => {
+        m.classList.add('nav-sub-menu-visible');
+        m.style.display = 'flex';
+        zIndexAcc += 1;
+        m.style.zIndex = zIndexAcc;
+      });
+
+      associated.link.setAttribute('aria-expanded', 'true');
+      if (typeof openCallback === 'function') openCallback(associated);
+
+      if (subMenuButton === associated.link) {
+        subMenuButton.setAttribute('aria-expanded', 'true');
+      } else if (associated.link.closest('.nav-submenu-mobile')) {
+        subMenuButton.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    activeAssociation = associated;
+    if (delayAction) {
+      associated.revealDelayId = requestAnimationFrame(menuAction);
+      return;
+    }
+    menuAction();
+  };
+
+  // Hide submenu with optional delay
+  const hideSubmenu = (associated, delayAction, closeHandler) => {
+    const menuAction = () => {
+      if (associated.hideDelayId !== null) {
+        clearTimeout(associated.hideDelayId);
+        associated.hideDelayId = null;
+      }
+
+      const menuId = associated.link.getAttribute('data-menu-id');
+      topNav.classList.remove(`submenu::${menuId}`);
+      associated.subMenus.forEach((m) => {
+        m.classList.remove('nav-sub-menu-visible');
+        m.style.display = 'none';
+        m.style.zIndex = undefined;
+      });
+
+      associated.link.setAttribute('aria-expanded', 'false');
+      if (findOpenMenus().length === 0) {
+        zIndexAcc = 900;
+      }
+
+      if (subMenuButton === associated.link) {
+        subMenuButton.setAttribute('aria-expanded', 'false');
+      } else if (associated.link.closest('.nav-submenu-mobile')) {
+        subMenuButton.setAttribute('aria-expanded', 'true');
+      }
+
+      if (typeof closeHandler === 'function') closeHandler(associated);
+    };
+
+    if (activeAssociation === associated) {
+      activeAssociation = null;
+    }
+
+    if (delayAction) {
+      associated.hideDelayId = setTimeout(menuAction, 666);
+      return;
+    }
+    menuAction();
+  };
+
+  // Mobile menu handler
+  const mobileMenuHandler = (ev) => {
+    if (ev instanceof KeyboardEvent && ev.key !== 'Enter') {
+      return;
+    }
+    ev.preventDefault();
+
+    const associated = findAssociated(subMenuButton);
+    const isMainMenuOpen = !!(topNav.classList.contains('menu-open'));
+
+    if (isMainMenuOpen) {
+      subMenuButton.setAttribute('aria-expanded', 'false');
+      topNav.classList.remove('menu-open');
+      document.querySelector('html').classList.remove('lock-scrolling');
+      document.body.classList.remove('lock-scrolling');
+      hideSubmenu(associated, false);
+
+      // Force restore visibility of all elements
+      handleTabTrap(true);
+    } else {
+      subMenuButton.setAttribute('aria-expanded', 'true');
+      topNav.classList.add('menu-open');
+      document.querySelector('html').classList.add('lock-scrolling');
+      document.body.classList.add('lock-scrolling');
+      showSubmenu(associated, false, () => {
+        const firstLink = associated.subMenus[0].querySelector('ul.nav-submenu-items li a');
+        if (firstLink) firstLink.focus();
+      });
+      handleTabTrap();
+    }
+  };
+
+  // Mouse hover handlers
+  const linkOverHandler = (ev, openCallback) => {
+    // non desktop & mouse over
+    if (ev.type.toLowerCase() === 'mouseover' && !isDesktopBreakPoint()) {
+      return;
+    }
+
+    const associated = findAssociated(ev.target);
+    if (!associated) {
+      return;
+    }
+
+    // Cancel any existing timers
+    cancelRevealAndHide(associated);
+
+    // Close any menus in the process of closing
+    linksWithSubMenus.forEach((link) => {
+      if (link.hideDelayId) {
+        hideSubmenu(link, false);
+      }
+    });
+
+    showSubmenu(associated, true, openCallback);
+  };
+
+  const linkOutHandler = (ev) => {
+    // non desktop & mouse out
+    if (ev.type.toLowerCase() === 'mouseout' && !isDesktopBreakPoint()) {
+      return;
+    }
+
+    const associated = findAssociated(ev.target);
+    if (!associated || (ev instanceof KeyboardEvent && ev.keyCode !== 9)) {
+      return;
+    }
+
+    cancelRevealAndHide(associated);
+    hideSubmenu(associated, true);
+  };
+
+  const linkClickHandler = (ev, openCallback) => {
+    ev.preventDefault();
+    const menuIds = findOpenMenus();
+    const associated = findAssociated(ev.target);
+
+    // Close other open menus
+    linksWithSubMenus.forEach((l) => {
+      const isFound = l.subMenus.find((m) => menuIds.includes(m.getAttribute('data-submenu-for')));
+
+      if (!!isFound && associated !== l && l.link.getAttribute('data-menu-id') !== 'mobile-menu') {
+        cancelRevealAndHide(l);
+        hideSubmenu(l, false);
+      }
+    });
+
+    // Special handling for mobile menu
+    const openHandler = !menuIds.includes('mobile-menu') ? openCallback : (a) => {
+      const findMobileClose = linksWithSubMenus.find((l) => l.link.getAttribute('data-menu-id') === 'mobile-menu');
+
+      if (findMobileClose) {
+        cancelRevealAndHide(findMobileClose);
+      }
+
+      if (typeof openCallback === 'function') openCallback(a);
+    };
+
+    linkOverHandler(ev, openHandler);
+  };
+
+  // Keyboard event handlers
+  const enterKeyHandler = (ev) => {
+    if (ev.key !== 'Enter') {
+      return;
+    }
+
+    // stop sympathetic click event handler
+    ev.preventDefault();
+
+    const eventAssociated = findAssociated(ev.target);
+    if (!eventAssociated) return;
+
+    const menuId = eventAssociated.link.getAttribute('data-menu-id');
+
+    if (topNav.classList.contains(`submenu::${menuId}`)) {
+      cancelRevealAndHide(eventAssociated);
+      hideSubmenu(eventAssociated, false);
+      return;
+    }
+
+    const thisSubmenu = ev.target.closest('.nav-submenu');
+    const thisMenuId = thisSubmenu ? thisSubmenu.getAttribute('data-submenu-for') : null;
+
+    const openHandler = (associated) => {
+      const lastSubNav = associated.subMenus[associated.subMenus.length - 1];
+      if (!lastSubNav) {
+        return;
+      }
+
+      requestAnimationFrame(() => {
+        let preferredFocusElement = null;
+
+        if (thisMenuId && lastSubNav.classList.contains('nav-submenu')) {
+          preferredFocusElement = lastSubNav.querySelector(`ul.nav-submenu-items li a[data-menu-id="${thisMenuId}"]`);
+        }
+
+        if (preferredFocusElement) {
+          preferredFocusElement.focus();
+          return;
+        }
+
+        const firstLink = lastSubNav.querySelector('ul.nav-submenu-items li a');
+        if (firstLink) firstLink.focus();
+      });
+    };
+
+    linkClickHandler(ev, openHandler);
+  };
+
+  const escapeKeyHandler = (ev) => {
+    if (ev.key !== 'Escape' && ev.key !== 'Esc') {
+      return;
+    }
+
+    // Close expanded menus
+    const expandedSubmenus = document.querySelectorAll('[aria-expanded="true"]');
+    expandedSubmenus.forEach((submenu) => {
+      submenu.setAttribute('aria-expanded', 'false');
+      const submenuId = submenu.getAttribute('aria-controls');
+      const submenuElement = document.getElementById(submenuId);
+      if (submenuElement) {
+        submenuElement.style.display = 'none';
+      }
+    });
+
+    // If we're closing menus, restore visibility of header elements
+    if (expandedSubmenus.length > 0) {
+      // Reset mobile menu if needed
+      if (topNav.classList.contains('menu-open')) {
+        topNav.classList.remove('menu-open');
+        document.querySelector('html').classList.remove('lock-scrolling');
+        document.body.classList.remove('lock-scrolling');
+        if (subMenuButton) {
+          subMenuButton.setAttribute('aria-expanded', 'false');
+        }
+      }
+
+      // Force restore visibility
+      handleTabTrap(true);
+    }
+
+    // Handle active focus within a menu
+    if (document.activeElement === document.body) {
+      return;
+    }
+
+    // Check if the focused element is a focusable element
+    const matchesActiveEl = (selector) => document.activeElement.matches(selector);
+
+    if (!['input[type="button"], input[type="submit"]', 'button', 'a[href]'].find(matchesActiveEl)) {
+      return;
+    }
+
+    // Find the associated menu
+    const findAssociatedFromChildLink = (link) => {
+      const target = link.tagName.toUpperCase() === 'A' ? link : link.closest('a');
+      const submenu = target.closest('.nav-submenu');
+
+      if (!submenu) {
+        return null;
+      }
+
+      // Get the data-submenu-for attribute to find the matching menu item
+      const submenuFor = submenu.getAttribute('data-submenu-for');
+
+      return linksWithSubMenus.find((item) => {
+        // First, check if this is the menu associated with this submenu
+        if (item.link.getAttribute('data-menu-id') === submenuFor) {
+          return true;
+        }
+
+        // If not found, use the desktop check logic
+        const isDesktop = isDesktopBreakPoint();
+        if (!isDesktop) {
+          return true;
+        }
+        return !item.link.closest('[data-submenu-for="mobile-menu"]');
+      }) || null;
+    };
+
+    const associated = findAssociatedFromChildLink(document.activeElement);
+    if (!associated) {
+      return;
+    }
+
+    if (isDesktopBreakPoint()) {
+      hideSubmenu(associated, false);
+      associated.link.focus();
+      return;
+    }
+
+    const isMobileMenu = associated.subMenus[0] === topNav.querySelector('[data-submenu-for="mobile-menu"]');
+
+    if (isMobileMenu) {
+      // Close the mobile menu
+      const closeButton = associated.subMenus[0].querySelector('[data-menu-close]');
+      if (closeButton) closeButton.click();
+      return;
+    }
+
+    // Handle back navigation in mobile submenus
+    const newEventTarget = associated.subMenus[0].querySelector('[data-menu-id="mobile-menu"]');
+    if (newEventTarget) {
+      // Simulate an Enter key press
+      const enterEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
+      newEventTarget.dispatchEvent(enterEvent);
+    }
+  };
+
+  // Set up event handlers for menu links
+  linksWithSubMenus.forEach((item) => {
+    if (item.link !== subMenuButton) {
+      item.link.addEventListener('mouseover', linkOverHandler);
+      item.link.addEventListener('mouseout', linkOutHandler);
+      item.link.addEventListener('click', linkClickHandler);
+      item.link.addEventListener('keydown', enterKeyHandler);
+    }
+  });
+
+  // Add mouse enter/leave handlers for submenus
+  subMenus.forEach((menu) => {
+    menu.addEventListener('mouseenter', (ev) => {
+      const menuIds = findOpenMenus();
+      if (menuIds.length === 0) return;
+
+      const associated = linksWithSubMenus.find((link) => {
+        if (!(link.hideDelayId || link.revealDelayId)) {
+          return false;
+        }
+        return link.subMenus.includes(ev.target);
+      });
+
+      if (!associated) return;
+      cancelRevealAndHide(associated);
+
+      menu.addEventListener('mouseleave', () => {
+        hideSubmenu(associated, true);
+      }, { once: true });
+    });
+  });
+
+  // Close button handlers
+  Array.from(topNav.querySelectorAll('[data-menu-close]')).forEach((closeButton) => {
+    closeButton.addEventListener('click', (ev) => {
+      ev.preventDefault();
+
+      // Close all menus
+      linksWithSubMenus.forEach((item) => {
+        cancelRevealAndHide(item);
+        hideSubmenu(item, false);
+      });
+
+      // Reset mobile menu if needed
+      if (topNav.classList.contains('menu-open')) {
+        topNav.classList.remove('menu-open');
+        document.querySelector('html').classList.remove('lock-scrolling');
+        document.body.classList.remove('lock-scrolling');
+        subMenuButton.setAttribute('aria-expanded', 'false');
+
+        // Force restore visibility of important elements
+        handleTabTrap(true);
+      }
+
+      zIndexAcc = 900;
+    });
+  });
+
+  // Mobile menu button handlers
+  if (subMenuButton) {
+    subMenuButton.addEventListener('keydown', mobileMenuHandler);
+    subMenuButton.addEventListener('click', mobileMenuHandler);
+  }
+
+  // Global key handlers
+  document.addEventListener('keydown', escapeKeyHandler);
+
+  // Window resize handler
+  let resizeBounceId = null;
+  window.addEventListener('resize', () => {
+    if (resizeBounceId) {
+      clearTimeout(resizeBounceId);
+      resizeBounceId = null;
+    }
+
+    resizeBounceId = setTimeout(() => {
+      if (resizeBounceId) {
+        clearTimeout(resizeBounceId);
+        resizeBounceId = null;
+      }
+      handleTabTrap();
+    }, 100);
+  });
+
+  // Initialize exitlink functionality similar to external-links.js
+  document.addEventListener('click', (e) => {
+    // Check if the clicked element has the exitlink class
+    if (e.target.classList.contains('exitlink')
+        || (e.target.parentNode && e.target.parentNode.classList.contains('exitlink'))) {
+      e.preventDefault();
+
+      // Get the href from the clicked link or its parent
+      const link = e.target.tagName === 'A' ? e.target : e.target.closest('a');
+      if (!link) return;
+
+      const href = link.getAttribute('href');
+
+      // Skip if no href or it's a placeholder
+      if (!href || href === '' || href === '#') {
+        return;
+      }
+
+      // Check if there's a colorbox function available (modal)
+      if (typeof window.jQuery !== 'undefined' && typeof window.jQuery.colorbox === 'function') {
+        try {
+          const domain = new URL(href).hostname;
+          const { jQuery } = window;
+
+          jQuery.colorbox({
+            onLoad() {
+              jQuery('#cbox-close').remove();
+            },
+            onComplete() {
+              jQuery('#domainSpan').text(`${domain}?`);
+            },
+            transition: 'none',
+            fixed: true,
+            open: true,
+            scrolling: false,
+            escKey: false,
+            overlayClose: false,
+            focus: true,
+            html: jQuery('#external-link-modal-template').length && typeof window.Handlebars !== 'undefined'
+              ? window.Handlebars.compile(jQuery('#external-link-modal-template').html())({ className: '' })
+              : `<div class="external-link-modal">
+                  <h2>You are leaving the NYC.gov domain</h2>
+                  <p>Are you sure you want to go to <span id="domainSpan">${domain}?</span></p>
+                  <div class="button-group">
+                    <button id="external-link-modal-submit" class="btn-primary">Yes</button>
+                    <button id="external-link-modal-cancel" class="btn-secondary">No</button>
+                  </div>
+                </div>`,
+          });
+
+          // Set up handlers for modal buttons
+          jQuery(document).on('click', '#external-link-modal-submit', () => {
+            window.location = href;
+          });
+
+          jQuery(document).on('click', '#external-link-modal-cancel', (event) => {
+            event.preventDefault();
+            jQuery.colorbox.close();
+          });
+        } catch (error) {
+          // Fallback to direct navigation if modal fails
+          window.location = href;
+        }
+      } else {
+        // If colorbox isn't available, just follow the link
+        window.location = href;
+      }
+    }
+  });
+}
 
 /**
  * Determines if a URL is an NYC government URL or should be treated as internal
@@ -7,21 +563,21 @@ import { getMetadata } from "../../scripts/aem.js";
  */
 function isNycGovUrl(url) {
   const urlPredicates = [
-    (url) => url == undefined || url == null || url == '' || url == '#',
-    (url) => url.match(/^https?:\/\/.*\.*nyc\.gov/i),
-    (url) => url.match(/^http:\/\/.*\.*nyc\.gov/i),
-    (url) => url.match(/^http:\/\/.*\.*csc\.nycnet/i),
-    (url) => url.match(/^https:\/\/.*\.*csc\.nycnet/i),
-    (url) => url.match(/^http:\/\/.*\.*nycid\.nycnet/i),
-    (url) => url.match(/^https:\/\/.*\.*nycid\.nycnet/i),
-    (url) => url.match(/^\//i),
-    (url) => url.match(/^javascript:/i),
-    (url) => url.match(/^#/i),
-    (url) => url.match(/^mailto:/i),
-    (url) => url.match(/^tel:/i),
+    (testUrl) => testUrl === undefined || testUrl === null || testUrl === '' || testUrl === '#',
+    (testUrl) => testUrl.match(/^https?:\/\/.*\.*nyc\.gov/i),
+    (testUrl) => testUrl.match(/^http:\/\/.*\.*nyc\.gov/i),
+    (testUrl) => testUrl.match(/^http:\/\/.*\.*csc\.nycnet/i),
+    (testUrl) => testUrl.match(/^https:\/\/.*\.*csc\.nycnet/i),
+    (testUrl) => testUrl.match(/^http:\/\/.*\.*nycid\.nycnet/i),
+    (testUrl) => testUrl.match(/^https:\/\/.*\.*nycid\.nycnet/i),
+    (testUrl) => testUrl.match(/^\//i),
+    (testUrl) => testUrl.match(/^javascript:/i),
+    (testUrl) => testUrl.match(/^#/i),
+    (testUrl) => testUrl.match(/^mailto:/i),
+    (testUrl) => testUrl.match(/^tel:/i),
   ];
-  
-  return urlPredicates.some(testFn => testFn(url));
+
+  return urlPredicates.some((testFn) => testFn(url));
 }
 
 /**
@@ -30,25 +586,25 @@ function isNycGovUrl(url) {
  * @returns {HTMLElement} - Logo band DOM element
  */
 function createLogoBand(headerData) {
-  const logoBandWrapper = document.createElement("div");
-  logoBandWrapper.className = "logo-band-wrapper";
+  const logoBandWrapper = document.createElement('div');
+  logoBandWrapper.className = 'logo-band-wrapper';
 
-  const logoBand = document.createElement("div");
-  logoBand.className = "logo-band";
+  const logoBand = document.createElement('div');
+  logoBand.className = 'logo-band';
 
-  const navLogo = document.createElement("div");
-  navLogo.className = "nav-logo";
+  const navLogo = document.createElement('div');
+  navLogo.className = 'nav-logo';
 
   // Create logo link
-  const logoLink = document.createElement("a");
-  logoLink.href = "https://nycmycity--qa.sandbox.my.site.com/s/"; // This should be configurable
-  logoLink.className = "block-link exitlink";
+  const logoLink = document.createElement('a');
+  logoLink.href = 'https://nycmycity--qa.sandbox.my.site.com/s/'; // This should be configurable
+  logoLink.className = 'block-link exitlink';
 
   // Create logo image
-  const logoImg = document.createElement("img");
+  const logoImg = document.createElement('img');
   logoImg.src = headerData.logoPath;
-  logoImg.className = "nav-logo-img";
-  logoImg.alt = headerData.logoAltText || "NYC";
+  logoImg.className = 'nav-logo-img';
+  logoImg.alt = headerData.logoAltText || 'NYC';
 
   // Append logo image and text to link
   logoLink.appendChild(logoImg);
@@ -56,10 +612,10 @@ function createLogoBand(headerData) {
 
   // Append link to nav-logo
   navLogo.appendChild(logoLink);
-  
+
   // Add subtitle text as a separate text node outside the link
   // This matches the structure in the Thymeleaf template
-  navLogo.appendChild(document.createTextNode(" " + headerData.logosubtitle));
+  navLogo.appendChild(document.createTextNode(` ${headerData.logosubtitle}`));
 
   // Build structure
   logoBand.appendChild(navLogo);
@@ -74,73 +630,6 @@ function createLogoBand(headerData) {
  * @param {boolean} isSimplified - Whether this is for a simplified text list menu
  * @returns {HTMLElement} - Submenu item element
  */
-function createSubmenuItem(menuItem, isSimplified = true) {
-  // Handle empty placeholder items
-  if (menuItem.empty) {
-    return document.createElement("li");
-  }
-
-  const li = document.createElement("li");
-
-  if (isSimplified) {
-    // Create simplified text-only structure for text list menus
-    // This matches the structure in Thymeleaf when simplify is true
-    const blockLink = document.createElement("div");
-    blockLink.className = "block-link";
-
-    const link = document.createElement("a");
-    link.href = menuItem.link;
-    link.className = "simplified-header-text";
-    
-    // Add exitlink class if it's an external link
-    if (!isNycGovUrl(menuItem.link)) {
-      link.classList.add("exitlink");
-    }
-    
-    link.textContent = menuItem.title;
-    blockLink.appendChild(link);
-    li.appendChild(blockLink);
-  } else {
-    // Create graphical structure for graphical list menus
-    // This matches the structure in Thymeleaf when simplify is false
-    const blockLink = document.createElement("div");
-    blockLink.className = "block-link";
-    
-    const img = document.createElement("img");
-    img.src = menuItem.iconPath || "/content/dam/mycity/business/en/icons/blue-icons/default.png";
-    img.alt = menuItem.iconAlt || "";
-    img.setAttribute("aria-hidden", "true");
-    blockLink.appendChild(img);
-
-    const heading = document.createElement("h3");
-    heading.className = "nav-submenu-item-heading";
-    heading.textContent = menuItem.title;
-    blockLink.appendChild(heading);
-
-    if (menuItem.description) {
-      const desc = document.createElement("p");
-      desc.className = "ui-content-small";
-      desc.textContent = menuItem.description;
-      blockLink.appendChild(desc);
-    }
-    
-    const ctaLink = document.createElement("a");
-    ctaLink.href = menuItem.link;
-    ctaLink.className = "ui-content-small nav-submenu-item-faux-link-styled";
-    ctaLink.setAttribute("aria-label", `View More ${menuItem.title}`);
-    ctaLink.textContent = menuItem.cta || "View Details";
-    
-    // Add exitlink class if external link
-    if (!isNycGovUrl(menuItem.link)) {
-      ctaLink.classList.add("exitlink");
-    }
-    
-    blockLink.appendChild(ctaLink);
-    li.appendChild(blockLink);
-  }
-
-  return li;
-}
 
 /**
  * Creates a submenu for navigation
@@ -149,188 +638,188 @@ function createSubmenuItem(menuItem, isSimplified = true) {
  * @returns {HTMLElement} - Submenu nav element
  */
 function createSubmenu(navItem, isMobile = false) {
-  const submenu = document.createElement("nav");
-  
+  const submenu = document.createElement('nav');
+
   // Map menu IDs to control names exactly as in the Java backend
   // This ensures submenu IDs match what's in Dev.html (e.g., "business-services-submenu")
   let controlId;
-  switch(navItem.id) {
-    case "menu-1":
-      controlId = "resources-by-industry";
+  switch (navItem.id) {
+    case 'menu-1':
+      controlId = 'resources-by-industry';
       break;
-    case "menu-2":
-      controlId = "business-services";
+    case 'menu-2':
+      controlId = 'business-services';
       break;
-    case "menu-3":
-      controlId = "emergency-preparedness";
+    case 'menu-3':
+      controlId = 'emergency-preparedness';
       break;
-    case "menu-4":
-      controlId = "regulations";
+    case 'menu-4':
+      controlId = 'regulations';
       break;
-    case "menu-5":
-      controlId = "tools";
+    case 'menu-5':
+      controlId = 'tools';
       break;
     default:
-      controlId = navItem.control || navItem.id.replace("menu-", "");
+      controlId = navItem.control || navItem.id.replace('menu-', '');
   }
-  
+
   // Set ID using the control ID (like "business-services-submenu") to match the Thymeleaf template
   submenu.id = `${controlId}-submenu`;
-  submenu.setAttribute("role", "presentation");
-  submenu.setAttribute("data-submenu-for", navItem.id);
+  submenu.setAttribute('role', 'presentation');
+  submenu.setAttribute('data-submenu-for', navItem.id);
 
   // Add appropriate classes based on menu type (matching the Thymeleaf template structure)
   // Calculate numberOfRows using the same formula as in Java: ceil(menuItems.size() / 2.0)
   const itemCount = navItem.menuItems ? navItem.menuItems.length : 0;
   const numberOfRows = navItem.numberOfRows || Math.ceil(itemCount / 2.0);
-  
+
   // Set submenu classes based on specific menu IDs to match the structure in Dev.html
   if (isMobile) {
-    submenu.className = "nav-submenu nav-submenu-text-list nav-submenu-text-" + numberOfRows + "-row-list";
+    submenu.className = `nav-submenu nav-submenu-text-list nav-submenu-text-${numberOfRows}-row-list`;
   } else {
     // Match exactly with what's in Dev.html based on menu ID
-    switch(navItem.id) {
-      case "menu-1": // Resources by Industry
+    switch (navItem.id) {
+      case 'menu-1': // Resources by Industry
         // Resources by Industry always uses text list with 9 rows
-        submenu.className = "nav-submenu nav-submenu-text-list nav-submenu-text-9-row-list";
+        submenu.className = 'nav-submenu nav-submenu-text-list nav-submenu-text-9-row-list';
         break;
-      case "menu-2": // Business Services
+      case 'menu-2': // Business Services
         // Business Services always uses text list with 5 rows
-        submenu.className = "nav-submenu nav-submenu-text-list nav-submenu-text-5-row-list";
+        submenu.className = 'nav-submenu nav-submenu-text-list nav-submenu-text-5-row-list';
         break;
-      case "menu-3": // Emergency Preparedness
+      case 'menu-3': // Emergency Preparedness
         // Emergency Preparedness uses either text list or graphical based on context
         // In Dev.html, it appears as a text list in mobile menu but graphical in desktop
         if (navItem.simplify) {
-          submenu.className = "nav-submenu nav-submenu-text-list nav-submenu-text-2-row-list";
+          submenu.className = 'nav-submenu nav-submenu-text-list nav-submenu-text-2-row-list';
         } else {
-          submenu.className = "nav-submenu nav-submenu-graphical-list";
+          submenu.className = 'nav-submenu nav-submenu-graphical-list';
         }
         break;
-      case "menu-4": // Regulations
+      case 'menu-4': // Regulations
         // Regulations always uses graphical list in Dev.html
-        submenu.className = "nav-submenu nav-submenu-graphical-list";
+        submenu.className = 'nav-submenu nav-submenu-graphical-list';
         break;
-      case "menu-5": // Tools
+      case 'menu-5': // Tools
         // Tools uses either text list or graphical based on context
         if (navItem.simplify) {
-          submenu.className = "nav-submenu nav-submenu-text-list nav-submenu-text-2-row-list";
+          submenu.className = 'nav-submenu nav-submenu-text-list nav-submenu-text-2-row-list';
         } else {
-          submenu.className = "nav-submenu nav-submenu-graphical-list";
+          submenu.className = 'nav-submenu nav-submenu-graphical-list';
         }
         break;
       default:
         // For other menu items, use the simplified or graphical class based on navItem.simplify
         if (navItem.simplify) {
-          submenu.className = "nav-submenu nav-submenu-text-list nav-submenu-text-" + numberOfRows + "-row-list";
+          submenu.className = `nav-submenu nav-submenu-text-list nav-submenu-text-${numberOfRows}-row-list`;
         } else {
-          submenu.className = "nav-submenu nav-submenu-graphical-list";
+          submenu.className = 'nav-submenu nav-submenu-graphical-list';
         }
     }
   }
 
   // Add back button for mobile navigation (used in mobile menu back navigation)
-  const backButton = document.createElement("a");
-  backButton.href = "#";
-  backButton.className = "sub-menu-back hidden-text";
-  backButton.setAttribute("data-menu-id", "mobile-menu");
-  backButton.setAttribute("aria-controls", "mobile-menu-submenu");
-  
-  const backSpan = document.createElement("span");
-  backSpan.textContent = "Back to Main Menu";
+  const backButton = document.createElement('a');
+  backButton.href = '#';
+  backButton.className = 'sub-menu-back hidden-text';
+  backButton.setAttribute('data-menu-id', 'mobile-menu');
+  backButton.setAttribute('aria-controls', 'mobile-menu-submenu');
+
+  const backSpan = document.createElement('span');
+  backSpan.textContent = 'Back to Main Menu';
   backButton.appendChild(backSpan);
   submenu.appendChild(backButton);
 
   // Add title
-  const title = document.createElement("h2");
-  title.className = "nav-submenu-title";
+  const title = document.createElement('h2');
+  title.className = 'nav-submenu-title';
   title.textContent = navItem.title;
   submenu.appendChild(title);
 
   // Add close button
-  const closeButton = document.createElement("a");
-  closeButton.href = "#";
-  closeButton.className = "sub-menu-close hidden-text";
-  closeButton.setAttribute("data-menu-close", "");
+  const closeButton = document.createElement('a');
+  closeButton.href = '#';
+  closeButton.className = 'sub-menu-close hidden-text';
+  closeButton.setAttribute('data-menu-close', '');
 
-  const closeSpan = document.createElement("span");
-  closeSpan.textContent = "Close Menu";
+  const closeSpan = document.createElement('span');
+  closeSpan.textContent = 'Close Menu';
   closeButton.appendChild(closeSpan);
   submenu.appendChild(closeButton);
 
   // Create items list
-  const itemsList = document.createElement("ul");
-  itemsList.className = "clean-list nav-submenu-items";
+  const itemsList = document.createElement('ul');
+  itemsList.className = 'clean-list nav-submenu-items';
 
-        // Add menu items if they exist
+  // Add menu items if they exist
   if (navItem.menuItems && navItem.menuItems.length) {
     navItem.menuItems.forEach((menuItem) => {
       // Handle empty menu items (placeholder items in the grid)
       if (menuItem.empty) {
-        const emptyLi = document.createElement("li");
+        const emptyLi = document.createElement('li');
         itemsList.appendChild(emptyLi);
         return;
       }
-      
-      const li = document.createElement("li");
-      
+
+      const li = document.createElement('li');
+
       // For all menu items in text list mode, use a simplified structure with just a link
       // For graphical mode, use a more complex structure with images, headings and descriptions
-      if (isMobile || navItem.simplify || submenu.className.includes("nav-submenu-text-list")) {
+      if (isMobile || navItem.simplify || submenu.className.includes('nav-submenu-text-list')) {
         // Create simplified link structure for text list menus (matches flyout-content.html)
-        const blockLink = document.createElement("div");
-        blockLink.className = "block-link";
-        
-        const link = document.createElement("a");
+        const blockLink = document.createElement('div');
+        blockLink.className = 'block-link';
+
+        const link = document.createElement('a');
         link.href = menuItem.link;
-        link.className = "simplified-header-text";
+        link.className = 'simplified-header-text';
         link.textContent = menuItem.title;
-        
+
         // Add exitlink class if external link
         if (!isNycGovUrl(menuItem.link)) {
-          link.classList.add("exitlink");
+          link.classList.add('exitlink');
         }
-        
+
         blockLink.appendChild(link);
         li.appendChild(blockLink);
       } else {
         // Create graphical link structure for graphical menus (matches flyout-content.html)
-        const blockLink = document.createElement("div");
-        blockLink.className = "block-link";
-        
-        const img = document.createElement("img");
-        img.src = menuItem.iconPath || "/content/dam/mycity/business/en/icons/blue-icons/default.png";
-        img.alt = menuItem.iconAlt || "";
-        img.setAttribute("aria-hidden", "true");
+        const blockLink = document.createElement('div');
+        blockLink.className = 'block-link';
+
+        const img = document.createElement('img');
+        img.src = menuItem.iconPath || '/content/dam/mycity/business/en/icons/blue-icons/default.png';
+        img.alt = menuItem.iconAlt || '';
+        img.setAttribute('aria-hidden', 'true');
         blockLink.appendChild(img);
 
-        const heading = document.createElement("h3");
-        heading.className = "nav-submenu-item-heading";
+        const heading = document.createElement('h3');
+        heading.className = 'nav-submenu-item-heading';
         heading.textContent = menuItem.title;
         blockLink.appendChild(heading);
 
         if (menuItem.description) {
-          const desc = document.createElement("p");
-          desc.className = "ui-content-small";
+          const desc = document.createElement('p');
+          desc.className = 'ui-content-small';
           desc.textContent = menuItem.description;
           blockLink.appendChild(desc);
         }
-        
-        const ctaLink = document.createElement("a");
+
+        const ctaLink = document.createElement('a');
         ctaLink.href = menuItem.link;
-        ctaLink.className = "ui-content-small nav-submenu-item-faux-link-styled";
-        ctaLink.setAttribute("aria-label", `View More ${menuItem.title}`);
-        ctaLink.textContent = menuItem.cta || "View Details";
-        
+        ctaLink.className = 'ui-content-small nav-submenu-item-faux-link-styled';
+        ctaLink.setAttribute('aria-label', `View More ${menuItem.title}`);
+        ctaLink.textContent = menuItem.cta || 'View Details';
+
         // Add exitlink class if external link
         if (!isNycGovUrl(menuItem.link)) {
-          ctaLink.classList.add("exitlink");
+          ctaLink.classList.add('exitlink');
         }
-        
+
         blockLink.appendChild(ctaLink);
         li.appendChild(blockLink);
       }
-      
+
       itemsList.appendChild(li);
     });
   }
@@ -344,102 +833,107 @@ function createSubmenu(navItem, isMobile = false) {
  * @returns {HTMLElement} - Mobile menu button list item
  */
 function createMobileMenuButton() {
-  const li = document.createElement("li");
-  li.className = "nav-icon nav-mobile-menu";
+  const li = document.createElement('li');
+  li.className = 'nav-icon nav-mobile-menu';
 
-  const link = document.createElement("a");
-  link.href = "#";
-  link.className = "block-link hidden-text";
-  link.setAttribute("data-menu-id", "mobile-menu");
-  link.setAttribute("aria-expanded", "false");
-  link.setAttribute("aria-controls", "mobile-menu-submenu");
+  const link = document.createElement('a');
+  link.href = '#';
+  link.className = 'block-link hidden-text';
+  link.setAttribute('data-menu-id', 'mobile-menu');
+  link.setAttribute('aria-expanded', 'false');
+  link.setAttribute('aria-controls', 'mobile-menu-submenu');
 
-  const span = document.createElement("span");
-  span.textContent = "Open Menu";
+  const span = document.createElement('span');
+  span.textContent = 'Open Menu';
   link.appendChild(span);
   li.appendChild(link);
 
   // Create mobile menu container - matching the Thymeleaf template structure
-  const mobileMenu = document.createElement("nav");
-  mobileMenu.className = "nav-submenu nav-submenu-text-list nav-submenu-mobile";
-  mobileMenu.setAttribute("data-submenu-for", "mobile-menu");
-  mobileMenu.id = "mobile-menu-submenu";
-  mobileMenu.setAttribute("role", "presentation");
+  const mobileMenu = document.createElement('nav');
+  mobileMenu.className = 'nav-submenu nav-submenu-text-list nav-submenu-mobile';
+  mobileMenu.setAttribute('data-submenu-for', 'mobile-menu');
+  mobileMenu.id = 'mobile-menu-submenu';
+  mobileMenu.setAttribute('role', 'presentation');
 
-  const title = document.createElement("h2");
-  title.className = "nav-submenu-title";
-  title.textContent = "Menu";
+  const title = document.createElement('h2');
+  title.className = 'nav-submenu-title';
+  title.textContent = 'Menu';
   mobileMenu.appendChild(title);
 
-  const closeButton = document.createElement("a");
-  closeButton.href = "#";
-  closeButton.className = "sub-menu-close hidden-text";
-  closeButton.setAttribute("data-menu-close", "");
+  const closeButton = document.createElement('a');
+  closeButton.href = '#';
+  closeButton.className = 'sub-menu-close hidden-text';
+  closeButton.setAttribute('data-menu-close', '');
 
-  const closeSpan = document.createElement("span");
-  closeSpan.textContent = "Close Menu";
+  const closeSpan = document.createElement('span');
+  closeSpan.textContent = 'Close Menu';
   closeButton.appendChild(closeSpan);
   mobileMenu.appendChild(closeButton);
 
-  const submenuMain = document.createElement("div");
-  submenuMain.className = "nav-submenu-main";
+  const submenuMain = document.createElement('div');
+  submenuMain.className = 'nav-submenu-main';
 
   // Create menu items list
-  const menuList = document.createElement("ul");
-  menuList.className = "clean-list nav-submenu-items";
-  menuList.setAttribute("role", "menu");
+  const menuList = document.createElement('ul');
+  menuList.className = 'clean-list nav-submenu-items';
+  menuList.setAttribute('role', 'menu');
 
   submenuMain.appendChild(menuList);
   mobileMenu.appendChild(submenuMain);
-  
+
   // Add account options section for logged-in users
   // This matches the structure from mobile-menu.html
-  const isUserLoggedIn = window.digitalData && 
-                         window.digitalData.user && 
-                         window.digitalData.user.userGUID;
-  
+  // (th:if="${not #strings.isEmpty(#vars.session.userGUID)}")
+  const isUserLoggedIn = window.digitalData
+                         && window.digitalData.user
+                         && window.digitalData.user.userGUID;
+
   if (isUserLoggedIn) {
-    const accountOptionsDiv = document.createElement("div");
-    accountOptionsDiv.className = "top-nav-account-options";
-    
-    // Profile/Manage Account button
-    const profileLink = document.createElement("a");
-    profileLink.href = window.digitalData?.user?.profileTarget || "https://mycity-cs-dev-origin.nyc.gov/s/profile";
-    profileLink.className = "nycb-button nycb-btn-profile content-regular account-options-text manage-account-text";
-    profileLink.title = "Manage Account";
-    profileLink.textContent = "Manage Account";
-    accountOptionsDiv.appendChild(profileLink);
-    
-    // Logout form and button
-    const logoutForm = document.createElement("form");
-    logoutForm.action = window.digitalData?.user?.logoutTarget || "https://mycity-cs-dev-origin.nyc.gov/s/logout";
-    logoutForm.method = "POST";
-    
+    const accountOptionsWrapper = document.createElement('div');
+
+    const accountOptionsDiv = document.createElement('div');
+    accountOptionsDiv.className = 'top-nav-account-options';
+
+    // Create Manage Account button - matches: th:href="${profiletarget}"
+    const manageAccountLink = document.createElement('a');
+    manageAccountLink.href = window.digitalData?.profiletarget || '/profile';
+    manageAccountLink.className = 'nycb-button nycb-btn-profile content-regular account-options-text manage-account-text';
+    manageAccountLink.title = 'Manage Account';
+    manageAccountLink.textContent = 'Manage Account';
+    accountOptionsDiv.appendChild(manageAccountLink);
+
+    // Create Log Out form and button - matches: th:action="${logouttarget}" method="POST"
+    const logoutForm = document.createElement('form');
+    logoutForm.action = window.digitalData?.logouttarget || '/logout';
+    logoutForm.method = 'POST';
+
     // Add CSRF token if available
-    if (window.digitalData?.user?.csrfToken) {
-      const csrfInput = document.createElement("input");
-      csrfInput.type = "hidden";
-      csrfInput.name = window.digitalData.user.csrfParamName || "_csrf";
-      csrfInput.value = window.digitalData.user.csrfToken;
+    if (window.digitalData && window.digitalData.csrf) {
+      const csrfInput = document.createElement('input');
+      csrfInput.type = 'hidden';
+      csrfInput.name = window.digitalData.csrf.parameterName;
+      csrfInput.value = window.digitalData.csrf.token;
       logoutForm.appendChild(csrfInput);
     }
-    
-    const logoutLink = document.createElement("a");
-    logoutLink.href = "#";
-    logoutLink.className = "content-regular account-options-text logout-text log-out-button";
-    logoutLink.title = "Log Out";
-    logoutLink.textContent = "Log Out";
-    logoutForm.appendChild(logoutLink);
-    
+
+    // Add logout button
+    const logoutButton = document.createElement('a');
+    logoutButton.href = '#';
+    logoutButton.className = 'content-regular account-options-text logout-text log-out-button';
+    logoutButton.title = 'Log Out';
+    logoutButton.textContent = 'Log Out';
+    logoutForm.appendChild(logoutButton);
+
     accountOptionsDiv.appendChild(logoutForm);
-    mobileMenu.appendChild(accountOptionsDiv);
+    accountOptionsWrapper.appendChild(accountOptionsDiv);
+    mobileMenu.appendChild(accountOptionsWrapper);
   }
-  
+
   li.appendChild(mobileMenu);
 
   return {
     menuButton: li,
-    menuList: menuList,
+    menuList,
   };
 }
 
@@ -450,56 +944,56 @@ function createMobileMenuButton() {
  * @returns {HTMLElement} - Navigation list item
  */
 function createNavItem(navItem, isMobile = false) {
-  const li = document.createElement("li");
-  li.className = "nav-link";
+  const li = document.createElement('li');
+  li.className = 'nav-link';
 
-  const link = document.createElement("a");
+  const link = document.createElement('a');
   // Set appropriate href based on the navigation item
-  const href = navItem.id && navItem.id !== "menu-6" ? "#" : "/nycbusiness/mydashboard";
+  const href = navItem.id && navItem.id !== 'menu-6' ? '#' : '/nycbusiness/mydashboard';
   link.href = href;
-  
+
   // Set appropriate classes
-  link.className = "block-link";
+  link.className = 'block-link';
   // Add exitlink class if it's an external link
-  if (!isNycGovUrl(href) && href !== "#") {
-    link.classList.add("exitlink");
+  if (!isNycGovUrl(href) && href !== '#') {
+    link.classList.add('exitlink');
   }
-  
+
   link.textContent = navItem.title;
 
-  if (navItem.id && navItem.id !== "menu-6") {
+  if (navItem.id && navItem.id !== 'menu-6') {
     // Map menu IDs to control names for aria-controls to match Dev.html
     let controlId;
-    switch(navItem.id) {
-      case "menu-1":
-        controlId = "resources-by-industry";
+    switch (navItem.id) {
+      case 'menu-1':
+        controlId = 'resources-by-industry';
         break;
-      case "menu-2":
-        controlId = "business-services";
+      case 'menu-2':
+        controlId = 'business-services';
         break;
-      case "menu-3":
-        controlId = "emergency-preparedness";
+      case 'menu-3':
+        controlId = 'emergency-preparedness';
         break;
-      case "menu-4":
-        controlId = "regulations";
+      case 'menu-4':
+        controlId = 'regulations';
         break;
-      case "menu-5":
-        controlId = "tools";
+      case 'menu-5':
+        controlId = 'tools';
         break;
       default:
-        controlId = navItem.control || navItem.id.replace("menu-", "");
+        controlId = navItem.control || navItem.id.replace('menu-', '');
     }
     const submenuId = `${controlId}-submenu`;
-    
-    link.setAttribute("aria-expanded", "false");
-    link.setAttribute("aria-controls", submenuId);
-    link.setAttribute("data-menu-id", navItem.id);
-    
+
+    link.setAttribute('aria-expanded', 'false');
+    link.setAttribute('aria-controls', submenuId);
+    link.setAttribute('data-menu-id', navItem.id);
+
     li.appendChild(link);
 
     if (navItem.menuItems && navItem.menuItems.length) {
       // Create submenu with appropriate structure based on mobile flag
-      li.appendChild(createSubmenu({...navItem, simplify: isMobile}, isMobile));
+      li.appendChild(createSubmenu({ ...navItem, simplify: isMobile }, isMobile));
     }
   } else {
     // Special case for dashboard link
@@ -517,21 +1011,21 @@ function createNavItem(navItem, isMobile = false) {
  * @returns {HTMLElement} - Icon link list item
  */
 function createIconLink(iconPath, altText, href) {
-  const li = document.createElement("li");
-  li.className = "nav-icon-link";
+  const li = document.createElement('li');
+  li.className = 'nav-icon-link';
 
-  const link = document.createElement("a");
+  const link = document.createElement('a');
   link.href = href;
-  
+
   // Check if this is an external link that should have the exitlink class
   const isExternal = !isNycGovUrl(href);
-  link.className = isExternal 
-    ? "block-link hidden-text my-city-link exitlink" 
-    : "block-link hidden-text my-city-link";
+  link.className = isExternal
+    ? 'block-link hidden-text my-city-link exitlink'
+    : 'block-link hidden-text my-city-link';
 
-  const img = document.createElement("img");
+  const img = document.createElement('img');
   img.src = iconPath;
-  img.alt = altText || "";
+  img.alt = altText || '';
 
   link.appendChild(img);
   li.appendChild(link);
@@ -544,24 +1038,24 @@ function createIconLink(iconPath, altText, href) {
  * @returns {HTMLElement} - Language toggle div
  */
 function createLanguageToggle() {
-  const langToggleWrap = document.createElement("div");
-  langToggleWrap.className = "language-toggle-wrap";
+  const langToggleWrap = document.createElement('div');
+  langToggleWrap.className = 'language-toggle-wrap';
 
-  const langToggle = document.createElement("div");
-  langToggle.className = "language-toggle";
+  const langToggle = document.createElement('div');
+  langToggle.className = 'language-toggle';
 
-  const langSelector = document.createElement("div");
-  langSelector.id = "language-selector";
-  langSelector.className = "language-selector OneLinkNoTx";
+  const langSelector = document.createElement('div');
+  langSelector.id = 'language-selector';
+  langSelector.className = 'language-selector OneLinkNoTx';
 
-  const langLabel = document.createElement("label");
-  langLabel.setAttribute("for", "OLJSLanguageSelector");
-  langLabel.setAttribute("lang", "en");
-  langLabel.className = "language-header translate-icon";
-  langLabel.textContent = "Language";
+  const langLabel = document.createElement('label');
+  langLabel.setAttribute('for', 'OLJSLanguageSelector');
+  langLabel.setAttribute('lang', 'en');
+  langLabel.className = 'language-header translate-icon';
+  langLabel.textContent = 'Language';
 
-  const langSelectorBox = document.createElement("div");
-  langSelectorBox.className = "language-selector-box menu-button-actions";
+  const langSelectorBox = document.createElement('div');
+  langSelectorBox.className = 'language-selector-box menu-button-actions';
 
   langSelector.appendChild(langLabel);
   langSelector.appendChild(langSelectorBox);
@@ -579,20 +1073,20 @@ async function fetchHeaderData() {
   try {
     // Fetch the JSON from the absolute path to the experience fragment
     const response = await fetch(
-      "https://cors-anywhere.herokuapp.com/https://oti-wcms-dev-publish.nyc.gov/content/experience-fragments/mycity/us/en/business/global/header/master.model.json"
+      'https://cors-anywhere.herokuapp.com/https://oti-wcms-dev-publish.nyc.gov/content/experience-fragments/mycity/us/en/business/global/header/master.model.json',
     );
 
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch header data: ${response.status} ${response.statusText}`
+        `Failed to fetch header data: ${response.status} ${response.statusText}`,
       );
     }
 
     const data = await response.json();
 
     // Extract header component data
-    const root = data[":items"]?.root || {};
-    const rootItemsInner = root[":items"] || {};
+    const root = data[':items']?.root || {};
+    const rootItemsInner = root[':items'] || {};
     const headerComponent = rootItemsInner.header || {};
 
     // Process navigationItems if they exist
@@ -600,117 +1094,125 @@ async function fetchHeaderData() {
     if (headerComponent.navigationItems && headerComponent.navigationItems.length > 0) {
       // Filter out empty navigation items (those without a title)
       navigationItems = headerComponent.navigationItems
-        .filter(item => item && (item.title || (item[":type"] === "mycity/components/business/datacomponents/navigation" && item.id)))
+        .filter((item) => item && (item.title || (item[':type'] === 'mycity/components/business/datacomponents/navigation' && item.id)))
         .map((item, index) => {
           // Convert menu ids from menu-item-# to menu-# format if needed
           const id = item.id || `menu-${index + 1}`;
-          
+
           // Calculate control and number of rows for templates
-          let control = "";
+          let control = '';
           let numberOfRows = 3;
-          
+
           // Match control ids with the ones in Thymeleaf templates
-          switch(index) {
+          switch (index) {
             case 0:
-              control = "resources-by-industry";
+              control = 'resources-by-industry';
               numberOfRows = 9;
               break;
             case 1:
-              control = "business-services";
-              numberOfRows = 5; 
+              control = 'business-services';
+              numberOfRows = 5;
               break;
             case 2:
-              control = "emergency-preparedness";
+              control = 'emergency-preparedness';
               numberOfRows = 3;
               break;
             case 3:
-              control = "regulations";
+              control = 'regulations';
               numberOfRows = 3;
               break;
             case 4:
-              control = "tools";
+              control = 'tools';
               numberOfRows = 3;
               break;
             default:
-              control = id.replace("menu-", "item-");
+              control = id.replace('menu-', 'item-');
               break;
           }
-          
+
           // Process menu items to ensure they have all needed properties
-          const menuItems = (item.menuItems || []).map(menuItem => {
-            return {
-              ...menuItem,
-              title: menuItem.title || "",
-              link: menuItem.link || "#",
-              description: menuItem.description || "",
-              cta: menuItem.cta || "View Details",
-              iconPath: menuItem.iconPath || "",
-              iconAlt: menuItem.iconAlt || ""
-            };
-          });
-          
+          const menuItems = (item.menuItems || []).map((menuItem) => ({
+            ...menuItem,
+            title: menuItem.title || '',
+            link: menuItem.link || '#',
+            description: menuItem.description || '',
+            cta: menuItem.cta || 'View Details',
+            iconPath: menuItem.iconPath || '',
+            iconAlt: menuItem.iconAlt || '',
+          }));
+
           return {
             ...item,
-            id: id,
-            title: item.title || "",
-            link: item.link || "#",
-            menuItems: menuItems,
-            control: control,
-            numberOfRows: numberOfRows
+            id,
+            title: item.title || '',
+            link: item.link || '#',
+            menuItems,
+            control,
+            numberOfRows,
           };
         });
     }
 
     return {
       logoPath:
-        headerComponent.logoPath ||
-        "/nycbusiness/static/img/reskin/NYC-logo-white.svg",
-      logotitle: headerComponent.logotitle || "MyCity",
+        headerComponent.logoPath
+        || '/nycbusiness/static/img/reskin/NYC-logo-white.svg',
+      logotitle: headerComponent.logotitle || 'MyCity',
       logosubtitle:
-        headerComponent.logosubtitle ||
-        "Official website of the City of New York",
-      logoAltText: headerComponent.logoAltText || "NYC White Logo",
+        headerComponent.logosubtitle
+        || 'Official website of the City of New York',
+      logoAltText: headerComponent.logoAltText || 'NYC White Logo',
       logoDecorative: headerComponent.logoDecorative || false,
-      portaltitle: headerComponent.portaltitle || "Business",
+      portaltitle: headerComponent.portaltitle || 'Business',
       searchIconPath:
-        headerComponent.searchIconPath ||
-        "https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/search.png",
-      searchIconAltText: headerComponent.searchIconAltText || "Search",
+        headerComponent.searchIconPath
+        || 'https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/search.png',
+      searchIconAltText: headerComponent.searchIconAltText || 'Search',
       profileIconPath:
-        headerComponent.profileIconPath ||
-        "https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/account_circle-1.png",
+        headerComponent.profileIconPath
+        || 'https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/account_circle-1.png',
       profileIconAltText:
-        headerComponent.profileIconAltText || "Click here to view dashboard",
-      helpIconPath: headerComponent.helpIconPath || "",
-      helpIconAltText: headerComponent.helpIconAltText || "Help Icon",
+        headerComponent.profileIconAltText || 'Click here to view dashboard',
+      helpIconPath: headerComponent.helpIconPath || '',
+      helpIconAltText: headerComponent.helpIconAltText || 'Help Icon',
       helpIconLink:
-        headerComponent.helpIconLink || "/nycbusiness/global/mycity-business-faq",
-      navigationItems: navigationItems
+        headerComponent.helpIconLink || '/nycbusiness/global/mycity-business-faq',
+      navigationItems,
     };
   } catch (error) {
-    console.error("Error fetching header data:", error);
+    // Log error but suppress in production
     // Return default data in case of error
     return {
-      logoPath: "/nycbusiness/static/img/reskin/NYC-logo-white.svg",
-      logotitle: "MyCity",
-      logosubtitle: "Official website of the City of New York",
-      logoAltText: "NYC White Logo",
+      logoPath: '/nycbusiness/static/img/reskin/NYC-logo-white.svg',
+      logotitle: 'MyCity',
+      logosubtitle: 'Official website of the City of New York',
+      logoAltText: 'NYC White Logo',
       logoDecorative: false,
-      portaltitle: "Business",
-      searchIconPath: "https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/search.png",
-      searchIconAltText: "Search",
-      profileIconPath: "https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/account_circle-1.png",
-      profileIconAltText: "Click here to view dashboard",
-      helpIconPath: "",
-      helpIconAltText: "Help Icon",
-      helpIconLink: "/nycbusiness/global/mycity-business-faq",
+      portaltitle: 'Business',
+      searchIconPath: 'https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/search.png',
+      searchIconAltText: 'Search',
+      profileIconPath: 'https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/account_circle-1.png',
+      profileIconAltText: 'Click here to view dashboard',
+      helpIconPath: '',
+      helpIconAltText: 'Help Icon',
+      helpIconLink: '/nycbusiness/global/mycity-business-faq',
       navigationItems: [
-        { id: "menu-1", title: "Resources by Industry", link: "#", menuItems: [] },
-        { id: "menu-2", title: "Business Services", link: "#", menuItems: [] },
-        { id: "menu-3", title: "Emergency Preparedness", link: "#", menuItems: [] },
-        { id: "menu-4", title: "Regulations", link: "#", menuItems: [] },
-        { id: "menu-5", title: "Tools", link: "#", menuItems: [] }
-      ]
+        {
+          id: 'menu-1', title: 'Resources by Industry', link: '#', menuItems: [],
+        },
+        {
+          id: 'menu-2', title: 'Business Services', link: '#', menuItems: [],
+        },
+        {
+          id: 'menu-3', title: 'Emergency Preparedness', link: '#', menuItems: [],
+        },
+        {
+          id: 'menu-4', title: 'Regulations', link: '#', menuItems: [],
+        },
+        {
+          id: 'menu-5', title: 'Tools', link: '#', menuItems: [],
+        },
+      ],
     };
   }
 }
@@ -720,7 +1222,7 @@ async function fetchHeaderData() {
  */
 export default async function decorate(block) {
   // Clear existing content
-  block.textContent = "";
+  block.textContent = '';
 
   // Get header data from digitalData if available or fetch from AEM
   let headerData = {};
@@ -732,31 +1234,31 @@ export default async function decorate(block) {
   }
 
   // 1. Create skip-to-main link
-  const skipLink = document.createElement("a");
-  skipLink.className = "skip-main";
-  skipLink.href = "#main";
-  skipLink.textContent = "Skip to main content";
+  const skipLink = document.createElement('a');
+  skipLink.className = 'skip-main';
+  skipLink.href = '#main';
+  skipLink.textContent = 'Skip to main content';
   block.appendChild(skipLink);
 
   // 2. Create header element
-  const header = document.createElement("header");
+  const header = document.createElement('header');
 
   // 3. Create logo band
   const logoBand = createLogoBand(headerData);
   header.appendChild(logoBand);
 
   // 4. Create main navigation
-  const nav = document.createElement("nav");
-  const navList = document.createElement("ul");
-  navList.className = "clean-list main-nav-desktop";
+  const nav = document.createElement('nav');
+  const navList = document.createElement('ul');
+  navList.className = 'clean-list main-nav-desktop';
 
   // 4.1 Add business tag line
-  const tagLine = document.createElement("li");
-  tagLine.className = "nav-tag-line";
+  const tagLine = document.createElement('li');
+  tagLine.className = 'nav-tag-line';
 
-  const tagLink = document.createElement("a");
-  tagLink.href = "/nycbusiness/";
-  tagLink.className = "block-link";
+  const tagLink = document.createElement('a');
+  tagLink.href = '/nycbusiness/';
+  tagLink.className = 'block-link';
   tagLink.textContent = headerData.portaltitle;
 
   tagLine.appendChild(tagLink);
@@ -767,69 +1269,99 @@ export default async function decorate(block) {
   navList.appendChild(menuButton);
 
   // 4.3 Add navigation items
-  // Loop through first 5 navigation items (Resources by Industry, Business Services, Emergency Preparedness, Regulations, Tools)
-  for (let i = 0; i < Math.min(5, headerData.navigationItems.length); i++) {
+  // Loop through first 5 navigation items
+  const maxNavItems = 5;
+  for (let i = 0; i < Math.min(maxNavItems, headerData.navigationItems.length); i += 1) {
     const navItem = headerData.navigationItems[i];
-    
+
     // Use the correct menu ID format
-    if (navItem.id && navItem.id.startsWith("menu-item-")) {
-      navItem.id = navItem.id.replace("menu-item-", "menu-");
+    if (navItem.id && navItem.id.startsWith('menu-item-')) {
+      navItem.id = navItem.id.replace('menu-item-', 'menu-');
     }
-    
+
     // Add control attribute for flyout content matching
     if (!navItem.control) {
       // Create control ids matching the Thymeleaf template naming
-      switch(navItem.id) {
-        case "menu-1":
-          navItem.control = "resources-by-industry";
+      switch (navItem.id) {
+        case 'menu-1':
+          navItem.control = 'resources-by-industry';
           break;
-        case "menu-2":
-          navItem.control = "business-services";
+        case 'menu-2':
+          navItem.control = 'business-services';
           break;
-        case "menu-3":
-          navItem.control = "emergency-preparedness";
+        case 'menu-3':
+          navItem.control = 'emergency-preparedness';
           break;
-        case "menu-4":
-          navItem.control = "regulations";
+        case 'menu-4':
+          navItem.control = 'regulations';
           break;
-        case "menu-5":
-          navItem.control = "tools";
+        case 'menu-5':
+          navItem.control = 'tools';
           break;
         default:
-          navItem.control = navItem.id.replace("menu-", "item-");
+          navItem.control = navItem.id.replace('menu-', 'item-');
           break;
       }
     }
-    
+
     // Create nav item for desktop menu
     const navLi = createNavItem(navItem);
     navList.appendChild(navLi);
 
     // Also create a copy for mobile menu
-    if (navItem.id !== "menu-6") {
-      // Create mobile menu entry using the flyout content structure
-      menuList.appendChild(createNavItem({...navItem, simplify: true}, true));
+    if (navItem.id !== 'menu-6') {
+      // Create a list item with flyout content structure
+      // This matches the structure in mobile-menu.html with th:replace template
+      // for flyout-content with index, menu, and simplify parameters
+      const flyoutLi = document.createElement('li');
+
+      // Create the flyout link - similar to what would be in flyout-content
+      const flyoutLink = document.createElement('a');
+      flyoutLink.href = '#';
+      flyoutLink.className = 'block-link';
+      flyoutLink.textContent = navItem.title;
+
+      // Set attributes for flyout behavior (similar to what's in mobile-menu's submenu links)
+      flyoutLink.setAttribute('data-menu-id', navItem.id);
+
+      // Add appropriate attributes to match Thymeleaf template
+      const menuIndex = parseInt(navItem.id.replace('menu-', ''), 10);
+      if (menuIndex >= 1 && menuIndex <= 5) {
+        const controlMap = {
+          1: 'resources-by-industry',
+          2: 'business-services',
+          3: 'emergency-preparedness',
+          4: 'regulations',
+          5: 'tools',
+        };
+        const controlId = controlMap[menuIndex];
+        flyoutLink.setAttribute('aria-expanded', 'false');
+        flyoutLink.setAttribute('aria-controls', `${controlId}-submenu`);
+      }
+
+      flyoutLi.appendChild(flyoutLink);
+      menuList.appendChild(flyoutLi);
     }
   }
-  
+
   // Add the dashboard menu item to desktop menu (as shown in Dev.html)
-  const dashboardLi = document.createElement("li");
-  dashboardLi.className = "nav-link";
-  
-  const dashboardLink = document.createElement("a");
-  dashboardLink.href = "/nycbusiness/mydashboard";
-  dashboardLink.className = "block-link";
-  dashboardLink.textContent = "My Business Dashboard";
-  
+  const dashboardLi = document.createElement('li');
+  dashboardLi.className = 'nav-link';
+
+  const dashboardLink = document.createElement('a');
+  dashboardLink.href = '/nycbusiness/mydashboard';
+  dashboardLink.className = 'block-link';
+  dashboardLink.textContent = 'My Business Dashboard';
+
   dashboardLi.appendChild(dashboardLink);
   navList.appendChild(dashboardLi);
-  
+
   // Add dashboard link to mobile menu too
-  const mobileDashboardLi = document.createElement("li");
-  const mobileDashboardLink = document.createElement("a");
-  mobileDashboardLink.href = "/nycbusiness/mydashboard";
-  mobileDashboardLink.className = "block-link";
-  mobileDashboardLink.textContent = "My Business Dashboard";
+  const mobileDashboardLi = document.createElement('li');
+  const mobileDashboardLink = document.createElement('a');
+  mobileDashboardLink.href = '/nycbusiness/mydashboard';
+  mobileDashboardLink.className = 'block-link';
+  mobileDashboardLink.textContent = 'My Business Dashboard';
   mobileDashboardLi.appendChild(mobileDashboardLink);
   menuList.appendChild(mobileDashboardLi);
 
@@ -839,8 +1371,8 @@ export default async function decorate(block) {
     createIconLink(
       headerData.searchIconPath,
       headerData.searchIconAltText,
-      "https://www.nyc.gov/home/search/index.page?search-terms=&sitesearch=https:%2f%2fnyc-business.nyc.gov%2fnycbusiness"
-    )
+      'https://www.nyc.gov/home/search/index.page?search-terms=&sitesearch=https:%2f%2fnyc-business.nyc.gov%2fnycbusiness',
+    ),
   );
 
   // Help icon
@@ -848,8 +1380,8 @@ export default async function decorate(block) {
     createIconLink(
       headerData.helpIconPath,
       headerData.helpIconAltText,
-      headerData.helpIconLink
-    )
+      headerData.helpIconLink,
+    ),
   );
 
   // Profile icon
@@ -857,8 +1389,8 @@ export default async function decorate(block) {
     createIconLink(
       headerData.profileIconPath,
       headerData.profileIconAltText,
-      "https://mycity-cs-dev-origin.nyc.gov/login?language=en&amp;redirectURL=https%3A%2F%2Fbusiness-dev.csc.nycnet%2Fnycbusiness%2Flogin%3FreturnPage%3Dhowtoguide%3FreturnFrom%3Dlogin"
-    )
+      'https://mycity-cs-dev-origin.nyc.gov/login?language=en&amp;redirectURL=https%3A%2F%2Fbusiness-dev.csc.nycnet%2Fnycbusiness%2Flogin%3FreturnPage%3Dhowtoguide%3FreturnFrom%3Dlogin',
+    ),
   );
 
   nav.appendChild(navList);
@@ -875,9 +1407,9 @@ export default async function decorate(block) {
   initializeHeaderInteractivity(header);
 
   // --- Inject #cboxOverlay for top-nav/modal compatibility (matches default-layout.html) ---
-  if (!document.getElementById('cboxOverlay')) {
+  if (!document.getElementById('cbox-overlay')) {
     const cboxOverlay = document.createElement('div');
-    cboxOverlay.id = 'cboxOverlay';
+    cboxOverlay.id = 'cbox-overlay';
     cboxOverlay.style.display = 'none';
     document.body.appendChild(cboxOverlay);
   }
@@ -885,6 +1417,13 @@ export default async function decorate(block) {
   // --- Add handler to show external-link-modal-template on .block-link.exitlink click ---
   // Use Colorbox-style structure for modal popup (from popUp.html)
   function handleExitLinkClick(e) {
+    if (!document.getElementById('material-symbols-font')) {
+      const link = document.createElement('link');
+      link.id = 'material-symbols-font';
+      link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined';
+      document.head.appendChild(link);
+    }
     // Only handle left-clicks and keyboard Enter
     if ((e.type === 'click' && e.button !== 0) || (e.type === 'keydown' && e.key !== 'Enter')) return;
     e.preventDefault();
@@ -895,12 +1434,12 @@ export default async function decorate(block) {
 
     // Remove any existing modal
     let colorbox = document.getElementById('colorbox');
-    let cboxOverlay = document.getElementById('cboxOverlay');
+    let cboxOverlay = document.getElementById('cbox-overlay');
     if (colorbox) colorbox.remove();
     if (cboxOverlay) cboxOverlay.style.display = 'block';
     else {
       cboxOverlay = document.createElement('div');
-      cboxOverlay.id = 'cboxOverlay';
+      cboxOverlay.id = 'cbox-overlay';
       cboxOverlay.style.display = 'block';
       cboxOverlay.style.position = 'fixed';
       cboxOverlay.style.top = '0';
@@ -928,16 +1467,16 @@ export default async function decorate(block) {
     colorbox.style.zIndex = '10000';
 
     colorbox.innerHTML = `
-      <div id="cboxWrapper" style="height: 534px; width: 611px">
+      <div id="cbox-wrapper" style="height: 534px; width: 611px">
         <div>
-          <div id="cboxTopLeft" style="float: left"></div>
-          <div id="cboxTopCenter" style="float: left; width: 611px"></div>
-          <div id="cboxTopRight" style="float: left"></div>
+          <div id="cbox-top-left" style="float: left"></div>
+          <div id="cbox-top-center" style="float: left; width: 611px"></div>
+          <div id="cbox-top-right" style="float: left"></div>
         </div>
         <div style="clear: left">
-          <div id="cboxMiddleLeft" style="float: left; height: 534px"></div>
-          <div id="cboxContent" style="float: left; width: 611px; height: 534px">
-            <div id="cboxLoadedContent" style="width: 531px; overflow: hidden; height: 454px">
+          <div id="cbox-middle-left" style="float: left; height: 534px"></div>
+          <div id="cbox-content" style="float: left; width: 611px; height: 534px">
+            <div id="cbox-loaded-content" style="width: 531px; overflow: hidden; height: 454px">
               <div class="modal external-link-modal content-block">
                 <div class="external-link-modal-header">
                   <div class="logo-container">
@@ -975,12 +1514,12 @@ export default async function decorate(block) {
             <div id="cboxLoadingOverlay" style="float: left; display: none"></div>
             <div id="cboxLoadingGraphic" style="float: left; display: none"></div>
           </div>
-          <div id="cboxMiddleRight" style="float: left; height: 534px"></div>
+          <div id="cbox-middle-right" style="float: left; height: 534px"></div>
         </div>
         <div style="clear: left">
-          <div id="cboxBottomLeft" style="float: left"></div>
-          <div id="cboxBottomCenter" style="float: left; width: 611px"></div>
-          <div id="cboxBottomRight" style="float: left"></div>
+          <div id="cbox-bottom-left" style="float: left"></div>
+          <div id="cbox-bottom-center" style="float: left; width: 611px"></div>
+          <div id="cbox-bottom-right" style="float: left"></div>
         </div>
       </div>
       <div style="position: absolute; width: 9999px; visibility: hidden; max-width: none; display: none;"></div>
@@ -993,7 +1532,9 @@ export default async function decorate(block) {
       const domain = urlObj.hostname;
       const domainSpan = colorbox.querySelector('#domainSpan');
       if (domainSpan) domainSpan.textContent = domain;
-    } catch (err) {}
+    } catch (err) {
+      // Silently handle errors during overlay cleanup
+    }
 
     // Close modal and overlay on cancel or close button
     const closeModal = () => {
@@ -1002,22 +1543,28 @@ export default async function decorate(block) {
       document.body.style.overflow = '';
     };
     const cancelBtn = colorbox.querySelector('#external-link-modal-cancel');
-    if (cancelBtn) cancelBtn.addEventListener('click', function(ev) {
-      ev.preventDefault();
-      closeModal();
-    });
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        closeModal();
+      });
+    }
     const closeBtn = colorbox.querySelector('#external-link-modal-close');
-    if (closeBtn) closeBtn.addEventListener('click', function(ev) {
-      ev.preventDefault();
-      closeModal();
-    });
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        closeModal();
+      });
+    }
     // Proceed to external link
     const submitBtn = colorbox.querySelector('#external-link-modal-submit');
-    if (submitBtn) submitBtn.addEventListener('click', function(ev) {
-      ev.preventDefault();
-      window.location = href;
-      closeModal();
-    });
+    if (submitBtn) {
+      submitBtn.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        window.location = href;
+        closeModal();
+      });
+    }
     // Trap focus inside modal
     setTimeout(() => {
       const focusable = colorbox.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
@@ -1029,7 +1576,7 @@ export default async function decorate(block) {
 
   // Attach handler to all current and future .block-link.exitlink anchors using capture phase
   function attachExitLinkHandlers() {
-    document.querySelectorAll('a.block-link.exitlink').forEach(link => {
+    document.querySelectorAll('a.block-link.exitlink').forEach((link) => {
       link.removeEventListener('click', handleExitLinkClick, true);
       link.removeEventListener('keydown', handleExitLinkClick, true);
       link.addEventListener('click', handleExitLinkClick, true);
@@ -1043,7 +1590,7 @@ export default async function decorate(block) {
   observer.observe(document.body, { childList: true, subtree: true });
 
   // --- Inject header-nav-bindings.js with nonce and log-out-button handler ---
-  // 1. Inject <script nonce="..." type="text/javascript" src="/nycbusiness/static/js/header-nav-bindings.js"></script>
+  // 1. Inject script with nonce and header-nav-bindings.js source
   const headerNavScriptId = 'header-nav-bindings-nonce';
   if (!document.getElementById(headerNavScriptId)) {
     const script = document.createElement('script');
@@ -1112,8 +1659,8 @@ export default async function decorate(block) {
   // 2. Add log-out-button handler (matches scripts.html inline script)
   setTimeout(() => {
     const elements = document.querySelectorAll('.log-out-button');
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].onclick = function(event) {
+    for (let i = 0; i < elements.length; i += 1) {
+      elements[i].onclick = (event) => {
         event.preventDefault();
         const form = this.closest('form');
         if (form) form.submit();
@@ -1124,7 +1671,7 @@ export default async function decorate(block) {
   // 3. Dynamically load key scripts if not already present (Handlebars, Colorbox, etc.)
   function loadScriptOnce(src, id, attrs = {}) {
     if (id && document.getElementById(id)) return;
-    if ([...document.scripts].some(s => s.src && s.src.includes(src))) return;
+    if ([...document.scripts].some((s) => s.src && s.src.includes(src))) return;
     const script = document.createElement('script');
     script.src = src;
     if (id) script.id = id;
@@ -1161,562 +1708,8 @@ export default async function decorate(block) {
   // OneLink (conditionally, if window.isBaseDomain !== undefined && !window.isBaseDomain)
   if (typeof window.isBaseDomain !== 'undefined' && !window.isBaseDomain) {
     loadScriptOnce('https://www.onelink-edge.com/moxie.min.js', 'onelink-lib', {
-      'referrerpolicy': 'no-referrer-when-downgrade',
-      'data-oljs': 'PEFE3-E878-E5CB-F4D9'
+      referrerpolicy: 'no-referrer-when-downgrade',
+      'data-oljs': 'PEFE3-E878-E5CB-F4D9',
     });
   }
-}
-
-/**
- * Initialize header interactivity
- * @param {HTMLElement} header - Header element
- */
-function initializeHeaderInteractivity(header) {
-  let activeAssociation = null;
-  let zIndexAcc = 900;
-  
-  // Helper functions matching header-nav-bindings.js
-  const isDesktopBreakPoint = function() {
-    if (!window.matchMedia) {
-      return false; // Mobile-first approach
-    }
-    return window.matchMedia("(min-width: 810px)").matches;
-  };
-
-  const setVisibilityOfElements = function(elementList, visibleStyle) {
-    elementList.forEach(function(el) {
-      if (el.tagName.toLowerCase() === 'header') {
-        return;
-      }
-      el.style.visibility = typeof visibleStyle === 'string' && visibleStyle.toLowerCase() === 'hidden' ? visibleStyle : '';
-    });
-  };
-
-  const handleTabTrap = function() {
-    const trapSelector = 'footer, body > *, header .language-toggle-wrap, header .nav-text-links .nav-icon, header .nav-mobile-menu a[data-menu-id="mobile-menu"], header .logo-band, header .nav-tag-line';
-    const hasOpenMenu = !!Array.from(header.querySelector('nav').classList).find(function(className) {
-      return className.indexOf('submenu::') >= 0;
-    });
-    const elements = Array.from(document.querySelectorAll(trapSelector));
-    
-    if (hasOpenMenu && !isDesktopBreakPoint()) {
-      setVisibilityOfElements(elements, 'hidden');
-      return;
-    }
-    setVisibilityOfElements(elements);
-  };
-
-  // Function to find all menu links with submenus
-  const topNav = header.querySelector('nav');
-  const subMenus = Array.from(topNav.querySelectorAll('[data-submenu-for]'));
-  const subMenuButton = header.querySelector('.nav-mobile-menu > a');
-  
-  // Create map of links with their associated submenus
-  const linksWithSubMenus = Array.from(topNav.querySelectorAll('[data-menu-id]')).map(function(link) {
-    const menuId = link.getAttribute('data-menu-id');
-    
-    return {
-      revealDelayId: null,
-      hideDelayId: null,
-      link: link,
-      subMenus: subMenus.filter(function(menu) {
-        return menu.getAttribute('data-submenu-for') === menuId;
-      })
-    };
-  });
-  
-  // Find association by link
-  const findAssociated = function(link) {
-    const target = link.tagName.toUpperCase() === 'A' ? link : link.closest('a');
-    return linksWithSubMenus.find(function(item) {
-      return item.link === target;
-    }) || null;
-  };
-  
-  const findOpenMenus = function() {
-    const menuIds = Array.from(topNav.classList).filter(function(c) {
-      return c.indexOf('submenu::') === 0;
-    }).map(function(c) {
-      return c.replace(/^submenu\:\:/i, '');
-    });
-    return menuIds;
-  };
-  
-  // Helper function to cancel timers
-  const cancelRevealAndHide = function(associated) {
-    if (associated.revealDelayId) {
-      cancelAnimationFrame(associated.revealDelayId);
-      associated.revealDelayId = null;
-    }
-    if (associated.hideDelayId) {
-      clearTimeout(associated.hideDelayId);
-      associated.hideDelayId = null;
-    }
-  };
-  
-  // Show submenu with optional delay
-  const showSubmenu = function(associated, delayAction, openCallback) {
-    const menuAction = function() {
-      if (associated.revealDelayId !== null) {
-        clearTimeout(associated.revealDelayId);
-        associated.revealDelayId = null;
-      }
-
-      const menuId = associated.link.getAttribute('data-menu-id');
-      topNav.classList.add('submenu::' + menuId);
-      associated.subMenus.forEach(function(m) {
-        m.classList.add('nav-sub-menu-visible');
-        m.style.display = "flex";
-        zIndexAcc++;
-        m.style.zIndex = zIndexAcc;
-      });
-      
-      associated.link.setAttribute('aria-expanded', 'true');
-      if (typeof openCallback === 'function') openCallback(associated);
-
-      if (subMenuButton === associated.link) {
-        subMenuButton.setAttribute('aria-expanded', 'true');
-      } else if (associated.link.closest('.nav-submenu-mobile')) {
-        subMenuButton.setAttribute('aria-expanded', 'false');
-      }
-    };
-    
-    activeAssociation = associated;
-    if (delayAction) {
-      associated.revealDelayId = requestAnimationFrame(menuAction);
-      return;
-    }
-    menuAction();
-  };
-
-  // Hide submenu with optional delay
-  const hideSubmenu = function(associated, delayAction, closeHandler) {
-    const menuAction = function() {
-      if (associated.hideDelayId !== null) {
-        clearTimeout(associated.hideDelayId);
-        associated.hideDelayId = null;
-      }
-
-      const menuId = associated.link.getAttribute('data-menu-id');
-      topNav.classList.remove('submenu::' + menuId);
-      associated.subMenus.forEach(function(m) {
-        m.classList.remove('nav-sub-menu-visible');
-        m.style.display = "none";
-        m.style.zIndex = undefined;
-      });
-      
-      associated.link.setAttribute('aria-expanded', 'false');
-      if (findOpenMenus().length === 0) {
-        zIndexAcc = 900;
-      }
-
-      if (subMenuButton === associated.link) {
-        subMenuButton.setAttribute('aria-expanded', 'false');
-      } else if (associated.link.closest('.nav-submenu-mobile')) {
-        subMenuButton.setAttribute('aria-expanded', 'true');
-      }
-      
-      if (typeof closeHandler === 'function') closeHandler(associated);
-    };
-    
-    if (activeAssociation === associated) {
-      activeAssociation = null;
-    }
-    
-    if (delayAction) {
-      associated.hideDelayId = setTimeout(menuAction, 666);
-      return;
-    }
-    menuAction();
-  };
-  
-  // Mobile menu handler
-  const mobileMenuHandler = function(ev) {
-    if (ev instanceof KeyboardEvent && ev.key !== 'Enter') {
-      return;
-    }
-    ev.preventDefault();
-    
-    const associated = findAssociated(subMenuButton);
-    const isMainMenuOpen = !!(topNav.classList.contains('menu-open'));
-
-    if (isMainMenuOpen) {
-      subMenuButton.setAttribute('aria-expanded', 'false');
-      topNav.classList.remove('menu-open');
-      document.querySelector('html').classList.remove('lock-scrolling');
-      document.body.classList.remove('lock-scrolling');
-      hideSubmenu(associated, false);
-      handleTabTrap();
-    } else {
-      subMenuButton.setAttribute('aria-expanded', 'true');
-      topNav.classList.add('menu-open');
-      document.querySelector('html').classList.add('lock-scrolling');
-      document.body.classList.add('lock-scrolling');
-      showSubmenu(associated, false, function() {
-        const firstLink = associated.subMenus[0].querySelector('ul.nav-submenu-items li a');
-        if (firstLink) firstLink.focus();
-      });
-      handleTabTrap();
-    }
-  };
-  
-  // Mouse hover handlers
-  const linkOverHandler = function(ev, openCallback) {
-    // non desktop & mouse over
-    if (ev.type.toLowerCase() === 'mouseover' && !isDesktopBreakPoint()) {
-      return;
-    }
-    
-    const associated = findAssociated(ev.target);
-    if (!associated) {
-      return;
-    }
-    
-    // Cancel any existing timers
-    cancelRevealAndHide(associated);
-    
-    // Close any menus in the process of closing
-    linksWithSubMenus.forEach(function(link) {
-      if (!!link.hideDelayId) {
-        hideSubmenu(link, false);
-      }
-    });
-    
-    showSubmenu(associated, true, openCallback);
-  };
-  
-  const linkOutHandler = function(ev) {
-    // non desktop & mouse out
-    if (ev.type.toLowerCase() === 'mouseout' && !isDesktopBreakPoint()) {
-      return;
-    }
-    
-    const associated = findAssociated(ev.target);
-    if (!associated || (ev instanceof KeyboardEvent && ev.keyCode !== 9)) {
-      return;
-    }
-    
-    cancelRevealAndHide(associated);
-    hideSubmenu(associated, true);
-  };
-  
-  const linkClickHandler = function(ev, openCallback) {
-    ev.preventDefault();
-    const menuIds = findOpenMenus();
-    const associated = findAssociated(ev.target);
-    
-    // Close other open menus
-    linksWithSubMenus.forEach(function(l) {
-      const isFound = l.subMenus.find(function(m) {
-        return menuIds.includes(m.getAttribute('data-submenu-for'));
-      });
-
-      if (!!isFound && associated !== l && l.link.getAttribute('data-menu-id') !== 'mobile-menu') {
-        cancelRevealAndHide(l);
-        hideSubmenu(l, false);
-      }
-    });
-
-    // Special handling for mobile menu
-    const openHandler = !menuIds.includes('mobile-menu') ? openCallback : function(a) {
-      const findMobileClose = linksWithSubMenus.find(function(l) {
-        return l.link.getAttribute('data-menu-id') === 'mobile-menu';
-      });
-      
-      if (findMobileClose) {
-        cancelRevealAndHide(findMobileClose);
-      }
-      
-      if (typeof openCallback === 'function') openCallback(a);
-    };
-    
-    linkOverHandler(ev, openHandler);
-  };
-  
-  // Keyboard event handlers
-  const enterKeyHandler = function(ev) {
-    if (ev.key !== 'Enter') {
-      return;
-    }
-    
-    // stop sympathetic click event handler
-    ev.preventDefault();
-
-    const eventAssociated = findAssociated(ev.target);
-    if (!eventAssociated) return;
-    
-    const menuId = eventAssociated.link.getAttribute('data-menu-id');
-    
-    if (topNav.classList.contains('submenu::' + menuId)) {
-      cancelRevealAndHide(eventAssociated);
-      hideSubmenu(eventAssociated, false);
-      return;
-    }
-    
-    const thisSubmenu = ev.target.closest('.nav-submenu');
-    const thisMenuId = thisSubmenu ? thisSubmenu.getAttribute('data-submenu-for') : null;
-    
-    const openHandler = function(associated) {
-      const lastSubNav = associated.subMenus[associated.subMenus.length - 1];
-      if (!lastSubNav) {
-        return;
-      }
-      
-      requestAnimationFrame(function() {
-        let preferredFocusElement = null;
-        
-        if (thisMenuId && lastSubNav.classList.contains('nav-submenu')) {
-          preferredFocusElement = lastSubNav.querySelector(`ul.nav-submenu-items li a[data-menu-id="${thisMenuId}"]`);
-        }
-        
-        if (preferredFocusElement) {
-          preferredFocusElement.focus();
-          return;
-        }
-        
-        const firstLink = lastSubNav.querySelector('ul.nav-submenu-items li a');
-        if (firstLink) firstLink.focus();
-      });
-    };
-    
-    linkClickHandler(ev, openHandler);
-  };
-  
-  const escapeKeyHandler = function(ev) {
-    if (ev.key !== 'Escape' && ev.key !== 'Esc') {
-      return;
-    }
-
-    // Close expanded menus
-    const expandedSubmenus = document.querySelectorAll('[aria-expanded="true"]');
-    expandedSubmenus.forEach(submenu => {
-      submenu.setAttribute('aria-expanded', 'false');
-      const submenuId = submenu.getAttribute('aria-controls');
-      const submenuElement = document.getElementById(submenuId);
-      if (submenuElement) {
-        submenuElement.style.display = 'none';
-      }
-    });
-
-    // Handle active focus within a menu
-    if (document.activeElement === document.body) {
-      return;
-    }
-    
-    // Check if the focused element is a focusable element
-    const matchesActiveEl = function(selector) {
-      return document.activeElement.matches(selector);
-    };
-    
-    if (!['input[type="button"], input[type="submit"]', 'button', 'a[href]'].find(matchesActiveEl)) {
-      return;
-    }
-    
-    // Find the associated menu
-    const findAssociatedFromChildLink = function(link) {
-      const target = link.tagName.toUpperCase() === 'A' ? link : link.closest('a');
-      const submenu = target.closest('.nav-submenu');
-      
-      if (!submenu) {
-        return null;
-      }
-      
-      // Get the data-submenu-for attribute to find the matching menu item
-      const submenuFor = submenu.getAttribute('data-submenu-for');
-      
-      return linksWithSubMenus.find(function(item) {
-        // First, check if this is the menu associated with this submenu
-        if (item.link.getAttribute('data-menu-id') === submenuFor) {
-          return true;
-        }
-        
-        // If not found, use the desktop check logic
-        const isDesktop = isDesktopBreakPoint();
-        if (!isDesktop) {
-          return true;
-        }
-        return !item.link.closest('[data-submenu-for="mobile-menu"]');
-      }) || null;
-    };
-    
-    const associated = findAssociatedFromChildLink(document.activeElement);
-    if (!associated) {
-      return;
-    }
-
-    if (isDesktopBreakPoint()) {
-      hideSubmenu(associated, false);
-      associated.link.focus();
-      return;
-    }
-    
-    const isMobileMenu = associated.subMenus[0] === topNav.querySelector('[data-submenu-for="mobile-menu"]');
-    
-    if (isMobileMenu) {
-      // Close the mobile menu
-      const closeButton = associated.subMenus[0].querySelector('[data-menu-close]');
-      if (closeButton) closeButton.click();
-      return;
-    }
-    
-    // Handle back navigation in mobile submenus
-    const newEventTarget = associated.subMenus[0].querySelector('[data-menu-id="mobile-menu"]');
-    if (newEventTarget) {
-      // Simulate an Enter key press
-      const enterEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
-      newEventTarget.dispatchEvent(enterEvent);
-    }
-  };
-  
-  // Set up event handlers for menu links
-  linksWithSubMenus.forEach(function(item) {
-    if (item.link !== subMenuButton) {
-      item.link.addEventListener('mouseover', linkOverHandler);
-      item.link.addEventListener('mouseout', linkOutHandler);
-      item.link.addEventListener('click', linkClickHandler);
-      item.link.addEventListener('keydown', enterKeyHandler);
-    }
-  });
-  
-  // Add mouse enter/leave handlers for submenus
-  subMenus.forEach(function(menu) {
-    menu.addEventListener('mouseenter', function(ev) {
-      const menuIds = findOpenMenus();
-      if (menuIds.length === 0) return;
-      
-      const associated = linksWithSubMenus.find(function(link) {
-        if (!(link.hideDelayId || link.revealDelayId)) {
-          return false;
-        }
-        return link.subMenus.includes(ev.target);
-      });
-      
-      if (!associated) return;
-      cancelRevealAndHide(associated);
-      
-      menu.addEventListener('mouseleave', function() {
-        hideSubmenu(associated, true);
-      }, { once: true });
-    });
-  });
-  
-  // Close button handlers
-  Array.from(topNav.querySelectorAll('[data-menu-close]')).forEach(function(closeButton) {
-    closeButton.addEventListener('click', function(ev) {
-      ev.preventDefault();
-      
-      // Close all menus
-      linksWithSubMenus.forEach(function(item) {
-        cancelRevealAndHide(item);
-        hideSubmenu(item, false);
-      });
-      
-      // Reset mobile menu if needed
-      if (topNav.classList.contains('menu-open')) {
-        topNav.classList.remove('menu-open');
-        document.querySelector('html').classList.remove('lock-scrolling');
-        document.body.classList.remove('lock-scrolling');
-        subMenuButton.setAttribute('aria-expanded', 'false');
-      }
-      
-      zIndexAcc = 900;
-    });
-  });
-  
-  // Mobile menu button handlers
-  if (subMenuButton) {
-    subMenuButton.addEventListener('keydown', mobileMenuHandler);
-    subMenuButton.addEventListener('click', mobileMenuHandler);
-  }
-  
-  // Global key handlers
-  document.addEventListener('keydown', escapeKeyHandler);
-  
-  // Window resize handler
-  let resizeBounceId = null;
-  window.addEventListener('resize', function() {
-    if (resizeBounceId) {
-      clearTimeout(resizeBounceId);
-      resizeBounceId = null;
-    }
-    
-    resizeBounceId = setTimeout(function() {
-      if (resizeBounceId) {
-        clearTimeout(resizeBounceId);
-        resizeBounceId = null;
-      }
-      handleTabTrap();
-    }, 100);
-  });
-  
-  // Initialize exitlink functionality similar to external-links.js
-  document.addEventListener('click', function(e) {
-    // Check if the clicked element has the exitlink class
-    if (e.target.classList.contains('exitlink') || 
-        (e.target.parentNode && e.target.parentNode.classList.contains('exitlink'))) {
-      e.preventDefault();
-      
-      // Get the href from the clicked link or its parent
-      const link = e.target.tagName === 'A' ? e.target : e.target.closest('a');
-      if (!link) return;
-      
-      const href = link.getAttribute('href');
-      
-      // Skip if no href or it's a placeholder
-      if (!href || href === '' || href === '#') {
-        return;
-      }
-      
-      // Check if there's a colorbox function available (modal)
-      if (typeof window.jQuery !== 'undefined' && typeof window.jQuery.colorbox === 'function') {
-        try {
-          const domain = new URL(href).hostname;
-          const jQuery = window.jQuery;
-          
-          jQuery.colorbox({
-            onLoad: function() {
-              jQuery('#cboxClose').remove();
-            },
-            onComplete: function() {
-              jQuery('#domainSpan').text(`${domain}?`);
-            },
-            transition: 'none',
-            fixed: true,
-            open: true,
-            scrolling: false,
-            escKey: false,
-            overlayClose: false,
-            focus: true,
-            html: jQuery('#external-link-modal-template').length && typeof Handlebars !== 'undefined'
-              ? Handlebars.compile(jQuery('#external-link-modal-template').html())({ className: '' })
-              : `<div class="external-link-modal">
-                  <h2>You are leaving the NYC.gov domain</h2>
-                  <p>Are you sure you want to go to <span id="domainSpan">${domain}?</span></p>
-                  <div class="button-group">
-                    <button id="external-link-modal-submit" class="btn-primary">Yes</button>
-                    <button id="external-link-modal-cancel" class="btn-secondary">No</button>
-                  </div>
-                </div>`
-          });
-          
-          // Set up handlers for modal buttons
-          jQuery(document).on('click', '#external-link-modal-submit', function() {
-            window.location = href;
-          });
-          
-          jQuery(document).on('click', '#external-link-modal-cancel', function(e) {
-            e.preventDefault();
-            jQuery.colorbox.close();
-          });
-        } catch (error) {
-          console.error('Error processing exitlink:', error);
-          // Fallback to direct navigation if modal fails
-          window.location = href;
-        }
-      } else {
-        // If colorbox isn't available, just follow the link
-        window.location = href;
-      }
-    }
-  });
 }
