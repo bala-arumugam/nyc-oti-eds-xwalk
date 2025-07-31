@@ -1,11 +1,10 @@
-
-export default async function decorate(doc) {
+function createMenu(){
   const order = new Set();
   const main = document.querySelector('main');
   const tabs = main.querySelectorAll('[data-tab-name]')
 
   if (tabs.length) {
-    tabs.forEach(tab => {
+    tabs.forEach((tab, idx) => {
       const { tabName } = tab.dataset;
       order.add(tabName);
     });
@@ -20,6 +19,10 @@ export default async function decorate(doc) {
     menu.innerHTML = `<ul>${listItems}</ul>`;
     main.prepend(menu)
   }
+}
 
 
+export default async function decorate(doc) {
+  createMenu();
+  console.log("Menu created", doc);
 }

@@ -14,7 +14,7 @@ import { decorateSections, decorateBlocks } from "./aem.js"
  *
  * @param {HTMLElement} main - The root element containing tab sections to process and group.
  */
-export function preTags(main) {
+export function preTabs(main) {
   decorateSections(main)
 
   const group = {}
@@ -95,6 +95,6 @@ export function preTags(main) {
  */
 export async function autoBlock(main) {
   if (main.querySelectorAll('[data-tab-name]')) {
-    // preTags(main);
+    preTabs(main);
   }
 }
