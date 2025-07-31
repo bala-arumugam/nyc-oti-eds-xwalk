@@ -12,6 +12,8 @@ import {
   loadCSS,
 } from './aem.js';
 
+import {autoBlock} from "./util.js"
+
 /**
  * Moves all the attributes from a given elmenet to another given element.
  * @param {Element} from the element to copy attributes from
@@ -62,9 +64,10 @@ async function loadFonts() {
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks() {
+function buildAutoBlocks(main) {
   try {
     // TODO: add auto block, if needed
+    autoBlock(main)
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
