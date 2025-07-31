@@ -16,7 +16,8 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "body"
     ]
   },
   {
@@ -27,7 +28,8 @@
       "accordion",
       "contact",
       "card-fee",
-      "process"
+      "process",
+      "body"
     ]
   },
   {
