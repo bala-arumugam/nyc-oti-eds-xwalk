@@ -24,29 +24,25 @@
           "component": "boolean",
           "valueType": "boolean",
           "label": "Show About ",
-          "name": "about",
-          "value": true
+          "name": "about"
         },
         {
           "component": "boolean",
           "valueType": "boolean",
           "label": "Show the How to Apply",
-          "name": "how-to-apply",
-          "value": true
+          "name": "how-to-apply"
         },
         {
           "component": "boolean",
           "valueType": "boolean",
           "label": "Show After You Apply",
-          "name": "after-you-apply",
-          "value": true
+          "name": "after-you-apply"
         },
         {
           "component": "boolean",
           "valueType": "boolean",
           "label": "Show Operating & Renewing",
-          "name": "operating-renewing",
-          "value": true
+          "name": "operating-renewing"
         }
       ]
     }
