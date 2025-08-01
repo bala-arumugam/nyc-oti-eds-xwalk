@@ -10,10 +10,14 @@
   background-color: #0042A799;
   width: 100%;
   height: auto;
+  display: flex;
+  align-items: center;
 }
 
 .hero h1 {
-  max-width: 80%;
+  max-width: 1224px;
+  margin: 0 auto;
+  padding: 4rem 24px;
   height: auto;
   width: 100%;
   color: #FFF;
@@ -21,9 +25,6 @@
   font-style: normal;
   font-weight: 700;
   line-height: 1.3;
-
-  /* top | right | bottom | left */
-  padding: 4rem 1rem 4rem 9%;
 }
 
 .hero picture {
@@ -41,6 +42,10 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+
+.hero > div:nth-child(2){
+  flex:1
 }
 
 @media (width >= 900px) {
