@@ -344,7 +344,7 @@
               "page": {
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
-                  "model": "section-body",
+                  "model": "section-model",
                   "filter": "section-body",
                   "name": "Section config (Body)"
                 }
@@ -360,7 +360,7 @@
               "page": {
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
-                  "model": "section-description",
+                  "model": "section-model",
                   "filter": "section-description",
                   "tab-section-name": "Description",
                   "name": "Section Description"
@@ -377,7 +377,7 @@
               "page": {
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
-                  "model": "section-additional",
+                  "model": "section-model",
                   "filter": "section-additional",
                   "tab-section-name": "Additional",
                   "name": "Section Additional"
@@ -394,7 +394,7 @@
               "page": {
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
-                  "model": "section-process-step",
+                  "model": "section-model",
                   "filter": "section-process-step",
                   "name": "Section Process Step"
                 }
