@@ -7,12 +7,7 @@ function initializeHeaderInteractivity(header) {
   let zIndexAcc = 900;
 
   // Helper functions matching header-nav-bindings.js
-  const isDesktopBreakPoint = () => {
-    if (!window.matchMedia) {
-      return false; // Mobile-first approach
-    }
-    return window.matchMedia('(min-width: 810px)').matches;
-  };
+  const isDesktopBreakPoint = () => window.matchMedia?.('(min-width: 810px)').matches || false;
 
   const setVisibilityOfElements = (elementList, visibleStyle) => {
     elementList.forEach((el) => {
@@ -25,8 +20,8 @@ function initializeHeaderInteractivity(header) {
 
   const handleTabTrap = (forceRestore) => {
     const trapSelector = 'footer, body > *, header .language-toggle-wrap, header .nav-text-links .nav-icon, header .nav-mobile-menu a[data-menu-id="mobile-menu"], header .logo-band, header .nav-tag-line';
-    const hasOpenMenu = !!Array.from(header.querySelector('nav').classList).find((className) => className.indexOf('submenu::') >= 0);
-    const elements = Array.from(document.querySelectorAll(trapSelector));
+    const hasOpenMenu = header.querySelector('nav').classList.contains('menu-open') || [...header.querySelector('nav').classList].some((cls) => cls.startsWith('submenu::'));
+    const elements = [...document.querySelectorAll(trapSelector)];
 
     if ((hasOpenMenu && !isDesktopBreakPoint()) && !forceRestore) {
       setVisibilityOfElements(elements, 'hidden');
@@ -58,10 +53,9 @@ function initializeHeaderInteractivity(header) {
     return linksWithSubMenus.find((item) => item.link === target) || null;
   };
 
-  const findOpenMenus = () => {
-    const menuIds = Array.from(topNav.classList).filter((c) => c.indexOf('submenu::') === 0).map((c) => c.replace(/^submenu::/i, ''));
-    return menuIds;
-  };
+  const findOpenMenus = () => [...topNav.classList]
+    .filter((c) => c.startsWith('submenu::'))
+    .map((c) => c.replace(/^submenu::/i, ''));
 
   // Helper function to cancel timers
   const cancelRevealAndHide = (associated) => {
@@ -159,7 +153,7 @@ function initializeHeaderInteractivity(header) {
     ev.preventDefault();
 
     const associated = findAssociated(subMenuButton);
-    const isMainMenuOpen = !!(topNav.classList.contains('menu-open'));
+    const isMainMenuOpen = topNav.classList.contains('menu-open');
 
     if (isMainMenuOpen) {
       subMenuButton.setAttribute('aria-expanded', 'false');
@@ -186,7 +180,7 @@ function initializeHeaderInteractivity(header) {
   // Mouse hover handlers
   const linkOverHandler = (ev, openCallback) => {
     // non desktop & mouse over
-    if (ev.type.toLowerCase() === 'mouseover' && !isDesktopBreakPoint()) {
+    if (ev.type === 'mouseover' && !isDesktopBreakPoint()) {
       return;
     }
 
@@ -210,12 +204,12 @@ function initializeHeaderInteractivity(header) {
 
   const linkOutHandler = (ev) => {
     // non desktop & mouse out
-    if (ev.type.toLowerCase() === 'mouseout' && !isDesktopBreakPoint()) {
+    if (ev.type === 'mouseout' && !isDesktopBreakPoint()) {
       return;
     }
 
     const associated = findAssociated(ev.target);
-    if (!associated || (ev instanceof KeyboardEvent && ev.keyCode !== 9)) {
+    if (!associated || (ev instanceof KeyboardEvent && ev.key !== 'Tab')) {
       return;
     }
 
@@ -230,9 +224,9 @@ function initializeHeaderInteractivity(header) {
 
     // Close other open menus
     linksWithSubMenus.forEach((l) => {
-      const isFound = l.subMenus.find((m) => menuIds.includes(m.getAttribute('data-submenu-for')));
+      const isFound = l.subMenus.some((m) => menuIds.includes(m.getAttribute('data-submenu-for')));
 
-      if (!!isFound && associated !== l && l.link.getAttribute('data-menu-id') !== 'mobile-menu') {
+      if (isFound && associated !== l && l.link.getAttribute('data-menu-id') !== 'mobile-menu') {
         cancelRevealAndHide(l);
         hideSubmenu(l, false);
       }
@@ -276,21 +270,18 @@ function initializeHeaderInteractivity(header) {
     const thisMenuId = thisSubmenu ? thisSubmenu.getAttribute('data-submenu-for') : null;
 
     const openHandler = (associated) => {
-      const lastSubNav = associated.subMenus[associated.subMenus.length - 1];
+      const lastSubNav = associated.subMenus.at(-1);
       if (!lastSubNav) {
         return;
       }
 
       requestAnimationFrame(() => {
-        let preferredFocusElement = null;
-
         if (thisMenuId && lastSubNav.classList.contains('nav-submenu')) {
-          preferredFocusElement = lastSubNav.querySelector(`ul.nav-submenu-items li a[data-menu-id="${thisMenuId}"]`);
-        }
-
-        if (preferredFocusElement) {
-          preferredFocusElement.focus();
-          return;
+          const preferredFocusElement = lastSubNav.querySelector(`ul.nav-submenu-items li a[data-menu-id="${thisMenuId}"]`);
+          if (preferredFocusElement) {
+            preferredFocusElement.focus();
+            return;
+          }
         }
 
         const firstLink = lastSubNav.querySelector('ul.nav-submenu-items li a');
@@ -339,9 +330,8 @@ function initializeHeaderInteractivity(header) {
     }
 
     // Check if the focused element is a focusable element
-    const matchesActiveEl = (selector) => document.activeElement.matches(selector);
-
-    if (!['input[type="button"], input[type="submit"]', 'button', 'a[href]'].find(matchesActiveEl)) {
+    const { activeElement } = document;
+    if (!activeElement.matches('input[type="button"], input[type="submit"], button, a[href]')) {
       return;
     }
 
@@ -357,19 +347,9 @@ function initializeHeaderInteractivity(header) {
       // Get the data-submenu-for attribute to find the matching menu item
       const submenuFor = submenu.getAttribute('data-submenu-for');
 
-      return linksWithSubMenus.find((item) => {
-        // First, check if this is the menu associated with this submenu
-        if (item.link.getAttribute('data-menu-id') === submenuFor) {
-          return true;
-        }
-
+      return linksWithSubMenus.find((item) => item.link.getAttribute('data-menu-id') === submenuFor
         // If not found, use the desktop check logic
-        const isDesktop = isDesktopBreakPoint();
-        if (!isDesktop) {
-          return true;
-        }
-        return !item.link.closest('[data-submenu-for="mobile-menu"]');
-      }) || null;
+        || (!isDesktopBreakPoint() || !item.link.closest('[data-submenu-for="mobile-menu"]'))) || null;
     };
 
     const associated = findAssociatedFromChildLink(document.activeElement);
@@ -417,12 +397,8 @@ function initializeHeaderInteractivity(header) {
       const menuIds = findOpenMenus();
       if (menuIds.length === 0) return;
 
-      const associated = linksWithSubMenus.find((link) => {
-        if (!(link.hideDelayId || link.revealDelayId)) {
-          return false;
-        }
-        return link.subMenus.includes(ev.target);
-      });
+      const associated = linksWithSubMenus.find((link) => (link.hideDelayId
+        || link.revealDelayId) && link.subMenus.includes(ev.target));
 
       if (!associated) return;
       cancelRevealAndHide(associated);
@@ -434,29 +410,31 @@ function initializeHeaderInteractivity(header) {
   });
 
   // Close button handlers
-  Array.from(topNav.querySelectorAll('[data-menu-close]')).forEach((closeButton) => {
-    closeButton.addEventListener('click', (ev) => {
-      ev.preventDefault();
+  const handleCloseButtonClick = (ev) => {
+    ev.preventDefault();
 
-      // Close all menus
-      linksWithSubMenus.forEach((item) => {
-        cancelRevealAndHide(item);
-        hideSubmenu(item, false);
-      });
-
-      // Reset mobile menu if needed
-      if (topNav.classList.contains('menu-open')) {
-        topNav.classList.remove('menu-open');
-        document.querySelector('html').classList.remove('lock-scrolling');
-        document.body.classList.remove('lock-scrolling');
-        subMenuButton.setAttribute('aria-expanded', 'false');
-
-        // Force restore visibility of important elements
-        handleTabTrap(true);
-      }
-
-      zIndexAcc = 900;
+    // Close all menus
+    linksWithSubMenus.forEach((item) => {
+      cancelRevealAndHide(item);
+      hideSubmenu(item, false);
     });
+
+    // Reset mobile menu if needed
+    if (topNav.classList.contains('menu-open')) {
+      topNav.classList.remove('menu-open');
+      document.querySelector('html').classList.remove('lock-scrolling');
+      document.body.classList.remove('lock-scrolling');
+      subMenuButton.setAttribute('aria-expanded', 'false');
+
+      // Force restore visibility of important elements
+      handleTabTrap(true);
+    }
+
+    zIndexAcc = 900;
+  };
+
+  [...topNav.querySelectorAll('[data-menu-close]')].forEach((closeButton) => {
+    closeButton.addEventListener('click', handleCloseButtonClick);
   });
 
   // Mobile menu button handlers
@@ -468,22 +446,16 @@ function initializeHeaderInteractivity(header) {
   // Global key handlers
   document.addEventListener('keydown', escapeKeyHandler);
 
-  // Window resize handler
-  let resizeBounceId = null;
-  window.addEventListener('resize', () => {
-    if (resizeBounceId) {
-      clearTimeout(resizeBounceId);
-      resizeBounceId = null;
-    }
+  // Window resize handler with debounce
+  const debounce = (fn, delay) => {
+    let timeoutId;
+    return function debounced(...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => fn.apply(this, args), delay);
+    };
+  };
 
-    resizeBounceId = setTimeout(() => {
-      if (resizeBounceId) {
-        clearTimeout(resizeBounceId);
-        resizeBounceId = null;
-      }
-      handleTabTrap();
-    }, 100);
-  });
+  window.addEventListener('resize', debounce(handleTabTrap, 100));
 
   // Initialize exitlink functionality similar to external-links.js
   document.addEventListener('click', (e) => {
@@ -562,22 +534,59 @@ function initializeHeaderInteractivity(header) {
  * @returns {boolean} - True if the URL is an NYC government URL or internal link
  */
 function isNycGovUrl(url) {
-  const urlPredicates = [
-    (testUrl) => testUrl === undefined || testUrl === null || testUrl === '' || testUrl === '#',
-    (testUrl) => testUrl.match(/^https?:\/\/.*\.*nyc\.gov/i),
-    (testUrl) => testUrl.match(/^http:\/\/.*\.*nyc\.gov/i),
-    (testUrl) => testUrl.match(/^http:\/\/.*\.*csc\.nycnet/i),
-    (testUrl) => testUrl.match(/^https:\/\/.*\.*csc\.nycnet/i),
-    (testUrl) => testUrl.match(/^http:\/\/.*\.*nycid\.nycnet/i),
-    (testUrl) => testUrl.match(/^https:\/\/.*\.*nycid\.nycnet/i),
-    (testUrl) => testUrl.match(/^\//i),
-    (testUrl) => testUrl.match(/^javascript:/i),
-    (testUrl) => testUrl.match(/^#/i),
-    (testUrl) => testUrl.match(/^mailto:/i),
-    (testUrl) => testUrl.match(/^tel:/i),
+  if (!url || url === '' || url === '#') return true;
+
+  const patterns = [
+    /^https?:\/\/.*\.nyc\.gov/i,
+    /^https?:\/\/.*\.csc\.nycnet/i,
+    /^https?:\/\/.*\.nycid\.nycnet/i,
+    /^\//i,
+    /^javascript:/i,
+    /^#/i,
+    /^mailto:/i,
+    /^tel:/i,
   ];
 
-  return urlPredicates.some((testFn) => testFn(url));
+  return patterns.some((pattern) => pattern.test(url));
+}
+
+/**
+ * Helper function to create DOM elements with attributes and children
+ * @param {string} tag - HTML tag name
+ * @param {Object} attrs - Element attributes
+ * @param {Array|Node|string} children - Child elements or text content
+ * @returns {HTMLElement} - Created DOM element
+ */
+function createElement(tag, attrs = {}, children = []) {
+  const element = document.createElement(tag);
+
+  // Set attributes
+  Object.entries(attrs).forEach(([key, value]) => {
+    if (key === 'className') {
+      element.className = value;
+    } else if (key === 'textContent') {
+      element.textContent = value;
+    } else {
+      element.setAttribute(key, value);
+    }
+  });
+
+  // Add children
+  if (Array.isArray(children)) {
+    children.forEach((child) => {
+      if (child instanceof Node) {
+        element.appendChild(child);
+      } else if (child !== null && child !== undefined) {
+        element.appendChild(document.createTextNode(String(child)));
+      }
+    });
+  } else if (children instanceof Node) {
+    element.appendChild(children);
+  } else if (children !== null && children !== undefined) {
+    element.textContent = String(children);
+  }
+
+  return element;
 }
 
 /**
@@ -586,42 +595,25 @@ function isNycGovUrl(url) {
  * @returns {HTMLElement} - Logo band DOM element
  */
 function createLogoBand(headerData) {
-  const logoBandWrapper = document.createElement('div');
-  logoBandWrapper.className = 'logo-band-wrapper';
+  const logoImg = createElement('img', {
+    className: 'nav-logo-img',
+    src: headerData.logoPath,
+    alt: headerData.logoAltText || 'NYC',
+  });
 
-  const logoBand = document.createElement('div');
-  logoBand.className = 'logo-band';
+  const logoLink = createElement('a', {
+    href: 'https://nycmycity--qa.sandbox.my.site.com/s/', // This should be configurable
+    className: 'block-link exitlink',
+  }, [logoImg, headerData.logotitle]);
 
-  const navLogo = document.createElement('div');
-  navLogo.className = 'nav-logo';
+  const navLogo = createElement('div', { className: 'nav-logo' }, [
+    logoLink,
+    ` ${headerData.logosubtitle}`, // Space before subtitle as in original
+  ]);
 
-  // Create logo link
-  const logoLink = document.createElement('a');
-  logoLink.href = 'https://nycmycity--qa.sandbox.my.site.com/s/'; // This should be configurable
-  logoLink.className = 'block-link exitlink';
+  const logoBand = createElement('div', { className: 'logo-band' }, [navLogo]);
 
-  // Create logo image
-  const logoImg = document.createElement('img');
-  logoImg.src = headerData.logoPath;
-  logoImg.className = 'nav-logo-img';
-  logoImg.alt = headerData.logoAltText || 'NYC';
-
-  // Append logo image and text to link
-  logoLink.appendChild(logoImg);
-  logoLink.appendChild(document.createTextNode(headerData.logotitle));
-
-  // Append link to nav-logo
-  navLogo.appendChild(logoLink);
-
-  // Add subtitle text as a separate text node outside the link
-  // This matches the structure in the Thymeleaf template
-  navLogo.appendChild(document.createTextNode(` ${headerData.logosubtitle}`));
-
-  // Build structure
-  logoBand.appendChild(navLogo);
-  logoBandWrapper.appendChild(logoBand);
-
-  return logoBandWrapper;
+  return createElement('div', { className: 'logo-band-wrapper' }, [logoBand]);
 }
 
 /**
@@ -1011,26 +1003,13 @@ function createNavItem(navItem, isMobile = false) {
  * @returns {HTMLElement} - Icon link list item
  */
 function createIconLink(iconPath, altText, href) {
-  const li = document.createElement('li');
-  li.className = 'nav-icon-link';
-
-  const link = document.createElement('a');
-  link.href = href;
-
-  // Check if this is an external link that should have the exitlink class
   const isExternal = !isNycGovUrl(href);
-  link.className = isExternal
-    ? 'block-link hidden-text my-city-link exitlink'
-    : 'block-link hidden-text my-city-link';
+  const linkClass = `block-link hidden-text my-city-link${isExternal ? ' exitlink' : ''}`;
 
-  const img = document.createElement('img');
-  img.src = iconPath;
-  img.alt = altText || '';
+  const img = createElement('img', { src: iconPath, alt: altText || '' });
+  const link = createElement('a', { href, className: linkClass }, [img]);
 
-  link.appendChild(img);
-  li.appendChild(link);
-
-  return li;
+  return createElement('li', { className: 'nav-icon-link' }, [link]);
 }
 
 /**
@@ -1069,10 +1048,33 @@ function createLanguageToggle() {
  * Fetches header data from AEM experience fragment Sling Model JSON endpoint
  * @returns {Promise<Object>} The header data
  */
+// Use an AbortController to limit fetch time
+const fetchWithTimeout = async (url, options = {}, timeout = 5000) => {
+  const controller = new AbortController();
+  const { signal } = controller;
+
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  try {
+    const response = await fetch(url, { ...options, signal });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
+};
+
 async function fetchHeaderData() {
   try {
-    // Fetch the JSON from the absolute path to the experience fragment
-    const response = await fetch(
+    // Cache the response in sessionStorage to avoid repeated fetches
+    const cachedData = sessionStorage.getItem('nycHeaderData');
+    if (cachedData) {
+      return JSON.parse(cachedData);
+    }
+
+    // Fetch the JSON from the absolute path to the experience fragment with timeout
+    const response = await fetchWithTimeout(
       'https://cors-anywhere.herokuapp.com/https://oti-wcms-dev-publish.nyc.gov/content/experience-fragments/mycity/us/en/business/global/header/master.model.json',
     );
 
@@ -1084,10 +1086,8 @@ async function fetchHeaderData() {
 
     const data = await response.json();
 
-    // Extract header component data
-    const root = data[':items']?.root || {};
-    const rootItemsInner = root[':items'] || {};
-    const headerComponent = rootItemsInner.header || {};
+    // Extract header component data using optional chaining
+    const headerComponent = data[':items']?.root?.[':items']?.header || {};
 
     // Process navigationItems if they exist
     let navigationItems = [];
@@ -1153,32 +1153,32 @@ async function fetchHeaderData() {
         });
     }
 
-    return {
-      logoPath:
-        headerComponent.logoPath
-        || '/nycbusiness/static/img/reskin/NYC-logo-white.svg',
+    const headerResult = {
+      logoPath: headerComponent.logoPath || '/nycbusiness/static/img/reskin/NYC-logo-white.svg',
       logotitle: headerComponent.logotitle || 'MyCity',
-      logosubtitle:
-        headerComponent.logosubtitle
-        || 'Official website of the City of New York',
+      logosubtitle: headerComponent.logosubtitle || 'Official website of the City of New York',
       logoAltText: headerComponent.logoAltText || 'NYC White Logo',
       logoDecorative: headerComponent.logoDecorative || false,
       portaltitle: headerComponent.portaltitle || 'Business',
-      searchIconPath:
-        headerComponent.searchIconPath
-        || 'https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/search.png',
+      searchIconPath: headerComponent.searchIconPath || 'https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/search.png',
       searchIconAltText: headerComponent.searchIconAltText || 'Search',
-      profileIconPath:
-        headerComponent.profileIconPath
-        || 'https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/account_circle-1.png',
-      profileIconAltText:
-        headerComponent.profileIconAltText || 'Click here to view dashboard',
+      profileIconPath: headerComponent.profileIconPath || 'https://oti-wcms-dev-publish.nyc.gov/content/dam/mycity/business/en/icons/white-icons/account_circle-1.png',
+      profileIconAltText: headerComponent.profileIconAltText || 'Click here to view dashboard',
       helpIconPath: headerComponent.helpIconPath || '',
       helpIconAltText: headerComponent.helpIconAltText || 'Help Icon',
-      helpIconLink:
-        headerComponent.helpIconLink || '/nycbusiness/global/mycity-business-faq',
+      helpIconLink: headerComponent.helpIconLink || '/nycbusiness/global/mycity-business-faq',
       navigationItems,
     };
+
+    // Cache the result in sessionStorage for future use
+    try {
+      sessionStorage.setItem('nycHeaderData', JSON.stringify(headerResult));
+    } catch (cacheErr) {
+      // Ignore storage errors - they shouldn't stop the app from working
+      console.warn('Could not cache header data in sessionStorage');
+    }
+
+    return headerResult;
   } catch (error) {
     // Log error but suppress in production
     // Return default data in case of error
@@ -1234,34 +1234,32 @@ export default async function decorate(block) {
   }
 
   // 1. Create skip-to-main link
-  const skipLink = document.createElement('a');
-  skipLink.className = 'skip-main';
-  skipLink.href = '#main';
-  skipLink.textContent = 'Skip to main content';
+  const skipLink = createElement('a', {
+    className: 'skip-main',
+    href: '#main',
+    textContent: 'Skip to main content',
+  });
   block.appendChild(skipLink);
 
   // 2. Create header element
-  const header = document.createElement('header');
+  const header = createElement('header');
 
   // 3. Create logo band
   const logoBand = createLogoBand(headerData);
   header.appendChild(logoBand);
 
   // 4. Create main navigation
-  const nav = document.createElement('nav');
-  const navList = document.createElement('ul');
-  navList.className = 'clean-list main-nav-desktop';
+  const nav = createElement('nav');
+  const navList = createElement('ul', { className: 'clean-list main-nav-desktop' });
 
   // 4.1 Add business tag line
-  const tagLine = document.createElement('li');
-  tagLine.className = 'nav-tag-line';
+  const tagLink = createElement('a', {
+    href: '/nycbusiness/',
+    className: 'block-link',
+    textContent: headerData.portaltitle,
+  });
 
-  const tagLink = document.createElement('a');
-  tagLink.href = '/nycbusiness/';
-  tagLink.className = 'block-link';
-  tagLink.textContent = headerData.portaltitle;
-
-  tagLine.appendChild(tagLink);
+  const tagLine = createElement('li', { className: 'nav-tag-line' }, [tagLink]);
   navList.appendChild(tagLine);
 
   // 4.2 Add mobile menu button and container

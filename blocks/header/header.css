@@ -1147,8 +1147,6 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
 
 #colorbox #cbox-close::before {
     content: "\e5cd";
-
-    /* close icon */
     font-family: "Material Symbols Outlined", sans-serif;
     font-size: 40px;
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
@@ -1495,8 +1493,6 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 .modal .external-link-modal-footer .external-link-button::after,
 .external-link-modal .external-link-modal-footer .external-link-button::after {
     content: "\e89e";
-
-    /* open_in_new icon */
     font-family: "Material Symbols Outlined", sans-serif;
     font-size: 18px;
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
