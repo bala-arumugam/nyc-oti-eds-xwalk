@@ -183,8 +183,6 @@
         "component": "select",
         "name": "tab-section-name",
         "label": "Tab Section Name",
-        "description": "Helper Metadata",
-        "valueType": "string",
         "options": [
           {
             "name": "Section Description",
@@ -197,10 +195,6 @@
         ]
       }
     ]
-  },
-  {
-    "id": "accordion",
-    "fields": []
   },
   {
     "id": "accordion-item",
@@ -217,29 +211,9 @@
         "valueType": "string",
         "name": "content",
         "label": "Content",
-        "description": "Content",
-        "multi": true,
-        "raw": false
-      },
-      {
-        "component": "container",
-        "name": "content",
-        "label": "Tab Content",
-        "multi": true,
-        "allowedComponents": [
-          "text",
-          "image",
-          "hero",
-          "cards",
-          "columns",
-          "button"
-        ]
+        "description": "Content"
       }
     ]
-  },
-  {
-    "id": "card-fee",
-    "fields": []
   },
   {
     "id": "card-fee-item",
@@ -383,10 +357,6 @@
         "valueType": "string"
       }
     ]
-  },
-  {
-    "id": "regulation-config",
-    "fields": []
   },
   {
     "id": "step",

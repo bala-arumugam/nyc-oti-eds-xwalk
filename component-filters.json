@@ -140,10 +140,6 @@
     ]
   },
   {
-    "id": "regulation-config",
-    "components": []
-  },
-  {
     "id": "step",
     "components": [
       "title",

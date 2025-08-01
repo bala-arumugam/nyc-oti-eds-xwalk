@@ -12,7 +12,6 @@
               "filter": "card-fee",
               "name": "Card Fee",
               "card-fee-item": {
-                "model": "card-fee-item",
                 "filter": "card-fee-item",
                 "name": "Contact Item"
               }
@@ -39,11 +38,6 @@
     }
   ],
   "models": [
-    {
-      "id": "card-fee",
-      "fields": [
-      ]
-    },
     {
       "id": "card-fee-item",
       "fields": [

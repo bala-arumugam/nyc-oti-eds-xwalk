@@ -1,8 +1,8 @@
-import { createElement, detachAndReattach, detachAndReattachAll } from "../../scripts/util.js";
+import { createElement, detachAndReattach, detachAndReattachAll } from '../../scripts/util.js';
 
-function createMenu(main){
+function createMenu(main) {
   const order = new Set();
-  const tabs = main.querySelectorAll(".tabs > .tab")
+  const tabs = main.querySelectorAll('.tabs > .tab');
 
   if (tabs.length) {
     tabs.forEach((tab) => {
@@ -11,46 +11,48 @@ function createMenu(main){
     });
 
     const orderArray = Array.from(order);
-    
+
     // Create the menu container
-    const menu = createElement("div", { props: { className: "menu-regulation-index" } });
-    
+    const menu = createElement('div', { props: { className: 'menu-regulation-index' } });
+
     // Create the unordered list
-    const ul = createElement("ul");
-    
+    const ul = createElement('ul');
+
     // Create and append list items
-    orderArray.forEach(item => {
-      const li = createElement("li", { 
-        props: { 
-          className: `menu-item ${item.toLowerCase().replace(/\s+/g, "-")}` 
-        } 
+    orderArray.forEach((item) => {
+      const li = createElement('li', {
+        props: {
+          className: `menu-item ${item.toLowerCase().replace(/\s+/g, '-')}`,
+        },
       });
       li.textContent = item;
       ul.appendChild(li);
     });
-    
+
     // Assemble the menu
     menu.appendChild(ul);
 
     return menu;
   }
+
+  return null;
 }
 
-function decorateRegulationPage(){
- const list = {}
+function decorateRegulationPage() {
+  const list = {};
 
-  document.querySelectorAll('[data-tab-name]').forEach(t=>{
-    const {tabSectionName, tabName} = t.dataset   
-    if(tabName in list){
-      if(tabSectionName in list[tabName]){
-        list[tabName][tabSectionName].push(t)
-      }else{
-        list[tabName][tabSectionName] = [t]
+  document.querySelectorAll('[data-tab-name]').forEach((t) => {
+    const { tabSectionName, tabName } = t.dataset;
+    if (tabName in list) {
+      if (tabSectionName in list[tabName]) {
+        list[tabName][tabSectionName].push(t);
+      } else {
+        list[tabName][tabSectionName] = [t];
       }
-    }else{
-      list[tabName]={
-        [tabSectionName]: [t]
-      }
+    } else {
+      list[tabName] = {
+        [tabSectionName]: [t],
+      };
     }
   });
 
@@ -59,48 +61,47 @@ function decorateRegulationPage(){
   const sectionsWithoutTabName = document.querySelectorAll('.section:not([data-tab-name])');
 
   // Detach all tab elements from the DOM to reattach them later
-  tabElements.forEach(t => {
+  tabElements.forEach((t) => {
     // Detach the element (don't reattach yet)
     detachAndReattach(t);
-    
-    const {tabSectionName, tabName} = t.dataset;
-    
-    if(tabName in list){
-      if(tabSectionName in list[tabName]){
+
+    const { tabSectionName, tabName } = t.dataset;
+
+    if (tabName in list) {
+      if (tabSectionName in list[tabName]) {
         list[tabName][tabSectionName].push(t);
-      }else{
+      } else {
         list[tabName][tabSectionName] = [t];
       }
-    }else{
-      list[tabName]={
-        [tabSectionName]: [t]
-      }
+    } else {
+      list[tabName] = {
+        [tabSectionName]: [t],
+      };
     }
   });
 
-
   // Create the tabs container structure as shown in the comment
-  const tabsContainer = createElement("div", { props: { className: "tabs" } });
-  
+  const tabsContainer = createElement('div', { props: { className: 'tabs' } });
+
   // Iterate through the tabs list
   Object.entries(list).forEach(([tabName, sections]) => {
     // Create a new tab for each entry in the list
-    const newTab = createElement("div", { props: { className: "tab" }, attrs:{'data-tab-name':tabName} });
+    const newTab = createElement('div', { props: { className: 'tab' }, attrs: { 'data-tab-name': tabName } });
 
-    newTab.classList.add(tabName.toLowerCase().replace(/\s+/g, "-"));
-    
+    newTab.classList.add(tabName.toLowerCase().replace(/\s+/g, '-'));
+
     // Create a header element for the tab name
-    const tabHeader = createElement("h3", { props: { className: "tab-header" } });
+    const tabHeader = createElement('h3', { props: { className: 'tab-header' } });
     tabHeader.textContent = tabName;
     newTab.appendChild(tabHeader);
 
     // Create containers for this tab's content
-    const descriptionContent = createElement("div", { props: { className: "tab-description" } });
-    const additionalContent = createElement("div", { props: { className: "tab-additional" } });
-    
+    const descriptionContent = createElement('div', { props: { className: 'tab-description' } });
+    const additionalContent = createElement('div', { props: { className: 'tab-additional' } });
+
     // Add content to the appropriate sections
     Object.entries(sections).forEach(([sectionName, elements]) => {
-      elements.forEach(element => {
+      elements.forEach((element) => {
         if (sectionName === 'Description') {
           descriptionContent.appendChild(element);
         } else if (sectionName === 'Additional') {
@@ -108,7 +109,7 @@ function decorateRegulationPage(){
         }
       });
     });
-    
+
     // Add both sections to the tab
     newTab.appendChild(descriptionContent);
     newTab.appendChild(additionalContent);
@@ -119,13 +120,12 @@ function decorateRegulationPage(){
 
   // Get the main element and append the tabs container to it
   const main = document.querySelector('main');
-  
-  //Clear any existing content from main if needed
+
+  // Clear any existing content from main if needed
   main.innerHTML = ''; // Uncomment if you want to clear main first
-  
 
   // Create a wrapper with the class "regulation-index"
-  const regulationIndexWrapper = createElement("div", { props: { className: "regulation-index" } });
+  const regulationIndexWrapper = createElement('div', { props: { className: 'regulation-index' } });
 
   // Append the menu to the regulation-index wrapper (if it exists)
   const menu = createMenu(tabsContainer);
@@ -136,17 +136,15 @@ function decorateRegulationPage(){
   regulationIndexWrapper.appendChild(tabsContainer);
 
   // Append the regulation-index wrapper to the main element
-  const pageRegulationIndexPage = createElement("div", { props: { className: "page-regulation-index" } });
-  
+  const pageRegulationIndexPage = createElement('div', { props: { className: 'page-regulation-index' } });
+
   // Detach all elements without tab names and reattach them to the page regulation index
   detachAndReattachAll(sectionsWithoutTabName, pageRegulationIndexPage);
-  
-  pageRegulationIndexPage.appendChild(regulationIndexWrapper)
-  main.appendChild(pageRegulationIndexPage);
 
+  pageRegulationIndexPage.appendChild(regulationIndexWrapper);
+  main.appendChild(pageRegulationIndexPage);
 }
 
-export default async function decorate(doc) {
- decorateRegulationPage();
-
+export default async function decorate() {
+  decorateRegulationPage();
 }
