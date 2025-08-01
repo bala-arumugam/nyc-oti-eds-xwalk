@@ -171,3 +171,46 @@ export function appendChild(parent, child) {
     parent.appendChild(child);
   }
 }
+
+/**
+ * Detaches an element from its parent and optionally reattaches it to a new parent.
+ * This function allows for DOM elements to be moved rather than cloned.
+ * 
+ * @param {HTMLElement} element - The element to detach
+ * @param {HTMLElement} [newParent=null] - Optional new parent to attach the element to
+ * @returns {HTMLElement} The detached element
+ */
+export function detachAndReattach(element, newParent = null) {
+  // First check if the element is in the DOM
+  const parent = element.parentNode;
+  
+  // Only try to remove if there's a parent
+  if (parent) {
+    // Detach the element from its current parent
+    parent.removeChild(element);
+  }
+  
+  // If a new parent is provided, attach the element to it
+  if (newParent) {
+    newParent.appendChild(element);
+  }
+  
+  // Return the element for chaining
+  return element;
+}
+
+/**
+ * Detaches multiple elements from their parents and optionally reattaches them to a new parent.
+ * This is a batch version of detachAndReattach.
+ * 
+ * @param {NodeList|HTMLCollection|Array} elements - Collection of elements to detach
+ * @param {HTMLElement} [newParent=null] - Optional new parent to attach all elements to
+ * @returns {Array} Array of the detached elements
+ */
+export function detachAndReattachAll(elements, newParent = null) {
+  // Convert to array if it's a NodeList or HTMLCollection
+  const elementsArray = Array.from(elements);
+  
+  // Process each element
+  return elementsArray.map(element => detachAndReattach(element, newParent));
+}

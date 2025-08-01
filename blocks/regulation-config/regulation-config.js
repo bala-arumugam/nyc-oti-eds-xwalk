@@ -1,5 +1,4 @@
-import { createElement } from "../../scripts/util.js";
-
+import { createElement, detachAndReattach, detachAndReattachAll } from "../../scripts/util.js";
 
 function createMenu(main){
   const order = new Set();
@@ -37,9 +36,8 @@ function createMenu(main){
   }
 }
 
-
-export default async function decorate(doc) {
-  const list = {}
+function decorateRegulationPage(){
+ const list = {}
 
   document.querySelectorAll('[data-tab-name]').forEach(t=>{
     const {tabSectionName, tabName} = t.dataset   
@@ -56,14 +54,39 @@ export default async function decorate(doc) {
     }
   });
 
+  // Save all elements with data-tab-name attribute in a variable
+  const tabElements = document.querySelectorAll('[data-tab-name][data-tab-section-name]');
+  const sectionsWithoutTabName = document.querySelectorAll('.section:not([data-tab-name])');
+
+  // Detach all tab elements from the DOM to reattach them later
+  tabElements.forEach(t => {
+    // Detach the element (don't reattach yet)
+    detachAndReattach(t);
+    
+    const {tabSectionName, tabName} = t.dataset;
+    
+    if(tabName in list){
+      if(tabSectionName in list[tabName]){
+        list[tabName][tabSectionName].push(t);
+      }else{
+        list[tabName][tabSectionName] = [t];
+      }
+    }else{
+      list[tabName]={
+        [tabSectionName]: [t]
+      }
+    }
+  });
+
+
   // Create the tabs container structure as shown in the comment
   const tabsContainer = createElement("div", { props: { className: "tabs" } });
   
   // Iterate through the tabs list
   Object.entries(list).forEach(([tabName, sections]) => {
     // Create a new tab for each entry in the list
-    const newTab = createElement("div", { props: { className: "tab" } });
-    newTab.setAttribute('data-tab-name', tabName);
+    const newTab = createElement("div", { props: { className: "tab" }, attrs:{'data-tab-name':tabName} });
+
     newTab.classList.add(tabName.toLowerCase().replace(/\s+/g, "-"));
     
     // Create a header element for the tab name
@@ -113,8 +136,17 @@ export default async function decorate(doc) {
   regulationIndexWrapper.appendChild(tabsContainer);
 
   // Append the regulation-index wrapper to the main element
-  main.appendChild(regulationIndexWrapper);
+  const pageRegulationIndexPage = createElement("div", { props: { className: "page-regulation-index" } });
+  
+  // Detach all elements without tab names and reattach them to the page regulation index
+  detachAndReattachAll(sectionsWithoutTabName, pageRegulationIndexPage);
+  
+  pageRegulationIndexPage.appendChild(regulationIndexWrapper)
+  main.appendChild(pageRegulationIndexPage);
 
- 
+}
+
+export default async function decorate(doc) {
+ decorateRegulationPage();
 
 }

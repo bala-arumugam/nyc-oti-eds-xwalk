@@ -165,6 +165,40 @@
     ]
   },
   {
+    "id": "section-model",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "text",
+        "name": "tab-name",
+        "label": "Tab Name",
+        "description": "Helper Metadata"
+      },
+      {
+        "component": "multiselect",
+        "name": "tab-section-name",
+        "label": "Tab Section Name",
+        "description": "Helper Metadata",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Description",
+            "value": "Description"
+          },
+          {
+            "name": "Additional",
+            "value": "Additional"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "accordion",
     "fields": []
   },
@@ -202,10 +236,6 @@
         ]
       }
     ]
-  },
-  {
-    "id": "body",
-    "fields": []
   },
   {
     "id": "card-fee",
@@ -353,6 +383,10 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "regulation-config",
+    "fields": []
   },
   {
     "id": "step",

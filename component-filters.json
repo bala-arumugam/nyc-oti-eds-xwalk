@@ -34,6 +34,48 @@
     ]
   },
   {
+    "id": "section-description",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "body",
+      "process",
+      "accordion"
+    ]
+  },
+  {
+    "id": "section-additional",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "body",
+      "process",
+      "accordion"
+    ]
+  },
+  {
+    "id": "section-body",
+    "components": [
+      "regulation-config"
+    ]
+  },
+  {
+    "id": "section-process-step",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "body",
+      "process",
+      "accordion"
+    ]
+  },
+  {
     "id": "accordion",
     "components": [
       "accordion-item"
@@ -46,10 +88,6 @@
       "title",
       "button"
     ]
-  },
-  {
-    "id": "body",
-    "components": []
   },
   {
     "id": "card-fee",
@@ -101,6 +139,10 @@
     "components": [
       "button"
     ]
+  },
+  {
+    "id": "regulation-config",
+    "components": []
   },
   {
     "id": "step",
