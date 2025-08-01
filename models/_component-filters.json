@@ -3,7 +3,11 @@
     "id": "main",
     "components": [
       "section",
-      "section-ri"
+      "section-ri",
+      "section-body",
+      "section-description",
+      "section-additional",
+      "section-process-step"
     ]
   },
   {
