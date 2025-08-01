@@ -148,6 +148,8 @@ header>nav>ul .nav-link>a {
 
 .logo-band .nav-logo-img {
     margin-right: 2px;
+    width: 44px;
+    height: 16px;
 }
 
 @media (width >=810px) {
@@ -683,6 +685,11 @@ a.block-link:link,
 a.block-link:visited,
 a.block-link:hover {
     text-decoration: none;
+}
+
+.block-link>img{
+    height: 24px;
+    width: 24px;
 }
 
 .logo-band-wrapper .logo-band .nav-logo .nav-logo-img {

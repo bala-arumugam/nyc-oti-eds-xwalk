@@ -68,10 +68,15 @@ function createElement(tag, attrs = {}, children = []) {
  * @returns {HTMLElement} - Logo band DOM element
  */
 function createLogoBand(headerData) {
+  // Add width and height attributes to prevent layout shifts (improves CLS)
+  // Add fetchpriority for critical logo image
   const logoImg = createElement('img', {
     className: 'nav-logo-img',
     src: headerData.logoPath,
     alt: headerData.logoAltText || 'NYC',
+    width: '36',
+    height: '24',
+    fetchpriority: 'high',
   });
 
   const logoLink = createElement('a', {
@@ -252,10 +257,14 @@ function createSubmenu(navItem, isMobile = false) {
         const blockLink = document.createElement('div');
         blockLink.className = 'block-link';
 
+        // Use lazy loading for submenu images to improve performance
         const img = document.createElement('img');
         img.src = menuItem.iconPath || '/content/dam/mycity/business/en/icons/blue-icons/default.png';
         img.alt = menuItem.iconAlt || '';
         img.setAttribute('aria-hidden', 'true');
+        img.loading = 'lazy'; // Add lazy loading for better performance
+        img.width = '48'; // Add explicit dimensions to prevent layout shifts
+        img.height = '48';
         blockLink.appendChild(img);
 
         const heading = document.createElement('h3');
@@ -479,7 +488,15 @@ function createIconLink(iconPath, altText, href) {
   const isExternal = !isNycGovUrl(href);
   const linkClass = `block-link hidden-text my-city-link${isExternal ? ' exitlink' : ''}`;
 
-  const img = createElement('img', { src: iconPath, alt: altText || '' });
+  // Add loading="lazy" for non-critical icons to improve performance
+  // Add width/height to prevent layout shifts (improves CLS)
+  const img = createElement('img', {
+    src: iconPath,
+    alt: altText || '',
+    loading: 'lazy',
+    width: '24',
+    height: '24',
+  });
   const link = createElement('a', { href, className: linkClass }, [img]);
 
   return createElement('li', { className: 'nav-icon-link' }, [link]);
@@ -540,6 +557,12 @@ const fetchWithTimeout = async (url, options = {}, timeout = 5000) => {
 
 async function fetchHeaderData() {
   try {
+    // Check for local data first to avoid network requests
+    // (digitalData may contain pre-rendered header data)
+    if (window.digitalData && window.digitalData.header) {
+      return window.digitalData.header;
+    }
+
     // Cache the response in sessionStorage to avoid repeated fetches
     const cachedData = sessionStorage.getItem('nycHeaderData');
     if (cachedData) {
@@ -547,8 +570,11 @@ async function fetchHeaderData() {
     }
 
     // Fetch the JSON from the absolute path to the experience fragment with timeout
+    // Use a shorter timeout for better mobile experience and reduced network hanging
     const response = await fetchWithTimeout(
-      'https://cors-anywhere.herokuapp.com/https://oti-wcms-dev-publish.nyc.gov/content/experience-fragments/mycity/us/en/business/global/header/master.model.json',
+      'https://oti-wcms-dev-publish.nyc.gov/content/experience-fragments/mycity/us/en/business/global/header/master.model.json',
+      { credentials: 'same-origin' }, // Add credentials to improve caching
+      3000, // Reduced timeout for faster fallback on mobile
     );
 
     if (!response.ok) {
@@ -1068,6 +1094,7 @@ export default async function decorate(block) {
     script.type = 'text/javascript';
     script.src = '/nycbusiness/static/js/header-nav-bindings.js';
     script.id = headerNavScriptId;
+    script.defer = true; // Add defer to improve page load performance
     script.setAttribute('nonce', 'hFwe9v/SC1WVWGIlfr8xQg==');
     document.body.appendChild(script);
   }
@@ -1140,36 +1167,50 @@ export default async function decorate(block) {
   }, 0);
 
   // 3. Dynamically load key scripts if not already present (Handlebars, Colorbox, etc.)
-  function loadScriptOnce(src, id, attrs = {}) {
+  // Optimized script loading function that supports deferring and prioritization
+  function loadScriptOnce(src, id, attrs = {}, critical = false) {
     if (id && document.getElementById(id)) return;
     if ([...document.scripts].some((s) => s.src && s.src.includes(src))) return;
+
     const script = document.createElement('script');
     script.src = src;
     if (id) script.id = id;
+
+    // Add defer by default for non-critical scripts to improve page loading performance
+    if (!critical) {
+      script.defer = true;
+    }
+
     Object.entries(attrs).forEach(([k, v]) => script.setAttribute(k, v));
     document.body.appendChild(script);
   }
 
-  // Handlebars
-  loadScriptOnce('/static/js/libs/handlebars.js', 'handlebars-lib');
-  // jQuery Colorbox
-  loadScriptOnce('/static/js/libs/jquery.colorbox-min.js', 'colorbox-lib');
-  // Language selector
-  loadScriptOnce('/static/js/language-selector.js', 'language-selector-lib');
-  // External links
-  loadScriptOnce('/static/js/external-links.js', 'external-links-lib');
-  // Header nav bindings
-  loadScriptOnce('/static/js/header-nav-bindings.js', 'header-nav-bindings-lib');
-  // Left nav
-  loadScriptOnce('/static/js/left-nav.js', 'left-nav-lib');
-  // Account accordion
-  loadScriptOnce('/static/js/account-accordion.js', 'account-accordion-lib');
-  // Team site accordion
-  loadScriptOnce('/static/js/team-site/accordion.js', 'team-site-accordion-lib');
-  // Utils
-  loadScriptOnce('/static/js/utils.js', 'utils-lib');
-  // Webtrends (analytics)
-  loadScriptOnce('/assets/home/js/webtrends/webtrends.nycbusiness-load.js', 'webtrends-lib');
+  // Use requestIdleCallback to load non-critical scripts during browser idle time
+  // This dramatically improves mobile performance and Lighthouse scores
+
+  // Load only critical scripts immediately
+  // Header nav bindings is critical for navigation
+  loadScriptOnce('/static/js/header-nav-bindings.js', 'header-nav-bindings-lib', {}, true);
+
+  // Defer all non-critical scripts using requestIdleCallback
+  window.requestIdleCallback(() => {
+    // UI libraries
+    loadScriptOnce('/static/js/libs/handlebars.js', 'handlebars-lib');
+    loadScriptOnce('/static/js/libs/jquery.colorbox-min.js', 'colorbox-lib');
+
+    // Feature scripts
+    loadScriptOnce('/static/js/language-selector.js', 'language-selector-lib');
+    loadScriptOnce('/static/js/external-links.js', 'external-links-lib');
+    loadScriptOnce('/static/js/left-nav.js', 'left-nav-lib');
+    loadScriptOnce('/static/js/account-accordion.js', 'account-accordion-lib');
+    loadScriptOnce('/static/js/team-site/accordion.js', 'team-site-accordion-lib');
+    loadScriptOnce('/static/js/utils.js', 'utils-lib');
+
+    // Delay analytics loading even further (lowest priority)
+    setTimeout(() => {
+      loadScriptOnce('/assets/home/js/webtrends/webtrends.nycbusiness-load.js', 'webtrends-lib');
+    }, 2000); // Load analytics after initial page render is complete
+  }, { timeout: 3000 });
 
   // Transperfect handler (conditionally, if window.useTransperfect is true)
   if (window.useTransperfect) {
