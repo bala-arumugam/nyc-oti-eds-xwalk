@@ -1,13 +1,37 @@
 /* NYC Business Portal Header Styles - Compiled from SASS */
 
 /* nav.css - compiled from nav.scss */
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+
+/* Optimize font loading with display=swap for better rendering performance */
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
+
+/* Common Material Icons style - reduces repetition throughout CSS */
+.material-icon, 
+[class*="icon-"]::before,
+[class*="icon-"]::after {
+    font-family: var(--font-material);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1;
+    font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
+}
 
 /* Variables matching from variables.scss */
 :root {
     /* Colors */
     --blue: #0042a7;
     --base-blue: #025adf;
+    --white: #fff;
+    --black: #080707;
+    --light-gray: #eee;
+    --light-blue: #aceeff;
+    --gray: #d9d9d9;
+    --accent: #c46;
+    
+    /* Typography */
+    --font-material: "Material Symbols Outlined", sans-serif;
+    --font-montserrat: montserrat, "Open Sans", helvetica, arial, sans-serif;
+    --font-montserrat-simple: montserrat, arial, sans-serif;
     --highlight-blue: #aceeff;
     --gray-black: #080707;
     --gray-white: #fff;
@@ -51,7 +75,6 @@
 /* Logo band */
 .logo-band-wrapper {
     background-color: var(--blue);
-    background-color: #0042a7;
 }
 
 .logo-band {
@@ -68,18 +91,16 @@
     padding-bottom: 4px;
 }
 
-@media (width >=810px) {
-    .logo-band .nav-logo {
-        padding-top: 8px;
-        padding-bottom: 8px;
-        display: inline-flex;
-        align-items: center;
-    }
-}
-
+/* Navigation links styling */
 header>nav li>a {
     color: #fff;
     display: inline;
+}
+
+.nav-link>a {
+    color: var(--nav-text-light);
+    display: inline;
+    text-decoration: none;
 }
 
 .nav-tag-line,
@@ -87,12 +108,6 @@ header>nav li>a {
     color: var(--nav-text-light);
     font-weight: var(--bold-500);
     font-size: 1rem;
-}
-
-.nav-link>a {
-    color: var(--nav-text-light);
-    display: inline;
-    text-decoration: none;
 }
 
 .nav-submenu-items a {
@@ -116,7 +131,15 @@ header>nav>ul .nav-link>a {
     align-items: center;
 }
 
+/* Desktop styles */
 @media (width >=810px) {
+    .logo-band .nav-logo {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        display: inline-flex;
+        align-items: center;
+    }
+    
     .logo-band .nav-logo>a {
         margin-right: 16px;
         padding: 0;
@@ -137,7 +160,7 @@ header>nav>ul .nav-link>a {
 /* Header */
 header {
     width: 100%;
-    background-color: #025adf;
+    background-color: var(--base-blue);
     height: auto;
 }
 
@@ -196,16 +219,9 @@ header>nav {
 }
 
 /* Nav tag line */
-
 .nav-tag-line {
     margin-left: auto;
     margin-right: auto;
-}
-
-@media (width >=810px) {
-    .nav-tag-line {
-        margin-left: 0;
-    }
 }
 
 /* Nav link */
@@ -213,7 +229,12 @@ header>nav {
     display: none;
 }
 
+/* Desktop styles */
 @media (width >=810px) {
+    .nav-tag-line {
+        margin-left: 0;
+    }
+    
     .nav-link {
         display: inline;
         align-items: center;
@@ -222,9 +243,7 @@ header>nav {
         font-size: 0.95rem;
         font-weight: var(--bold2);
     }
-}
-
-@media (width >=810px) {
+    
     .nav-link>a {
         padding-top: 24px;
         padding-bottom: 24px;
@@ -256,37 +275,25 @@ header>nav {
     flex-wrap: wrap;
 }
 
-@media (width >=810px) {
-    .nav-submenu {
-        min-height: 376px;
-        display: none;
-        justify-content: center;
-        align-items: flex-start;
-        inset: 0;
-        position: fixed;
-        overflow: auto;
-        background-color: #fff;
-        box-sizing: border-box;
-        padding-top: 40px;
-        padding-bottom: 40px;
-        flex-wrap: wrap;
-        top: 100%;
-        bottom: auto;
-    }
-}
-
 .nav-submenu.nav-sub-menu-visible {
     display: block;
 }
 
+/* Desktop submenu styles */
 @media (width >=810px) {
-    .nav-submenu.nav-sub-menu-visible {
-        display: flex;
-        flex-wrap: nowrap;
+    .nav-submenu {
+        min-height: 376px;
+        position: fixed;
+        overflow: auto;
+        background-color: #fff;
+        top: 100%;
+        bottom: auto;
     }
-
+    
+    .nav-submenu.nav-sub-menu-visible,
     .nav-submenu.nav-sub-menu-visible.nav-submenu-mobile {
         display: flex;
+        flex-wrap: nowrap;
     }
 }
 
@@ -578,13 +585,10 @@ header .language-toggle {
 }
 
 .top-nav-account-options .manage-account-text::after {
-    font-family: "Material Symbols Outlined", sans-serif;
     content: "account_circle";
-    font-style: normal;
-    font-weight: 700;
     font-size: 24px;
-    line-height: 1;
-    font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
+
+    /* Material icon styles are applied via the selector pattern */
 }
 
 .top-nav-account-options .logout-text {
@@ -634,24 +638,26 @@ a.skip-main {
     font-size: 16px;
     line-height: 24px;
     text-align: left;
-    color: #080707;
+    color: var(--black);
     text-decoration: none;
 }
 
+/* Nav tag line styles */
 header>nav .main-nav-desktop .nav-tag-line,
 header>nav .main-nav-desktop .nav-tag-line a,
 header>nav .main-nav .nav-tag-line,
 header>nav .main-nav .nav-tag-line a {
-    color: #fff;
+    color: var(--white);
     font-weight: 500;
-    font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+    font-family: var(--font-montserrat);
     font-size: 21.056px;
     line-height: 31.584px;
 }
 
+/* Logo band styles */
 .logo-band-wrapper .logo-band,
 .logo-band-wrapper .logo-band .nav-logo>a {
-    color: #fff;
+    color: var(--white);
 }
 
 .logo-band-wrapper .logo-band {
@@ -723,6 +729,7 @@ header>nav .main-nav-desktop>.nav-mobile-menu {
     align-items: center;
 }
 
+/* Utility class for visually hidden text that remains accessible for screen readers */
 .hidden-text,
 .dashboard-slider .bx-controls.bx-has-controls-direction.bx-has-pager .bx-next,
 .dashboard-slider .bx-controls.bx-has-controls-direction.bx-has-pager .bx-prev,
@@ -732,7 +739,9 @@ header>nav .main-nav-desktop>.nav-mobile-menu {
     text-decoration: none;
 }
 
-.hidden-text span{
+/* Common hidden text pattern */
+.hidden-text span,
+.dashboard-slider .btn-slider-close span {
     text-indent: -999px;
     text-align: left;
     overflow: hidden;
@@ -741,19 +750,11 @@ header>nav .main-nav-desktop>.nav-mobile-menu {
     width: 0;
 }
 
+/* Success modal spans */
 .modal.alert-success span {
     font-size: 15px;
     line-height: 24px;
     font-weight: 700;
-}
-
-.dashboard-slider .btn-slider-close span{
-    text-indent: -999px;
-    text-align: left;
-    overflow: hidden;
-    display: block;
-    height: 0;
-    width: 0;
 }
 
 .modal .external-link-modal-header .logo-container span,
@@ -874,7 +875,7 @@ p {
 
 header>nav li>div.block-link,
 header>nav>ul .nav-link>div.block-link {
-    color: #080707;
+    color: var(--black);
     text-align: left;
     display: inline;
 }
@@ -895,6 +896,7 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
 }
 
 @media (width >=810px) {
+    /* Common desktop layout styles */
     .outside-gutter,
     .nav-submenu,
     footer .footer-section,
@@ -905,6 +907,7 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
         padding-right: 4.2375%;
     }
     
+    /* Desktop logo styles */
     .logo-band-wrapper .logo-band {
         font-weight: normal;
         font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
@@ -919,12 +922,14 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
         align-items: center;
     }
 
+    /* Nav link padding */
     header>nav li>a,
     header>nav>ul .nav-link>a {
         padding-top: 24px;
         padding-bottom: 24px;
     }
 
+    /* Nav hover/focus states with shared gradient */
     header>nav li:has(> .nav-current-tabfocus)>a,
     header>nav li:has(> a:hover)>a,
     header>nav li:has(> a:focus)>a {
@@ -936,6 +941,7 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
                 #aceeff 100%);
     }
 
+    /* Submenu link typography */
     .nav-submenu .nav-submenu-items a {
         font-weight: normal;
         font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
@@ -1040,7 +1046,7 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
         text-align: left;
         margin-bottom: 0;
         font-weight: 700;
-        font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+        font-family: var(--font-montserrat);
         font-size: 38px;
         line-height: 52px;
         max-width: 287px;
@@ -1493,7 +1499,7 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 .modal .external-link-modal-footer .external-link-button::after,
 .external-link-modal .external-link-modal-footer .external-link-button::after {
     content: "\e89e";
-    font-family: "Material Symbols Outlined", sans-serif;
+    font-family: var(--font-material);
     font-size: 18px;
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
@@ -1501,36 +1507,14 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 @media (width >=810px) {
     .content-block h4 {
         font-weight: 700;
-        font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+        font-family: var(--font-montserrat);
         font-size: 24px;
         line-height: 32px;
     }
 }
 
-.button-secondary {
-    background-color: #fff;
-    color: #c46;
-    border: 2px solid #c46;
-    padding: 16px 24px;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    border-radius: 4px;
-    font-weight: 700;
-    font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
-    letter-spacing: 1.6px;
-    text-decoration: none;
-    font-size: 13.137px;
-    line-height: 21.02px;
-    text-transform: uppercase;
-}
-
-.button-secondary:hover {
-    background-color: #fff;
-    color: #c46;
-    border: 2px solid #c46;
-}
-
+/* Common button styles */
+.button-secondary,
 .dashboard-content.account-overview .dashboard-interactions details .nycb-button.btn-default,
 .dashboard-content.account-overview .dashboard-slider .bx-wrapper .bx-viewport ul.bxslider>li .text a.link-btn,
 .dashboard-content.account-overview .dashboard-slider .bx-wrapper .bx-viewport ul.bxslider>li .text p a.link-btn,
@@ -1546,12 +1530,25 @@ a.button-back {
     gap: 8px;
     border-radius: 4px;
     font-weight: 700;
-    font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+    font-family: var(--font-montserrat);
     letter-spacing: 1.6px;
     text-decoration: none;
     font-size: 13.137px;
     line-height: 21.02px;
     text-transform: uppercase;
+}
+
+/* Secondary button specific styles */
+.button-secondary {
+    background-color: var(--white);
+    color: var(--accent);
+    border: 2px solid var(--accent);
+}
+
+.button-secondary:hover {
+    background-color: var(--white);
+    color: var(--accent);
+    border: 2px solid var(--accent);
 }
 
 /* Enhanced mobile menu styles */
