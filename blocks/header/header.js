@@ -1,6 +1,5 @@
 // Import the initializeHeaderInteractivity function from exitlink.js
-import { initializeHeaderInteractivity } from '../../scripts/exitlink.js';
-
+import initializeHeaderInteractivity from '../../scripts/exitlink.js';
 
 /**
  * Determines if a URL is an NYC government URL or should be treated as internal

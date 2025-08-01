@@ -1,4 +1,4 @@
-export function initializeHeaderInteractivity(header) {
+export default function initializeHeaderInteractivity(header) {
   let activeAssociation = null;
   let zIndexAcc = 900;
 
@@ -455,10 +455,11 @@ export function initializeHeaderInteractivity(header) {
 
   // Initialize exitlink functionality similar to external-links.js
   document.addEventListener('click', (e) => {
-    // Check if the clicked element has the exitlink class or is a child of an element with exitlink class
+    // Check if the clicked element has the exitlink class or
+    // is a child of an element with exitlink class
     let targetElement = e.target;
     let isExitLink = false;
-    
+
     // Check if clicked on an exitlink or child of exitlink
     while (targetElement && targetElement !== document.body) {
       if (targetElement.classList && targetElement.classList.contains('exitlink')) {
@@ -467,16 +468,14 @@ export function initializeHeaderInteractivity(header) {
       }
       targetElement = targetElement.parentNode;
     }
-    
+
     // If it's an exitlink or its descendant
     if (isExitLink) {
       e.preventDefault();
-      
+
       // Get the href from the clicked link or its parent
       const link = targetElement.tagName === 'A' ? targetElement : targetElement.closest('a');
       if (!link) return;
-      
-      console.log('Exit link clicked:', link.href); // Debug logging
 
       const href = link.getAttribute('href');
 
@@ -490,8 +489,6 @@ export function initializeHeaderInteractivity(header) {
         try {
           const domain = new URL(href).hostname;
           const { jQuery } = window;
-          
-          console.log('jQuery and colorbox found, showing modal for domain:', domain); // Debug logging
 
           jQuery.colorbox({
             onLoad() {
@@ -523,15 +520,13 @@ export function initializeHeaderInteractivity(header) {
           // Remove existing handlers first to prevent duplicates
           jQuery(document).off('click', '#external-link-modal-submit');
           jQuery(document).off('click', '#external-link-modal-cancel');
-          
+
           // Add new handlers
           jQuery(document).on('click', '#external-link-modal-submit', () => {
-            console.log('Proceeding to external link:', href); // Debug logging
             window.location = href;
           });
 
           jQuery(document).on('click', '#external-link-modal-cancel', (event) => {
-            console.log('External link canceled'); // Debug logging
             event.preventDefault();
             jQuery.colorbox.close();
           });
