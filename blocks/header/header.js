@@ -1,612 +1,6 @@
-/**
- * Initializes the header interactivity including navigation menus, mobile handling and more
- * @param {Element} header - The header DOM element
- */
-function initializeHeaderInteractivity(header) {
-  let activeAssociation = null;
-  let zIndexAcc = 900;
-  let resizeRAF = null;
+// Import the initializeHeaderInteractivity function from exitlink.js
+import { initializeHeaderInteractivity } from '../../scripts/exitlink.js';
 
-  // Detect if we're on a mobile device for optimized event handling
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-  // Passive event listener option - improves scroll performance
-  const passiveOption = { passive: true };
-  const passiveOptionWithCapture = { passive: true, capture: true };
-
-  // Helper functions matching header-nav-bindings.js
-  const isDesktopBreakPoint = () => window.matchMedia?.('(min-width: 810px)').matches || false;
-
-  // Check if element is visible in viewport to avoid unnecessary layout shifts
-  const isElementVisible = (element) => {
-    if (!element) return false;
-    const rect = element.getBoundingClientRect();
-    return (
-      rect.top >= 0
-      && rect.left >= 0
-      && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-      && rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  };
-
-  const setVisibilityOfElements = (elementList, visibleStyle) => {
-    // Use requestAnimationFrame to batch visibility changes
-    requestAnimationFrame(() => {
-      elementList.forEach((el) => {
-        if (el.tagName.toLowerCase() === 'header') {
-          return;
-        }
-        el.style.visibility = typeof visibleStyle === 'string' && visibleStyle.toLowerCase() === 'hidden' ? visibleStyle : '';
-      });
-    });
-  };
-
-  const handleTabTrap = (forceRestore) => {
-    const trapSelector = 'footer, body > *, header .language-toggle-wrap, header .nav-text-links .nav-icon, header .nav-mobile-menu a[data-menu-id="mobile-menu"], header .logo-band, header .nav-tag-line';
-    const hasOpenMenu = header.querySelector('nav').classList.contains('menu-open') || [...header.querySelector('nav').classList].some((cls) => cls.startsWith('submenu::'));
-    const elements = [...document.querySelectorAll(trapSelector)];
-
-    if ((hasOpenMenu && !isDesktopBreakPoint()) && !forceRestore) {
-      setVisibilityOfElements(elements, 'hidden');
-      return;
-    }
-    setVisibilityOfElements(elements);
-  };
-
-  // Function to find all menu links with submenus
-  const topNav = header.querySelector('nav');
-  const subMenus = Array.from(topNav.querySelectorAll('[data-submenu-for]'));
-  const subMenuButton = header.querySelector('.nav-mobile-menu > a');
-
-  // Create map of links with their associated submenus
-  const linksWithSubMenus = Array.from(topNav.querySelectorAll('[data-menu-id]')).map((link) => {
-    const menuId = link.getAttribute('data-menu-id');
-
-    return {
-      revealDelayId: null,
-      hideDelayId: null,
-      link,
-      subMenus: subMenus.filter((menu) => menu.getAttribute('data-submenu-for') === menuId),
-    };
-  });
-
-  // Find association by link
-  const findAssociated = (link) => {
-    const target = link.tagName.toUpperCase() === 'A' ? link : link.closest('a');
-    return linksWithSubMenus.find((item) => item.link === target) || null;
-  };
-
-  const findOpenMenus = () => [...topNav.classList]
-    .filter((c) => c.startsWith('submenu::'))
-    .map((c) => c.replace(/^submenu::/i, ''));
-
-  // Helper function to cancel timers
-  const cancelRevealAndHide = (associated) => {
-    if (associated.revealDelayId) {
-      cancelAnimationFrame(associated.revealDelayId);
-      associated.revealDelayId = null;
-    }
-    if (associated.hideDelayId) {
-      clearTimeout(associated.hideDelayId);
-      associated.hideDelayId = null;
-    }
-  };
-
-  // Show submenu with optional delay
-  const showSubmenu = (associated, delayAction, openCallback) => {
-    const menuAction = () => {
-      if (associated.revealDelayId !== null) {
-        clearTimeout(associated.revealDelayId);
-        associated.revealDelayId = null;
-      }
-
-      const menuId = associated.link.getAttribute('data-menu-id');
-      topNav.classList.add(`submenu::${menuId}`);
-      associated.subMenus.forEach((m) => {
-        m.classList.add('nav-sub-menu-visible');
-        m.style.display = 'flex';
-        zIndexAcc += 1;
-        m.style.zIndex = zIndexAcc;
-      });
-
-      associated.link.setAttribute('aria-expanded', 'true');
-      if (typeof openCallback === 'function') openCallback(associated);
-
-      if (subMenuButton === associated.link) {
-        subMenuButton.setAttribute('aria-expanded', 'true');
-      } else if (associated.link.closest('.nav-submenu-mobile')) {
-        subMenuButton.setAttribute('aria-expanded', 'false');
-      }
-    };
-
-    activeAssociation = associated;
-    if (delayAction) {
-      associated.revealDelayId = requestAnimationFrame(menuAction);
-      return;
-    }
-    menuAction();
-  };
-
-  // Hide submenu with optional delay
-  const hideSubmenu = (associated, delayAction, closeHandler) => {
-    const menuAction = () => {
-      if (associated.hideDelayId !== null) {
-        clearTimeout(associated.hideDelayId);
-        associated.hideDelayId = null;
-      }
-
-      const menuId = associated.link.getAttribute('data-menu-id');
-      topNav.classList.remove(`submenu::${menuId}`);
-      associated.subMenus.forEach((m) => {
-        m.classList.remove('nav-sub-menu-visible');
-        m.style.display = 'none';
-        m.style.zIndex = undefined;
-      });
-
-      associated.link.setAttribute('aria-expanded', 'false');
-      if (findOpenMenus().length === 0) {
-        zIndexAcc = 900;
-      }
-
-      if (subMenuButton === associated.link) {
-        subMenuButton.setAttribute('aria-expanded', 'false');
-      } else if (associated.link.closest('.nav-submenu-mobile')) {
-        subMenuButton.setAttribute('aria-expanded', 'true');
-      }
-
-      if (typeof closeHandler === 'function') closeHandler(associated);
-    };
-
-    if (activeAssociation === associated) {
-      activeAssociation = null;
-    }
-
-    if (delayAction) {
-      associated.hideDelayId = setTimeout(menuAction, 666);
-      return;
-    }
-    menuAction();
-  };
-
-  // Mobile menu handler
-  const mobileMenuHandler = (ev) => {
-    if (ev instanceof KeyboardEvent && ev.key !== 'Enter') {
-      return;
-    }
-    ev.preventDefault();
-
-    const associated = findAssociated(subMenuButton);
-    const isMainMenuOpen = topNav.classList.contains('menu-open');
-
-    if (isMainMenuOpen) {
-      subMenuButton.setAttribute('aria-expanded', 'false');
-      topNav.classList.remove('menu-open');
-      document.querySelector('html').classList.remove('lock-scrolling');
-      document.body.classList.remove('lock-scrolling');
-      hideSubmenu(associated, false);
-
-      // Force restore visibility of all elements
-      handleTabTrap(true);
-    } else {
-      subMenuButton.setAttribute('aria-expanded', 'true');
-      topNav.classList.add('menu-open');
-      document.querySelector('html').classList.add('lock-scrolling');
-      document.body.classList.add('lock-scrolling');
-      showSubmenu(associated, false, () => {
-        const firstLink = associated.subMenus[0].querySelector('ul.nav-submenu-items li a');
-        if (firstLink) firstLink.focus();
-      });
-      handleTabTrap();
-    }
-  };
-
-  // Mouse hover handlers
-  const linkOverHandler = (ev, openCallback) => {
-    // non desktop & mouse over
-    if (ev.type === 'mouseover' && !isDesktopBreakPoint()) {
-      return;
-    }
-
-    const associated = findAssociated(ev.target);
-    if (!associated) {
-      return;
-    }
-
-    // Cancel any existing timers
-    cancelRevealAndHide(associated);
-
-    // Close any menus in the process of closing
-    linksWithSubMenus.forEach((link) => {
-      if (link.hideDelayId) {
-        hideSubmenu(link, false);
-      }
-    });
-
-    showSubmenu(associated, true, openCallback);
-  };
-
-  const linkOutHandler = (ev) => {
-    // non desktop & mouse out
-    if (ev.type === 'mouseout' && !isDesktopBreakPoint()) {
-      return;
-    }
-
-    const associated = findAssociated(ev.target);
-    if (!associated || (ev instanceof KeyboardEvent && ev.key !== 'Tab')) {
-      return;
-    }
-
-    cancelRevealAndHide(associated);
-    hideSubmenu(associated, true);
-  };
-
-  const linkClickHandler = (ev, openCallback) => {
-    ev.preventDefault();
-    const menuIds = findOpenMenus();
-    const associated = findAssociated(ev.target);
-
-    // Close other open menus
-    linksWithSubMenus.forEach((l) => {
-      const isFound = l.subMenus.some((m) => menuIds.includes(m.getAttribute('data-submenu-for')));
-
-      if (isFound && associated !== l && l.link.getAttribute('data-menu-id') !== 'mobile-menu') {
-        cancelRevealAndHide(l);
-        hideSubmenu(l, false);
-      }
-    });
-
-    // Special handling for mobile menu
-    const openHandler = !menuIds.includes('mobile-menu') ? openCallback : (a) => {
-      const findMobileClose = linksWithSubMenus.find((l) => l.link.getAttribute('data-menu-id') === 'mobile-menu');
-
-      if (findMobileClose) {
-        cancelRevealAndHide(findMobileClose);
-      }
-
-      if (typeof openCallback === 'function') openCallback(a);
-    };
-
-    linkOverHandler(ev, openHandler);
-  };
-
-  // Keyboard event handlers
-  const enterKeyHandler = (ev) => {
-    if (ev.key !== 'Enter') {
-      return;
-    }
-
-    // stop sympathetic click event handler
-    ev.preventDefault();
-
-    const eventAssociated = findAssociated(ev.target);
-    if (!eventAssociated) return;
-
-    const menuId = eventAssociated.link.getAttribute('data-menu-id');
-
-    if (topNav.classList.contains(`submenu::${menuId}`)) {
-      cancelRevealAndHide(eventAssociated);
-      hideSubmenu(eventAssociated, false);
-      return;
-    }
-
-    const thisSubmenu = ev.target.closest('.nav-submenu');
-    const thisMenuId = thisSubmenu ? thisSubmenu.getAttribute('data-submenu-for') : null;
-
-    const openHandler = (associated) => {
-      const lastSubNav = associated.subMenus.at(-1);
-      if (!lastSubNav) {
-        return;
-      }
-
-      requestAnimationFrame(() => {
-        if (thisMenuId && lastSubNav.classList.contains('nav-submenu')) {
-          const preferredFocusElement = lastSubNav.querySelector(`ul.nav-submenu-items li a[data-menu-id="${thisMenuId}"]`);
-          if (preferredFocusElement) {
-            preferredFocusElement.focus();
-            return;
-          }
-        }
-
-        const firstLink = lastSubNav.querySelector('ul.nav-submenu-items li a');
-        if (firstLink) firstLink.focus();
-      });
-    };
-
-    linkClickHandler(ev, openHandler);
-  };
-
-  const escapeKeyHandler = (ev) => {
-    if (ev.key !== 'Escape' && ev.key !== 'Esc') {
-      return;
-    }
-
-    // Close expanded menus
-    const expandedSubmenus = document.querySelectorAll('[aria-expanded="true"]');
-    expandedSubmenus.forEach((submenu) => {
-      submenu.setAttribute('aria-expanded', 'false');
-      const submenuId = submenu.getAttribute('aria-controls');
-      const submenuElement = document.getElementById(submenuId);
-      if (submenuElement) {
-        submenuElement.style.display = 'none';
-      }
-    });
-
-    // If we're closing menus, restore visibility of header elements
-    if (expandedSubmenus.length > 0) {
-      // Reset mobile menu if needed
-      if (topNav.classList.contains('menu-open')) {
-        topNav.classList.remove('menu-open');
-        document.querySelector('html').classList.remove('lock-scrolling');
-        document.body.classList.remove('lock-scrolling');
-        if (subMenuButton) {
-          subMenuButton.setAttribute('aria-expanded', 'false');
-        }
-      }
-
-      // Force restore visibility
-      handleTabTrap(true);
-    }
-
-    // Handle active focus within a menu
-    if (document.activeElement === document.body) {
-      return;
-    }
-
-    // Check if the focused element is a focusable element
-    const { activeElement } = document;
-    if (!activeElement.matches('input[type="button"], input[type="submit"], button, a[href]')) {
-      return;
-    }
-
-    // Find the associated menu
-    const findAssociatedFromChildLink = (link) => {
-      const target = link.tagName.toUpperCase() === 'A' ? link : link.closest('a');
-      const submenu = target.closest('.nav-submenu');
-
-      if (!submenu) {
-        return null;
-      }
-
-      // Get the data-submenu-for attribute to find the matching menu item
-      const submenuFor = submenu.getAttribute('data-submenu-for');
-
-      return linksWithSubMenus.find((item) => item.link.getAttribute('data-menu-id') === submenuFor
-        // If not found, use the desktop check logic
-        || (!isDesktopBreakPoint() || !item.link.closest('[data-submenu-for="mobile-menu"]'))) || null;
-    };
-
-    const associated = findAssociatedFromChildLink(document.activeElement);
-    if (!associated) {
-      return;
-    }
-
-    if (isDesktopBreakPoint()) {
-      hideSubmenu(associated, false);
-      associated.link.focus();
-      return;
-    }
-
-    const isMobileMenu = associated.subMenus[0] === topNav.querySelector('[data-submenu-for="mobile-menu"]');
-
-    if (isMobileMenu) {
-      // Close the mobile menu
-      const closeButton = associated.subMenus[0].querySelector('[data-menu-close]');
-      if (closeButton) closeButton.click();
-      return;
-    }
-
-    // Handle back navigation in mobile submenus
-    const newEventTarget = associated.subMenus[0].querySelector('[data-menu-id="mobile-menu"]');
-    if (newEventTarget) {
-      // Simulate an Enter key press
-      const enterEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
-      newEventTarget.dispatchEvent(enterEvent);
-    }
-  };
-
-  // Set up event handlers for menu links with device-specific optimizations
-  linksWithSubMenus.forEach((item) => {
-    if (item.link !== subMenuButton) {
-      // For desktop devices
-      if (!isMobile) {
-        item.link.addEventListener('mouseover', linkOverHandler, passiveOption);
-        item.link.addEventListener('mouseout', linkOutHandler, passiveOption);
-        item.link.addEventListener('click', linkClickHandler);
-        item.link.addEventListener('keydown', enterKeyHandler);
-      } else {
-        // For mobile devices - optimize touch interactions
-        // Mobile needs click without hover states
-        item.link.addEventListener('click', linkClickHandler);
-        item.link.addEventListener('keydown', enterKeyHandler);
-
-        // Touch events for better mobile responsiveness
-        item.link.addEventListener('touchend', (e) => {
-          // Prevent double-firing with click event
-          e.preventDefault();
-          linkClickHandler(e);
-        }, passiveOptionWithCapture);
-      }
-
-      // Add content-visibility: auto to prevent layout shift for invisible items
-      item.subMenus.forEach((submenu) => {
-        submenu.style.contentVisibility = 'auto';
-      });
-    }
-  });
-
-  // Add mouse enter/leave handlers for submenus with device detection
-  subMenus.forEach((menu) => {
-    // Only add hover handlers for desktop - no mouseover effects needed for mobile
-    if (!isMobile) {
-      menu.addEventListener('mouseenter', (ev) => {
-        const menuIds = findOpenMenus();
-        if (menuIds.length === 0) return;
-
-        const associated = linksWithSubMenus.find((link) => (link.hideDelayId
-          || link.revealDelayId) && link.subMenus.includes(ev.target));
-
-        if (!associated) return;
-        cancelRevealAndHide(associated);
-
-        menu.addEventListener('mouseleave', () => {
-          hideSubmenu(associated, true);
-        }, { once: true, passive: true });
-      }, passiveOption);
-    } else {
-      // For mobile, optimize by setting initial state
-      menu.style.contentVisibility = 'auto';
-      menu.style.contain = 'layout';
-    }
-  });
-
-  // Close button handlers
-  const handleCloseButtonClick = (ev) => {
-    ev.preventDefault();
-
-    // Close all menus
-    linksWithSubMenus.forEach((item) => {
-      cancelRevealAndHide(item);
-      hideSubmenu(item, false);
-    });
-
-    // Reset mobile menu if needed
-    if (topNav.classList.contains('menu-open')) {
-      topNav.classList.remove('menu-open');
-      document.querySelector('html').classList.remove('lock-scrolling');
-      document.body.classList.remove('lock-scrolling');
-      subMenuButton.setAttribute('aria-expanded', 'false');
-
-      // Force restore visibility of important elements
-      handleTabTrap(true);
-    }
-
-    zIndexAcc = 900;
-  };
-
-  [...topNav.querySelectorAll('[data-menu-close]')].forEach((closeButton) => {
-    closeButton.addEventListener('click', handleCloseButtonClick);
-  });
-
-  // Mobile menu button handlers with device-specific optimizations
-  if (subMenuButton) {
-    subMenuButton.addEventListener('keydown', mobileMenuHandler);
-
-    if (isMobile) {
-      // For mobile, use touchend instead of click for better response
-      subMenuButton.addEventListener('touchend', (e) => {
-        e.preventDefault(); // Prevent ghost clicks
-        mobileMenuHandler(e);
-      }, passiveOption);
-
-      // Still keep click for accessibility and non-touch devices
-      subMenuButton.addEventListener('click', mobileMenuHandler);
-    } else {
-      // Just use click for desktop
-      subMenuButton.addEventListener('click', mobileMenuHandler);
-    }
-  }
-
-  // Global key handlers
-  document.addEventListener('keydown', escapeKeyHandler);
-
-  // Window resize handler with optimized debounce
-  const debounce = (fn, delay) => {
-    let timeoutId;
-    return function debounced(...args) {
-      // Cancel any pending animations
-      if (resizeRAF) {
-        cancelAnimationFrame(resizeRAF);
-        resizeRAF = null;
-      }
-
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        // Use requestAnimationFrame to perform layout operations during 
-        // optimal browser painting phase
-        resizeRAF = requestAnimationFrame(() => {
-          // Only apply changes if the header is in viewport to prevent unnecessary layout shifts
-          if (isElementVisible(header)) {
-            fn.apply(this, args);
-          }
-          resizeRAF = null;
-        });
-      }, delay);
-    };
-  };
-
-  // Use passive event listener for better performance
-  window.addEventListener('resize', debounce(handleTabTrap, 200), passiveOption);
-
-  // Initialize exitlink functionality similar to external-links.js
-  document.addEventListener('click', (e) => {
-    // Check if the clicked element has the exitlink class
-    if (e.target.classList.contains('exitlink')
-        || (e.target.parentNode && e.target.parentNode.classList.contains('exitlink'))) {
-      e.preventDefault();
-
-      // Get the href from the clicked link or its parent
-      const link = e.target.tagName === 'A' ? e.target : e.target.closest('a');
-      if (!link) return;
-
-      const href = link.getAttribute('href');
-
-      // Skip if no href or it's a placeholder
-      if (!href || href === '' || href === '#') {
-        return;
-      }
-
-      // Check if there's a colorbox function available (modal)
-      if (typeof window.jQuery !== 'undefined' && typeof window.jQuery.colorbox === 'function') {
-        try {
-          const domain = new URL(href).hostname;
-          const { jQuery } = window;
-
-          jQuery.colorbox({
-            onLoad() {
-              jQuery('#cbox-close').remove();
-            },
-            onComplete() {
-              jQuery('#domainSpan').text(`${domain}?`);
-            },
-            transition: 'none',
-            fixed: true,
-            open: true,
-            scrolling: false,
-            escKey: false,
-            overlayClose: false,
-            focus: true,
-            html: jQuery('#external-link-modal-template').length && typeof window.Handlebars !== 'undefined'
-              ? window.Handlebars.compile(jQuery('#external-link-modal-template').html())({ className: '' })
-              : `<div class="external-link-modal">
-                  <h2>You are leaving the NYC.gov domain</h2>
-                  <p>Are you sure you want to go to <span id="domainSpan">${domain}?</span></p>
-                  <div class="button-group">
-                    <button id="external-link-modal-submit" class="btn-primary">Yes</button>
-                    <button id="external-link-modal-cancel" class="btn-secondary">No</button>
-                  </div>
-                </div>`,
-          });
-
-          // Set up handlers for modal buttons
-          jQuery(document).on('click', '#external-link-modal-submit', () => {
-            window.location = href;
-          });
-
-          jQuery(document).on('click', '#external-link-modal-cancel', (event) => {
-            event.preventDefault();
-            jQuery.colorbox.close();
-          });
-        } catch (error) {
-          // Fallback to direct navigation if modal fails
-          window.location = href;
-        }
-      } else {
-        // If colorbox isn't available, just follow the link
-        window.location = href;
-      }
-    }
-  });
-}
 
 /**
  * Determines if a URL is an NYC government URL or should be treated as internal
@@ -675,14 +69,10 @@ function createElement(tag, attrs = {}, children = []) {
  * @returns {HTMLElement} - Logo band DOM element
  */
 function createLogoBand(headerData) {
-  // Create logo image with explicit width and height to reserve space and prevent layout shift
   const logoImg = createElement('img', {
     className: 'nav-logo-img',
     src: headerData.logoPath,
     alt: headerData.logoAltText || 'NYC',
-    width: 60, // Set explicit width for the logo
-    height: 24, // Set explicit height for the logo
-    style: 'aspect-ratio: 60/24', // Maintain aspect ratio
   });
 
   const logoLink = createElement('a', {
@@ -909,8 +299,6 @@ function createSubmenu(navItem, isMobile = false) {
  * @returns {HTMLElement} - Mobile menu button list item
  */
 function createMobileMenuButton() {
-  // Use DocumentFragment to batch DOM operations and reduce reflow
-
   const li = document.createElement('li');
   li.className = 'nav-icon nav-mobile-menu';
 
@@ -920,8 +308,6 @@ function createMobileMenuButton() {
   link.setAttribute('data-menu-id', 'mobile-menu');
   link.setAttribute('aria-expanded', 'false');
   link.setAttribute('aria-controls', 'mobile-menu-submenu');
-  // Prevent mobile menu from causing layout shift
-  link.style.containIntrinsicSize = 'auto 48px'; // Reserve space for mobile menu button
 
   const span = document.createElement('span');
   span.textContent = 'Open Menu';
@@ -932,9 +318,6 @@ function createMobileMenuButton() {
   const mobileMenu = document.createElement('nav');
   mobileMenu.className = 'nav-submenu nav-submenu-text-list nav-submenu-mobile';
   mobileMenu.setAttribute('data-submenu-for', 'mobile-menu');
-
-  // Height containment to prevent layout shift when menu opens
-  mobileMenu.style.containIntrinsicSize = 'auto 100%';
   mobileMenu.id = 'mobile-menu-submenu';
   mobileMenu.setAttribute('role', 'presentation');
 
@@ -1097,16 +480,7 @@ function createIconLink(iconPath, altText, href) {
   const isExternal = !isNycGovUrl(href);
   const linkClass = `block-link hidden-text my-city-link${isExternal ? ' exitlink' : ''}`;
 
-  // Create image with explicit dimensions to prevent layout shift
-  const img = createElement('img', {
-    src: iconPath,
-    alt: altText || '',
-    width: 24, // Set standard icon width
-    height: 24, // Set standard icon height
-    loading: 'eager', // Load icon images eagerly since they're in the header
-    fetchpriority: 'high', // High priority for header icons
-  });
-
+  const img = createElement('img', { src: iconPath, alt: altText || '' });
   const link = createElement('a', { href, className: linkClass }, [img]);
 
   return createElement('li', { className: 'nav-icon-link' }, [link]);
@@ -1767,60 +1141,40 @@ export default async function decorate(block) {
   }, 0);
 
   // 3. Dynamically load key scripts if not already present (Handlebars, Colorbox, etc.)
-  function loadScriptOnce(src, id, attrs = {}, priority = 'low') {
+  function loadScriptOnce(src, id, attrs = {}) {
     if (id && document.getElementById(id)) return;
     if ([...document.scripts].some((s) => s.src && s.src.includes(src))) return;
-
     const script = document.createElement('script');
     script.src = src;
     if (id) script.id = id;
-
-    // Add fetchpriority to control loading priority
-    if ('fetchpriority' in HTMLScriptElement.prototype) {
-      script.fetchPriority = priority; // 'high', 'low', or 'auto'
-    }
-
-    // Add defer for non-critical scripts
-    if (priority !== 'high') {
-      script.defer = true;
-    }
-
-    // Set other attributes
     Object.entries(attrs).forEach(([k, v]) => script.setAttribute(k, v));
-
     document.body.appendChild(script);
   }
 
-  // Critical scripts - load with high priority
-  // Header nav bindings - critical for header functionality
-  loadScriptOnce('/static/js/header-nav-bindings.js', 'header-nav-bindings-lib', {}, 'high');
-  // Utils - needed for core functionality
-  loadScriptOnce('/static/js/utils.js', 'utils-lib', {}, 'high');
-
-  // Important but not critical - medium priority (load after render-critical resources)
-  // jQuery Colorbox - needed for modals
-  loadScriptOnce('/static/js/libs/jquery.colorbox-min.js', 'colorbox-lib', {}, 'auto');
-  // Handlebars - needed for templates
-  loadScriptOnce('/static/js/libs/handlebars.js', 'handlebars-lib', {}, 'auto');
-  // Left nav - navigation functionality
-  loadScriptOnce('/static/js/left-nav.js', 'left-nav-lib', {}, 'auto');
-
-  // Non-critical scripts - load with low priority (defer until after important content)
+  // Handlebars
+  loadScriptOnce('/static/js/libs/handlebars.js', 'handlebars-lib');
+  // jQuery Colorbox
+  loadScriptOnce('/static/js/libs/jquery.colorbox-min.js', 'colorbox-lib');
   // Language selector
-  loadScriptOnce('/static/js/language-selector.js', 'language-selector-lib', {}, 'low');
+  loadScriptOnce('/static/js/language-selector.js', 'language-selector-lib');
   // External links
-  loadScriptOnce('/static/js/external-links.js', 'external-links-lib', {}, 'low');
+  loadScriptOnce('/static/js/external-links.js', 'external-links-lib');
+  // Header nav bindings
+  loadScriptOnce('/static/js/header-nav-bindings.js', 'header-nav-bindings-lib');
+  // Left nav
+  loadScriptOnce('/static/js/left-nav.js', 'left-nav-lib');
   // Account accordion
-  loadScriptOnce('/static/js/account-accordion.js', 'account-accordion-lib', {}, 'low');
+  loadScriptOnce('/static/js/account-accordion.js', 'account-accordion-lib');
   // Team site accordion
-  loadScriptOnce('/static/js/team-site/accordion.js', 'team-site-accordion-lib', {}, 'low');
-  // Webtrends (analytics) - non-critical for user experience
-  loadScriptOnce('/assets/home/js/webtrends/webtrends.nycbusiness-load.js', 'webtrends-lib', {}, 'low');
+  loadScriptOnce('/static/js/team-site/accordion.js', 'team-site-accordion-lib');
+  // Utils
+  loadScriptOnce('/static/js/utils.js', 'utils-lib');
+  // Webtrends (analytics)
+  loadScriptOnce('/assets/home/js/webtrends/webtrends.nycbusiness-load.js', 'webtrends-lib');
 
-  // Conditional scripts - load with appropriate priorities
   // Transperfect handler (conditionally, if window.useTransperfect is true)
   if (window.useTransperfect) {
-    loadScriptOnce('/static/js/transperfect-handler.js', 'transperfect-handler-lib', {}, 'auto');
+    loadScriptOnce('/static/js/transperfect-handler.js', 'transperfect-handler-lib');
   }
 
   // OneLink (conditionally, if window.isBaseDomain !== undefined && !window.isBaseDomain)
@@ -1828,6 +1182,6 @@ export default async function decorate(block) {
     loadScriptOnce('https://www.onelink-edge.com/moxie.min.js', 'onelink-lib', {
       referrerpolicy: 'no-referrer-when-downgrade',
       'data-oljs': 'PEFE3-E878-E5CB-F4D9',
-    }, 'low');
+    });
   }
 }
