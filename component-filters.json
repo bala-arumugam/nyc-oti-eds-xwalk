@@ -140,6 +140,12 @@
     ]
   },
   {
+    "id": "",
+    "components": [
+      "tab-menu-config"
+    ]
+  },
+  {
     "id": "step",
     "components": [
       "title",

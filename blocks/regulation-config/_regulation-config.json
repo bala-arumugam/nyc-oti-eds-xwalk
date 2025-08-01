@@ -48,5 +48,12 @@
       ]
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id":"",
+      "components":[
+        "tab-menu-config"
+      ]
+    }
+  ]
 }
