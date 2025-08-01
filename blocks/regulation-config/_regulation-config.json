@@ -11,9 +11,9 @@
               "name": "Regulation Config",
               "model": "regulation-config",
               "filter": "regulation-config",
-              "tag-menu-config":{
-                  "name": "Tab Menu Config",
-                  "model": "tab-menu-config"
+              "tab-menu-config":{
+                "name": "Tab Menu Config",
+                "model": "tab-menu-config"
               }
             }
           }
