@@ -5,28 +5,27 @@
 function initializeHeaderInteractivity(header) {
   let activeAssociation = null;
   let zIndexAcc = 900;
-  let resizeTimer = null;
   let resizeRAF = null;
-  
+
   // Detect if we're on a mobile device for optimized event handling
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  
+
   // Passive event listener option - improves scroll performance
   const passiveOption = { passive: true };
   const passiveOptionWithCapture = { passive: true, capture: true };
 
   // Helper functions matching header-nav-bindings.js
   const isDesktopBreakPoint = () => window.matchMedia?.('(min-width: 810px)').matches || false;
-  
+
   // Check if element is visible in viewport to avoid unnecessary layout shifts
   const isElementVisible = (element) => {
     if (!element) return false;
     const rect = element.getBoundingClientRect();
     return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      rect.top >= 0
+      && rect.left >= 0
+      && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+      && rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
   };
 
@@ -419,7 +418,7 @@ function initializeHeaderInteractivity(header) {
         // Mobile needs click without hover states
         item.link.addEventListener('click', linkClickHandler);
         item.link.addEventListener('keydown', enterKeyHandler);
-        
+
         // Touch events for better mobile responsiveness
         item.link.addEventListener('touchend', (e) => {
           // Prevent double-firing with click event
@@ -427,9 +426,9 @@ function initializeHeaderInteractivity(header) {
           linkClickHandler(e);
         }, passiveOptionWithCapture);
       }
-      
+
       // Add content-visibility: auto to prevent layout shift for invisible items
-      item.subMenus.forEach(submenu => {
+      item.subMenus.forEach((submenu) => {
         submenu.style.contentVisibility = 'auto';
       });
     }
@@ -442,13 +441,13 @@ function initializeHeaderInteractivity(header) {
       menu.addEventListener('mouseenter', (ev) => {
         const menuIds = findOpenMenus();
         if (menuIds.length === 0) return;
-  
+
         const associated = linksWithSubMenus.find((link) => (link.hideDelayId
           || link.revealDelayId) && link.subMenus.includes(ev.target));
-  
+
         if (!associated) return;
         cancelRevealAndHide(associated);
-  
+
         menu.addEventListener('mouseleave', () => {
           hideSubmenu(associated, true);
         }, { once: true, passive: true });
@@ -491,14 +490,14 @@ function initializeHeaderInteractivity(header) {
   // Mobile menu button handlers with device-specific optimizations
   if (subMenuButton) {
     subMenuButton.addEventListener('keydown', mobileMenuHandler);
-    
+
     if (isMobile) {
       // For mobile, use touchend instead of click for better response
       subMenuButton.addEventListener('touchend', (e) => {
         e.preventDefault(); // Prevent ghost clicks
         mobileMenuHandler(e);
       }, passiveOption);
-      
+
       // Still keep click for accessibility and non-touch devices
       subMenuButton.addEventListener('click', mobileMenuHandler);
     } else {
@@ -519,10 +518,11 @@ function initializeHeaderInteractivity(header) {
         cancelAnimationFrame(resizeRAF);
         resizeRAF = null;
       }
-      
+
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        // Use requestAnimationFrame to perform layout operations during optimal browser painting phase
+        // Use requestAnimationFrame to perform layout operations during 
+        // optimal browser painting phase
         resizeRAF = requestAnimationFrame(() => {
           // Only apply changes if the header is in viewport to prevent unnecessary layout shifts
           if (isElementVisible(header)) {
@@ -680,7 +680,7 @@ function createLogoBand(headerData) {
     className: 'nav-logo-img',
     src: headerData.logoPath,
     alt: headerData.logoAltText || 'NYC',
-    width: 60,  // Set explicit width for the logo
+    width: 60, // Set explicit width for the logo
     height: 24, // Set explicit height for the logo
     style: 'aspect-ratio: 60/24', // Maintain aspect ratio
   });
@@ -910,8 +910,7 @@ function createSubmenu(navItem, isMobile = false) {
  */
 function createMobileMenuButton() {
   // Use DocumentFragment to batch DOM operations and reduce reflow
-  const fragment = document.createDocumentFragment();
-  
+
   const li = document.createElement('li');
   li.className = 'nav-icon nav-mobile-menu';
 
@@ -928,12 +927,12 @@ function createMobileMenuButton() {
   span.textContent = 'Open Menu';
   link.appendChild(span);
   li.appendChild(link);
-  
+
   // Create mobile menu container - matching the Thymeleaf template structure
   const mobileMenu = document.createElement('nav');
   mobileMenu.className = 'nav-submenu nav-submenu-text-list nav-submenu-mobile';
   mobileMenu.setAttribute('data-submenu-for', 'mobile-menu');
-  
+
   // Height containment to prevent layout shift when menu opens
   mobileMenu.style.containIntrinsicSize = 'auto 100%';
   mobileMenu.id = 'mobile-menu-submenu';
@@ -1099,15 +1098,15 @@ function createIconLink(iconPath, altText, href) {
   const linkClass = `block-link hidden-text my-city-link${isExternal ? ' exitlink' : ''}`;
 
   // Create image with explicit dimensions to prevent layout shift
-  const img = createElement('img', { 
-    src: iconPath, 
+  const img = createElement('img', {
+    src: iconPath,
     alt: altText || '',
-    width: 24,  // Set standard icon width
+    width: 24, // Set standard icon width
     height: 24, // Set standard icon height
     loading: 'eager', // Load icon images eagerly since they're in the header
-    fetchpriority: 'high' // High priority for header icons
+    fetchpriority: 'high', // High priority for header icons
   });
-  
+
   const link = createElement('a', { href, className: linkClass }, [img]);
 
   return createElement('li', { className: 'nav-icon-link' }, [link]);
@@ -1771,24 +1770,24 @@ export default async function decorate(block) {
   function loadScriptOnce(src, id, attrs = {}, priority = 'low') {
     if (id && document.getElementById(id)) return;
     if ([...document.scripts].some((s) => s.src && s.src.includes(src))) return;
-    
+
     const script = document.createElement('script');
     script.src = src;
     if (id) script.id = id;
-    
+
     // Add fetchpriority to control loading priority
     if ('fetchpriority' in HTMLScriptElement.prototype) {
       script.fetchPriority = priority; // 'high', 'low', or 'auto'
     }
-    
+
     // Add defer for non-critical scripts
     if (priority !== 'high') {
       script.defer = true;
     }
-    
+
     // Set other attributes
     Object.entries(attrs).forEach(([k, v]) => script.setAttribute(k, v));
-    
+
     document.body.appendChild(script);
   }
 
@@ -1805,7 +1804,7 @@ export default async function decorate(block) {
   loadScriptOnce('/static/js/libs/handlebars.js', 'handlebars-lib', {}, 'auto');
   // Left nav - navigation functionality
   loadScriptOnce('/static/js/left-nav.js', 'left-nav-lib', {}, 'auto');
-  
+
   // Non-critical scripts - load with low priority (defer until after important content)
   // Language selector
   loadScriptOnce('/static/js/language-selector.js', 'language-selector-lib', {}, 'low');
