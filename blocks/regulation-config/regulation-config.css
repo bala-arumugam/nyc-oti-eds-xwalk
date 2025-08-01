@@ -1,0 +1,10 @@
+
+
+main > section.body-container{
+  width: 100%;
+}
+
+main > .section.body-container > .body-wrapper {
+  max-width: 1224px;
+  margin: 16px auto;
+}

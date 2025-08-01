@@ -3,7 +3,11 @@
     "id": "main",
     "components": [
       "section",
-      "body"
+      "section-ri",
+      "section-body",
+      "section-description",
+      "section-additional",
+      "section-process-step"
     ]
   },
   {
@@ -17,17 +21,85 @@
       "cards",
       "columns",
       "fragment",
-      "section",
-      "container",
-      "body"
+      "accordion"
     ]
   },
   {
-    "id": "body",
+    "id": "section-ri",
     "components": [
-      "hero",
-      "regulation-tabs",
-      "step-cta"
+      "text",
+      "image",
+      "button",
+      "title",
+      "process",
+      "accordion"
+    ]
+  },
+  {
+    "id": "section-description",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "process",
+      "accordion"
+    ]
+  },
+  {
+    "id": "section-additional",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "process",
+      "accordion"
+    ]
+  },
+  {
+    "id": "section-body",
+    "components": [
+      "regulation-config"
+    ]
+  },
+  {
+    "id": "section-process-step",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "process",
+      "accordion"
+    ]
+  },
+  {
+    "id": "accordion",
+    "components": [
+      "accordion-item"
+    ]
+  },
+  {
+    "id": "accordion-item",
+    "components": [
+      "text",
+      "title",
+      "button"
+    ]
+  },
+  {
+    "id": "card-fee",
+    "components": [
+      "card-fee-item"
+    ]
+  },
+  {
+    "id": "card-fee-item",
+    "components": [
+      "text",
+      "title",
+      "button"
     ]
   },
   {
@@ -48,7 +120,35 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "regulation-tabs"
+    ]
+  },
+  {
+    "id": "contact",
+    "components": [
+      "text",
+      "title",
+      "button",
+      "phone"
+    ]
+  },
+  {
+    "id": "process",
+    "components": [
+      "button"
+    ]
+  },
+  {
+    "id": "regulation-config",
+    "components": []
+  },
+  {
+    "id": "step",
+    "components": [
+      "title",
+      "text",
+      "button"
     ]
   }
 ]

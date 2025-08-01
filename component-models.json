@@ -142,6 +142,125 @@
     ]
   },
   {
+    "id": "section-ri",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "text",
+        "name": "tab-name",
+        "label": "Tab Name",
+        "description": "Helper Metadata"
+      },
+      {
+        "component": "text",
+        "name": "tab-section-name",
+        "label": "Tab Section Name",
+        "description": "Helper Metadata"
+      }
+    ]
+  },
+  {
+    "id": "section-model",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "text",
+        "name": "tab-name",
+        "label": "Tab Name",
+        "description": "Helper Metadata"
+      },
+      {
+        "component": "select",
+        "name": "tab-section-name",
+        "label": "Tab Section Name",
+        "description": "Helper Metadata",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Section Description",
+            "value": "Description"
+          },
+          {
+            "name": "Section Additional",
+            "value": "Additional"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "accordion",
+    "fields": []
+  },
+  {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "content",
+        "label": "Content",
+        "description": "Content",
+        "multi": true,
+        "raw": false
+      },
+      {
+        "component": "container",
+        "name": "content",
+        "label": "Tab Content",
+        "multi": true,
+        "allowedComponents": [
+          "text",
+          "image",
+          "hero",
+          "cards",
+          "columns",
+          "button"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "card-fee",
+    "fields": []
+  },
+  {
+    "id": "card-fee-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -180,6 +299,18 @@
     ]
   },
   {
+    "id": "contact",
+    "fields": [
+      {
+        "component": "text",
+        "name": "fullname",
+        "value": "",
+        "label": "Full Name",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
@@ -211,6 +342,60 @@
         "name": "text",
         "value": "",
         "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "phone",
+    "fields": [
+      {
+        "component": "text",
+        "name": "fullname",
+        "value": "",
+        "label": "Full Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "phone-number",
+        "value": "",
+        "label": "Phone Number",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "process",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "regulation-config",
+    "fields": []
+  },
+  {
+    "id": "step",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "step",
+        "value": "",
+        "label": "Step",
         "valueType": "string"
       }
     ]
