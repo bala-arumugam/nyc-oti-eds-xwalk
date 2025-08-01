@@ -24,8 +24,7 @@
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
               "model": "section-model",
-              "filter": "section-body",
-              "name": "Section config (Body)"
+              "filter": "section-body"
             }
           }
         }
@@ -41,8 +40,7 @@
             "template": {
               "model": "section-model",
               "filter": "section-description",
-              "tab-section-name": "Description",
-              "name": "Section Description"
+              "tab-section-name": "Description"
             }
           }
         }
@@ -58,8 +56,7 @@
             "template": {
               "model": "section-model",
               "filter": "section-additional",
-              "tab-section-name": "Additional",
-              "name": "Section Additional"
+              "tab-section-name": "Additional"
             }
           }
         }
@@ -74,8 +71,7 @@
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
               "model": "section-model",
-              "filter": "section-process-step",
-              "name": "Section Process Step"
+              "filter": "section-process-step"
             }
           }
         }
