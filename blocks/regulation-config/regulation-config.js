@@ -19,10 +19,10 @@ function createMenu(main) {
     const ul = createElement('ul');
 
     // Create and append list items
-    orderArray.forEach((item) => {
+    orderArray.forEach((item, idx) => {
       const li = createElement('li', {
         props: {
-          className: `menu-item ${item.toLowerCase().replace(/\s+/g, '-')}`,
+          className: `menu-item ${item.toLowerCase().replace(/\s+/g, '-')} ${idx === 0 ? 'menu-item-active' : ''}`,
         },
       });
       li.textContent = item;
