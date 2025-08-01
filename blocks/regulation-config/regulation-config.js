@@ -125,7 +125,7 @@ function decorateRegulationPage() {
   main.innerHTML = ''; // Uncomment if you want to clear main first
 
   // Create a wrapper with the class "regulation-index"
-  const regulationIndexWrapper = createElement('div', { props: { className: 'regulation-index' } });
+  const regulationIndexWrapper = createElement('div', { props: { className: 'page-container regulation-index' } });
 
   // Append the menu to the regulation-index wrapper (if it exists)
   const menu = createMenu(tabsContainer);
@@ -136,7 +136,7 @@ function decorateRegulationPage() {
   regulationIndexWrapper.appendChild(tabsContainer);
 
   // Append the regulation-index wrapper to the main element
-  const pageRegulationIndexPage = createElement('div', { props: { className: 'page-regulation-index' } });
+  const pageRegulationIndexPage = createElement('div', { props: { className: 'page page-regulation-index' } });
 
   // Detach all elements without tab names and reattach them to the page regulation index
   detachAndReattachAll(sectionsWithoutTabName, pageRegulationIndexPage);
@@ -145,6 +145,36 @@ function decorateRegulationPage() {
   main.appendChild(pageRegulationIndexPage);
 }
 
-export default async function decorate() {
+export default async function decorate(doc) {
   decorateRegulationPage();
+
+  const div = createElement('div', { props: { className: 'regulation-index-hero' } });
+
+  const [image, text] = doc.children;
+
+  // Extract the image URL from the image element
+  const imageUrl = image.querySelector('img')?.src || '';
+
+  const h1 = createElement('h1', {});
+
+  // Add the text content to the hero div
+  const pElement = text.firstElementChild;
+  const pText = pElement.textContent.trim();
+
+  h1.textContent = pText;
+  h1.className = 'page-container regulation-index-hero-text';
+  div.appendChild(h1);
+
+  detachAndReattach(text.firstElementChild, div);
+
+  pElement.remove();
+
+  // Apply the image as a background to the hero div
+  if (imageUrl) {
+    div.style.setProperty('--regulation-hero-image', `url(${imageUrl})`);
+  }
+
+  doc.innerHTML = '';
+
+  doc.appendChild(div);
 }
