@@ -42,7 +42,7 @@
               "model": "section-model",
               "filter": "section-description",
               "tab-section-name": "Description",
-              "name":  "Section Description"
+              "name": "Section Description"
             }
           }
         }
@@ -125,8 +125,6 @@
           "component": "select",
           "name": "tab-section-name",
           "label": "Tab Section Name",
-          "description": "Helper Metadata",
-          "valueType": "string",
           "options": [
             {
               "name": "Section Description",

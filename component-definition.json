@@ -95,7 +95,6 @@
                   "filter": "accordion",
                   "name": "Accordion",
                   "accordion-item": {
-                    "model": "accordion-item",
                     "filter": "accordion-item",
                     "name": "Accordion Item"
                   }
@@ -132,7 +131,6 @@
                   "filter": "card-fee",
                   "name": "Card Fee",
                   "card-fee-item": {
-                    "model": "card-fee-item",
                     "filter": "card-fee-item",
                     "name": "Contact Item"
                   }

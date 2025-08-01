@@ -12,7 +12,7 @@
               "filter": "accordion",
               "name": "Accordion",
               "accordion-item": {
-                "model": "accordion-item",
+               
                 "filter": "accordion-item",
                 "name": "Accordion Item"
               }
@@ -40,12 +40,6 @@
   ],
   "models": [
     {
-      "id": "accordion",
-      "fields": [
-       
-      ]
-    },
-    {
       "id": "accordion-item",
       "fields": [
          {
@@ -60,23 +54,7 @@
           "valueType": "string",
           "name": "content",
           "label": "Content",
-          "description": "Content",
-          "multi": true,
-          "raw": false
-        },
-         {
-          "component": "container",
-          "name": "content",
-          "label": "Tab Content",
-          "multi": true,
-          "allowedComponents": [
-            "text",
-            "image",
-            "hero",
-            "cards",
-            "columns",
-            "button"
-          ]
+          "description": "Content"
         }
       ]
     }

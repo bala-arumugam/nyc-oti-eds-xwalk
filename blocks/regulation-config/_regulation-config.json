@@ -17,15 +17,7 @@
     }
   ],
   "models": [
-    {
-      "id": "regulation-config",
-      "fields": []
-    }
   ],
   "filters": [
-    {
-      "id": "regulation-config",
-      "components": []
-    }
   ]
 }
