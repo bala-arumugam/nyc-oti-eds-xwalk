@@ -128,7 +128,7 @@
     ]
   },
   {
-    "id": "",
+    "id": "regulation-config",
     "components": [
       "tab-menu-config"
     ]
