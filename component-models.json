@@ -180,7 +180,7 @@
         "description": "Helper Metadata"
       },
       {
-        "component": "multiselect",
+        "component": "select",
         "name": "tab-section-name",
         "label": "Tab Section Name",
         "description": "Helper Metadata",

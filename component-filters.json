@@ -21,7 +21,6 @@
       "cards",
       "columns",
       "fragment",
-      "body",
       "accordion"
     ]
   },
@@ -32,7 +31,6 @@
       "image",
       "button",
       "title",
-      "body",
       "process",
       "accordion"
     ]
@@ -44,7 +42,6 @@
       "image",
       "button",
       "title",
-      "body",
       "process",
       "accordion"
     ]
@@ -56,7 +53,6 @@
       "image",
       "button",
       "title",
-      "body",
       "process",
       "accordion"
     ]
@@ -74,7 +70,6 @@
       "image",
       "button",
       "title",
-      "body",
       "process",
       "accordion"
     ]

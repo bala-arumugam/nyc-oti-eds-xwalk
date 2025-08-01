@@ -122,7 +122,7 @@
           "description": "Helper Metadata"
         },
         {
-          "component": "multiselect",
+          "component": "select",
           "name": "tab-section-name",
           "label": "Tab Section Name",
           "description": "Helper Metadata",
@@ -149,7 +149,6 @@
         "image",
         "button",
         "title",
-        "body",
         "process",
         "accordion"
       ]
@@ -161,7 +160,6 @@
         "image",
         "button",
         "title",
-        "body",
         "process",
         "accordion"
       ]
@@ -173,7 +171,6 @@
         "image",
         "button",
         "title",
-        "body",
         "process",
         "accordion"
       ]
@@ -191,7 +188,6 @@
         "image",
         "button",
         "title",
-        "body",
         "process",
         "accordion"
       ]
