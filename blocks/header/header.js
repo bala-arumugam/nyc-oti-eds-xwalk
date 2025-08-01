@@ -1175,7 +1175,7 @@ async function fetchHeaderData() {
       sessionStorage.setItem('nycHeaderData', JSON.stringify(headerResult));
     } catch (cacheErr) {
       // Ignore storage errors - they shouldn't stop the app from working
-      console.warn('Could not cache header data in sessionStorage');
+
     }
 
     return headerResult;
