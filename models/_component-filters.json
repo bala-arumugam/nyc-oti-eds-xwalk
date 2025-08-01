@@ -3,7 +3,6 @@
     "id": "main",
     "components": [
       "section",
-      "section-ri",
       "section-body",
       "section-description",
       "section-additional",

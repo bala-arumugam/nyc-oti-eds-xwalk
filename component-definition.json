@@ -339,21 +339,6 @@
       "id": "sections-ri",
       "components": [
         {
-          "title": "Section",
-          "id": "section-ri",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/section/v1/section",
-                "template": {
-                  "model": "section-ri",
-                  "filter": "section-ri"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Section (Body)",
           "id": "section-body",
           "plugins": {

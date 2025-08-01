@@ -142,29 +142,6 @@
     ]
   },
   {
-    "id": "section-ri",
-    "fields": [
-      {
-        "component": "text",
-        "name": "name",
-        "label": "Section Name",
-        "description": "The label shown for this section in the Content Tree"
-      },
-      {
-        "component": "text",
-        "name": "tab-name",
-        "label": "Tab Name",
-        "description": "Helper Metadata"
-      },
-      {
-        "component": "text",
-        "name": "tab-section-name",
-        "label": "Tab Section Name",
-        "description": "Helper Metadata"
-      }
-    ]
-  },
-  {
     "id": "section-model",
     "fields": [
       {

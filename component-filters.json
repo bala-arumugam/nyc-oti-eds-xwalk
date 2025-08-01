@@ -3,7 +3,6 @@
     "id": "main",
     "components": [
       "section",
-      "section-ri",
       "section-body",
       "section-description",
       "section-additional",
@@ -21,17 +20,6 @@
       "cards",
       "columns",
       "fragment",
-      "accordion"
-    ]
-  },
-  {
-    "id": "section-ri",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title",
-      "process",
       "accordion"
     ]
   },
