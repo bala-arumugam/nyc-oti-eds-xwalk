@@ -174,44 +174,6 @@
     ]
   },
   {
-    "id": "accordion-item",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "content",
-        "label": "Content",
-        "description": "Content"
-      }
-    ]
-  },
-  {
-    "id": "card-fee-item",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "content",
-        "value": "",
-        "label": "Content",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "card",
     "fields": [
       {
@@ -250,7 +212,19 @@
     ]
   },
   {
-    "id": "contact",
+    "id": "contact-info",
+    "fields": [
+      {
+        "component": "text",
+        "name": "fullname",
+        "value": "",
+        "label": "Full Name",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cta-button-banner",
     "fields": [
       {
         "component": "text",
@@ -298,26 +272,7 @@
     ]
   },
   {
-    "id": "phone",
-    "fields": [
-      {
-        "component": "text",
-        "name": "fullname",
-        "value": "",
-        "label": "Full Name",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "phone-number",
-        "value": "",
-        "label": "Phone Number",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "process",
+    "id": "process-step",
     "fields": [
       {
         "component": "text",
@@ -358,24 +313,7 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "step",
-    "fields": [
-      {
-        "component": "richtext",
-        "name": "step",
-        "value": "",
-        "label": "Step",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "tab-menu-config",
-    "fields": [
+      },
       {
         "component": "boolean",
         "valueType": "boolean",
@@ -399,6 +337,18 @@
         "valueType": "boolean",
         "label": "Show Operating & Renewing",
         "name": "operating-renewing"
+      }
+    ]
+  },
+  {
+    "id": "step-by-step-cta",
+    "fields": [
+      {
+        "component": "text",
+        "name": "fullname",
+        "value": "",
+        "label": "Full Name",
+        "valueType": "string"
       }
     ]
   }

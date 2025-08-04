@@ -41,16 +41,33 @@
           "value": "",
           "label": "Text",
           "valueType": "string"
+        },
+         {
+          "component": "boolean",
+          "valueType": "boolean",
+          "label": "Show About ",
+          "name": "about"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "label": "Show the How to Apply",
+          "name": "how-to-apply"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "label": "Show After You Apply",
+          "name": "after-you-apply"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "label": "Show Operating & Renewing",
+          "name": "operating-renewing"
         }
       ]
     }
   ],
-  "filters": [
-    {
-      "id":"regulation-config",
-      "components":[
-        "tab-menu-config"
-      ]
-    }
-  ]
+  "filters": []
 }

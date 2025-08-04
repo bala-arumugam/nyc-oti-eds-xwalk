@@ -13,9 +13,6 @@
               "name": "Section body",
               "regulation-config":{
                 "model": "regulation-config"
-              },
-              "tab-menu-config":{
-                "model": "tab-menu-config"
               }
             }
           }
@@ -115,8 +112,7 @@
         "image",
         "button",
         "title",
-        "process",
-        "accordion"
+        "process-step"
       ]
     },
     {
@@ -126,15 +122,15 @@
         "image",
         "button",
         "title",
-        "process",
-        "accordion"
+        "process-step",
+        "contact-info"
       ]
     },
     {
       "id": "section-body",
       "components": [
         "regulation-config",
-        "tab-menu-config"
+        "step-by-step-cta"
       ]
     },
     {
@@ -144,8 +140,7 @@
         "image",
         "button",
         "title",
-        "process",
-        "accordion"
+        "process-step"
       ]
     }
   ]

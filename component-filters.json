@@ -19,8 +19,7 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "accordion"
+      "fragment"
     ]
   },
   {
@@ -30,8 +29,7 @@
       "image",
       "button",
       "title",
-      "process",
-      "accordion"
+      "process-step"
     ]
   },
   {
@@ -41,15 +39,15 @@
       "image",
       "button",
       "title",
-      "process",
-      "accordion"
+      "process-step",
+      "contact-info"
     ]
   },
   {
     "id": "section-body",
     "components": [
       "regulation-config",
-      "tab-menu-config"
+      "step-by-step-cta"
     ]
   },
   {
@@ -59,36 +57,7 @@
       "image",
       "button",
       "title",
-      "process",
-      "accordion"
-    ]
-  },
-  {
-    "id": "accordion",
-    "components": [
-      "accordion-item"
-    ]
-  },
-  {
-    "id": "accordion-item",
-    "components": [
-      "text",
-      "title",
-      "button"
-    ]
-  },
-  {
-    "id": "card-fee",
-    "components": [
-      "card-fee-item"
-    ]
-  },
-  {
-    "id": "card-fee-item",
-    "components": [
-      "text",
-      "title",
-      "button"
+      "process-step"
     ]
   },
   {
@@ -114,31 +83,39 @@
     ]
   },
   {
-    "id": "contact",
+    "id": "contact-info",
     "components": [
       "text",
       "title",
-      "button",
-      "phone"
-    ]
-  },
-  {
-    "id": "process",
-    "components": [
       "button"
     ]
   },
   {
-    "id": "regulation-config",
+    "id": "cta-button-banner",
     "components": [
-      "tab-menu-config"
+      "text",
+      "title",
+      "image",
+      "button"
     ]
   },
   {
-    "id": "step",
+    "id": "process-step",
     "components": [
       "title",
       "text",
+      "image",
+      "button",
+      "contact-info",
+      "cta-button-banner"
+    ]
+  },
+  {
+    "id": "step-by-step-cta",
+    "components": [
+      "text",
+      "title",
+      "image",
       "button"
     ]
   }
