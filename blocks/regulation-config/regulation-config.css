@@ -41,7 +41,8 @@ h1.regulation-index-hero-text {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
-  padding: 60px 0;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
 @media (width >= 810px) {

@@ -1,6 +1,32 @@
 import { createElement, detachAndReattach, detachAndReattachAll } from '../../scripts/util.js';
 
-function createMenu(main) {
+function showHideTab(name) {
+  const tabs = document.querySelector('main').querySelector('.tabs').querySelectorAll('.tab');
+  tabs.forEach((tab) => {
+    const t = tab.classList.contains(name);
+    tab.style.display = t ? 'block' : 'none';
+  });
+}
+
+function createMenu(main, menuToDisplay) {
+  function clickHandler(event) {
+    const { target } = event;
+    const name = target.classList[1];
+
+    if (target.classList.contains('menu-item-active')) {
+      // Skip if the clicked item is already active
+      return;
+    }
+
+    // Remove active class from all menu items
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach((item) => item.classList.remove('menu-item-active'));
+
+    // Add active class to clicked item
+    target.classList.add('menu-item-active');
+    showHideTab(name);
+  }
+
   const order = new Set();
   const tabs = main.querySelectorAll('.tabs > .tab');
 
@@ -18,14 +44,25 @@ function createMenu(main) {
     // Create the unordered list
     const ul = createElement('ul');
 
+    let weHaveTheFirst = false;
     // Create and append list items
-    orderArray.forEach((item, idx) => {
+    orderArray.forEach((item) => {
+      const classWithTheTabName = item.toLowerCase().replace(/\s+/g, '-');
       const li = createElement('li', {
         props: {
-          className: `menu-item ${item.toLowerCase().replace(/\s+/g, '-')} ${idx === 0 ? 'menu-item-active' : ''}`,
+          className: `menu-item ${classWithTheTabName}`,
         },
       });
       li.textContent = item;
+      li.style.display = (menuToDisplay[classWithTheTabName]) ? 'block' : 'none';
+
+      li.onclick = clickHandler;
+
+      if (!weHaveTheFirst && li.style.display === 'block') {
+        li.classList.add('menu-item-active');
+        weHaveTheFirst = true;
+      }
+
       ul.appendChild(li);
     });
 
@@ -38,10 +75,10 @@ function createMenu(main) {
   return null;
 }
 
-function decorateRegulationPage() {
+function decorateRegulationPage(menuToDisplay) {
   const list = {};
 
-  document.querySelectorAll('[data-tab-name]').forEach((t) => {
+  document.querySelector('main').querySelectorAll('[data-tab-name]').forEach((t) => {
     const { tabSectionName, tabName } = t.dataset;
     if (tabName in list) {
       if (tabSectionName in list[tabName]) {
@@ -128,7 +165,7 @@ function decorateRegulationPage() {
   const regulationIndexWrapper = createElement('div', { props: { className: 'page-container regulation-index' } });
 
   // Append the menu to the regulation-index wrapper (if it exists)
-  const menu = createMenu(tabsContainer);
+  const menu = createMenu(tabsContainer, menuToDisplay);
 
   if (menu) {
     regulationIndexWrapper.appendChild(menu);
@@ -143,14 +180,30 @@ function decorateRegulationPage() {
 
   pageRegulationIndexPage.appendChild(regulationIndexWrapper);
   main.appendChild(pageRegulationIndexPage);
+
+  const name = main.querySelector('.menu-regulation-index')?.querySelector('li.menu-item-active')?.classList[1];
+  if (name) {
+    showHideTab(name);
+  }
 }
 
 export default async function decorate(doc) {
-  decorateRegulationPage();
+  const [image, text, ...booleans] = doc.children;
+
+  const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operate-&-renew']; const menuToDisplay = {};
+
+  booleans.forEach((d, idx) => {
+    const el = d.querySelector('p');
+    const bool = el?.innerText === 'true';
+    if (el) {
+      menuToDisplay[menuOrden[idx]] = bool;
+    }
+    d.remove();
+  });
+
+  decorateRegulationPage(menuToDisplay);
 
   const div = createElement('div', { props: { className: 'regulation-index-hero' } });
-
-  const [image, text] = doc.children;
 
   // Extract the image URL from the image element
   const imageUrl = image.querySelector('img')?.src || '';
