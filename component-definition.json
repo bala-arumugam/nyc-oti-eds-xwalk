@@ -346,8 +346,12 @@
                   "model": "section-model",
                   "filter": "section-body",
                   "name": "Section (Body)",
-                  "regulation-config": {},
-                  "tab-menu-config": {}
+                  "regulation-config": {
+                    "model": "regulation-config"
+                  },
+                  "tab-menu-config": {
+                    "model": "tab-menu-config"
+                  }
                 }
               }
             }
