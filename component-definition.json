@@ -336,7 +336,7 @@
       "id": "sections-ri",
       "components": [
         {
-          "title": "Section (Body)",
+          "title": "Section Body",
           "id": "section-body",
           "plugins": {
             "xwalk": {
@@ -345,7 +345,7 @@
                 "template": {
                   "model": "section-model",
                   "filter": "section-body",
-                  "name": "Section (Body)",
+                  "name": "Section body",
                   "regulation-config": {
                     "model": "regulation-config"
                   },
