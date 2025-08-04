@@ -2,11 +2,18 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "section-body",
+      "section-description",
+      "section-additional",
+      "section-process-step"
     ]
   },
   {
     "...": "./_section.json#/filters"
+  },
+  {
+    "...": "./_section-ri.json#/filters"
   },
   {
     "...": "../blocks/*/_*.json#/filters"

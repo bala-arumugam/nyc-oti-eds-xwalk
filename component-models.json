@@ -142,6 +142,38 @@
     ]
   },
   {
+    "id": "section-model",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Section Name",
+        "description": "The label shown for this section in the Content Tree"
+      },
+      {
+        "component": "text",
+        "name": "tab-name",
+        "label": "Tab Name",
+        "description": "Helper Metadata"
+      },
+      {
+        "component": "select",
+        "name": "tab-section-name",
+        "label": "Tab Section Name",
+        "options": [
+          {
+            "name": "Section Description",
+            "value": "Description"
+          },
+          {
+            "name": "Section Additional",
+            "value": "Additional"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -180,6 +212,30 @@
     ]
   },
   {
+    "id": "contact-info",
+    "fields": [
+      {
+        "component": "text",
+        "name": "fullname",
+        "value": "",
+        "label": "Full Name",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cta-button-banner",
+    "fields": [
+      {
+        "component": "text",
+        "name": "fullname",
+        "value": "",
+        "label": "Full Name",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
@@ -211,6 +267,94 @@
         "name": "text",
         "value": "",
         "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "process-step",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "content",
+        "value": "",
+        "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "regulation-config",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobileButtonName",
+        "label": "Text for Mobile button",
+        "valueType": "string",
+        "value": "NAVIGATION"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Show About ",
+        "name": "about"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Show the How to Apply",
+        "name": "how-to-apply"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Show After You Apply",
+        "name": "after-you-apply"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Show Operating & Renewing",
+        "name": "operating-renewing"
+      }
+    ]
+  },
+  {
+    "id": "step-by-step-cta",
+    "fields": [
+      {
+        "component": "text",
+        "name": "fullname",
+        "value": "",
+        "label": "Full Name",
         "valueType": "string"
       }
     ]
