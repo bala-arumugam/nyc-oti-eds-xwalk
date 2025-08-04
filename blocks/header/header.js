@@ -81,7 +81,7 @@ function createLogoBand(headerData) {
     // For browsers that support it, specify that this is a critical image
     importance: 'high',
     // Explicitly decode image immediately to prevent layout shifts
-    decoding: 'sync'
+    decoding: 'sync',
   });
 
   const logoLink = createElement('a', {
@@ -500,12 +500,12 @@ function createIconLink(iconPath, altText, href) {
 
   // Add loading="lazy" for non-critical icons to improve performance
   // Add width/height to prevent layout shifts (improves CLS)
-  const img = createElement('img', { 
-    src: iconPath, 
+  const img = createElement('img', {
+    src: iconPath,
     alt: altText || '',
     loading: 'lazy',
     width: '24',
-    height: '24'
+    height: '24',
   });
   const link = createElement('a', { href, className: linkClass }, [img]);
 
@@ -545,6 +545,85 @@ function createLanguageToggle() {
 }
 
 /**
+ * Initializes mobile-specific performance optimizations
+ * @param {HTMLElement} header - The header element to optimize
+ */
+function initializeMobileOptimizations(header) {
+  // 1. Defer loading of non-critical submenu content
+  const submenus = header.querySelectorAll('.nav-submenu:not(.nav-submenu-mobile)');
+
+  if (window.IntersectionObserver) {
+    const submenuObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const submenu = entry.target;
+            // Apply the optimized loading
+            submenu.style.contentVisibility = 'visible';
+            submenuObserver.unobserve(submenu);
+          }
+        });
+      },
+      { rootMargin: '100px' },
+    );
+
+    submenus.forEach((submenu) => {
+      // Set initial state for better performance
+      submenu.style.contentVisibility = 'auto';
+      submenu.style.containIntrinsicSize = '0 300px';
+      submenuObserver.observe(submenu);
+    });
+  }
+
+  // 2. Optimize mobile menu button interaction
+  const mobileMenuButton = header.querySelector('[data-menu-id="mobile-menu"]');
+  if (mobileMenuButton) {
+    // Use passive event listeners to improve scroll performance
+    mobileMenuButton.addEventListener('touchstart', () => {}, { passive: true });
+
+    // Preconnect to domains that will be used when menu opens
+    const preconnectUrls = [
+      'https://oti-wcms-dev-publish.nyc.gov',
+      'https://nycmycity--qa.sandbox.my.site.com',
+    ];
+
+    preconnectUrls.forEach((url) => {
+      const link = document.createElement('link');
+      link.rel = 'preconnect';
+      link.href = url;
+      document.head.appendChild(link);
+    });
+
+    // Only load mobile menu content when button is clicked
+    const mobileMenu = document.getElementById('mobile-menu-submenu');
+    if (mobileMenu) {
+      // Apply optimized rendering approach
+      mobileMenuButton.addEventListener('click', () => {
+        // Allow menu transitions to be hardware-accelerated
+        mobileMenu.style.willChange = 'transform';
+      });
+    }
+  }
+
+  // 3. Reduce paint complexity for mobile
+  document.documentElement.classList.add('mobile-optimized');
+
+  // 4. Add resource hints for critical assets
+  const resourceHints = [
+    { rel: 'dns-prefetch', href: 'https://oti-wcms-dev-publish.nyc.gov' },
+    { rel: 'preconnect', href: 'https://oti-wcms-dev-publish.nyc.gov', crossorigin: true },
+  ];
+
+  resourceHints.forEach((hint) => {
+    const link = document.createElement('link');
+    link.rel = hint.rel;
+    link.href = hint.href;
+    if (hint.crossorigin) link.crossorigin = hint.crossorigin;
+    document.head.appendChild(link);
+  });
+}
+
+/**
  * Fetches header data from AEM experience fragment Sling Model JSON endpoint
  * @returns {Promise<Object>} The header data
  */
@@ -576,7 +655,7 @@ export default async function decorate(block) {
 
   // 2. Create header element with content-visibility for better rendering performance
   const header = createElement('header');
-  
+
   // Add content-visibility: auto to improve mobile rendering performance
   if (window.innerWidth < 768) {
     header.style.contentVisibility = 'auto';
@@ -743,7 +822,7 @@ export default async function decorate(block) {
 
   // 6. Initialize header interactivity
   initializeHeaderInteractivity(header);
-  
+
   // 7. Initialize mobile optimizations
   if (window.innerWidth < 768) {
     initializeMobileOptimizations(header);
@@ -1017,16 +1096,16 @@ export default async function decorate(block) {
   function loadScriptOnce(src, id, attrs = {}, critical = false) {
     if (id && document.getElementById(id)) return;
     if ([...document.scripts].some((s) => s.src && s.src.includes(src))) return;
-    
+
     const script = document.createElement('script');
     script.src = src;
     if (id) script.id = id;
-    
+
     // Add defer by default for non-critical scripts to improve page loading performance
     if (!critical) {
       script.defer = true;
     }
-    
+
     Object.entries(attrs).forEach(([k, v]) => script.setAttribute(k, v));
     document.body.appendChild(script);
   }
@@ -1035,12 +1114,12 @@ export default async function decorate(block) {
   // This dramatically improves mobile performance and Lighthouse scores
   window.requestIdleCallback = window.requestIdleCallback || function requestIdleCallback(cb) {
     const start = Date.now();
-    return setTimeout(function executeCallback() {
+    return setTimeout(() => {
       cb({
         didTimeout: false,
         timeRemaining: function calculateTimeRemaining() {
           return Math.max(0, 50 - (Date.now() - start));
-        }
+        },
       });
     }, 1);
   };
@@ -1048,11 +1127,10 @@ export default async function decorate(block) {
   // Load only critical scripts immediately
   // Header nav bindings is critical for navigation
   loadScriptOnce('/static/js/header-nav-bindings.js', 'header-nav-bindings-lib', {}, true);
-  
+
   // Add mobile detection for optimized script loading
   const isMobile = window.innerWidth < 768;
-  const loadPriority = isMobile ? { timeout: 1500 } : { timeout: 3000 };
-  
+
   // Defer all non-critical scripts using requestIdleCallback with mobile-optimized timeout
   window.requestIdleCallback(() => {
     // Define script loading priority for mobile optimization
@@ -1060,71 +1138,69 @@ export default async function decorate(block) {
       // High priority - essential for UI interactions
       { src: '/static/js/libs/jquery.colorbox-min.js', id: 'colorbox-lib', priority: 'high' },
       { src: '/static/js/external-links.js', id: 'external-links-lib', priority: 'high' },
-      
+
       // Medium priority - important but can be slightly delayed
       { src: '/static/js/libs/handlebars.js', id: 'handlebars-lib', priority: 'medium' },
       { src: '/static/js/language-selector.js', id: 'language-selector-lib', priority: 'medium' },
-      
+
       // Low priority - can be loaded after initial rendering
       { src: '/static/js/left-nav.js', id: 'left-nav-lib', priority: 'low' },
       { src: '/static/js/account-accordion.js', id: 'account-accordion-lib', priority: 'low' },
       { src: '/static/js/team-site/accordion.js', id: 'team-site-accordion-lib', priority: 'low' },
       { src: '/static/js/utils.js', id: 'utils-lib', priority: 'low' },
-      
+
       // Analytics (lowest priority)
-      { src: '/assets/home/js/webtrends/webtrends.nycbusiness-load.js', id: 'webtrends-lib', priority: 'analytics' }
+      { src: '/assets/home/js/webtrends/webtrends.nycbusiness-load.js', id: 'webtrends-lib', priority: 'analytics' },
     ];
-    
+
     // For mobile, use a progressive loading strategy to improve performance
     if (isMobile) {
       // Load high priority scripts right away
-      scripts.filter(script => script.priority === 'high')
-        .forEach(script => loadScriptOnce(script.src, script.id));
-        
+      scripts.filter((script) => script.priority === 'high')
+        .forEach((script) => loadScriptOnce(script.src, script.id));
+
       // Slightly delay medium priority scripts
       setTimeout(() => {
-        scripts.filter(script => script.priority === 'medium')
-          .forEach(script => loadScriptOnce(script.src, script.id));
+        scripts.filter((script) => script.priority === 'medium')
+          .forEach((script) => loadScriptOnce(script.src, script.id));
       }, 800);
-      
+
       // Load low priority scripts only when user interacts or after a timeout
       const loadLowPriorityScripts = () => {
-        scripts.filter(script => script.priority === 'low')
-          .forEach(script => loadScriptOnce(script.src, script.id));
-          
+        scripts.filter((script) => script.priority === 'low')
+          .forEach((script) => loadScriptOnce(script.src, script.id));
+
         // Remove event listeners once scripts are loaded
-        ['click', 'scroll', 'touchstart'].forEach(event => 
-          document.removeEventListener(event, loadLowPriorityScripts, { passive: true }));
+        ['click', 'scroll', 'touchstart'].forEach((event) => document.removeEventListener(event, loadLowPriorityScripts, { passive: true }));
       };
-      
+
       // Add listeners for user interaction to load low priority scripts
-      ['click', 'scroll', 'touchstart'].forEach(event => 
-        document.addEventListener(event, loadLowPriorityScripts, { once: true, passive: true }));
-      
+      ['click', 'scroll', 'touchstart'].forEach((event) => document.addEventListener(event, loadLowPriorityScripts, { once: true, passive: true }));
+
       // Fallback for low priority scripts after 4 seconds if no interaction
       setTimeout(loadLowPriorityScripts, 4000);
-      
+
       // Analytics loads only after everything else is complete
       setTimeout(() => {
-        scripts.filter(script => script.priority === 'analytics')
-          .forEach(script => loadScriptOnce(script.src, script.id));
+        scripts.filter((script) => script.priority === 'analytics')
+          .forEach((script) => loadScriptOnce(script.src, script.id));
       }, 5000);
     } else {
       // On desktop, use less aggressive optimization
       // Load high and medium priority immediately
-      scripts.filter(script => ['high', 'medium'].includes(script.priority))
-        .forEach(script => loadScriptOnce(script.src, script.id));
-      
+      scripts.filter((script) => ['high', 'medium'].includes(script.priority))
+        .forEach((script) => loadScriptOnce(script.src, script.id));
+
       // Short delay for low priority
       setTimeout(() => {
-        scripts.filter(script => script.priority === 'low')
-          .forEach(script => loadScriptOnce(script.src, script.id));
+        scripts.filter((script) => script.priority === 'low')
+          .forEach((script) => loadScriptOnce(script.src, script.id));
       }, 500);
-      
+
       // Analytics with standard delay
       setTimeout(() => {
-        scripts.filter(script => script.priority === 'analytics')
-          .forEach(script => loadScriptOnce(script.src, script.id));
+        scripts.filter((script) => script.priority === 'analytics')
+          .forEach((script) => loadScriptOnce(script.src, script.id));
       }, 2000);
     }
   }, isMobile ? { timeout: 1500 } : { timeout: 3000 });
@@ -1141,83 +1217,4 @@ export default async function decorate(block) {
       'data-oljs': 'PEFE3-E878-E5CB-F4D9',
     });
   }
-}
-
-/**
- * Initializes mobile-specific performance optimizations
- * @param {HTMLElement} header - The header element to optimize
- */
-function initializeMobileOptimizations(header) {
-  // 1. Defer loading of non-critical submenu content
-  const submenus = header.querySelectorAll('.nav-submenu:not(.nav-submenu-mobile)');
-  
-  if (window.IntersectionObserver) {
-    const submenuObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const submenu = entry.target;
-            // Apply the optimized loading
-            submenu.style.contentVisibility = 'visible';
-            submenuObserver.unobserve(submenu);
-          }
-        });
-      },
-      { rootMargin: '100px' }
-    );
-    
-    submenus.forEach((submenu) => {
-      // Set initial state for better performance
-      submenu.style.contentVisibility = 'auto';
-      submenu.style.containIntrinsicSize = '0 300px';
-      submenuObserver.observe(submenu);
-    });
-  }
-  
-  // 2. Optimize mobile menu button interaction
-  const mobileMenuButton = header.querySelector('[data-menu-id="mobile-menu"]');
-  if (mobileMenuButton) {
-    // Use passive event listeners to improve scroll performance
-    mobileMenuButton.addEventListener('touchstart', () => {}, { passive: true });
-    
-    // Preconnect to domains that will be used when menu opens
-    const preconnectUrls = [
-      'https://oti-wcms-dev-publish.nyc.gov',
-      'https://nycmycity--qa.sandbox.my.site.com'
-    ];
-    
-    preconnectUrls.forEach(url => {
-      const link = document.createElement('link');
-      link.rel = 'preconnect';
-      link.href = url;
-      document.head.appendChild(link);
-    });
-    
-    // Only load mobile menu content when button is clicked
-    const mobileMenu = document.getElementById('mobile-menu-submenu');
-    if (mobileMenu) {
-      // Apply optimized rendering approach
-      mobileMenuButton.addEventListener('click', () => {
-        // Allow menu transitions to be hardware-accelerated
-        mobileMenu.style.willChange = 'transform';
-      });
-    }
-  }
-  
-  // 3. Reduce paint complexity for mobile
-  document.documentElement.classList.add('mobile-optimized');
-  
-  // 4. Add resource hints for critical assets
-  const resourceHints = [
-    { rel: 'dns-prefetch', href: 'https://oti-wcms-dev-publish.nyc.gov' },
-    { rel: 'preconnect', href: 'https://oti-wcms-dev-publish.nyc.gov', crossorigin: true }
-  ];
-  
-  resourceHints.forEach(hint => {
-    const link = document.createElement('link');
-    link.rel = hint.rel;
-    link.href = hint.href;
-    if (hint.crossorigin) link.crossorigin = hint.crossorigin;
-    document.head.appendChild(link);
-  });
 }
