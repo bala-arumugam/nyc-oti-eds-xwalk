@@ -128,7 +128,7 @@
     ]
   },
   {
-    "id": "",
+    "id": "tab-menu-config",
     "components": [
       "tab-menu-config"
     ]
