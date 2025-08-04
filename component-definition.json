@@ -292,11 +292,7 @@
                 "template": {
                   "name": "Regulation Config",
                   "model": "regulation-config",
-                  "filter": "regulation-config",
-                  "tab-menu-config": {
-                    "name": "Tab Menu Config",
-                    "model": "tab-menu-config"
-                  }
+                  "filter": "regulation-config"
                 }
               }
             }
