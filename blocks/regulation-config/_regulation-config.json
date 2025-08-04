@@ -42,6 +42,13 @@
           "label": "Text",
           "valueType": "string"
         },
+        {
+          "component":"text",
+          "name":"mobileButtonName",
+          "label": "Text for Mobile button",
+          "valueType": "string",
+          "value":"NAVIGATION"
+        },
          {
           "component": "boolean",
           "valueType": "boolean",
