@@ -1,11 +1,5 @@
-/* NYC Business Portal Header Styles - Compiled from SASS */
-
-/* nav.css - compiled from nav.scss */
-
-/* Optimize font loading with display=swap for better rendering performance */
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
 
-/* Common Material Icons style - reduces repetition throughout CSS */
 .material-icon, 
 [class*="icon-"]::before,
 [class*="icon-"]::after {
@@ -16,9 +10,7 @@
     font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
 }
 
-/* Variables matching from variables.scss */
 :root {
-    /* Colors */
     --blue: #0042a7;
     --base-blue: #025adf;
     --white: #fff;
@@ -27,8 +19,6 @@
     --light-blue: #aceeff;
     --gray: #d9d9d9;
     --accent: #c46;
-    
-    /* Typography */
     --font-material: "Material Symbols Outlined", sans-serif;
     --font-montserrat: montserrat, "Open Sans", helvetica, arial, sans-serif;
     --font-montserrat-simple: montserrat, arial, sans-serif;
@@ -50,29 +40,20 @@
     --nav-text-light: #fff;
     --body-text-light: #000;
     --body-text-dark: #fff;
-
-    /* Breakpoints */
     --min-mobile-supported: 390px;
     --mobile-breakpoint: 810px;
     --super-condensed-desktop-breakpoint: 880px;
     --condensed-desktop-breakpoint: 910px;
     --inner-grid-desktop-breakpoint: 1200px;
     --max-desktop-width-supported: 1512px;
-
-    /* Font weights */
     --normal: 400;
     --bold-500: 500;
     --bold1: 600;
     --bold2: 700;
-
-    /* Nav height */
     --nav-height: 64px;
-
-    /* Paths */
     --static-image-path: "/static/images";
 }
 
-/* Logo band */
 .logo-band-wrapper {
     background-color: var(--blue);
 }
@@ -91,7 +72,6 @@
     padding-bottom: 4px;
 }
 
-/* Navigation links styling */
 header>nav li>a {
     color: #fff;
     display: inline;
@@ -131,7 +111,6 @@ header>nav>ul .nav-link>a {
     align-items: center;
 }
 
-/* Desktop styles */
 @media (width >=810px) {
     .logo-band .nav-logo {
         padding-top: 8px;
@@ -159,14 +138,12 @@ header>nav>ul .nav-link>a {
     }
 }
 
-/* Header */
 header {
     width: 100%;
     background-color: var(--base-blue);
     height: auto;
 }
 
-/* Navigation */
 header>nav {
     display: flex;
     padding-top: 8px;
@@ -181,7 +158,6 @@ header>nav {
     }
 }
 
-/* Main nav desktop */
 .main-nav-desktop,
 .main-nav {
     height: 100%;
@@ -220,18 +196,15 @@ header>nav {
     }
 }
 
-/* Nav tag line */
 .nav-tag-line {
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Nav link */
 .nav-link {
     display: none;
 }
 
-/* Desktop styles */
 @media (width >=810px) {
     .nav-tag-line {
         margin-left: 0;
@@ -252,7 +225,6 @@ header>nav {
     }
 }
 
-/* Nav icon link */
 .nav-icon-link {
     display: inline;
     align-items: center;
@@ -262,7 +234,6 @@ header>nav {
     font-weight: var(--bold2);
 }
 
-/* Submenu */
 .nav-submenu {
     display: none;
     justify-content: center;
@@ -281,7 +252,6 @@ header>nav {
     display: block;
 }
 
-/* Desktop submenu styles */
 @media (width >=810px) {
     .nav-submenu {
         min-height: 376px;
@@ -316,7 +286,6 @@ header>nav {
     }
 }
 
-/* Submenu items */
 .nav-submenu-items {
     display: block;
 }
@@ -334,7 +303,6 @@ header>nav {
     }
 }
 
-/* Submenu text-list */
 .nav-submenu-text-list .nav-submenu-items {
     display: grid;
     column-gap: 4.5%;
@@ -368,7 +336,6 @@ header>nav {
         border-bottom: none;
     }
 
-    /* Row-specific grid styles for text-list nav submenu */
     .nav-submenu.nav-submenu-text-list.nav-submenu-text-2-row-list .nav-submenu-items {
         grid: repeat(2, auto) / auto-flow 33%;
     }
@@ -408,7 +375,6 @@ header>nav {
     width: 100%;
 }
 
-/* Submenu graphical-list */
 .nav-submenu-graphical-list .nav-submenu-title {
     margin-bottom: 41px;
 }
@@ -473,7 +439,6 @@ header>nav {
     font-size: 16px;
 }
 
-/* Language toggle */
 .language-toggle-wrap {
     background-color: #eee;
     height: 33px;
@@ -543,7 +508,6 @@ header .language-toggle {
     display: none;
 }
 
-/* Account options */
 .top-nav-account-options {
     gap: 4px;
 }
@@ -589,8 +553,6 @@ header .language-toggle {
 .top-nav-account-options .manage-account-text::after {
     content: "account_circle";
     font-size: 24px;
-
-    /* Material icon styles are applied via the selector pattern */
 }
 
 .top-nav-account-options .logout-text {
@@ -610,8 +572,6 @@ header .language-toggle {
     line-height: 1;
     font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
 }
-
-/* Additional header styles */
 
 a.skip-main {
     position: absolute;
@@ -644,7 +604,6 @@ a.skip-main {
     text-decoration: none;
 }
 
-/* Nav tag line styles */
 header>nav .main-nav-desktop .nav-tag-line,
 header>nav .main-nav-desktop .nav-tag-line a,
 header>nav .main-nav .nav-tag-line,
@@ -656,7 +615,6 @@ header>nav .main-nav .nav-tag-line a {
     line-height: 31.584px;
 }
 
-/* Logo band styles */
 .logo-band-wrapper .logo-band,
 .logo-band-wrapper .logo-band .nav-logo>a {
     color: var(--white);
@@ -736,7 +694,6 @@ header>nav .main-nav-desktop>.nav-mobile-menu {
     align-items: center;
 }
 
-/* Utility class for visually hidden text that remains accessible for screen readers */
 .hidden-text,
 .dashboard-slider .bx-controls.bx-has-controls-direction.bx-has-pager .bx-next,
 .dashboard-slider .bx-controls.bx-has-controls-direction.bx-has-pager .bx-prev,
@@ -746,7 +703,6 @@ header>nav .main-nav-desktop>.nav-mobile-menu {
     text-decoration: none;
 }
 
-/* Common hidden text pattern */
 .hidden-text span,
 .dashboard-slider .btn-slider-close span {
     text-indent: -999px;
@@ -757,7 +713,6 @@ header>nav .main-nav-desktop>.nav-mobile-menu {
     width: 0;
 }
 
-/* Success modal spans */
 .modal.alert-success span {
     font-size: 15px;
     line-height: 24px;
@@ -903,7 +858,6 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
 }
 
 @media (width >=810px) {
-    /* Common desktop layout styles */
     .outside-gutter,
     .nav-submenu,
     footer .footer-section,
@@ -913,8 +867,7 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
         padding-left: 4.2375%;
         padding-right: 4.2375%;
     }
-    
-    /* Desktop logo styles */
+
     .logo-band-wrapper .logo-band {
         font-weight: normal;
         font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
@@ -929,14 +882,12 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
         align-items: center;
     }
 
-    /* Nav link padding */
     header>nav li>a,
     header>nav>ul .nav-link>a {
         padding-top: 24px;
         padding-bottom: 24px;
     }
 
-    /* Nav hover/focus states with shared gradient */
     header>nav li:has(> .nav-current-tabfocus)>a,
     header>nav li:has(> a:hover)>a,
     header>nav li:has(> a:focus)>a {
@@ -948,7 +899,6 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
                 #aceeff 100%);
     }
 
-    /* Submenu link typography */
     .nav-submenu .nav-submenu-items a {
         font-weight: normal;
         font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
@@ -1047,8 +997,6 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
         flex: 1 1 auto;
     }
 
-    /* Gap between submenu sections in desktop view */
-
     .nav-submenu .nav-submenu-title {
         text-align: left;
         margin-bottom: 0;
@@ -1100,8 +1048,6 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
 
 }
 
-/* Language toggle section */
-
 .language-selector-box {
     overflow-y: visible;
 }
@@ -1129,9 +1075,6 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
     z-index: 10;
 }
 
-/* ---- MODAL STYLES (converted from modal.scss) ---- */
-
-/* Dialog Box - Jquery Colorbox */
 #colorbox {
     background: #fff;
     border: 1px solid #666;
@@ -1165,7 +1108,6 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 
-/* Hamburger menu icon for mobile */
 header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link::before {
     font-family: "Material Symbols Outlined", sans-serif;
     content: "menu";
@@ -1176,13 +1118,11 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link::before {
     transition: transform 0.3s ease;
 }
 
-/* Hamburger animation for open state */
 header>nav.menu-open .main-nav-desktop>.nav-mobile-menu>a.block-link::before {
     content: "close";
     transform: rotate(90deg);
 }
 
-/* Active hamburger style */
 header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
     content: "close";
 }
@@ -1520,7 +1460,6 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
     }
 }
 
-/* Common button styles */
 .button-secondary,
 .dashboard-content.account-overview .dashboard-interactions details .nycb-button.btn-default,
 .dashboard-content.account-overview .dashboard-slider .bx-wrapper .bx-viewport ul.bxslider>li .text a.link-btn,
@@ -1545,7 +1484,6 @@ a.button-back {
     text-transform: uppercase;
 }
 
-/* Secondary button specific styles */
 .button-secondary {
     background-color: var(--white);
     color: var(--accent);
@@ -1558,7 +1496,6 @@ a.button-back {
     border: 2px solid var(--accent);
 }
 
-/* Enhanced mobile menu styles */
 @media (width <=809px) {
     header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link {
         padding: 8px;
@@ -1569,16 +1506,11 @@ a.button-back {
 
     header>nav .nav-submenu.nav-submenu-mobile {
         padding-top: 60px;
-
-        /* Extra space for the close button */
     }
 
-    /* Make mobile menu touch-friendly */
     .nav-submenu.nav-submenu-mobile .nav-submenu-items>* a {
         padding: 16px 0;
         min-height: 44px;
-
-        /* Minimum touch target size */
     }
 
     .sub-menu-close .hidden-text .nav-submenu .sub-menu-close {
@@ -1610,8 +1542,6 @@ a.button-back {
 
 
 }
-
-/* Sub menu close button styling */
 
 .nav-submenu .sub-menu-close::after {
     font-family: "Material Symbols Outlined", sans-serif;
