@@ -15,6 +15,7 @@
   --background-color: white;
   --light-color: #f8f8f8;
   --dark-color: #505050;
+  --text-color-dark: #fff;
   --text-color: #131313;
   --link-color: #3b63fb;
   --link-hover-color: #1d3ecf;
@@ -38,6 +39,15 @@
 
   /* nav height */
   --nav-height: 64px;
+
+  /* layout */
+  --max-with: 1200px;
+  --width:88%;
+  --query-min-width: 810px;
+
+
+  /* Filter */
+  --blue-filter: linear-gradient(0deg, rgb(0 66 167 / 60%) 0%, rgb(0 66 167 / 60%) 100%);
 }
 
 /* fallback fonts */
@@ -104,12 +114,9 @@ h3,
 h4,
 h5,
 h6 {
-  margin-top: 0.8em;
-  margin-bottom: 0.25em;
+  margin-top: 0;
+  margin-bottom: 0;
   font-family: var(--heading-font-family);
-  font-weight: 600;
-  line-height: 1.25;
-  scroll-margin: 40px;
 }
 
 h1 { font-size: var(--heading-font-size-xxl); }
@@ -229,22 +236,22 @@ main img {
 
 /* sections */
 main > .section {
-  margin: 40px 0;
+  margin: 0;
 }
 
 main > .section > div {
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 24px;
+  padding: 48px 24.5px;
 }
 
 main > .section:first-of-type {
   margin-top: 0;
 }
 
-@media (width >= 900px) {
+@media (width >= 768px) {
   main > .section > div {
-    padding: 0 32px;
+    max-width: 1224px;
+    margin: 0 auto;
+    padding: 24px;
   }
 }
 
@@ -254,4 +261,23 @@ main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+}
+
+
+.page{
+  width: 100%;
+  margin: 0;
+}
+
+.page-container{
+  padding: 0 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (width >= 810px) {
+    .page-container{
+      max-width: var(--max-with);
+      width: var(--width);
+    }
 }

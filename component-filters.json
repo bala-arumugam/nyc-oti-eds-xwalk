@@ -2,7 +2,11 @@
   {
     "id": "main",
     "components": [
-      "section"
+      "section",
+      "section-body",
+      "section-description",
+      "section-additional",
+      "section-process-step"
     ]
   },
   {
@@ -15,8 +19,45 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "section"
+      "fragment"
+    ]
+  },
+  {
+    "id": "section-description",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "process-step"
+    ]
+  },
+  {
+    "id": "section-additional",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "process-step",
+      "contact-info"
+    ]
+  },
+  {
+    "id": "section-body",
+    "components": [
+      "regulation-config",
+      "step-by-step-cta"
+    ]
+  },
+  {
+    "id": "section-process-step",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "process-step"
     ]
   },
   {
@@ -37,7 +78,45 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "regulation-tabs"
+    ]
+  },
+  {
+    "id": "contact-info",
+    "components": [
+      "text",
+      "title",
+      "button"
+    ]
+  },
+  {
+    "id": "cta-button-banner",
+    "components": [
+      "text",
+      "title",
+      "image",
+      "button"
+    ]
+  },
+  {
+    "id": "process-step",
+    "components": [
+      "title",
+      "text",
+      "image",
+      "button",
+      "contact-info",
+      "cta-button-banner"
+    ]
+  },
+  {
+    "id": "step-by-step-cta",
+    "components": [
+      "text",
+      "title",
+      "image",
+      "button"
     ]
   }
 ]

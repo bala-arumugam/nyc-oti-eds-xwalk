@@ -1,0 +1,33 @@
+/* hero */
+.regulation-index-hero {
+  width: 100%;
+  padding: 60px 0;
+  position: relative;
+  max-height: 182px;
+  background: var(--blue-filter),var(--regulation-hero-image),#d3d3d3;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+}
+
+h1.regulation-index-hero-text {
+  position: relative;
+  z-index: 10;
+  color: var(--text-color-dark);
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 48px;
+  letter-spacing: 0;
+}
+
+
+@media (width >= 810px) {
+  h1.regulation-index-hero-text {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 62px;
+    letter-spacing: 0;
+  }
+}

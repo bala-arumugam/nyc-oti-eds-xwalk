@@ -1,0 +1,144 @@
+{
+  "definitions": [
+    {
+      "title": "Section Body",
+      "id": "section-body",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "model": "section-model",
+              "filter": "section-body",
+              "name": "Section body"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Section Description",
+      "id": "section-description",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "model": "section-model",
+              "filter": "section-description",
+              "tab-section-name": "Description",
+              "name": "Section Description"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Section Additional",
+      "id": "section-additional",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "model": "section-model",
+              "filter": "section-additional",
+              "tab-section-name": "Additional",
+              "name":"Section Additional"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Section Process Step",
+      "id": "section-process-step",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/section/v1/section",
+            "template": {
+              "model": "section-model",
+              "filter": "section-process-step",
+              "name": "Section Process Step"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "section-model",
+      "fields": [
+        {
+          "component": "text",
+          "name": "name",
+          "label": "Section Name",
+          "description": "The label shown for this section in the Content Tree"
+        },
+        {
+          "component": "text",
+          "name": "tab-name",
+          "label": "Tab Name",
+          "description": "Helper Metadata"
+        },
+        {
+          "component": "select",
+          "name": "tab-section-name",
+          "label": "Tab Section Name",
+          "options": [
+            {
+              "name": "Section Description",
+              "value": "Description"
+            },
+            {
+              "name": "Section Additional",
+              "value": "Additional"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "section-description",
+      "components": [
+        "text",
+        "image",
+        "button",
+        "title",
+        "process-step"
+      ]
+    },
+    {
+      "id": "section-additional",
+      "components": [
+        "text",
+        "image",
+        "button",
+        "title",
+        "process-step",
+        "contact-info"
+      ]
+    },
+    {
+      "id": "section-body",
+      "components": [
+        "regulation-config",
+        "step-by-step-cta"
+      ]
+    },
+    {
+      "id": "section-process-step",
+      "components": [
+        "text",
+        "image",
+        "button",
+        "title",
+        "process-step"
+      ]
+    }
+  ]
+}
