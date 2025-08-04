@@ -257,10 +257,7 @@
                 "template": {
                   "model": "section-model",
                   "filter": "section-body",
-                  "name": "Section body",
-                  "regulation-config": {
-                    "model": "regulation-config"
-                  }
+                  "name": "Section body"
                 }
               }
             }
