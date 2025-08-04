@@ -48,7 +48,8 @@
   {
     "id": "section-body",
     "components": [
-      "regulation-config"
+      "regulation-config",
+      "tab-menu-config"
     ]
   },
   {

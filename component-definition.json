@@ -345,7 +345,9 @@
                 "template": {
                   "model": "section-model",
                   "filter": "section-body",
-                  "name": "Section (Body)"
+                  "name": "Section (Body)",
+                  "regulation-config": {},
+                  "tab-menu-config": {}
                 }
               }
             }
