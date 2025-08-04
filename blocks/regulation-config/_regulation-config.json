@@ -10,10 +10,7 @@
             "template": {
               "name": "Regulation Config",
               "model": "regulation-config",
-              "tag-menu-config":{
-                  "name": "Tab Menu Config",
-                  "model": "tab-menu-config"
-              }
+              "filter": "regulation-config"
             }
           }
         }
@@ -44,16 +41,33 @@
           "value": "",
           "label": "Text",
           "valueType": "string"
+        },
+         {
+          "component": "boolean",
+          "valueType": "boolean",
+          "label": "Show About ",
+          "name": "about"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "label": "Show the How to Apply",
+          "name": "how-to-apply"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "label": "Show After You Apply",
+          "name": "after-you-apply"
+        },
+        {
+          "component": "boolean",
+          "valueType": "boolean",
+          "label": "Show Operating & Renewing",
+          "name": "operating-renewing"
         }
       ]
     }
   ],
-  "filters": [
-    {
-      "id":"tab-menu-config",
-      "components":[
-        "tab-menu-config"
-      ]
-    }
-  ]
+  "filters": []
 }

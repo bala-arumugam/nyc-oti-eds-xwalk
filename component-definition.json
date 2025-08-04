@@ -84,78 +84,6 @@
       "id": "blocks",
       "components": [
         {
-          "title": "Accordion",
-          "id": "accordion",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "model": "accordion",
-                  "filter": "accordion",
-                  "name": "Accordion",
-                  "accordion-item": {
-                    "filter": "accordion-item",
-                    "name": "Accordion Item"
-                  }
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Accordion Item",
-          "id": "accordion-item",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "model": "accordion-item",
-                  "filter": "accordion-item",
-                  "name": "Accordion Item"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Card Fee",
-          "id": "card-fee",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "model": "card-fee",
-                  "filter": "card-fee",
-                  "name": "Card Fee",
-                  "card-fee-item": {
-                    "filter": "card-fee-item",
-                    "name": "Contact Item"
-                  }
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Card Fee Item",
-          "id": "card-fee-item",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "model": "card-fee-item",
-                  "filter": "card-fee-item",
-                  "name": "Card Fee Item"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Cards",
           "id": "cards",
           "plugins": {
@@ -201,16 +129,32 @@
           }
         },
         {
-          "title": "Contact",
-          "id": "contact",
+          "title": "Contact Info",
+          "id": "contact-info",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "model": "contact",
-                  "filter": "contact",
-                  "name": "Contact"
+                  "model": "contact-info",
+                  "filter": "contact-info",
+                  "name": "Contact Info"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "CTA Button Banner",
+          "id": "cta-button-banner",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "model": "cta-button-banner",
+                  "filter": "cta-button-banner",
+                  "name": "CTA Button Banner"
                 }
               }
             }
@@ -250,33 +194,16 @@
           }
         },
         {
-          "title": "Phone",
-          "id": "phone",
+          "title": "Process Step",
+          "id": "process-step",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "model": "phone",
-                  "name": "Phone"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Process",
-          "id": "process",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "model": "process",
-                  "filter": "process",
-                  "name": "Process",
-                  "key-value": true,
-                  "Group": "one"
+                  "model": "process-step",
+                  "filter": "process-step",
+                  "name": "Process Step"
                 }
               }
             }
@@ -292,41 +219,23 @@
                 "template": {
                   "name": "Regulation Config",
                   "model": "regulation-config",
-                  "tag-menu-config": {
-                    "name": "Tab Menu Config",
-                    "model": "tab-menu-config"
-                  }
+                  "filter": "regulation-config"
                 }
               }
             }
           }
         },
         {
-          "title": "Step",
-          "id": "step",
+          "title": "Step by step CTA",
+          "id": "step-by-step-cta",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "model": "step",
-                  "filter": "step",
-                  "name": "Step"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Tab Menu Config",
-          "id": "tab-menu-config",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
-                "template": {
-                  "name": "Tab Menu Config",
-                  "model": "tab-menu-config"
+                  "model": "step-by-step-cta",
+                  "filter": "step-by-step-cta",
+                  "name": "Step by step CTA"
                 }
               }
             }
@@ -339,7 +248,7 @@
       "id": "sections-ri",
       "components": [
         {
-          "title": "Section (Body)",
+          "title": "Section Body",
           "id": "section-body",
           "plugins": {
             "xwalk": {
@@ -348,7 +257,7 @@
                 "template": {
                   "model": "section-model",
                   "filter": "section-body",
-                  "name": "Section (Body)"
+                  "name": "Section body"
                 }
               }
             }

@@ -1,7 +1,7 @@
 {
   "definitions": [
     {
-      "title": "Section (Body)",
+      "title": "Section Body",
       "id": "section-body",
       "plugins": {
         "xwalk": {
@@ -10,7 +10,7 @@
             "template": {
               "model": "section-model",
               "filter": "section-body",
-              "name": "Section (Body)"
+              "name": "Section body"
             }
           }
         }
@@ -109,8 +109,7 @@
         "image",
         "button",
         "title",
-        "process",
-        "accordion"
+        "process-step"
       ]
     },
     {
@@ -120,14 +119,15 @@
         "image",
         "button",
         "title",
-        "process",
-        "accordion"
+        "process-step",
+        "contact-info"
       ]
     },
     {
       "id": "section-body",
       "components": [
-        "regulation-config"
+        "regulation-config",
+        "step-by-step-cta"
       ]
     },
     {
@@ -137,8 +137,7 @@
         "image",
         "button",
         "title",
-        "process",
-        "accordion"
+        "process-step"
       ]
     }
   ]
