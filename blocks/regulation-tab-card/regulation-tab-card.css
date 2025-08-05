@@ -2,10 +2,11 @@
   margin-bottom: 40px;
   border-bottom: 4px solid var(--Color-5, #EAEEF1);
 }
+
 /* Description */
 .tab-main-card .tab-main-card-description {
-   margin: 0 0 40px 0;
-  font-family: Lora,'Times New Roman', Times, serif;
+  margin: 0 0 40px 0;
+  font-family: Lora, 'Times New Roman', Times, serif;
   font-weight: 500;
   font-style: Medium;
   font-size: 16px;
@@ -64,6 +65,18 @@
   text-decoration-thickness: 0%;
 }
 
+.icon.icon-arrow-right {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.97 19.6912L12.378 18.0618L15.803 14.6374H3.832V12.3624H15.803L12.378 8.93794L13.97 7.30859L20.167 13.4999L13.97 19.6912Z' fill='%23025ADF'/%3E%3C/svg%3E");
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-left: 0px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin-bottom: 5px;
+}
 
 @media (width >=810px) {
   .tab-main-card .tab-main-card-card {

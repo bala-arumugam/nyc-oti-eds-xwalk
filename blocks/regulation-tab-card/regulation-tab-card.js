@@ -61,11 +61,11 @@ export default function decorate(doc) {
     const KEY = contentCard[key];
     const { title, link } = KEY;
     return `
-          <div>
-            <h3>${title} <span>${values[key]}</span></h3>
-            <p><a href="${link.url}">${link.text}</a> <span>-></span></p>
-          </div>
-        `
+        <div>
+        <h3>${title} <span>${values[key]}</span></h3>
+        <p><a href="${link.url}">${link.text} <span class="icon icon-arrow-right"></span></a> </p>
+        </div>
+      `
   }).join('')}
       </div>
     </div>
