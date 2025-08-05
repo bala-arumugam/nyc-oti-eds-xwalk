@@ -109,7 +109,8 @@
         "image",
         "button",
         "title",
-        "process-step"
+        "process-step",
+        "regulation-tab-card"
       ]
     },
     {
@@ -127,7 +128,6 @@
       "id": "section-body",
       "components": [
         "regulation-config",
-        "regulation-tab-card",
         "step-by-step-cta"
       ]
     },
