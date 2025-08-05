@@ -3,7 +3,7 @@
   width: 100%;
   position: relative;
   max-height: 182px;
-  background: var(--blue-filter), var(--regulation-hero-image), #d3d3d3;
+  background: var(--blue-filter), var(--regulation-hero-image-mobile), #d3d3d3;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -28,6 +28,11 @@ h1.regulation-index-hero-text {
     font-size: 48px;
     line-height: 62px;
     letter-spacing: 0;
+  }
+
+
+  .regulation-index-hero {
+    background: var(--blue-filter), var(--regulation-hero-image-desktop), #d3d3d3;
   }
 }
 
@@ -77,9 +82,7 @@ h1.regulation-index-hero-text {
 .menu-regulation-index ul.mobile li {
   display: block;
   background-color: white;
-
   font-weight: 400;
-  font-style: Regular;
   font-size: 17.78px;
   line-height: 26.67px;
   letter-spacing: 0.56px;
@@ -91,6 +94,7 @@ h1.regulation-index-hero-text {
   border-radius: 16px 16px 0 0 ;
   padding-top: 34px;
 }
+
 .menu-regulation-index ul.mobile li:last-child {
   border-radius: 0 0 16px 16px;
   padding-bottom: 34px;
@@ -99,15 +103,12 @@ h1.regulation-index-hero-text {
 
 .menu-regulation-index .mobile-button-menu {
   display: block;
-  border: 2px solid #CC4466;
-  color: #CC4466;
+  border: 2px solid #C46;
+  color: #C46;
   text-align: center;
   border-radius: 4px;
   border-width: 2px;
-  padding-top: 16px;
-  padding-right: 24px;
-  padding-bottom: 16px;
-  padding-left: 24px;
+  padding: 16px 24px;
 }
 
 @media (width >=810px) {

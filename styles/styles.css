@@ -287,24 +287,20 @@ main .section.highlight {
 }
 
 .page-container {
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 24px 16px;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 24px;
-  padding-bottom: 24px;
 }
 
 .shade-background{
   z-index: 1000;
-  position: absolute;
-  top:0px;
-  left: 0px;
-  bottom: 0px;
+  top:0;
+  left: 0;
+  bottom: 0;
   width: 100%;
   height: 100vh;
   background-color: black;
-  opacity: 32%;
+  opacity: 0.32;
   position: fixed;
 }
 

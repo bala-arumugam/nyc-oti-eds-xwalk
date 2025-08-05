@@ -110,23 +110,21 @@ export function detachAndReattachAll(elements, newParent = null) {
   return elementsArray.map((element) => detachAndReattach(element, newParent));
 }
 
-export function shadeBackground(){
-  let shadeBackground;
-  function show(){
-    shadeBackground = createElement("div",{props:{className:"shade-background"}})
-    document.querySelector('body').append(shadeBackground)
+export function shadeBackground() {
+  function show() {
+    const shadeBackgroundElement = createElement('div', { props: { className: 'shade-background' } });
+    document.querySelector('body').append(shadeBackgroundElement);
   }
 
-  function destroy(){
-    const shadeBackground = document.querySelector('body').querySelector('.shade-background');
-    if(shadeBackground){
-      shadeBackground.remove()
+  function destroy() {
+    const shadeBackgroundElement = document.querySelector('body').querySelector('.shade-background');
+    if (shadeBackgroundElement) {
+      shadeBackgroundElement.remove();
     }
-
   }
 
   return {
     show,
-    destroy
-  }
+    destroy,
+  };
 }

@@ -1,16 +1,17 @@
-import { createElement, detachAndReattach, detachAndReattachAll, shadeBackground } from '../../scripts/util.js';
+import {
+  createElement, detachAndReattach, detachAndReattachAll, shadeBackground,
+} from '../../scripts/util.js';
 
 function showHideTab(name) {
   const tabs = document.querySelector('main').querySelector('.tabs').querySelectorAll('.tab');
   tabs.forEach((tab) => {
     const t = tab.classList.contains(name);
     tab.style.display = t ? 'block' : 'none';
-    tab.setAttribute("tabindex", t ? '0' : -1)
+    tab.setAttribute('tabindex', t ? '0' : -1);
   });
 }
 
 function menuMobileComponent() {
-
   const { show, destroy } = shadeBackground();
 
   // Listen for window resize events to toggle mobile menu visibility
@@ -18,15 +19,15 @@ function menuMobileComponent() {
 
   // Function to check if screen is mobile size and apply necessary changes
   function handleScreenSizeChange(e) {
-    const _menu = document.querySelector('.menu-regulation-index ul');
-    if (!_menu) return;
+    const menuA = document.querySelector('.menu-regulation-index ul');
+    if (!menuA) return;
 
     if (e.matches) {
       // Mobile view - hide menu until clicked
-      _menu.classList.remove('mobile');
+      menuA.classList.remove('mobile');
     } else {
       // Desktop view - ensure menu is visible and background shade is removed
-      _menu.classList.remove('mobile');
+      menuA.classList.remove('mobile');
       destroy();
     }
   }
@@ -38,35 +39,32 @@ function menuMobileComponent() {
   mediaQuery.addEventListener('change', handleScreenSizeChange);
 
   function onclick() {
-    const _menu = document.querySelector('.menu-regulation-index ul');
+    const menu = document.querySelector('.menu-regulation-index ul');
     show();
-    _menu.classList.add('mobile');
+    menu.classList.add('mobile');
   }
 
   function clean() {
-    const _menu = document.querySelector('.menu-regulation-index ul');
+    const menu = document.querySelector('.menu-regulation-index ul');
     destroy();
-    _menu.classList.remove('mobile')
+    menu.classList.remove('mobile');
   }
   return {
     onclick,
-    clean
-  }
+    clean,
+  };
 }
 
 function createMenu(main, menuToDisplay, mobileButtonTitle) {
-
   const mComponent = menuMobileComponent();
 
   function clickHandler(event) {
     const { target } = event;
     const name = target.classList[1];
 
-    const sb = shadeBackground();
-
     if (target.classList.contains('menu-item-active')) {
       // Skip if the clicked item is already active
-      mComponent.clean()
+      mComponent.clean();
       return;
     }
 
@@ -74,18 +72,16 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
     const menuItems = document.querySelectorAll('li.menu-item');
     menuItems.forEach((li) => {
       li.classList.remove('menu-item-active');
-      li.setAttribute("aria-selected", "false");
-      li.setAttribute("tabindex", "-1");
+      li.setAttribute('aria-selected', 'false');
+      li.setAttribute('tabindex', '-1');
     });
 
     // Add active class to clicked item
     target.classList.add('menu-item-active');
-    target.setAttribute("aria-selected", "true");
-    target.setAttribute("tabindex", "0");
+    target.setAttribute('aria-selected', 'true');
+    target.setAttribute('tabindex', '0');
 
-
-
-    mComponent.clean()
+    mComponent.clean();
 
     showHideTab(name);
   }
@@ -106,7 +102,7 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
 
     // Create the unordered list
     const ul = createElement('ul');
-    ul.setAttribute("role", "tablist");
+    ul.setAttribute('role', 'tablist');
 
     let weHaveTheFirst = false;
     // Create and append list items
@@ -121,16 +117,16 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
       li.style.display = (menuToDisplay[classWithTheTabName]) ? 'block' : 'none';
 
       li.onclick = clickHandler;
-      li.setAttribute("role", "tab");
-      li.setAttribute("aria-controls", `tab-${classWithTheTabName}`);
-      li.setAttribute("id", `tab-button-${classWithTheTabName}`);
-      li.setAttribute("aria-selected", "false");
-      li.setAttribute("tabindex", "-1");
+      li.setAttribute('role', 'tab');
+      li.setAttribute('aria-controls', `tab-${classWithTheTabName}`);
+      li.setAttribute('id', `tab-button-${classWithTheTabName}`);
+      li.setAttribute('aria-selected', 'false');
+      li.setAttribute('tabindex', '-1');
 
       if (!weHaveTheFirst && li.style.display === 'block') {
         li.classList.add('menu-item-active');
-        li.setAttribute("aria-selected", "true");
-        li.setAttribute("tabindex", "0");
+        li.setAttribute('aria-selected', 'true');
+        li.setAttribute('tabindex', '0');
 
         weHaveTheFirst = true;
       }
@@ -138,19 +134,18 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
       ul.appendChild(li);
     });
 
-
-    const mobileButton = createElement('div', { props: { className: "mobile-button-menu" } });
+    const mobileButton = createElement('div', { props: { className: 'mobile-button-menu' } });
     mobileButton.innerText = mobileButtonTitle;
 
-    mobileButton.setAttribute("role", "button");
-    mobileButton.setAttribute("aria-expanded", "false");
-    mobileButton.setAttribute("aria-controls", "navigation-menu");
-    mobileButton.setAttribute("tabindex", "0");
-    mobileButton.setAttribute("arial-label", "Open Navigation Menu")
+    mobileButton.setAttribute('role', 'button');
+    mobileButton.setAttribute('aria-expanded', 'false');
+    mobileButton.setAttribute('aria-controls', 'navigation-menu');
+    mobileButton.setAttribute('tabindex', '0');
+    mobileButton.setAttribute('arial-label', 'Open Navigation Menu');
 
     mobileButton.onclick = mComponent.onclick;
 
-    menu.appendChild(mobileButton)
+    menu.appendChild(mobileButton);
 
     // Assemble the menu
     menu.appendChild(ul);
@@ -211,9 +206,9 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     // Create a new tab for each entry in the list
     const newTab = createElement('div', { props: { className: 'tab' }, attrs: { 'data-tab-name': tabName } });
 
-    newTab.setAttribute("role", "tabpanel");
-    newTab.setAttribute("id", `tab-${tabName}`);
-    newTab.setAttribute("aria-labelledby", `tab-button-${tabName}`);
+    newTab.setAttribute('role', 'tabpanel');
+    newTab.setAttribute('id', `tab-${tabName}`);
+    newTab.setAttribute('aria-labelledby', `tab-button-${tabName}`);
 
     newTab.classList.add(tabName.toLowerCase().replace(/\s+/g, '-'));
 
@@ -298,7 +293,8 @@ export default async function decorate(doc) {
   const div = createElement('div', { props: { className: 'regulation-index-hero' } });
 
   // Extract the image URL from the image element
-  const imageUrl = image.querySelector('img')?.src || '';
+  const imageDesktop = image.querySelector('source[type="image/webp"][media]')?.srcset || image.querySelector('img')?.src || '';
+  const imageMobile = image.querySelector('source[type="image/webp"]:not([media])')?.srcset || imageDesktop || '';
 
   const h1 = createElement('h1', {});
 
@@ -315,8 +311,11 @@ export default async function decorate(doc) {
   pElement.remove();
 
   // Apply the image as a background to the hero div
-  if (imageUrl) {
-    div.style.setProperty('--regulation-hero-image', `url(${imageUrl})`);
+  if (imageDesktop) {
+    div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
+  }
+  if (imageMobile) {
+    div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
   }
 
   doc.innerHTML = '';
