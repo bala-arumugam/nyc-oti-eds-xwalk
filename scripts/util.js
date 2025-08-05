@@ -109,3 +109,24 @@ export function detachAndReattachAll(elements, newParent = null) {
   // Process each element
   return elementsArray.map((element) => detachAndReattach(element, newParent));
 }
+
+export function shadeBackground(){
+  let shadeBackground;
+  function show(){
+    shadeBackground = createElement("div",{props:{className:"shade-background"}})
+    document.querySelector('body').append(shadeBackground)
+  }
+
+  function destroy(){
+    const shadeBackground = document.querySelector('body').querySelector('.shade-background');
+    if(shadeBackground){
+      shadeBackground.remove()
+    }
+
+  }
+
+  return {
+    show,
+    destroy
+  }
+}

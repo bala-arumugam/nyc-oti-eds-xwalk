@@ -1,6 +1,95 @@
-import { createElement, detachAndReattach, detachAndReattachAll } from '../../scripts/util.js';
+import { createElement, detachAndReattach, detachAndReattachAll, shadeBackground } from '../../scripts/util.js';
 
-function createMenu(main) {
+function showHideTab(name) {
+  const tabs = document.querySelector('main').querySelector('.tabs').querySelectorAll('.tab');
+  tabs.forEach((tab) => {
+    const t = tab.classList.contains(name);
+    tab.style.display = t ? 'block' : 'none';
+    tab.setAttribute("tabindex", t ? '0' : -1)
+  });
+}
+
+function menuMobileComponent() {
+
+  const { show, destroy } = shadeBackground();
+
+  // Listen for window resize events to toggle mobile menu visibility
+  const mediaQuery = window.matchMedia('(max-width: 810px)');
+
+  // Function to check if screen is mobile size and apply necessary changes
+  function handleScreenSizeChange(e) {
+    const _menu = document.querySelector('.menu-regulation-index ul');
+    if (!_menu) return;
+
+    if (e.matches) {
+      // Mobile view - hide menu until clicked
+      _menu.classList.remove('mobile');
+    } else {
+      // Desktop view - ensure menu is visible and background shade is removed
+      _menu.classList.remove('mobile');
+      destroy();
+    }
+  }
+
+  // Set up the initial state
+  handleScreenSizeChange(mediaQuery);
+
+  // Add listener for screen size changes
+  mediaQuery.addEventListener('change', handleScreenSizeChange);
+
+  function onclick() {
+    const _menu = document.querySelector('.menu-regulation-index ul');
+    show();
+    _menu.classList.add('mobile');
+  }
+
+  function clean() {
+    const _menu = document.querySelector('.menu-regulation-index ul');
+    destroy();
+    _menu.classList.remove('mobile')
+  }
+  return {
+    onclick,
+    clean
+  }
+}
+
+function createMenu(main, menuToDisplay, mobileButtonTitle) {
+
+  const mComponent = menuMobileComponent();
+
+  function clickHandler(event) {
+    const { target } = event;
+    const name = target.classList[1];
+
+    const sb = shadeBackground();
+
+    if (target.classList.contains('menu-item-active')) {
+      // Skip if the clicked item is already active
+      mComponent.clean()
+      return;
+    }
+
+    // Remove active class from all menu items
+    const menuItems = document.querySelectorAll('li.menu-item');
+    menuItems.forEach((li) => {
+      li.classList.remove('menu-item-active');
+      li.setAttribute("aria-selected", "false");
+      li.setAttribute("tabindex", "-1");
+    });
+
+    // Add active class to clicked item
+    target.classList.add('menu-item-active');
+    target.setAttribute("aria-selected", "true");
+    target.setAttribute("tabindex", "0");
+
+
+
+    mComponent.clean()
+
+    showHideTab(name);
+  }
+
   const order = new Set();
   const tabs = main.querySelectorAll('.tabs > .tab');
 
@@ -17,17 +106,51 @@ function createMenu(main) {
 
     // Create the unordered list
     const ul = createElement('ul');
+    ul.setAttribute("role", "tablist");
 
+    let weHaveTheFirst = false;
     // Create and append list items
     orderArray.forEach((item) => {
+      const classWithTheTabName = item.toLowerCase().replace(/\s+/g, '-');
       const li = createElement('li', {
         props: {
-          className: `menu-item ${item.toLowerCase().replace(/\s+/g, '-')}`,
+          className: `menu-item ${classWithTheTabName}`,
         },
       });
       li.textContent = item;
+      li.style.display = (menuToDisplay[classWithTheTabName]) ? 'block' : 'none';
+
+      li.onclick = clickHandler;
+      li.setAttribute("role", "tab");
+      li.setAttribute("aria-controls", `tab-${classWithTheTabName}`);
+      li.setAttribute("id", `tab-button-${classWithTheTabName}`);
+      li.setAttribute("aria-selected", "false");
+      li.setAttribute("tabindex", "-1");
+
+      if (!weHaveTheFirst && li.style.display === 'block') {
+        li.classList.add('menu-item-active');
+        li.setAttribute("aria-selected", "true");
+        li.setAttribute("tabindex", "0");
+
+        weHaveTheFirst = true;
+      }
+
       ul.appendChild(li);
     });
+
+
+    const mobileButton = createElement('div', { props: { className: "mobile-button-menu" } });
+    mobileButton.innerText = mobileButtonTitle;
+
+    mobileButton.setAttribute("role", "button");
+    mobileButton.setAttribute("aria-expanded", "false");
+    mobileButton.setAttribute("aria-controls", "navigation-menu");
+    mobileButton.setAttribute("tabindex", "0");
+    mobileButton.setAttribute("arial-label", "Open Navigation Menu")
+
+    mobileButton.onclick = mComponent.onclick;
+
+    menu.appendChild(mobileButton)
 
     // Assemble the menu
     menu.appendChild(ul);
@@ -38,10 +161,10 @@ function createMenu(main) {
   return null;
 }
 
-function decorateRegulationPage() {
+function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   const list = {};
 
-  document.querySelectorAll('[data-tab-name]').forEach((t) => {
+  document.querySelector('main').querySelectorAll('[data-tab-name]').forEach((t) => {
     const { tabSectionName, tabName } = t.dataset;
     if (tabName in list) {
       if (tabSectionName in list[tabName]) {
@@ -88,6 +211,10 @@ function decorateRegulationPage() {
     // Create a new tab for each entry in the list
     const newTab = createElement('div', { props: { className: 'tab' }, attrs: { 'data-tab-name': tabName } });
 
+    newTab.setAttribute("role", "tabpanel");
+    newTab.setAttribute("id", `tab-${tabName}`);
+    newTab.setAttribute("aria-labelledby", `tab-button-${tabName}`);
+
     newTab.classList.add(tabName.toLowerCase().replace(/\s+/g, '-'));
 
     // Create a header element for the tab name
@@ -128,7 +255,7 @@ function decorateRegulationPage() {
   const regulationIndexWrapper = createElement('div', { props: { className: 'page-container regulation-index' } });
 
   // Append the menu to the regulation-index wrapper (if it exists)
-  const menu = createMenu(tabsContainer);
+  const menu = createMenu(tabsContainer, menuToDisplay, mobileButtonTitle);
 
   if (menu) {
     regulationIndexWrapper.appendChild(menu);
@@ -143,14 +270,32 @@ function decorateRegulationPage() {
 
   pageRegulationIndexPage.appendChild(regulationIndexWrapper);
   main.appendChild(pageRegulationIndexPage);
+
+  const name = main.querySelector('.menu-regulation-index')?.querySelector('li.menu-item-active')?.classList[1];
+  if (name) {
+    showHideTab(name);
+  }
 }
 
 export default async function decorate(doc) {
-  decorateRegulationPage();
+  const [image, text, _mobileButtonTitle, ...booleans] = doc.children;
+
+  const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operate-&-renew']; const menuToDisplay = {};
+
+  const mobileButtonTitle = _mobileButtonTitle.querySelector('p').innerText || 'NAVIGATION';
+
+  booleans.forEach((d, idx) => {
+    const el = d.querySelector('p');
+    const bool = el?.innerText === 'true';
+    if (el) {
+      menuToDisplay[menuOrden[idx]] = bool;
+    }
+    d.remove();
+  });
+
+  decorateRegulationPage(menuToDisplay, mobileButtonTitle);
 
   const div = createElement('div', { props: { className: 'regulation-index-hero' } });
-
-  const [image, text] = doc.children;
 
   // Extract the image URL from the image element
   const imageUrl = image.querySelector('img')?.src || '';
