@@ -226,6 +226,21 @@
           }
         },
         {
+          "title": "Regulation Tab Card",
+          "id": "regulation-tab-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Regulation Tab Card",
+                  "model": "regulation-tab-card"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Step by step CTA",
           "id": "step-by-step-cta",
           "plugins": {

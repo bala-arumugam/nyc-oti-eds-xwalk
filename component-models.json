@@ -348,6 +348,46 @@
     ]
   },
   {
+    "id": "regulation-tab-card",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "description",
+        "value": "",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "application-fees",
+        "label": "Application Fees",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "application-reviewed-within",
+        "label": "Application Reviewed Within",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "renewal-fees",
+        "label": "Renewal Fees",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "renewal-cycle",
+        "label": "Renewal Cycle",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "step-by-step-cta",
     "fields": [
       {

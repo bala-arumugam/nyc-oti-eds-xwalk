@@ -47,6 +47,7 @@
     "id": "section-body",
     "components": [
       "regulation-config",
+      "regulation-tab-card",
       "step-by-step-cta"
     ]
   },
