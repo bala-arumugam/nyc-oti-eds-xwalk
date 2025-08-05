@@ -1,0 +1,74 @@
+.tab-main-card {
+  margin-bottom: 40px;
+  border-bottom: 4px solid var(--Color-5, #EAEEF1);
+}
+/* Description */
+.tab-main-card .tab-main-card-description {
+   margin: 0 0 40px 0;
+  font-family: Lora,'Times New Roman', Times, serif;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0px;
+}
+
+/* .tab-main-card .tab-main-card-description p{}
+.tab-main-card .tab-main-card-description ol{}
+.tab-main-card .tab-main-card-description ol li{}
+.tab-main-card .tab-main-card-description ul{}
+.tab-main-card .tab-main-card-description ul li{} */
+
+/* Card */
+.tab-main-card .tab-main-card-card {
+  background: var(--Color-16, #F9FEFF);
+  border-radius: 16px 16px;
+  border: 1px solid var(--Color-4, #D4D7DC);
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  display: grid;
+  margin-bottom: 48px;
+}
+
+.tab-main-card .tab-main-card-card>div {
+  display: block;
+  padding: 16px;
+  gap: 8px;
+}
+
+.tab-main-card .tab-main-card-card>div h3 {
+  margin: 0;
+  padding: 0;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 18px;
+  line-height: 150%;
+  letter-spacing: 0px;
+}
+
+.tab-main-card .tab-main-card-card>div p {
+  padding: 0;
+  margin: 0;
+}
+
+.tab-main-card .tab-main-card-card>div a {
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 16px;
+  line-height: 27px;
+  letter-spacing: 0px;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 0%;
+}
+
+
+@media (width >=810px) {
+  .tab-main-card .tab-main-card-card {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    display: grid;
+  }
+}
