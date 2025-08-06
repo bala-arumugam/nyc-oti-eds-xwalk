@@ -11,7 +11,9 @@
               "model": "process-step",
               "filter": "process-step",
               "name": "Process Step",
-              "classes":["process-step"]
+              "classes": [
+                "process-step"
+              ]
             }
           }
         }
@@ -27,6 +29,13 @@
           "name": "title",
           "value": "",
           "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "step",
+          "value": "",
+          "label": "Step",
           "valueType": "string"
         }
       ]
