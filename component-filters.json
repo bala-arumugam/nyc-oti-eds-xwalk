@@ -127,9 +127,7 @@
       "title",
       "text",
       "image",
-      "button",
-      "contact-info",
-      "cta-button-banner"
+      "button"
     ]
   }
 ]
