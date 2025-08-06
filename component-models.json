@@ -391,17 +391,5 @@
         "valueType": "string"
       }
     ]
-  },
-  {
-    "id": "step",
-    "fields": [
-      {
-        "component": "richtext",
-        "name": "step",
-        "value": "",
-        "label": "Step",
-        "valueType": "string"
-      }
-    ]
   }
 ]

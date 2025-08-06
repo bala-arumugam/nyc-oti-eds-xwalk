@@ -11,11 +11,7 @@
               "model": "process-step",
               "filter": "process-step",
               "name": "Process Step",
-              "step":{
-                "name":"Step",
-                "model":"step",
-                "filter":"step"
-              }
+              "classes":["process-step"]
             }
           }
         }
@@ -44,7 +40,6 @@
         "text",
         "image",
         "button",
-        "step",
         "contact-info",
         "cta-button-banner"
       ]
