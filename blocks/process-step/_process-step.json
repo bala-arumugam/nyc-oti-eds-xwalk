@@ -10,7 +10,10 @@
             "template": {
               "model": "process-step",
               "filter": "process-step",
-              "name": "Process Step"
+              "name": "Process Step",
+              "step":{
+                "model":"step"
+              }
             }
           }
         }
