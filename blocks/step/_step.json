@@ -1,16 +1,16 @@
 {
   "definitions": [
     {
-      "title": "Process Step",
-      "id": "process-step",
+      "title": "Step",
+      "id": "step",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "model": "process-step",
-              "filter": "process-step",
-              "name": "Process Step"
+              "model": "step",
+              "filter": "step",
+              "name": "Step"
             }
           }
         }
@@ -19,20 +19,13 @@
   ],
   "models": [
     {
-      "id": "process-step",
+      "id": "step",
       "fields": [
         {
           "component": "text",
-          "name": "title",
+          "name": "name",
           "value": "",
-          "label": "Title",
-          "valueType": "string"
-        },
-        {
-          "component": "richtext",
-          "name": "content",
-          "value": "",
-          "label": "Content",
+          "label": "Step",
           "valueType": "string"
         }
       ]
@@ -40,13 +33,12 @@
   ],
   "filters": [
     {
-      "id": "process-step",
+      "id": "step",
       "components": [
         "title",
         "text",
         "image",
         "button",
-        "step",
         "contact-info",
         "cta-button-banner"
       ]

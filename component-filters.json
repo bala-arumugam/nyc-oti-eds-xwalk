@@ -107,6 +107,7 @@
       "text",
       "image",
       "button",
+      "step",
       "contact-info",
       "cta-button-banner"
     ]
@@ -118,6 +119,17 @@
       "title",
       "image",
       "button"
+    ]
+  },
+  {
+    "id": "step",
+    "components": [
+      "title",
+      "text",
+      "image",
+      "button",
+      "contact-info",
+      "cta-button-banner"
     ]
   }
 ]

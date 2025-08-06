@@ -398,5 +398,17 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "step",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "value": "",
+        "label": "Step",
+        "valueType": "string"
+      }
+    ]
   }
 ]
