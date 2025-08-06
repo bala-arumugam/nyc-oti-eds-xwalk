@@ -120,9 +120,5 @@
       "image",
       "button"
     ]
-  },
-  {
-    "id": "step",
-    "components": []
   }
 ]
