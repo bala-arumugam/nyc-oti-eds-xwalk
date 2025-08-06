@@ -27,13 +27,6 @@
           "value": "",
           "label": "Title",
           "valueType": "string"
-        },
-        {
-          "component": "richtext",
-          "name": "content",
-          "value": "",
-          "label": "Content",
-          "valueType": "string"
         }
       ]
     }
