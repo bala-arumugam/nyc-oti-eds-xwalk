@@ -397,7 +397,7 @@
     "fields": [
       {
         "component": "richtext",
-        "name": "step",
+        "name": "step-index",
         "value": "",
         "label": "Step",
         "valueType": "string"

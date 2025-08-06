@@ -123,11 +123,6 @@
   },
   {
     "id": "step",
-    "components": [
-      "title",
-      "text",
-      "image",
-      "button"
-    ]
+    "components": []
   }
 ]
