@@ -1,6 +1,7 @@
 import {
   createElement, detachAndReattach, detachAndReattachAll, shadeBackground,
 } from '../../scripts/util.js';
+import{ getContentFragment } from '../../scripts/regulation-page-labels.js';
 
 function showHideTab(name) {
   const tabs = document.querySelector('main').querySelector('.tabs').querySelectorAll('.tab');
@@ -113,7 +114,20 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
           className: `menu-item ${classWithTheTabName}`,
         },
       });
-      li.textContent = item;
+      
+      // Use getContentFragment.getWord() to get the translated text based on tab name
+      if (classWithTheTabName === 'about') {
+        li.textContent = getContentFragment.getWord("aboutTab");
+      } else if (classWithTheTabName === 'how-to-apply') {
+        li.textContent = getContentFragment.getWord("howToApplyTab");
+      } else if (classWithTheTabName === 'after-you-apply') {
+        li.textContent = getContentFragment.getWord("afterYouApplyTab");
+      } else if (classWithTheTabName === 'operate-&-renew') {
+        li.textContent = getContentFragment.getWord("operatingAndRenewingTab");
+      } else {
+        li.textContent = item; // Fallback to the original text if no match
+      }
+      
       li.style.display = (menuToDisplay[classWithTheTabName]) ? 'block' : 'none';
 
       li.onclick = clickHandler;
@@ -214,7 +228,20 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
 
     // Create a header element for the tab name
     const tabHeader = createElement('h2', { props: { className: 'tab-header' } });
-    tabHeader.textContent = tabName;
+    
+    // Map tab names to their corresponding label keys and use getContentFragment.getWord() 
+    // to get the appropriate text for each tab
+    const tabNameLower = tabName.toLowerCase().replace(/\s+/g, '-');
+    if (tabNameLower === 'about') {
+      tabHeader.textContent = getContentFragment.getWord("aboutTab");
+    } else if (tabNameLower === 'how-to-apply') {
+      tabHeader.textContent = getContentFragment.getWord("howToApplyTab");
+    } else if (tabNameLower === 'after-you-apply') {
+      tabHeader.textContent = getContentFragment.getWord("afterYouApplyTab");
+    } else if (tabNameLower === 'operate-&-renew') {
+      tabHeader.textContent = getContentFragment.getWord("operatingAndRenewingTab");
+    }
+
     newTab.appendChild(tabHeader);
 
     // Create containers for this tab's content
