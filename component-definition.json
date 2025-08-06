@@ -205,7 +205,9 @@
                   "filter": "process-step",
                   "name": "Process Step",
                   "step": {
-                    "model": "step"
+                    "name": "Step",
+                    "model": "step",
+                    "filter": "step"
                   }
                 }
               }
