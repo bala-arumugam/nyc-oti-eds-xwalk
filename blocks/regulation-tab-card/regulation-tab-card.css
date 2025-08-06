@@ -1,0 +1,84 @@
+.tab-main-card {
+  margin-bottom: 40px;
+  border-bottom: 4px solid #EAEEF1;
+}
+
+/* Description */
+.tab-main-card .tab-main-card-description {
+  margin: 0 0 40px;
+  font-family: Lora, 'Times New Roman', Times, serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+/* .tab-main-card .tab-main-card-description p{}
+.tab-main-card .tab-main-card-description ol{}
+.tab-main-card .tab-main-card-description ol li{}
+.tab-main-card .tab-main-card-description ul{}
+.tab-main-card .tab-main-card-description ul li{} */
+
+/* Card */
+.tab-main-card .tab-main-card-card {
+  background: #F9FEFF;
+  border-radius: 16px;
+  border: 1px solid #D4D7DC;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  display: grid;
+  margin-bottom: 48px;
+}
+
+.tab-main-card .tab-main-card-card>div {
+  display: block;
+  padding: 16px;
+  gap: 8px;
+}
+
+.tab-main-card .tab-main-card-card>div h3 {
+  margin: 0;
+  padding: 0;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+.tab-main-card .tab-main-card-card>div p {
+  padding: 0;
+  margin: 0;
+}
+
+.tab-main-card .tab-main-card-card>div a {
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 27px;
+  letter-spacing: 0;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 0%;
+}
+
+.icon.icon-arrow-right {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.97 19.6912L12.378 18.0618L15.803 14.6374H3.832V12.3624H15.803L12.378 8.93794L13.97 7.30859L20.167 13.4999L13.97 19.6912Z' fill='%23025ADF'/%3E%3C/svg%3E");
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-left: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin-bottom: 5px;
+}
+
+@media (width >=810px) {
+  .tab-main-card .tab-main-card-card {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    display: grid;
+  }
+}

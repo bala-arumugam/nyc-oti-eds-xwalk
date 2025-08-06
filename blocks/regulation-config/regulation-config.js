@@ -213,7 +213,7 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     newTab.classList.add(tabName.toLowerCase().replace(/\s+/g, '-'));
 
     // Create a header element for the tab name
-    const tabHeader = createElement('h3', { props: { className: 'tab-header' } });
+    const tabHeader = createElement('h2', { props: { className: 'tab-header' } });
     tabHeader.textContent = tabName;
     newTab.appendChild(tabHeader);
 
