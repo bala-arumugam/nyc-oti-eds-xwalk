@@ -1,29 +1,18 @@
 .tab-main-card {
   margin-bottom: 40px;
-  border-bottom: 4px solid #EAEEF1;
+  border-bottom: 4px solid var(--color-5);
 }
 
 /* Description */
 .tab-main-card .tab-main-card-description {
   margin: 0 0 40px;
-  font-family: Lora, 'Times New Roman', Times, serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0;
 }
-
-/* .tab-main-card .tab-main-card-description p{}
-.tab-main-card .tab-main-card-description ol{}
-.tab-main-card .tab-main-card-description ol li{}
-.tab-main-card .tab-main-card-description ul{}
-.tab-main-card .tab-main-card-description ul li{} */
 
 /* Card */
 .tab-main-card .tab-main-card-card {
-  background: #F9FEFF;
+  background: var(--color-16);
   border-radius: 16px;
-  border: 1px solid #D4D7DC;
+  border: 1px solid var(--color-4);
   grid-template-columns: 1fr;
   grid-template-rows: auto auto;
   display: grid;
@@ -39,11 +28,8 @@
 .tab-main-card .tab-main-card-card>div h3 {
   margin: 0;
   padding: 0;
-  font-family: Montserrat, Arial, Helvetica, sans-serif;
-  font-weight: 700;
   font-size: 18px;
   line-height: 150%;
-  letter-spacing: 0;
 }
 
 .tab-main-card .tab-main-card-card>div p {
@@ -52,14 +38,10 @@
 }
 
 .tab-main-card .tab-main-card-card>div a {
-  font-family: Montserrat, Arial, Helvetica, sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 27px;
-  letter-spacing: 0;
   text-decoration: underline;
-  text-decoration-style: solid;
-  text-decoration-thickness: 0%;
 }
 
 .icon.icon-arrow-right {
@@ -78,7 +60,5 @@
 @media (width >=810px) {
   .tab-main-card .tab-main-card-card {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    display: grid;
   }
 }
