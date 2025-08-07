@@ -15,7 +15,7 @@
 .process-step-content::before {
   counter-increment: step;
   content: counter(step) ".";
-  padding: 2px 8px 0;
+  padding: 2px 8px 0 0;
 }
 
 /* Hide the ::before element when there's no content after the title */
