@@ -6,29 +6,28 @@
   display: flex;
 }
 
-.process-step::before {
+/* Move counter from process-step to process-step-content */
+.process-step-content {
+  flex: 1;
+  display: flex;
+}
+
+.process-step-content::before {
   counter-increment: step;
   content: counter(step) ".";
   padding: 2px 8px 0;
 }
 
-/* Hide the ::before element when the second div's child div is empty */
-.process-step > div:nth-child(2) > div:empty ~ .process-step::before,
-.process-step > div:nth-child(2) > div:empty + * {
+/* Hide the ::before element when there's no content after the title */
+.process-step-content:has(.process-step-title + div:empty)::before {
   display: none;
 }
 
-/* Alternative approach using :has() if supported in your target browsers */
-.process-step:has(> div:nth-child(2) > div:empty)::before {
+.process-step .process-step-title:empty {
   display: none;
 }
 
-.process-step .process-step-title:empty{
-  display: none;
-}
-
-
-.process-step p{
+.process-step p {
   font-family: Lora;
   font-weight: 500;
   font-size: 16px;
@@ -37,3 +36,11 @@
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+/* Styling for lists inside process steps */
+.process-step ul,
+.process-step ol {
+  font-family: Lora;
+  line-height: 27px;
+}
+

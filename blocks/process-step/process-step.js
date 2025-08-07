@@ -8,7 +8,7 @@ export default function decorate(doc) {
   const title = titleElement.textContent.trim();
 
 
-  const template = createElement('div',{props:{className: 'process-step'}});
+  const template = createElement('div',{props:{className: 'process-step-content'}});
   const newTitle = createElement('div',{props: {className:'process-step-title'}})
 
   if(!!title){
