@@ -28,19 +28,19 @@
 }
 
 .process-step p {
-  font-family: Lora;
+  font-family: Lora, 'Times New Roman', Times, serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 27px;
-  letter-spacing: 0px;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  letter-spacing: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Styling for lists inside process steps */
 .process-step ul,
 .process-step ol {
-  font-family: Lora;
+  font-family: Lora, 'Times New Roman', Times, serif;
   line-height: 27px;
 }
 

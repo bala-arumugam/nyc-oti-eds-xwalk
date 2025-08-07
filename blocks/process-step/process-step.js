@@ -1,18 +1,16 @@
-import { createElement } from "../../scripts/util.js";
-
+import { createElement } from '../../scripts/util.js';
 
 export default function decorate(doc) {
-  //Get data
+  // Get data
   const [titleElement, stepElement] = doc.children;
 
   const title = titleElement.textContent.trim();
 
+  const template = createElement('div', { props: { className: 'process-step-content' } });
+  const newTitle = createElement('div', { props: { className: 'process-step-title' } });
 
-  const template = createElement('div',{props:{className: 'process-step-content'}});
-  const newTitle = createElement('div',{props: {className:'process-step-title'}})
-
-  if(!!title){
-    newTitle.innerText(title)
+  if (title) {
+    newTitle.innerText(title);
   }
 
   template.appendChild(newTitle);
@@ -26,6 +24,6 @@ export default function decorate(doc) {
   // Create and append the process step template
   const processStep = template.cloneNode(true);
   doc.appendChild(processStep);
-  
+
   return processStep;
 }

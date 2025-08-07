@@ -119,7 +119,7 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
       li.onclick = clickHandler;
       li.setAttribute('role', 'tab');
       li.setAttribute('aria-controls', `tab-${classWithTheTabName}`);
-      li.setAttribute('id', `tab-button-${classWithTheTabName.replaceAll(" ","-")}`);
+      li.setAttribute('id', `tab-button-${classWithTheTabName.replaceAll(' ', '-')}`);
       li.setAttribute('aria-selected', 'false');
       li.setAttribute('tabindex', '-1');
 
@@ -207,8 +207,8 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     const newTab = createElement('div', { props: { className: 'tab' }, attrs: { 'data-tab-name': tabName } });
 
     newTab.setAttribute('role', 'tabpanel');
-    newTab.setAttribute('id', `tab-${tabName.replaceAll(" ","-")}`);
-    newTab.setAttribute('aria-labelledby', `tab-button-${tabName.replaceAll(" ","-")}`);
+    newTab.setAttribute('id', `tab-${tabName.replaceAll(' ', '-')}`);
+    newTab.setAttribute('aria-labelledby', `tab-button-${tabName.replaceAll(' ', '-')}`);
 
     newTab.classList.add(tabName.toLowerCase().replace(/\s+/g, '-'));
 
