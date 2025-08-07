@@ -1,0 +1,39 @@
+.section {
+  counter-reset: step;
+}
+
+.process-step {
+  display: flex;
+}
+
+.process-step::before {
+  counter-increment: step;
+  content: counter(step) ".";
+  padding: 2px 8px 0;
+}
+
+/* Hide the ::before element when the second div's child div is empty */
+.process-step > div:nth-child(2) > div:empty ~ .process-step::before,
+.process-step > div:nth-child(2) > div:empty + * {
+  display: none;
+}
+
+/* Alternative approach using :has() if supported in your target browsers */
+.process-step:has(> div:nth-child(2) > div:empty)::before {
+  display: none;
+}
+
+.process-step .process-step-title:empty{
+  display: none;
+}
+
+
+.process-step p{
+  font-family: Lora;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 27px;
+  letter-spacing: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}

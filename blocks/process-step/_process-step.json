@@ -10,10 +10,7 @@
             "template": {
               "model": "process-step",
               "filter": "process-step",
-              "name": "Process Step",
-              "classes": [
-                "process-step"
-              ]
+              "name": "Process Step"
             }
           }
         }

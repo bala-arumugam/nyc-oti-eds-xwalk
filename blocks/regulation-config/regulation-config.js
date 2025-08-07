@@ -73,13 +73,13 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
     menuItems.forEach((li) => {
       li.classList.remove('menu-item-active');
       li.setAttribute('aria-selected', 'false');
-      li.setAttribute('tabindex', '-1');
+      li.setAttribute('tabindex', '0');
     });
 
     // Add active class to clicked item
     target.classList.add('menu-item-active');
     target.setAttribute('aria-selected', 'true');
-    target.setAttribute('tabindex', '0');
+    target.setAttribute('tabindex', '-1');
 
     mComponent.clean();
 
@@ -119,7 +119,7 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
       li.onclick = clickHandler;
       li.setAttribute('role', 'tab');
       li.setAttribute('aria-controls', `tab-${classWithTheTabName}`);
-      li.setAttribute('id', `tab-button-${classWithTheTabName}`);
+      li.setAttribute('id', `tab-button-${classWithTheTabName.replaceAll(" ","-")}`);
       li.setAttribute('aria-selected', 'false');
       li.setAttribute('tabindex', '-1');
 
@@ -207,8 +207,8 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     const newTab = createElement('div', { props: { className: 'tab' }, attrs: { 'data-tab-name': tabName } });
 
     newTab.setAttribute('role', 'tabpanel');
-    newTab.setAttribute('id', `tab-${tabName}`);
-    newTab.setAttribute('aria-labelledby', `tab-button-${tabName}`);
+    newTab.setAttribute('id', `tab-${tabName.replaceAll(" ","-")}`);
+    newTab.setAttribute('aria-labelledby', `tab-button-${tabName.replaceAll(" ","-")}`);
 
     newTab.classList.add(tabName.toLowerCase().replace(/\s+/g, '-'));
 
