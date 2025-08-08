@@ -13,3 +13,11 @@
   font-display: swap;
   src: url('../fonts/Montserrat-Medium.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: Lora;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/Lora-Regular.ttf') format('truetype');
+}
