@@ -28,14 +28,9 @@
 }
 
 .process-step p {
-  letter-spacing: 0;
   margin-top: 0;
   margin-bottom: 0;
 }
 
-/* Styling for lists inside process steps */
-/* .process-step ul,
-.process-step ol {
-
-} */
+/* Removing commented out code */
 
