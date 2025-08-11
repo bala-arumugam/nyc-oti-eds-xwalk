@@ -1,7 +1,6 @@
-
 :root {
   /* colors */
-  --white: #FFFFFF;
+  --white: #FFF;
   --background-color: var(--white);
   --text-color: #131313;
   --color-4: #D4D7DC;
@@ -9,22 +8,17 @@
   --color-13: #0042A7;
   --color-14: #025ADF;
   --color-16: #F9FEFF;
-  --pink-03: #CC4466;
-
-  --text-color-dark: #FFFFFF;
-
+  --pink-03: #C46;
+  --text-color-dark: #FFF;
   --gray-02: #EAEEF1; /* Light gray color background */
   --gray-3: #ddd;
-
-
   --off-black: #080707;
-  --black: #000000;
-
+  --black: #000;
   --light-blue: #aceeff;
 
   /* fonts */
-  --body-font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
-  --heading-font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+  --body-font-family: montserrat, "Open Sans", helvetica, arial, sans-serif;
+  --heading-font-family: montserrat, "Open Sans", helvetica, arial, sans-serif;
 
   /* body sizes */
   --body-font-size-m: 16px;
@@ -164,6 +158,7 @@ a:hover {
 }
 
 /* buttons */
+
 /* a.button:any-link,
 button {
 
