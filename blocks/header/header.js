@@ -598,5 +598,4 @@ export default async function decorate(block) {
     cboxOverlay.style.display = 'none';
     document.body.appendChild(cboxOverlay);
   }
-
 }
