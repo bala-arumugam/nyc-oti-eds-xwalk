@@ -73,10 +73,11 @@ h1.regulation-index-hero-text {
 .menu-regulation-index ul.mobile li {
   display: block;
   background-color: white;
-  font-weight: 400;
+  font-weight: var(--bold-400);
   font-size: 17.78px;
   line-height: 26.67px;
   padding: 18px 14px;
+  border-radius: 4px 0 0 4px;
 }
 
 .menu-regulation-index ul.mobile li:first-child {

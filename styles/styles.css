@@ -1,6 +1,8 @@
+
 :root {
   /* colors */
-  --background-color: white;
+  --white: #FFFFFF;
+  --background-color: var(--white);
   --text-color: #131313;
   --color-4: #D4D7DC;
   --color-5: #EAEEF1;
@@ -12,14 +14,17 @@
   --text-color-dark: #FFFFFF;
 
   --gray-02: #EAEEF1; /* Light gray color background */
+  --gray-3: #ddd;
 
 
   --off-black: #080707;
   --black: #000000;
 
+  --light-blue: #aceeff;
+
   /* fonts */
-  --body-font-family: Montserrat, sans-serif;
-  --heading-font-family: Montserrat, sans-serif;
+  --body-font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+  --heading-font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
 
   /* body sizes */
   --body-font-size-m: 16px;
@@ -44,6 +49,12 @@
   /* nav height */
   --nav-height: 64px;
 
+  /* font weight */
+  --bold-400: 400;
+  --bold-500: 500;
+  --bold-600: 600;
+  --bold-700: 700;
+
   /* layout */
   --max-with: 1200px;
   --width: 88%;
@@ -51,6 +62,9 @@
 
   /* Filter */
   --blue-filter: linear-gradient(0deg, rgb(0 66 167 / 60%) 0%, rgb(0 66 167 / 60%) 100%);
+
+  /* Symbols (Can I remove this?) */
+  --font-material: "Material Symbols Outlined", sans-serif;
 }
 
 body {
@@ -91,7 +105,7 @@ h6 {
   margin-top: 0;
   margin-bottom: 0;
   font-family: var(--heading-font-family);
-  font-weight: 700;
+  font-weight: var(--bold-700);
 }
 
 
