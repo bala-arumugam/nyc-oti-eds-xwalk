@@ -121,20 +121,19 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
           className: `menu-item ${classWithTheTabName}`,
         },
       });
-      
       // Use getContentFragment.getWord() to get the translated text based on tab name
       if (classWithTheTabName === 'about') {
-        li.textContent = getContentFragment.getWord("aboutTab");
+        li.textContent = getContentFragment.getWord('aboutTab');
       } else if (classWithTheTabName === 'how-to-apply') {
-        li.textContent = getContentFragment.getWord("howToApplyTab");
+        li.textContent = getContentFragment.getWord('howToApplyTab');
       } else if (classWithTheTabName === 'after-you-apply') {
-        li.textContent = getContentFragment.getWord("afterYouApplyTab");
+        li.textContent = getContentFragment.getWord('afterYouApplyTab');
       } else if (classWithTheTabName === 'operate-&-renew') {
-        li.textContent = getContentFragment.getWord("operatingAndRenewingTab");
+        li.textContent = getContentFragment.getWord('operatingAndRenewingTab');
       } else {
         li.textContent = item; // Fallback to the original text if no match
       }
-      
+
       li.style.display = (menuToDisplay[classWithTheTabName]) ? 'block' : 'none';
 
       li.onclick = clickHandler;
