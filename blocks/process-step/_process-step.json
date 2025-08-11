@@ -30,9 +30,9 @@
         },
         {
           "component": "richtext",
-          "name": "content",
+          "name": "step",
           "value": "",
-          "label": "Content",
+          "label": "Step",
           "valueType": "string"
         }
       ]

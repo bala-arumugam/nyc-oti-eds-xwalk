@@ -1,7 +1,7 @@
 import {
   createElement, detachAndReattach, detachAndReattachAll, shadeBackground,
 } from '../../scripts/util.js';
-import{ getContentFragment } from '../../scripts/regulation-page-labels.js';
+import getContentFragment from '../../scripts/regulation-page-labels.js';
 
 function showHideTab(name) {
   const tabs = document.querySelector('main').querySelector('.tabs').querySelectorAll('.tab');
@@ -74,13 +74,20 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
     menuItems.forEach((li) => {
       li.classList.remove('menu-item-active');
       li.setAttribute('aria-selected', 'false');
-      li.setAttribute('tabindex', '-1');
+      li.setAttribute('tabindex', '0');
+    });
+
+    // Add active class to all menu items
+    menuItems.forEach((li) => {
+      li.classList.remove('menu-item-active');
+      li.setAttribute('aria-selected', 'false');
+      li.setAttribute('tabindex', '0');
     });
 
     // Add active class to clicked item
     target.classList.add('menu-item-active');
     target.setAttribute('aria-selected', 'true');
-    target.setAttribute('tabindex', '0');
+    target.setAttribute('tabindex', '-1');
 
     mComponent.clean();
 
@@ -133,7 +140,7 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
       li.onclick = clickHandler;
       li.setAttribute('role', 'tab');
       li.setAttribute('aria-controls', `tab-${classWithTheTabName}`);
-      li.setAttribute('id', `tab-button-${classWithTheTabName}`);
+      li.setAttribute('id', `tab-button-${classWithTheTabName.replaceAll(' ', '-')}`);
       li.setAttribute('aria-selected', 'false');
       li.setAttribute('tabindex', '-1');
 
@@ -221,25 +228,27 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     const newTab = createElement('div', { props: { className: 'tab' }, attrs: { 'data-tab-name': tabName } });
 
     newTab.setAttribute('role', 'tabpanel');
-    newTab.setAttribute('id', `tab-${tabName}`);
-    newTab.setAttribute('aria-labelledby', `tab-button-${tabName}`);
+    newTab.setAttribute('id', `tab-${tabName.replaceAll(' ', '-')}`);
+    newTab.setAttribute('aria-labelledby', `tab-button-${tabName.replaceAll(' ', '-')}`);
 
     newTab.classList.add(tabName.toLowerCase().replace(/\s+/g, '-'));
 
     // Create a header element for the tab name
     const tabHeader = createElement('h2', { props: { className: 'tab-header' } });
-    
-    // Map tab names to their corresponding label keys and use getContentFragment.getWord() 
+
+    // Map tab names to their corresponding label keys and use getContentFragment.getWord()
     // to get the appropriate text for each tab
     const tabNameLower = tabName.toLowerCase().replace(/\s+/g, '-');
     if (tabNameLower === 'about') {
-      tabHeader.textContent = getContentFragment.getWord("aboutTab");
+      tabHeader.textContent = getContentFragment.getWord('aboutTab');
     } else if (tabNameLower === 'how-to-apply') {
-      tabHeader.textContent = getContentFragment.getWord("howToApplyTab");
+      tabHeader.textContent = getContentFragment.getWord('howToApplyTab');
     } else if (tabNameLower === 'after-you-apply') {
-      tabHeader.textContent = getContentFragment.getWord("afterYouApplyTab");
+      tabHeader.textContent = getContentFragment.getWord('afterYouApplyTab');
     } else if (tabNameLower === 'operate-&-renew') {
-      tabHeader.textContent = getContentFragment.getWord("operatingAndRenewingTab");
+      tabHeader.textContent = getContentFragment.getWord('operatingAndRenewingTab');
+    } else {
+      tabHeader.textContent = tabName; // Fallback to the original tab name
     }
 
     newTab.appendChild(tabHeader);
