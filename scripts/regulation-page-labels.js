@@ -54,7 +54,7 @@ async function call() {
     data = defaultData;
   } else {
     try {
-      const apiUrl = 'https://oti-wcms-dev-publish.nyc.gov/graphql/execute.json/mycity/regulationPageLabels';
+      const apiUrl = 'https://cors-anywhere.herokuapp.com/https://oti-wcms-dev-publish.nyc.gov/graphql/execute.json/mycity/regulationPageLabels';
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 1000);
       try {

@@ -626,7 +626,7 @@ export default async function decorate(block) {
     script.id = headerNavScriptId;
     script.defer = true;
     script.setAttribute('nonce', 'hFwe9v/SC1WVWGIlfr8xQg==');
-    document.body.appendChild(script);
+    //document.body.appendChild(script);
   }
 
   const logoutHandlerScriptId = 'logout-handler-nonce';
@@ -705,7 +705,7 @@ export default async function decorate(block) {
     }
 
     Object.entries(attrs).forEach(([k, v]) => script.setAttribute(k, v));
-    document.body.appendChild(script);
+    //document.body.appendChild(script);
   }
 
   window.requestIdleCallback = window.requestIdleCallback || function requestIdleCallback(cb) {
@@ -726,15 +726,15 @@ export default async function decorate(block) {
 
   window.requestIdleCallback(() => {
     const scripts = [
-      { src: '/static/js/libs/jquery.colorbox-min.js', id: 'colorbox-lib', priority: 'high' },
-      { src: '/static/js/external-links.js', id: 'external-links-lib', priority: 'high' },
-      { src: '/static/js/libs/handlebars.js', id: 'handlebars-lib', priority: 'medium' },
-      { src: '/static/js/language-selector.js', id: 'language-selector-lib', priority: 'medium' },
-      { src: '/static/js/left-nav.js', id: 'left-nav-lib', priority: 'low' },
-      { src: '/static/js/account-accordion.js', id: 'account-accordion-lib', priority: 'low' },
-      { src: '/static/js/team-site/accordion.js', id: 'team-site-accordion-lib', priority: 'low' },
-      { src: '/static/js/utils.js', id: 'utils-lib', priority: 'low' },
-      { src: '/assets/home/js/webtrends/webtrends.nycbusiness-load.js', id: 'webtrends-lib', priority: 'analytics' },
+      // { src: '/static/js/libs/jquery.colorbox-min.js', id: 'colorbox-lib', priority: 'high' },
+      // { src: '/static/js/external-links.js', id: 'external-links-lib', priority: 'high' },
+      // { src: '/static/js/libs/handlebars.js', id: 'handlebars-lib', priority: 'medium' },
+      // { src: '/static/js/language-selector.js', id: 'language-selector-lib', priority: 'medium' },
+      // { src: '/static/js/left-nav.js', id: 'left-nav-lib', priority: 'low' },
+      // { src: '/static/js/account-accordion.js', id: 'account-accordion-lib', priority: 'low' },
+      // { src: '/static/js/team-site/accordion.js', id: 'team-site-accordion-lib', priority: 'low' },
+      // { src: '/static/js/utils.js', id: 'utils-lib', priority: 'low' },
+      // { src: '/assets/home/js/webtrends/webtrends.nycbusiness-load.js', id: 'webtrends-lib', priority: 'analytics' },
     ];
 
     if (isMobile) {
