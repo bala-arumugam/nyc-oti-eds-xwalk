@@ -44,9 +44,9 @@ async function call() {
     },
   };
 
-const isCI = typeof window === 'undefined' 
+const isCI = typeof window === 'undefined'
            || !!(window.navigator?.userAgent?.includes('Headless'))
-           || !!(window.navigator?.webdriver)
+           || !!(window.navigator?.webdriver);
 
   if (isCI) {
     data = defaultData;
