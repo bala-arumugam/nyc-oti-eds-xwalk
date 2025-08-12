@@ -42,7 +42,7 @@ export async function fetchHeaderData() {
     // Fetch the JSON from the absolute path to the experience fragment with timeout
     // Use a shorter timeout for better mobile experience and reduced network hanging
     const response = await fetchWithTimeout(
-      'https://cors-anywhere.herokuapp.com/https://oti-wcms-dev-publish.nyc.gov/content/experience-fragments/mycity/us/en/business/global/header/master.model.json',
+      'https://oti-wcms-dev-publish.nyc.gov/content/experience-fragments/mycity/us/en/business/global/header/master.model.json',
       { credentials: 'same-origin' }, // Add credentials to improve caching
       0, // Reduced timeout for faster fallback on mobile
     );

@@ -92,10 +92,8 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
-  
   // Load header first for better user experience
   loadHeader(doc.querySelector('header'));
-  
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
