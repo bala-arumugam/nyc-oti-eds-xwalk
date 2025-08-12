@@ -1029,23 +1029,23 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
 }
 
 header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link::before {
-    font-family: var(--font-material);
-    content: "menu";
-    color: var(--white);
-    font-size: 32px;
+    content: "";
     display: inline-block;
+    width: 32px;
+    height: 32px;
+    background: url("/icons/menu.svg") no-repeat center center;
+    background-size: contain;
     margin-right: 5px;
     transition: transform 0.3s ease;
-    font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
+    color: var(--white);
 }
 
 header>nav.menu-open .main-nav-desktop>.nav-mobile-menu>a.block-link::before {
-    content: "close";
-
+    background-image: url("/icons/close.svg");
 }
 
 header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
-    content: "close";
+    background-image: url("/icons/close.svg");
 }
 
 #colorbox #cbox-top-left,
@@ -1299,7 +1299,7 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 .modal .external-link-modal-header .external-link-modal-close::after,
 .external-link-modal .external-link-modal-header .external-link-modal-close::after {
     font-family: var(--font-material);
-    content: "";
+    content: "";
     font-style: normal;
     font-weight: normal;
     line-height: 1;
@@ -1448,15 +1448,14 @@ a.button-back {
     }
 }
 
+/* Changed from font icon to SVG */
 .nav-submenu .sub-menu-close::after {
-    font-family: var(--font-material);
-    content: "close";
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
-    font-size: 32px;
-    color: var(--gray-7);
+    content: "";
+    display: block;
+    width: 32px;
+    height: 32px;
+    background: url("/icons/close.svg") no-repeat center center;
+    background-size: contain;
     position: absolute;
     top: 0;
     right: 0;
@@ -1472,15 +1471,16 @@ a.button-back {
         overflow: visible;
     }
 
+    /* Changed from font icon to SVG */
     .nav-submenu .sub-menu-close::after {
-        content: "";
-        font-style: normal;
-        font-weight: normal;
-        line-height: 1;
-        font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
-        font-size: 32px;
-        color: #6f7174;
+        content: "";
+        display: block;
+        width: 32px;
+        height: 32px;
+        background: url("/icons/close.svg") no-repeat center center;
+        background-size: contain;
+        position: absolute;
         top: 18px;
-        font-family: var(--font-material);
+        right: 0;
     }
 }
