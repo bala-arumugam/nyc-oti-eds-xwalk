@@ -1,70 +1,35 @@
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap");
-
-.material-icon, 
-[class*="icon-"]::before,
-[class*="icon-"]::after {
-    font-family: var(--font-material);
-    font-style: normal;
-    font-weight: 700;
-    line-height: 1;
-    font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
+/* Header */
+header {
+    width: 100%;
+    background-color: var(--color-14);
+    height: auto;
 }
 
-:root {
-    --blue: #0042a7;
-    --base-blue: #025adf;
-    --white: #fff;
-    --black: #080707;
-    --light-gray: #eee;
-    --light-blue: #aceeff;
-    --gray: #d9d9d9;
-    --accent: #c46;
-    --font-material: "Material Symbols Outlined", sans-serif;
-    --font-montserrat: montserrat, "Open Sans", helvetica, arial, sans-serif;
-    --font-montserrat-simple: montserrat, arial, sans-serif;
-    --highlight-blue: #aceeff;
-    --gray-black: #080707;
-    --gray-white: #fff;
-    --gray-1: #313131;
-    --gray-2: #666;
-    --gray-3: #ddd;
-    --gray-4: #f6f6f6;
-    --gray-8: #666;
-    --cyan: #00bcd4;
-    --highlight-gray: #eee;
-    --highlight-gray-dark: #d6d6d6;
-    --accent-gray: #7a7d82;
-    --blue-2: #0033a0;
-    --blue-3: #172b4d;
-    --blue-4: #f9feff;
-    --nav-text-light: #fff;
-    --body-text-light: #000;
-    --body-text-dark: #fff;
-    --min-mobile-supported: 390px;
-    --mobile-breakpoint: 810px;
-    --super-condensed-desktop-breakpoint: 880px;
-    --condensed-desktop-breakpoint: 910px;
-    --inner-grid-desktop-breakpoint: 1200px;
-    --max-desktop-width-supported: 1512px;
-    --normal: 400;
-    --bold-500: 500;
-    --bold1: 600;
-    --bold2: 700;
-    --nav-height: 64px;
-    --static-image-path: "/static/images";
+header>nav {
+    display: flex;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+@media (width >=810px) {
+    header>nav {
+        position: relative;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
 }
 
 .logo-band-wrapper {
-    background-color: var(--blue);
+    background-color: var(--color-13);
 }
 
 .logo-band {
     display: flex;
     justify-content: space-between;
-    color: var(--nav-text-light);
-    font-family: Montserrat, Arial, sans-serif;
+    color: var(--white);
+    font-family:var(--body-font-family);
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: var(--bold-600);
 }
 
 .logo-band .nav-logo {
@@ -72,40 +37,64 @@
     padding-bottom: 4px;
 }
 
-header>nav li>a {
-    color: #fff;
-    display: inline;
-}
 
-.nav-link>a {
-    color: var(--nav-text-light);
+header>nav li>a {
+    color: var(--white);
     display: inline;
     text-decoration: none;
-}
+} 
 
-.nav-tag-line,
 .nav-tag-line a {
-    color: var(--nav-text-light);
+    color: var(--white);
     font-weight: var(--bold-500);
     font-size: 1rem;
 }
 
+
+
+/* Submenu links */
 .nav-submenu-items a {
     font-size: 1rem;
-    color: var(--gray-black);
+    color: var(--off-black);
     text-align: left;
     text-decoration: none;
 }
 
+
+
+
+/* Consolidated navigation link styles */
+
+header .nav-link>a {
+    color: var(--white);
+    display: inline;
+    text-decoration: none;
+}
+
+
+/* Navigation tag line and link styles */
+.nav-tag-line {
+    color: var(--white);
+    font-weight: var(--bold-500);
+    font-size: 1rem;
+        margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+
+/* Navigation links in header */
 header>nav>ul .nav-link>a {
-    color: #fff;
+    color: var(--white);
     display: inline;
 }
 
 .logo-band .nav-logo>a {
     font-size: 1rem;
     margin-right: 8px;
-    color: var(--nav-text-light);
+    color: var(--white);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
@@ -138,25 +127,6 @@ header>nav>ul .nav-link>a {
     }
 }
 
-header {
-    width: 100%;
-    background-color: var(--base-blue);
-    height: auto;
-}
-
-header>nav {
-    display: flex;
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-
-@media (width >=810px) {
-    header>nav {
-        position: relative;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-}
 
 .main-nav-desktop,
 .main-nav {
@@ -196,10 +166,6 @@ header>nav {
     }
 }
 
-.nav-tag-line {
-    margin-left: auto;
-    margin-right: auto;
-}
 
 .nav-link {
     display: none;
@@ -216,7 +182,7 @@ header>nav {
         justify-content: center;
         padding: 24px 8px;
         font-size: 0.95rem;
-        font-weight: var(--bold2);
+        font-weight: var(--bold-400);
     }
     
     .nav-link>a {
@@ -231,7 +197,7 @@ header>nav {
     justify-content: center;
     padding: 0;
     font-size: 0.95rem;
-    font-weight: var(--bold2);
+    font-weight: var(--bold-400);
 }
 
 .nav-submenu {
@@ -241,7 +207,7 @@ header>nav {
     inset: 0;
     position: fixed;
     overflow: auto;
-    background-color: var(--gray-white);
+    background-color: var(--background-color);
     box-sizing: border-box;
     padding-top: 40px;
     padding-bottom: 40px;
@@ -257,7 +223,7 @@ header>nav {
         min-height: 376px;
         position: fixed;
         overflow: auto;
-        background-color: #fff;
+        background-color: var(--white);
         top: 100%;
         bottom: auto;
     }
@@ -272,7 +238,7 @@ header>nav {
 .nav-submenu-title {
     margin-bottom: 24px;
     font-size: 1.2rem;
-    font-weight: var(--bold2);
+    font-weight: var(--bold-400);
     text-align: center;
 }
 
@@ -288,6 +254,14 @@ header>nav {
 
 .nav-submenu-items {
     display: block;
+}
+
+.nav-submenu-items p{
+  font-weight: 400;
+}
+
+.nav-submenu-items h3.nav-submenu-item-heading{
+  font-weight: 700;
 }
 
 @media (width >=810px) {
@@ -416,7 +390,7 @@ header>nav {
 .nav-submenu-graphical-list .nav-submenu-item-heading {
     margin-top: 24px;
     font-size: 1.1rem;
-    font-weight: var(--bold2);
+    font-weight: var(--bold-400);
 }
 
 @media (width >=810px) {
@@ -427,9 +401,9 @@ header>nav {
 
 .nav-submenu-graphical-list .nav-submenu-item-faux-link,
 .nav-submenu-graphical-list .nav-submenu-item-faux-link-styled {
-    color: var(--blue);
+    color: var(--color-13);
     margin-top: 16px;
-    font-weight: var(--bold2);
+    font-weight: var(--bold-400);
     display: flex;
     gap: 4px;
     align-items: center;
@@ -530,18 +504,18 @@ header .language-toggle {
 }
 
 .top-nav-account-options .account-options-text {
-    color: var(--gray-black);
+    color: var(--off-black);
     text-decoration: none;
 }
 
 @media (width >=810px) {
     .top-nav-account-options .account-options-text {
-        color: var(--gray-white);
+        color: var(--white);
     }
 }
 
 .top-nav-account-options .manage-account-text {
-    color: var(--base-blue);
+    color: var(--color-14);
     padding: 24px 0;
     border-bottom: 1px solid var(--gray-3);
     display: flex;
@@ -564,7 +538,7 @@ header .language-toggle {
 }
 
 .top-nav-account-options .logout-text::after {
-    font-family: "Material Symbols Outlined", sans-serif;
+    font-family: var(--font-material);
     content: "logout";
     font-style: normal;
     font-weight: 700;
@@ -586,7 +560,7 @@ a.skip-main {
     font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 24px;
-    color: #025adf;
+    color: var(--color-14);
     text-decoration: none;
 }
 
@@ -600,7 +574,7 @@ a.skip-main {
     font-size: 16px;
     line-height: 24px;
     text-align: left;
-    color: var(--black);
+    color: var(--off-black);
     text-decoration: none;
 }
 
@@ -609,17 +583,13 @@ header>nav .main-nav-desktop .nav-tag-line a,
 header>nav .main-nav .nav-tag-line,
 header>nav .main-nav .nav-tag-line a {
     color: var(--white);
-    font-weight: 500;
-    font-family: var(--font-montserrat);
+    font-weight:var(--bold-500);
+    font-family: var(--body-font-family);
     font-size: 21.056px;
     line-height: 31.584px;
 }
 
-.logo-band-wrapper .logo-band,
-.logo-band-wrapper .logo-band .nav-logo>a {
-    color: var(--white);
-}
-
+/* Consolidated logo band styles */
 .logo-band-wrapper .logo-band {
     display: flex;
     justify-content: space-between;
@@ -627,6 +597,7 @@ header>nav .main-nav .nav-tag-line a {
     font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
     font-size: 10px;
     line-height: 16px;
+    color: var(--white);
 }
 
 .logo-band-wrapper .logo-band .nav-logo>a {
@@ -636,6 +607,7 @@ header>nav .main-nav .nav-tag-line a {
     line-height: 24px;
     box-sizing: border-box;
     margin-right: 8px;
+    color: var(--white);
 }
 
 a.block-link,
@@ -722,7 +694,7 @@ header>nav .main-nav-desktop>.nav-mobile-menu {
 .modal .external-link-modal-header .logo-container span,
 .external-link-modal .external-link-modal-header .logo-container span {
     font-size: 7.95px;
-    color: #025adf;
+    color: var(--color-14);
 }
 
 .modal .modal-body span:not(.material-symbols-outlined) {
@@ -744,10 +716,7 @@ header>nav .main-nav-desktop>.nav-mobile-menu {
     width: 0;
 }
 
-.nav-submenu.nav-submenu-mobile {
-    flex-wrap: wrap;
-}
-
+/* Consolidated nav submenu visibility states */
 .nav-sub-menu-visible {
     display: block;
 }
@@ -773,17 +742,6 @@ header>nav .main-nav-desktop>.nav-mobile-menu {
     flex: 1 1 100%;
 }
 
-header h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-    all: unset;
-    display: block;
-}
-
 .nav-submenu .sub-menu-back,
 .nav-submenu .sub-menu-close {
     position: absolute;
@@ -807,7 +765,7 @@ p {
     display: block;
     padding-top: 24px;
     padding-bottom: 24px;
-    font-weight: 500;
+    font-weight:var(--bold-500);
     width: 100%;
 }
 
@@ -819,14 +777,14 @@ p {
 }
 
 .nav-submenu.nav-submenu-mobile.nav-submenu-text-list .nav-submenu-items>* a.has-submenu::after {
-    font-family: "Material Symbols Outlined", sans-serif;
+    font-family: var(--font-material);
     content: "chevron_right";
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 1;
     font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
-    color: var(--base-blue);
+    color: var(--color-14);
 }
 
 .nav-submenu.nav-submenu-text-list .nav-submenu-items>* {
@@ -837,14 +795,14 @@ p {
 
 header>nav li>div.block-link,
 header>nav>ul .nav-link>div.block-link {
-    color: var(--black);
+    color: var(--off-black);
     text-align: left;
     display: inline;
 }
 
 header>nav li>div.block-link .simplified-header-text,
 header>nav>ul .nav-link>div.block-link .simplified-header-text {
-    font-weight: 500;
+    font-weight:var(--bold-500);
     padding: 24px 0;
 }
 
@@ -888,64 +846,27 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
         padding-bottom: 24px;
     }
 
+/* Consolidated hover/focus states for navigation */
     header>nav li:has(> .nav-current-tabfocus)>a,
     header>nav li:has(> a:hover)>a,
-    header>nav li:has(> a:focus)>a {
-        color: #aceeff;
-        background: linear-gradient(180deg,
-                rgb(172 238 255 / 0%) 0%,
-                rgb(172 238 255 / 0%) calc(100% - 4px),
-                #aceeff calc(100% - 4px),
-                #aceeff 100%);
-    }
-
-    .nav-submenu .nav-submenu-items a {
-        font-weight: normal;
-        font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        line-height: 21px;
-    }
-
-    header>nav li:has(> .nav-submenu *:focus)>a {
-        color: #aceeff;
-        background: linear-gradient(180deg,
-                rgb(172 238 255 / 0%) 0%,
-                rgb(172 238 255 / 0%) calc(100% - 4px),
-                #aceeff calc(100% - 4px),
-                #aceeff 100%);
-    }
-
+    header>nav li:has(> a:focus)>a,
+    header>nav li:has(> .nav-submenu *:focus)>a,
     header>nav>ul .nav-link:has(> .nav-current-tabfocus)>a,
     header>nav li:has(> .nav-submenu:hover)>a,
     header>nav li:has(> .nav-submenu:focus)>a,
     header>nav li:has(> .nav-submenu *:hover)>a,
     header>nav>ul .nav-link:has(> a:hover)>a,
-    header>nav>ul .nav-link:has(> a:focus)>a {
-        color: #aceeff;
-        background: linear-gradient(180deg,
-                rgb(172 238 255 / 0%) 0%,
-                rgb(172 238 255 / 0%) calc(100% - 4px),
-                #aceeff calc(100% - 4px),
-                #aceeff 100%);
-    }
-
-    .logo-band-wrapper .logo-band .nav-logo>a {
-        margin-right: 16px;
-        padding: 0;
-        display: inline-flex;
-        align-items: center;
-    }
-
+    header>nav>ul .nav-link:has(> a:focus)>a,
     header>nav>ul .nav-link:has(> .nav-submenu:hover)>a,
     header>nav>ul .nav-link:has(> .nav-submenu:focus)>a,
     header>nav>ul .nav-link:has(> .nav-submenu *:hover)>a,
     header>nav>ul .nav-link:has(> .nav-submenu *:focus)>a {
-        color: #aceeff;
+        color: var(--light-blue);
         background: linear-gradient(180deg,
                 rgb(172 238 255 / 0%) 0%,
                 rgb(172 238 255 / 0%) calc(100% - 4px),
-                #aceeff calc(100% - 4px),
-                #aceeff 100%);
+                var(--light-blue) calc(100% - 4px),
+                var(--light-blue) 100%);
     }
 
     .logo-band-wrapper .logo-band .nav-logo .nav-logo-img {
@@ -1001,7 +922,7 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
         text-align: left;
         margin-bottom: 0;
         font-weight: 700;
-        font-family: var(--font-montserrat);
+        font-family: var(--body-font-family);
         font-size: 38px;
         line-height: 52px;
         max-width: 287px;
@@ -1036,7 +957,6 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
         align-items: center;
         justify-content: center;
         padding: 24px 8px;
-        font-weight: 700;
         font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
         font-size: 14px;
         line-height: 21px;
@@ -1103,24 +1023,25 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
 
 #colorbox #cbox-close::before {
     content: "\e5cd";
-    font-family: "Material Symbols Outlined", sans-serif;
+    font-family: var(--font-material);
     font-size: 40px;
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 
 header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link::before {
-    font-family: "Material Symbols Outlined", sans-serif;
+    font-family: var(--font-material);
     content: "menu";
-    color: var(--nav-text-light);
-    font-size: 28px;
+    color: var(--white);
+    font-size: 32px;
     display: inline-block;
     margin-right: 5px;
     transition: transform 0.3s ease;
+    font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
 }
 
 header>nav.menu-open .main-nav-desktop>.nav-mobile-menu>a.block-link::before {
     content: "close";
-    transform: rotate(90deg);
+
 }
 
 header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
@@ -1212,8 +1133,8 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 }
 
 .modal .modal-buttons .denial {
-    background-color: #025adf;
-    color: #fff;
+    background-color: var(--color-14);
+    color: var(--white);
     padding: 16px 24px;
     justify-content: center;
     align-items: center;
@@ -1228,7 +1149,7 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 
 .modal .modal-buttons .confirmation {
     background-color: #eee;
-    color: #025adf;
+    color: var(--color-14);
     padding: 16px 24px;
     justify-content: center;
     align-items: center;
@@ -1271,7 +1192,7 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 .modal .modal-body .content {
     font-size: 15px;
     line-height: 24px;
-    font-weight: 500;
+    font-weight:var(--bold-500);
 }
 
 .modal.content-block h1,
@@ -1370,8 +1291,6 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
     display: flex;
 }
 
-
-
 .modal .external-link-modal-header .external-link-modal-close,
 .external-link-modal .external-link-modal-header .external-link-modal-close {
     text-decoration: none;
@@ -1379,7 +1298,7 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 
 .modal .external-link-modal-header .external-link-modal-close::after,
 .external-link-modal .external-link-modal-header .external-link-modal-close::after {
-    font-family: "Material Symbols Outlined", sans-serif;
+    font-family: var(--font-material);
     content: "";
     font-style: normal;
     font-weight: normal;
@@ -1405,7 +1324,7 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 .external-link-modal .external-link-modal-body .external-link-modal-description {
     font-size: 15px;
     line-height: 24px;
-    font-weight: 500;
+    font-weight:var(--bold-500);
     padding: 4px 0;
 }
 
@@ -1413,7 +1332,7 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 .external-link-modal .external-link-modal-body .external-link-modal-page-name {
     font-size: 15px;
     line-height: 24px;
-    font-weight: 500;
+    font-weight:var(--bold-500);
     padding: 16px 0;
 }
 
@@ -1425,15 +1344,15 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 }
 
 .external-link-button {
-    background-color: #c46;
-    color: #fff;
-    border: 2px solid #c46;
+    background-color: var(--pink-03);
+    color: var(white);
+    border: 2px solid var(--pink-03);
 }
 
 .external-link-button:hover {
-    background-color: #c46;
-    color: #fff;
-    border: 2px solid #c46;
+    background-color: var(--pink-03);
+    color: var(white);
+    border: 2px solid var(--pink-03);
 }
 
 .modal .external-link-modal-footer .external-link-button,
@@ -1454,7 +1373,7 @@ header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link.is-active::before {
 @media (width >=810px) {
     .content-block h4 {
         font-weight: 700;
-        font-family: var(--font-montserrat);
+        font-family: var(--body-font-family);
         font-size: 24px;
         line-height: 32px;
     }
@@ -1476,7 +1395,7 @@ a.button-back {
     gap: 8px;
     border-radius: 4px;
     font-weight: 700;
-    font-family: var(--font-montserrat);
+    font-family: var(--body-font-family);
     letter-spacing: 1.6px;
     text-decoration: none;
     font-size: 13.137px;
@@ -1496,6 +1415,7 @@ a.button-back {
     border: 2px solid var(--accent);
 }
 
+/* Consolidated mobile menu styles */
 @media (width <=809px) {
     header>nav .main-nav-desktop>.nav-mobile-menu>a.block-link {
         padding: 8px;
@@ -1517,19 +1437,6 @@ a.button-back {
         overflow: visible;
     }
 
-    .nav-submenu {
-        display: none;
-        justify-content: center;
-        align-items: flex-start;
-        inset: 0;
-        position: fixed;
-        overflow: auto;
-        background-color: var(--gray-white);
-        box-sizing: border-box;
-        padding: 40px 24px;
-        flex-wrap: wrap;
-    }
-
     .outside-gutter,
     .nav-submenu,
     footer .footer-section,
@@ -1539,12 +1446,10 @@ a.button-back {
         padding-left: 24px;
         padding-right: 24px;
     }
-
-
 }
 
 .nav-submenu .sub-menu-close::after {
-    font-family: "Material Symbols Outlined", sans-serif;
+    font-family: var(--font-material);
     content: "close";
     font-style: normal;
     font-weight: normal;
@@ -1568,7 +1473,6 @@ a.button-back {
     }
 
     .nav-submenu .sub-menu-close::after {
-        font-family: "Material Symbols Outlined", sans-serif;
         content: "";
         font-style: normal;
         font-weight: normal;
@@ -1576,5 +1480,7 @@ a.button-back {
         font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
         font-size: 32px;
         color: #6f7174;
+        top: 18px;
+        font-family: var(--font-material);
     }
 }

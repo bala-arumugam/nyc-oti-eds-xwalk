@@ -15,7 +15,7 @@
 .process-step-content::before {
   counter-increment: step;
   content: counter(step) ".";
-  padding: 2px 8px 0 0;
+  padding: 0 6px 0 0;
 }
 
 /* Hide the ::before element when there's no content after the title */
@@ -28,19 +28,9 @@
 }
 
 .process-step p {
-  font-family: Lora, 'Times New Roman', Times, serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 27px;
-  letter-spacing: 0;
   margin-top: 0;
   margin-bottom: 0;
 }
 
-/* Styling for lists inside process steps */
-.process-step ul,
-.process-step ol {
-  font-family: Lora, 'Times New Roman', Times, serif;
-  line-height: 27px;
-}
+/* Removing commented out code */
 

@@ -1,13 +1,6 @@
 // --- Add handler to show external-link-modal-template on .block-link.exitlink click ---
 // Use Colorbox-style structure for modal popup (from popUp.html)
 export default function handleExitLinkClick(e) {
-  if (!document.getElementById('material-symbols-font')) {
-    const link = document.createElement('link');
-    link.id = 'material-symbols-font';
-    link.rel = 'stylesheet';
-    link.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined';
-    document.head.appendChild(link);
-  }
   // Only handle left-clicks and keyboard Enter
   if ((e.type === 'click' && e.button !== 0) || (e.type === 'keydown' && e.key !== 'Enter')) return;
   e.preventDefault();
