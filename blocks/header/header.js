@@ -1,7 +1,7 @@
 import initializeHeaderInteractivity from '../../scripts/exitlink.js';
 import { fetchHeaderData } from '../../scripts/fetchHeader.js';
 import initializeMobileOptimizations from '../../scripts/initalizedMobileOpt.js';
-import handleExitLinkClick from '../../scripts/handleExitLinkClick.js';
+// import handleExitLinkClick from '../../scripts/handleExitLinkClick.js';
 
 function isNycGovUrl(url) {
   if (!url || url === '' || url === '#') return true;
@@ -463,11 +463,6 @@ export default async function decorate(block) {
 
   const header = createElement('header');
 
-  if (window.innerWidth < 768) {
-    header.style.contentVisibility = 'auto';
-    header.style.containIntrinsicSize = '0 80px';
-  }
-
   const logoBand = createLogoBand(headerData);
   header.appendChild(logoBand);
   const nav = createElement('nav');
@@ -593,7 +588,7 @@ export default async function decorate(block) {
   block.appendChild(header);
   initializeHeaderInteractivity(header);
 
-  if (window.innerWidth < 768) {
+  if (window.innerWidth < 810) {
     initializeMobileOptimizations(header);
   }
 
@@ -602,188 +597,5 @@ export default async function decorate(block) {
     cboxOverlay.id = 'cbox-overlay';
     cboxOverlay.style.display = 'none';
     document.body.appendChild(cboxOverlay);
-  }
-
-  function attachExitLinkHandlers() {
-    document.querySelectorAll('a.block-link.exitlink').forEach((link) => {
-      link.removeEventListener('click', handleExitLinkClick, true);
-      link.removeEventListener('keydown', handleExitLinkClick, true);
-      link.addEventListener('click', handleExitLinkClick, true);
-      link.addEventListener('keydown', handleExitLinkClick, true);
-    });
-  }
-
-  attachExitLinkHandlers();
-
-  const observer = new MutationObserver(attachExitLinkHandlers);
-  observer.observe(document.body, { childList: true, subtree: true });
-
-  const headerNavScriptId = 'header-nav-bindings-nonce';
-  if (!document.getElementById(headerNavScriptId)) {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = '/nycbusiness/static/js/header-nav-bindings.js';
-    script.id = headerNavScriptId;
-    script.defer = true;
-    script.setAttribute('nonce', 'hFwe9v/SC1WVWGIlfr8xQg==');
-    document.body.appendChild(script);
-  }
-
-  const logoutHandlerScriptId = 'logout-handler-nonce';
-  if (!document.getElementById(logoutHandlerScriptId)) {
-    const inlineScript = document.createElement('script');
-    inlineScript.type = 'text/javascript';
-    inlineScript.id = logoutHandlerScriptId;
-    inlineScript.setAttribute('nonce', 'hFwe9v/SC1WVWGIlfr8xQg==');
-    inlineScript.text = `
-      var elements = document.querySelectorAll('.log-out-button');
-      for (var i = 0; i < elements.length;  i++){
-        elements[i].onclick = function(event) { event.preventDefault();this.closest('form').submit(); };
-      }
-    `;
-    document.body.appendChild(inlineScript);
-  }
-
-  if (!document.getElementById('external-link-modal-template')) {
-    const modalScript = document.createElement('script');
-    modalScript.type = 'text/x-handlebars-template';
-    modalScript.id = 'external-link-modal-template';
-    modalScript.innerHTML = `
-      <div class="modal external-link-modal content-block">
-        <div class="external-link-modal-header">
-          <div class="logo-container">
-            <img src="/nycbusiness/static/img/nyc-logo.svg" class="external-link-modal-logo" alt="NYC Logo">
-            <span>®</span>
-          </div>
-          <a id="external-link-modal-close" href="#" class="external-link-modal-close"></a>
-        </div>
-        <div class="external-link-modal-body">
-          <h4 class="external-link-modal-title">
-            You are leaving the City of New York’s website
-          </h4>
-          <p class="external-link-modal-description">
-            The city of New York does not imply approval of the listed destinations, warrant the accuracy of
-            any information set out in those destinations, or endorse any opinions expressed therein or any
-            goods or services offered thereby. Like NYC.gov, all other web sites operate under the auspices
-            and at that direction of their respective owners who should be contacted directly with questions
-            regarding the content of these sites.
-          </p>
-          <p class="external-link-modal-page-name">
-            Do you want to go to <b><span id="domainSpan"></span></b>
-          </p>
-        </div>
-        <div class="external-link-modal-footer">
-          <button id="external-link-modal-cancel" class="button-secondary">Cancel</button>
-          <button id="external-link-modal-submit" class="button external-link-button">Proceed to external link</button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modalScript);
-  }
-
-  setTimeout(() => {
-    const elements = document.querySelectorAll('.log-out-button');
-    for (let i = 0; i < elements.length; i += 1) {
-      elements[i].onclick = (event) => {
-        event.preventDefault();
-        const form = this.closest('form');
-        if (form) form.submit();
-      };
-    }
-  }, 0);
-
-  function loadScriptOnce(src, id, attrs = {}, critical = false) {
-    if (id && document.getElementById(id)) return;
-    if ([...document.scripts].some((s) => s.src && s.src.includes(src))) return;
-
-    const script = document.createElement('script');
-    script.src = src;
-    if (id) script.id = id;
-
-    if (!critical) {
-      script.defer = true;
-    }
-
-    Object.entries(attrs).forEach(([k, v]) => script.setAttribute(k, v));
-    document.body.appendChild(script);
-  }
-
-  window.requestIdleCallback = window.requestIdleCallback || function requestIdleCallback(cb) {
-    const start = Date.now();
-    return setTimeout(() => {
-      cb({
-        didTimeout: false,
-        timeRemaining: function calculateTimeRemaining() {
-          return Math.max(0, 50 - (Date.now() - start));
-        },
-      });
-    }, 1);
-  };
-
-  loadScriptOnce('/static/js/header-nav-bindings.js', 'header-nav-bindings-lib', {}, true);
-
-  const isMobile = window.innerWidth < 768;
-
-  window.requestIdleCallback(() => {
-    const scripts = [
-      { src: '/static/js/libs/jquery.colorbox-min.js', id: 'colorbox-lib', priority: 'high' },
-      { src: '/static/js/external-links.js', id: 'external-links-lib', priority: 'high' },
-      { src: '/static/js/libs/handlebars.js', id: 'handlebars-lib', priority: 'medium' },
-      { src: '/static/js/language-selector.js', id: 'language-selector-lib', priority: 'medium' },
-      { src: '/static/js/left-nav.js', id: 'left-nav-lib', priority: 'low' },
-      { src: '/static/js/account-accordion.js', id: 'account-accordion-lib', priority: 'low' },
-      { src: '/static/js/team-site/accordion.js', id: 'team-site-accordion-lib', priority: 'low' },
-      { src: '/static/js/utils.js', id: 'utils-lib', priority: 'low' },
-      { src: '/assets/home/js/webtrends/webtrends.nycbusiness-load.js', id: 'webtrends-lib', priority: 'analytics' },
-    ];
-
-    if (isMobile) {
-      scripts.filter((script) => script.priority === 'high')
-        .forEach((script) => loadScriptOnce(script.src, script.id));
-
-      setTimeout(() => {
-        scripts.filter((script) => script.priority === 'medium')
-          .forEach((script) => loadScriptOnce(script.src, script.id));
-      }, 800);
-
-      const loadLowPriorityScripts = () => {
-        scripts.filter((script) => script.priority === 'low')
-          .forEach((script) => loadScriptOnce(script.src, script.id));
-        ['click', 'scroll', 'touchstart'].forEach((event) => document.removeEventListener(event, loadLowPriorityScripts, { passive: true }));
-      };
-
-      ['click', 'scroll', 'touchstart'].forEach((event) => document.addEventListener(event, loadLowPriorityScripts, { once: true, passive: true }));
-
-      setTimeout(loadLowPriorityScripts, 4000);
-
-      setTimeout(() => {
-        scripts.filter((script) => script.priority === 'analytics')
-          .forEach((script) => loadScriptOnce(script.src, script.id));
-      }, 5000);
-    } else {
-      scripts.filter((script) => ['high', 'medium'].includes(script.priority))
-        .forEach((script) => loadScriptOnce(script.src, script.id));
-
-      setTimeout(() => {
-        scripts.filter((script) => script.priority === 'low')
-          .forEach((script) => loadScriptOnce(script.src, script.id));
-      }, 500);
-
-      setTimeout(() => {
-        scripts.filter((script) => script.priority === 'analytics')
-          .forEach((script) => loadScriptOnce(script.src, script.id));
-      }, 2000);
-    }
-  }, isMobile ? { timeout: 1500 } : { timeout: 3000 });
-
-  if (window.useTransperfect) {
-    loadScriptOnce('/static/js/transperfect-handler.js', 'transperfect-handler-lib');
-  }
-
-  if (typeof window.isBaseDomain !== 'undefined' && !window.isBaseDomain) {
-    loadScriptOnce('https://www.onelink-edge.com/moxie.min.js', 'onelink-lib', {
-      referrerpolicy: 'no-referrer-when-downgrade',
-      'data-oljs': 'PEFE3-E878-E5CB-F4D9',
-    });
   }
 }

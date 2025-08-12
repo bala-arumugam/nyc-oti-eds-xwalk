@@ -2,23 +2,23 @@
 .regulation-index-hero {
   width: 100%;
   position: relative;
-  max-height: 182px;
+  height: 182px;
   background: var(--blue-filter), var(--regulation-hero-image-mobile), #d3d3d3;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-blend-mode: multiply;
+  display: grid;
+  align-items: center;
+  justify-content: start;
 }
 
 h1.regulation-index-hero-text {
   position: relative;
   z-index: 10;
   color: var(--text-color-dark);
-  font-family: Montserrat, Arial, Helvetica, sans-serif;
-  font-weight: 700;
   font-size: 32px;
   line-height: 48px;
-  letter-spacing: 0;
 }
 
 
@@ -27,19 +27,16 @@ h1.regulation-index-hero-text {
     font-weight: 700;
     font-size: 48px;
     line-height: 62px;
-    letter-spacing: 0;
   }
-
 
   .regulation-index-hero {
     background: var(--blue-filter), var(--regulation-hero-image-desktop), #d3d3d3;
+    background-position: center center;
   }
 }
 
 
 /* Tabs */
-
-/* .page-regulation-index{} */
 .regulation-index {
   display: grid;
   grid-template-columns: 1fr;
@@ -53,19 +50,8 @@ h1.regulation-index-hero-text {
   }
 }
 
-/* .regulation-index .menu-regulation-index{
-} */
-
 .regulation-index .tabs {
   width: 100%;
-}
-
-.regulation-index .tabs .tab {
-  font-family: Lora, 'Times New Roman', Times, serif;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0;
 }
 
 /* Menu */
@@ -87,12 +73,11 @@ h1.regulation-index-hero-text {
 .menu-regulation-index ul.mobile li {
   display: block;
   background-color: white;
-  font-weight: 400;
+  font-weight: var(--bold-400);
   font-size: 17.78px;
   line-height: 26.67px;
-  letter-spacing: 0.56px;
   padding: 18px 14px;
-
+  border-radius: 4px 0 0 4px;
 }
 
 .menu-regulation-index ul.mobile li:first-child {
@@ -107,8 +92,8 @@ h1.regulation-index-hero-text {
 
 .menu-regulation-index .mobile-button-menu {
   display: block;
-  border: 2px solid #C46;
-  color: #C46;
+  border: 2px solid var(--pink-03);
+  color: var(--pink-03);
   text-align: center;
   border-radius: 4px;
   border-width: 2px;
@@ -116,6 +101,11 @@ h1.regulation-index-hero-text {
 }
 
 @media (width >=810px) {
+  .regulation-index-hero {
+    max-height: 182px;
+    display: block;
+  }
+
   .menu-regulation-index ul {
     display: block;
     list-style: none;
@@ -126,24 +116,20 @@ h1.regulation-index-hero-text {
   .menu-regulation-index ul li {
     gap: 8px;
     padding: 16px;
-    border-bottom: 1px solid #EAEEF1;
+    border-bottom: 1px solid var(--color-5);
     cursor: pointer;
-    font-family: Montserrat, Arial, Helvetica, sans-serif;
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: 0;
-    color: #0042A7;
+    color: var(--color-13)
   }
 
   .menu-regulation-index ul li.menu-item-active {
-    border-left: 4px solid #025ADF;
-    font-family: Montserrat, Arial, Helvetica, sans-serif;
+    border-left: 4px solid var(--color-14);
     font-weight: 700;
     font-size: 18px;
     line-height: 27px;
-    letter-spacing: 0;
-    color: #080707;
+    color: var(--off-black)
   }
 
   .menu-regulation-index .mobile-button-menu {
@@ -154,17 +140,8 @@ h1.regulation-index-hero-text {
 
 /* tabpanel */
 
-.regulation-index .tabs .tab .tab-description{
+.regulation-index .tabs .tab .tab-description {
   padding: 40px 0;
 }
 
-/* .regulation-index .tabs .tab .tab-description p{
-
-}
-.regulation-index .tabs .tab .tab-description ul{}
-.regulation-index .tabs .tab .tab-description ul li{}
-
-.regulation-index .tabs .tab .tab-description ol{}
-.regulation-index .tabs .tab .tab-description ol li{}
-
-.regulation-index .tabs .tab .tab-additional{} */
+/* Removing commented out code */
