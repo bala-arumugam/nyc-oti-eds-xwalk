@@ -123,6 +123,8 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
+
+  // Old location of when header is supposed to be initiaded 
   // loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
 
