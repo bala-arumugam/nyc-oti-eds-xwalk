@@ -288,13 +288,12 @@ export default async function decorate(doc) {
     d.remove();
   });
 
-  decorateRegulationPage(menuToDisplay, mobileButtonTitle);
 
   const div = createElement('div', { props: { className: 'regulation-index-hero' } });
 
   // Extract the image URL from the image element
-  const imageDesktop = image.querySelector('source[type="image/webp"][media]')?.srcset || image.querySelector('img')?.src || '';
-  const imageMobile = image.querySelector('source[type="image/webp"]:not([media])')?.srcset || imageDesktop || '';
+  const imageDesktop = image.querySelector('source[type="image/webp"][media]')?.srcset;
+  const imageMobile = image.querySelector('source[type="image/webp"]:not([media])')?.srcset;
 
   const h1 = createElement('h1', {});
 
@@ -311,14 +310,14 @@ export default async function decorate(doc) {
   pElement.remove();
 
   // Apply the image as a background to the hero div
-  if (imageDesktop) {
+
     div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
-  }
-  if (imageMobile) {
     div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
-  }
+
 
   doc.innerHTML = '';
 
   doc.appendChild(div);
+
+  decorateRegulationPage(menuToDisplay, mobileButtonTitle);
 }
