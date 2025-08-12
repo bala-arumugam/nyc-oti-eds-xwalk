@@ -3,6 +3,8 @@
   padding: 0;
   height: auto;
   width: 100%;
+  /* Reserve space for hero to prevent layout shift */
+  min-height: 300px;
 }
 
 .hero {
@@ -10,8 +12,11 @@
   background-color: rgb(0 66 167 / 60%);
   width: 100%;
   height: auto;
+  min-height: 300px; /* Prevent layout shift by setting min-height */
   display: flex;
   align-items: center;
+  /* Smooth transition for any height changes */
+  transition: min-height 0.3s ease;
 }
 
 .hero h1 {
@@ -40,6 +45,7 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+  /* Will be set via JavaScript */
 }
 
 .hero > div:nth-child(2){

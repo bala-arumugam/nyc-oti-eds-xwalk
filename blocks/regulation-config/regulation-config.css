@@ -11,6 +11,10 @@
   display: grid;
   align-items: center;
   justify-content: start;
+  /* Set a minimum height to prevent layout shifts */
+  min-height: 182px;
+  /* Add contain property for better performance */
+  contain: layout;
 }
 
 h1.regulation-index-hero-text {
@@ -19,6 +23,8 @@ h1.regulation-index-hero-text {
   color: var(--text-color-dark);
   font-size: 32px;
   line-height: 48px;
+  /* Set a minimum height to prevent layout shifts during font loading */
+  min-height: 48px;
 }
 
 
@@ -41,6 +47,10 @@ h1.regulation-index-hero-text {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
+  /* Reserve space to prevent layout shifts */
+  min-height: 300px;
+  /* Add contain property for better performance */
+  contain: content;
 }
 
 @media (width >=810px) {
@@ -52,11 +62,17 @@ h1.regulation-index-hero-text {
 
 .regulation-index .tabs {
   width: 100%;
+  /* Reserve space to prevent layout shifts */
+  min-height: 200px;
 }
 
 /* Menu */
 .menu-regulation-index ul {
   display: none;
+  /* Set width to prevent layout shifts */
+  width: 100%;
+  /* Add transition for smoother appearance */
+  transition: opacity 0.3s ease;
 }
 
 .menu-regulation-index ul.mobile {
@@ -140,8 +156,16 @@ h1.regulation-index-hero-text {
 
 /* tabpanel */
 
+.regulation-index .tabs .tab {
+  /* Add transition for smooth tab changes */
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
 .regulation-index .tabs .tab .tab-description {
   padding: 40px 0;
+  /* Reserve space to prevent layout shifts */
+  min-height: 100px;
 }
 
 /* Removing commented out code */

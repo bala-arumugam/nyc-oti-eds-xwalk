@@ -1,26 +1,69 @@
 .section {
   counter-reset: step;
+  /* Improve container stability */
+  contain: layout style paint;
 }
 
 .process-step {
   display: flex;
+  /* Reserve space to prevent layout shifts */
+  min-height: 60px;
+  /* Improve rendering performance */
+  contain: layout style;
+  /* Add transition for smoother rendering */
+  transition: opacity 0.3s ease;
+  /* Add margin between steps for better spacing */
+  margin-bottom: 16px;
+  /* Ensure content is fully contained */
+  contain-intrinsic-size: 0 60px;
 }
 
 /* Move counter from process-step to process-step-content */
 .process-step-content {
   flex: 1;
   display: flex;
+  flex-direction: column; /* Ensure vertical stacking */
+  /* Reserve minimum height to prevent layout shifts */
+  min-height: 40px;
+  /* Provide a stable width for the counter */
+  padding-left: 30px;
+  position: relative;
+  /* Improve layout stability */
+  contain: layout style;
 }
 
 .process-step-content::before {
   counter-increment: step;
   content: counter(step) ".";
   padding: 0 6px 0 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* Fix counter position to prevent layout shifts */
+  width: 24px;
+  height: 24px;
+  text-align: right;
+  font-weight: bold;
+  /* Ensure counter visibility */
+  z-index: 1;
+  /* Ensure stable rendering */
+  will-change: transform;
 }
 
 /* Hide the ::before element when there's no content after the title */
 .process-step-content:has(.process-step-title + div:empty)::before {
   display: none;
+}
+
+.process-step .process-step-title {
+  font-weight: bold;
+  /* Reserve space even when empty to prevent layout shifts */
+  min-height: 24px;
+  /* Add margin to maintain layout */
+  margin-right: 8px;
+  margin-bottom: 4px;
+  /* Improve text rendering */
+  text-rendering: optimizeLegibility;
 }
 
 .process-step .process-step-title:empty {
@@ -29,8 +72,67 @@
 
 .process-step p {
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 8px;
+  /* Reserve space for paragraphs to prevent layout shifts */
+  min-height: 20px;
+  /* Improve text wrapping */
+  overflow-wrap: break-word;
 }
 
-/* Removing commented out code */
+/* Optimize images within process steps */
+.process-step img {
+  max-width: 100%;
+  height: auto;
+  /* Ensure aspect ratio is maintained */
+  aspect-ratio: attr(width) / attr(height);
+  /* Add background color as placeholder while loading */
+  background-color: #f0f0f0;
+  /* Add transition for smoother loading */
+  transition: opacity 0.3s ease;
+  /* Prevent CLS by setting explicit display mode */
+  display: block;
+  /* Enhance image loading */
+  will-change: opacity;
+}
 
+/* Optimize picture elements for better CLS performance */
+.process-step picture {
+  display: block;
+  position: relative;
+  min-height: 40px;
+  background-color: #f0f0f0;
+}
+
+/* Improve list rendering in process steps */
+.process-step ul,
+.process-step ol {
+  margin-top: 0;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  /* Reserve space for lists */
+  min-height: 20px;
+  /* Contain list items */
+  contain: layout style;
+}
+
+/* Optimize link appearance */
+.process-step a {
+  color: #175E89;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+/* Add content-visibility for off-screen optimization */
+@media (min-width: 768px) {
+  .process-step {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 100px;
+  }
+}
+
+/* Ensure proper animation only when motion is allowed */
+@media (prefers-reduced-motion: no-preference) {
+  .process-step {
+    opacity: 1;
+  }
+}

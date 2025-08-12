@@ -2,7 +2,11 @@
 header {
     width: 100%;
     background-color: var(--color-14);
-    height: auto;
+    height: var(--nav-height);
+    /* Prevent layout shifts */
+    min-height: 64px;
+    /* Add content-visibility for better performance */
+    content-visibility: auto;
 }
 
 header>nav {
@@ -21,6 +25,8 @@ header>nav {
 
 .logo-band-wrapper {
     background-color: var(--color-13);
+    /* Reserve space to prevent layout shifts */
+    min-height: 32px;
 }
 
 .logo-band {
@@ -30,11 +36,15 @@ header>nav {
     font-family:var(--body-font-family);
     font-size: 1.1rem;
     font-weight: var(--bold-600);
+    /* Add containment for better performance */
+    contain: layout style;
 }
 
 .logo-band .nav-logo {
     padding-top: 4px;
     padding-bottom: 4px;
+    /* Reserve width for the logo to prevent layout shifts */
+    min-width: 120px;
 }
 
 
@@ -131,6 +141,8 @@ header>nav>ul .nav-link>a {
 .main-nav-desktop,
 .main-nav {
     height: 100%;
+    /* Prevent layout shifts */
+    min-height: 48px;
 }
 
 .main-nav-desktop {
@@ -138,6 +150,8 @@ header>nav>ul .nav-link>a {
     display: flex;
     align-items: center;
     gap: 16px;
+    /* Add containment for better performance */
+    contain: layout style;
 }
 
 @media (width >=810px) {
@@ -212,6 +226,11 @@ header>nav>ul .nav-link>a {
     padding-top: 40px;
     padding-bottom: 40px;
     flex-wrap: wrap;
+    /* Add transition for smoother appearance */
+    transition: opacity 0.3s ease;
+    /* Use content-visibility for better performance */
+    content-visibility: auto;
+    contain-intrinsic-size: 0 376px;
 }
 
 .nav-submenu.nav-sub-menu-visible {

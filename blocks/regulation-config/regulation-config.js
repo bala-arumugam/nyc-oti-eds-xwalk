@@ -4,10 +4,40 @@ import {
 
 function showHideTab(name) {
   const tabs = document.querySelector('main').querySelector('.tabs').querySelectorAll('.tab');
+  
+  // First, mark all tabs as hidden in their style - this is more performant than changing display
   tabs.forEach((tab) => {
-    const t = tab.classList.contains(name);
-    tab.style.display = t ? 'block' : 'none';
-    tab.setAttribute('tabindex', t ? '0' : -1);
+    const shouldShow = tab.classList.contains(name);
+    
+    // Cache existing heights to prevent reflows
+    if (!tab.dataset.height && shouldShow) {
+      // Store the height of the tab to use when showing
+      tab.dataset.height = `${tab.scrollHeight}px`;
+    }
+    
+    // Use opacity and visibility for smoother transitions
+    // This helps prevent layout shifts compared to display:none
+    if (shouldShow) {
+      // Apply visibility immediately but opacity with transition
+      tab.style.visibility = 'visible';
+      tab.style.height = tab.dataset.height || 'auto';
+      tab.style.opacity = '0'; // Start hidden
+      
+      // Set opacity to 1 after a tiny delay to allow transition
+      setTimeout(() => {
+        tab.style.opacity = '1';
+        tab.style.display = 'block';
+      }, 10);
+    } else {
+      tab.style.opacity = '0';
+      // Hide completely after transition
+      setTimeout(() => {
+        tab.style.visibility = 'hidden';
+        tab.style.display = 'none';
+      }, 300); // Match transition duration
+    }
+    
+    tab.setAttribute('tabindex', shouldShow ? '0' : '-1');
   });
 }
 
@@ -68,22 +98,28 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
       return;
     }
 
-    // Remove active class from all menu items
-    const menuItems = document.querySelectorAll('li.menu-item');
-    menuItems.forEach((li) => {
-      li.classList.remove('menu-item-active');
-      li.setAttribute('aria-selected', 'false');
-      li.setAttribute('tabindex', '0');
+    // Use requestAnimationFrame to batch DOM changes for better performance
+    requestAnimationFrame(() => {
+      // Remove active class from all menu items
+      const menuItems = document.querySelectorAll('li.menu-item');
+      menuItems.forEach((li) => {
+        li.classList.remove('menu-item-active');
+        li.setAttribute('aria-selected', 'false');
+        li.setAttribute('tabindex', '0');
+      });
+
+      // Add active class to clicked item
+      target.classList.add('menu-item-active');
+      target.setAttribute('aria-selected', 'true');
+      target.setAttribute('tabindex', '-1');
+
+      mComponent.clean();
+
+      // Use another requestAnimationFrame to ensure DOM changes are batched
+      requestAnimationFrame(() => {
+        showHideTab(name);
+      });
     });
-
-    // Add active class to clicked item
-    target.classList.add('menu-item-active');
-    target.setAttribute('aria-selected', 'true');
-    target.setAttribute('tabindex', '-1');
-
-    mComponent.clean();
-
-    showHideTab(name);
   }
 
   const order = new Set();
@@ -93,6 +129,9 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
     tabs.forEach((tab) => {
       const { tabName } = tab.dataset;
       order.add(tabName);
+      
+      // Pre-cache tab heights to prevent layout shifts
+      tab.style.minHeight = '300px';
     });
 
     const orderArray = Array.from(order);
@@ -103,6 +142,9 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
     // Create the unordered list
     const ul = createElement('ul');
     ul.setAttribute('role', 'tablist');
+    
+    // Set height to prevent layout shifts
+    ul.style.minHeight = orderArray.length * 40 + 'px';
 
     let weHaveTheFirst = false;
     // Create and append list items
@@ -296,6 +338,25 @@ export default async function decorate(doc) {
   const imageDesktop = image.querySelector('source[type="image/webp"][media]')?.srcset || image.querySelector('img')?.src || '';
   const imageMobile = image.querySelector('source[type="image/webp"]:not([media])')?.srcset || imageDesktop || '';
 
+  // Preload hero images to improve LCP performance
+  if (imageDesktop) {
+    const preloadDesktop = document.createElement('link');
+    preloadDesktop.rel = 'preload';
+    preloadDesktop.as = 'image';
+    preloadDesktop.href = imageDesktop;
+    preloadDesktop.media = '(min-width: 810px)'; // Match desktop media query
+    document.head.appendChild(preloadDesktop);
+  }
+
+  if (imageMobile && imageMobile !== imageDesktop) {
+    const preloadMobile = document.createElement('link');
+    preloadMobile.rel = 'preload';
+    preloadMobile.as = 'image';
+    preloadMobile.href = imageMobile;
+    preloadMobile.media = '(max-width: 809px)'; // Match mobile media query
+    document.head.appendChild(preloadMobile);
+  }
+
   const h1 = createElement('h1', {});
 
   // Add the text content to the hero div
@@ -321,4 +382,8 @@ export default async function decorate(doc) {
   doc.innerHTML = '';
 
   doc.appendChild(div);
+
+  // Add content-visibility to improve performance
+  doc.style.contentVisibility = 'auto';
+  doc.style.containIntrinsicSize = '0 600px';
 }

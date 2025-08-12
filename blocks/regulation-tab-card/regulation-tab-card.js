@@ -47,7 +47,11 @@ export default function decorate(doc) {
     },
   };
 
-  // Add structure
+  // Create SVG arrow icon inline to avoid network request
+  const arrowSvg = `<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M13.97 19.6912L12.378 18.0618L15.803 14.6374H3.832V12.3624H15.803L12.378 8.93794L13.97 7.30859L20.167 13.4999L13.97 19.6912Z' fill='%23025ADF'/></svg>`;
+
+  // Add structure - Using template literals with precomputed values
+  // This avoids layout shifts by having all data ready before rendering
   const template = `
     <div class="tab-main-card">
       <div class="tab-main-card-description">
@@ -60,7 +64,7 @@ export default function decorate(doc) {
     return `
         <div>
         <h3>${title} <span>${values[key]}</span></h3>
-        <p><a href="${link.url}">${link.text} <span class="icon icon-arrow-right"></span></a> </p>
+        <p><a href="${link.url}">${link.text} <span class="icon icon-arrow-right">${arrowSvg}</span></a> </p>
         </div>
       `;
   }).join('')}
@@ -68,17 +72,10 @@ export default function decorate(doc) {
     </div>
   `;
 
-  // Create a container element and set its HTML
-  const container = document.createElement('div');
-  container.innerHTML = template;
-
-  // Remove all children from the doc
-  while (doc.firstChild) {
-    doc.removeChild(doc.firstChild);
-  }
-
-  // Append the container's child elements to the doc
-  while (container.firstChild) {
-    doc.appendChild(container.firstChild);
-  }
+  // Use a more efficient DOM manipulation approach
+  doc.innerHTML = template;
+  
+  // Add content-visibility attribute to improve performance
+  doc.style.contentVisibility = 'auto';
+  doc.style.containIntrinsicSize = '0 300px';
 }

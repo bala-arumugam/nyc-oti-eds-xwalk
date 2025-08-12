@@ -1,12 +1,19 @@
 footer {
   background-color: var(--light-color);
   font-size: var(--body-font-size-xs);
+  /* Set min-height to prevent layout shifts */
+  min-height: 100px;
+  /* Add containment for better performance */
+  content-visibility: auto;
+  contain-intrinsic-size: 0 100px;
 }
 
 footer .footer > div {
   margin: auto;
   max-width: 1200px;
   padding: 40px 24px 24px;
+  /* Add minimum height to prevent layout shifts */
+  min-height: 60px;
 }
 
 footer .footer p {

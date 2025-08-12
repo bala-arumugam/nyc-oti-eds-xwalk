@@ -64,6 +64,14 @@ function createLogoBand(headerData) {
     decoding: 'sync',
   });
 
+  // Preload the logo image for better performance
+  const preloadLink = document.createElement('link');
+  preloadLink.rel = 'preload';
+  preloadLink.as = 'image';
+  preloadLink.href = headerData.logoPath;
+  preloadLink.type = 'image/svg+xml'; // Assuming logo is SVG - adjust if needed
+  document.head.appendChild(preloadLink);
+
   const logoLink = createElement('a', {
     href: 'https://nycmycity--qa.sandbox.my.site.com/s/',
     className: 'block-link exitlink',
