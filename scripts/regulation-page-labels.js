@@ -2,52 +2,50 @@ async function call() {
   let data = {};
 
   const defaultData = {
-    // data: {
-    //   regulationPageLabelsConfigList: {
-    //     items: [
-    //       {
-    //         aboutTab: 'About',
-    //         contactInfo: 'Contact Info',
-    //         additionalResources: 'Additional Resources',
-    //         applicationFees: 'Application Fees',
-    //         applicationReviewedWithin: 'Application Reviewed',
-    //         renewalFees: 'Renewal Fees',
-    //         renewalCycle: 'Renewal Cycle',
-    //         howToApplyTab: 'How To Apply',
-    //         reviewTheseStepsBeforeYouSubmitYourApplication:
-    // 'Review these steps before you submit your application:',
-    //         readyToApply: 'Ready to Apply?',
-    //         optionsToApply: 'Option(s) to Apply',
-    //         applyOnline: 'Apply Online',
-    //         stepsToApplyOnline: 'Steps to apply online',
-    //         applyOnlineButton: 'Apply online ',
-    //         applyInPerson: 'Apply in person',
-    //         stepsToApplyInPerson: 'Steps to apply in person',
-    //         applyByMail: 'Apply by Mail',
-    //         stepsToApplyByMail: 'Steps to apply by mail',
-    //         afterYouApplyTab: 'After You Apply',
-    //         afterYouSubmitYourApplicationReviewTheseItems:
-    // 'After you submit your application, review these items:',
-    //         checkStatusButton: 'Check Status',
-    //         operatingAndRenewingTab: 'Operating and Renewing',
-    //         operatingRequirements: 'Operating Requirements:',
-    //         readyToRenew: 'Ready to Renew',
-    //         optionsToReview: 'Option(s) to review',
-    //         renewOnline: 'Renew Online',
-    //         stepsToRenewOnline: 'Steps to renew online',
-    //         renewInPerson: 'Renew in person',
-    //         stepsToRenewInPerson: 'Steps to renew in person',
-    //         renewByMail: 'Renew by Mail',
-    //         stepsToRenewByMail: 'Steps to renew by mail',
-    //         renewOnlineButton: 'Renew Online',
-    //       },
-    //     ],
-    //   },
-    // },
+    data: {
+      regulationPageLabelsConfigList: {
+        items: [
+          {
+            aboutTab: 'About',
+            contactInfo: 'Contact Info',
+            additionalResources: 'Additional Resources',
+            applicationFees: 'Application Fees',
+            applicationReviewedWithin: 'Application Reviewed',
+            renewalFees: 'Renewal Fees',
+            renewalCycle: 'Renewal Cycle',
+            howToApplyTab: 'How To Apply',
+            reviewTheseStepsBeforeYouSubmitYourApplication: 'Review these steps before you submit your application:',
+            readyToApply: 'Ready to Apply?',
+            optionsToApply: 'Option(s) to Apply',
+            applyOnline: 'Apply Online',
+            stepsToApplyOnline: 'Steps to apply online',
+            applyOnlineButton: 'Apply online ',
+            applyInPerson: 'Apply in person',
+            stepsToApplyInPerson: 'Steps to apply in person',
+            applyByMail: 'Apply by Mail',
+            stepsToApplyByMail: 'Steps to apply by mail',
+            afterYouApplyTab: 'After You Apply',
+            afterYouSubmitYourApplicationReviewTheseItems: 'After you submit your application, review these items:',
+            checkStatusButton: 'Check Status',
+            operatingAndRenewingTab: 'Operating and Renewing',
+            operatingRequirements: 'Operating Requirements:',
+            readyToRenew: 'Ready to Renew',
+            optionsToReview: 'Option(s) to review',
+            renewOnline: 'Renew Online',
+            stepsToRenewOnline: 'Steps to renew online',
+            renewInPerson: 'Renew in person',
+            stepsToRenewInPerson: 'Steps to renew in person',
+            renewByMail: 'Renew by Mail',
+            stepsToRenewByMail: 'Steps to renew by mail',
+            renewOnlineButton: 'Renew Online',
+          },
+        ],
+      },
+    },
   };
 
   try {
-    const apiUrl = 'https://cors-anywhere.herokuapp.com/https://oti-wcms-dev-publish.nyc.gov/graphql/execute.json/mycity/regulationPageLabels';
+    const apiUrl = 'https://oti-wcms-dev-publish.nyc.gov/graphql/execute.json/mycity/regulationPageLabels';
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 1000);
     try {
