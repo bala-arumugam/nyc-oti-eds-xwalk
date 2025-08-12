@@ -288,7 +288,6 @@ export default async function decorate(doc) {
     d.remove();
   });
 
-
   const div = createElement('div', { props: { className: 'regulation-index-hero' } });
 
   // Extract the image URL from the image element
@@ -311,9 +310,8 @@ export default async function decorate(doc) {
 
   // Apply the image as a background to the hero div
 
-    div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
-    div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
-
+  div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
+  div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
 
   doc.innerHTML = '';
 
