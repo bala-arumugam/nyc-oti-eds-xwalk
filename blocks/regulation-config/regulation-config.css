@@ -1,7 +1,8 @@
 .regulation-config-container{
+  height: 182px;
   min-height: 182px;
   content-visibility: auto;
-  contain-intrinsic-size: auto 182px;
+  contain-intrinsic-size: 0 182px;
 }
 
 
@@ -12,14 +13,6 @@
   content-visibility: auto;
   contain-intrinsic-height: 182px;
 }
-
-.regulation-config-container{
-  height: 182px;
-  min-height: 182px;
-  content-visibility: auto;
-  contain-intrinsic-size: 0 182px;
-}
-
 
 .regulation-index-hero {
   width: 100%;

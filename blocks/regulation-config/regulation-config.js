@@ -240,8 +240,6 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     tabsContainer.appendChild(newTab);
   });
 
-
-
   // Create a wrapper with the class "regulation-index"
   const regulationIndexWrapper = createElement('div', { props: { className: 'page-container regulation-index' } });
 
@@ -262,10 +260,6 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   pageRegulationIndexPage.appendChild(regulationIndexWrapper);
   // main.appendChild(pageRegulationIndexPage);
 
-  // const name = main.querySelector('.menu-regulation-index')?.querySelector('li.menu-item-active')?.classList[1];
-  // if (name) {
-  //   showHideTab(name);
-  // }
   return pageRegulationIndexPage;
 }
 
@@ -313,10 +307,10 @@ export default async function decorate(doc) {
   doc.style.display = 'none';
   doc.appendChild(div);
 
-  const pageRegulationIndexPage =decorateRegulationPage(menuToDisplay, mobileButtonTitle);
+  const pageRegulationIndexPage = decorateRegulationPage(menuToDisplay, mobileButtonTitle);
   pageRegulationIndexPage.style.display = 'none';
 
-    // Get the main element and append the tabs container to it
+  // Get the main element and append the tabs container to it
   const main = document.querySelector('main');
 
   // Clear any existing content from main if needed
@@ -328,7 +322,7 @@ export default async function decorate(doc) {
   if (name) {
     showHideTab(name);
   }
-  
+
   doc.style.display = 'block';
   pageRegulationIndexPage.style.display = 'block';
 }
