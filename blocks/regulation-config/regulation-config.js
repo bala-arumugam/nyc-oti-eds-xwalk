@@ -266,6 +266,9 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
         }
       });
     });
+    
+    // Add section headers to descriptions based on tab type
+    addTabSectionHeaders(tabNameLower, descriptionContent);
 
     // Add both sections to the tab
     newTab.appendChild(descriptionContent);
@@ -296,6 +299,82 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   // main.appendChild(pageRegulationIndexPage);
 
   return pageRegulationIndexPage;
+}
+
+function addTabSectionHeaders(tabType, descriptionContainer) {
+  // Map tab types to their corresponding content fragment keys
+  const tabHeaderMapping = {
+    'how-to-apply': 'reviewTheseStepsBeforeYouSubmitYourApplication',
+    'after-you-apply': 'afterYouSubmitYourApplicationReviewTheseItems',
+    'operate-&-renew': 'operatingRequirements'
+  };
+  
+  // Check if this tab type needs a special header
+  const labelKey = tabHeaderMapping[tabType];
+  if (!labelKey) return;
+  
+  // Get the text from content fragment
+  const headerText = getContentFragment.getWord(labelKey);
+  if (!headerText) return;
+  
+  // Find the section element in the description container
+  // First try to find a process-step-container section (prioritize this)
+  let section = descriptionContainer.querySelector('.section.process-step-container[data-tab-section-name="Description"]');
+  
+  // If not found, try to find a standard section with Description tab section name
+  if (!section) {
+    section = descriptionContainer.querySelector('.section[data-tab-section-name="Description"]');
+  }
+  
+  // If still not found, look for any section with Description tab section name
+  if (!section) {
+    section = descriptionContainer.querySelector('[data-tab-section-name="Description"]');
+  }
+  
+  if (!section) return;
+  
+  // Check for existing h3 anywhere in the section
+  const existingH3 = Array.from(section.querySelectorAll('h3'))
+    .find(h => h.textContent.includes(headerText));
+  
+  if (existingH3) {
+    // If h3 exists but isn't at the top, move it to the top
+    if (section.firstChild !== existingH3) {
+      section.insertBefore(existingH3, section.firstChild);
+    }
+    return;
+  }
+  
+  // Create the h3 element with an ID
+  const h3 = createElement('h3', { props: {} });
+  h3.textContent = headerText;
+  h3.id = headerText.toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')  // Remove special characters
+    .replace(/\s+/g, '-');         // Replace spaces with hyphens
+  
+  // For process-step-container, insert h3 directly at the beginning of the section
+  if (section.classList.contains('process-step-container')) {
+    // Create a default-content-wrapper if needed
+    let contentWrapper = section.querySelector('.default-content-wrapper');
+    if (!contentWrapper) {
+      contentWrapper = createElement('div', { props: { className: 'default-content-wrapper' } });
+      // Insert the wrapper at the beginning of the section
+      section.insertBefore(contentWrapper, section.firstChild);
+    }
+    
+    // Add h3 to the content wrapper
+    contentWrapper.appendChild(h3);
+  } else {
+    // Standard section handling
+    let contentWrapper = section.querySelector('.default-content-wrapper');
+    if (!contentWrapper) {
+      contentWrapper = createElement('div', { props: { className: 'default-content-wrapper' } });
+      section.appendChild(contentWrapper);
+    }
+    
+    // Insert the h3 at the beginning of content wrapper
+    contentWrapper.insertBefore(h3, contentWrapper.firstChild);
+  }
 }
 
 export default async function decorate(doc) {

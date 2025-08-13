@@ -1,10 +1,4 @@
 /* Header */
-header.header-wrapper{
-  position: relative;
-  min-height: 142px;
-  content-visibility: auto;
-}
-
 
 header {
     width: 100%;
@@ -480,7 +474,7 @@ header .language-toggle {
     padding-right: 20px;
     padding-left: 10px;
     margin-left: 8px;
-    background: url("/icons/caret.svg") no-repeat 100% 50% var(--highlight-gray);
+    background: url("/static/images/caret.svg") no-repeat 100% 50% var(--highlight-gray);
     font-size: 0.95rem;
     appearance: none;
 }
@@ -984,7 +978,7 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
     padding-right: 20px;
     padding-left: 10px;
     margin-left: 8px;
-    background: url("/icons/caret.svg") no-repeat 100% 50% #eee;
+    background: url("/nycbusiness/static/img/caret.svg") no-repeat 100% 50% #eee;
     font-weight: normal;
     font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -1469,12 +1463,15 @@ a.button-back {
 }
 
 @media (width <=810px) {
-  header.header-wrapper{
-    position: relative;
-    min-height: 142px;
-    content-visibility: auto;
-  }
+    header.header-wrapper {
+      position: relative;
+      min-height: 142px;
+      content-visibility: auto;
+    }
 
+    header.header-wrapper:has( header nav.menu-open) {
+      content-visibility: visible;
+    }
 
     ul.clean-list>li.nav-link {
         overflow: hidden;
