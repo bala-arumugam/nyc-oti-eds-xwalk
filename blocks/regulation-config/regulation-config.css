@@ -1,8 +1,24 @@
+.regulation-config-container{
+  height: 182px;
+  min-height: 182px;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 182px;
+}
+
+
 /* hero */
+.regulation-config-wrapper{
+  height: 182px;
+  min-height: 182px;
+  content-visibility: auto;
+  contain-intrinsic-height: 182px;
+}
+
 .regulation-index-hero {
   width: 100%;
   position: relative;
   height: 182px;
+  min-height: 182px;
   background: var(--blue-filter), var(--regulation-hero-image-mobile), #d3d3d3;
   background-size: cover;
   background-position: center;
@@ -11,6 +27,8 @@
   display: grid;
   align-items: center;
   justify-content: start;
+  content-visibility: auto;
+  contain-intrinsic-height: 182px;
 }
 
 h1.regulation-index-hero-text {
