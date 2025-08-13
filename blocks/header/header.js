@@ -62,6 +62,7 @@ function createLogoBand(headerData) {
     fetchpriority: 'high',
     importance: 'high',
     decoding: 'sync',
+    loading: 'eager',
   });
 
   const logoLink = createElement('a', {

@@ -2,22 +2,28 @@
   font-family: Montserrat;
   font-style: normal;
   font-weight: 700;
+  src: url('../fonts/woff/Montserrat-Bold.woff2') format('woff2'),
+       url('../fonts/woff/Montserrat-Bold.woff') format('woff'),
+       url('../fonts/Montserrat-Bold.ttf') format('truetype');
   font-display: swap;
-  src: url('../fonts/Montserrat-Bold.ttf') format('truetype');
 }
 
 @font-face {
   font-family: Montserrat;
   font-style: normal;
   font-weight: 500;
+  src: url('../fonts/woff/Montserrat-Medium.woff2') format('woff2'),
+       url('../fonts/woff/Montserrat-Medium.woff') format('woff'),
+       url('../fonts/Montserrat-Medium.ttf') format('truetype');
   font-display: swap;
-  src: url('../fonts/Montserrat-Medium.ttf') format('truetype');
 }
 
 @font-face {
   font-family: Lora;
   font-style: normal;
   font-weight: 400;
+  src: url('../fonts/woff/Lora-Regular.woff2') format('woff2'),
+  url('../fonts/woff/Lora-Regular.woff') format('woff'),
+       url('../fonts/Lora-Regular.ttf') format('truetype');
   font-display: swap;
-  src: url('../fonts/Lora-Regular.ttf') format('truetype');
 }

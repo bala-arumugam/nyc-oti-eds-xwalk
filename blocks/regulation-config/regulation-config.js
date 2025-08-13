@@ -275,12 +275,6 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     tabsContainer.appendChild(newTab);
   });
 
-  // Get the main element and append the tabs container to it
-  const main = document.querySelector('main');
-
-  // Clear any existing content from main if needed
-  main.innerHTML = ''; // Uncomment if you want to clear main first
-
   // Create a wrapper with the class "regulation-index"
   const regulationIndexWrapper = createElement('div', { props: { className: 'page-container regulation-index' } });
 
@@ -299,12 +293,9 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   detachAndReattachAll(sectionsWithoutTabName, pageRegulationIndexPage);
 
   pageRegulationIndexPage.appendChild(regulationIndexWrapper);
-  main.appendChild(pageRegulationIndexPage);
+  // main.appendChild(pageRegulationIndexPage);
 
-  const name = main.querySelector('.menu-regulation-index')?.querySelector('li.menu-item-active')?.classList[1];
-  if (name) {
-    showHideTab(name);
-  }
+  return pageRegulationIndexPage;
 }
 
 export default async function decorate(doc) {
@@ -323,13 +314,11 @@ export default async function decorate(doc) {
     d.remove();
   });
 
-  decorateRegulationPage(menuToDisplay, mobileButtonTitle);
-
   const div = createElement('div', { props: { className: 'regulation-index-hero' } });
 
   // Extract the image URL from the image element
-  const imageDesktop = image.querySelector('source[type="image/webp"][media]')?.srcset || image.querySelector('img')?.src || '';
-  const imageMobile = image.querySelector('source[type="image/webp"]:not([media])')?.srcset || imageDesktop || '';
+  const imageDesktop = image.querySelector('source[type="image/webp"][media]')?.srcset;
+  const imageMobile = image.querySelector('source[type="image/webp"]:not([media])')?.srcset;
 
   const h1 = createElement('h1', {});
 
@@ -346,14 +335,29 @@ export default async function decorate(doc) {
   pElement.remove();
 
   // Apply the image as a background to the hero div
-  if (imageDesktop) {
-    div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
-  }
-  if (imageMobile) {
-    div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
-  }
+  div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
+  div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
 
   doc.innerHTML = '';
-
+  doc.style.display = 'none';
   doc.appendChild(div);
+
+  const pageRegulationIndexPage = decorateRegulationPage(menuToDisplay, mobileButtonTitle);
+  pageRegulationIndexPage.style.display = 'none';
+
+  // Get the main element and append the tabs container to it
+  const main = document.querySelector('main');
+
+  // Clear any existing content from main if needed
+  main.innerHTML = ''; // Uncomment if you want to clear main first
+
+  main.appendChild(pageRegulationIndexPage);
+
+  const name = main.querySelector('.menu-regulation-index')?.querySelector('li.menu-item-active')?.classList[1];
+  if (name) {
+    showHideTab(name);
+  }
+
+  doc.style.display = 'block';
+  pageRegulationIndexPage.style.display = 'block';
 }
