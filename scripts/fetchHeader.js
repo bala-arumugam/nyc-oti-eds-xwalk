@@ -44,7 +44,7 @@ export async function fetchHeaderData() {
     const response = await fetchWithTimeout(
       'https://oti-wcms-dev-publish.nyc.gov/content/experience-fragments/mycity/us/en/business/global/header/master.model.json',
       { credentials: 'same-origin' }, // Add credentials to improve caching
-      0, // Reduced timeout for faster fallback on mobile
+      50, // Reduced timeout for faster fallback on mobile
     );
 
     if (!response.ok) {
