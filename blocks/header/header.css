@@ -1,4 +1,11 @@
 /* Header */
+header.header-wrapper{
+  position: relative;
+  min-height: 142px;
+  content-visibility: auto;
+}
+
+
 header {
     width: 100%;
     background-color: var(--color-14);
@@ -459,7 +466,7 @@ header .language-toggle {
     display: inline-block;
     width: 16px;
     height: 16px;
-    background: url("/static/images/g_translate.svg") no-repeat center center;
+    background: url("/icons/g_translate.svg") no-repeat center center;
     margin-right: 4px;
 }
 
@@ -473,7 +480,7 @@ header .language-toggle {
     padding-right: 20px;
     padding-left: 10px;
     margin-left: 8px;
-    background: url("/static/images/caret.svg") no-repeat 100% 50% var(--highlight-gray);
+    background: url("/icons/caret.svg") no-repeat 100% 50% var(--highlight-gray);
     font-size: 0.95rem;
     appearance: none;
 }
@@ -977,7 +984,7 @@ header>nav>ul .nav-link>div.block-link .simplified-header-text {
     padding-right: 20px;
     padding-left: 10px;
     margin-left: 8px;
-    background: url("/nycbusiness/static/img/caret.svg") no-repeat 100% 50% #eee;
+    background: url("/icons/caret.svg") no-repeat 100% 50% #eee;
     font-weight: normal;
     font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -1462,6 +1469,13 @@ a.button-back {
 }
 
 @media (width <=810px) {
+  header.header-wrapper{
+    position: relative;
+    min-height: 142px;
+    content-visibility: auto;
+  }
+
+
     ul.clean-list>li.nav-link {
         overflow: hidden;
         display: none;

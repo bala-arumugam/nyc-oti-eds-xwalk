@@ -240,11 +240,7 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     tabsContainer.appendChild(newTab);
   });
 
-  // Get the main element and append the tabs container to it
-  const main = document.querySelector('main');
 
-  // Clear any existing content from main if needed
-  main.innerHTML = ''; // Uncomment if you want to clear main first
 
   // Create a wrapper with the class "regulation-index"
   const regulationIndexWrapper = createElement('div', { props: { className: 'page-container regulation-index' } });
@@ -264,12 +260,13 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   detachAndReattachAll(sectionsWithoutTabName, pageRegulationIndexPage);
 
   pageRegulationIndexPage.appendChild(regulationIndexWrapper);
-  main.appendChild(pageRegulationIndexPage);
+  // main.appendChild(pageRegulationIndexPage);
 
-  const name = main.querySelector('.menu-regulation-index')?.querySelector('li.menu-item-active')?.classList[1];
-  if (name) {
-    showHideTab(name);
-  }
+  // const name = main.querySelector('.menu-regulation-index')?.querySelector('li.menu-item-active')?.classList[1];
+  // if (name) {
+  //   showHideTab(name);
+  // }
+  return pageRegulationIndexPage;
 }
 
 export default async function decorate(doc) {
@@ -309,13 +306,29 @@ export default async function decorate(doc) {
   pElement.remove();
 
   // Apply the image as a background to the hero div
-
   div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
   div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
 
   doc.innerHTML = '';
-
+  doc.style.display = 'none';
   doc.appendChild(div);
 
-  decorateRegulationPage(menuToDisplay, mobileButtonTitle);
+  const pageRegulationIndexPage =decorateRegulationPage(menuToDisplay, mobileButtonTitle);
+  pageRegulationIndexPage.style.display = 'none';
+
+    // Get the main element and append the tabs container to it
+  const main = document.querySelector('main');
+
+  // Clear any existing content from main if needed
+  main.innerHTML = ''; // Uncomment if you want to clear main first
+
+  main.appendChild(pageRegulationIndexPage);
+
+  const name = main.querySelector('.menu-regulation-index')?.querySelector('li.menu-item-active')?.classList[1];
+  if (name) {
+    showHideTab(name);
+  }
+  
+  doc.style.display = 'block';
+  pageRegulationIndexPage.style.display = 'block';
 }
