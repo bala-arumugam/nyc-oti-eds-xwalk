@@ -306,26 +306,10 @@
               "page": {
                 "resourceType": "core/franklin/components/section/v1/section",
                 "template": {
-                  "model": "section-model",
+                  "model": "section-model-additional",
                   "filter": "section-additional",
                   "tab-section-name": "Additional",
                   "name": "Section Additional"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Section Process Step",
-          "id": "section-process-step",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/section/v1/section",
-                "template": {
-                  "model": "section-model",
-                  "filter": "section-process-step",
-                  "name": "Section Process Step"
                 }
               }
             }

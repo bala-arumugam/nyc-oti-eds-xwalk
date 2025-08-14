@@ -41,26 +41,10 @@
           "page": {
             "resourceType": "core/franklin/components/section/v1/section",
             "template": {
-              "model": "section-model",
+              "model": "section-model-additional",
               "filter": "section-additional",
               "tab-section-name": "Additional",
-              "name":"Section Additional"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "Section Process Step",
-      "id": "section-process-step",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
-            "template": {
-              "model": "section-model",
-              "filter": "section-process-step",
-              "name": "Section Process Step"
+              "name": "Section Additional"
             }
           }
         }
@@ -95,7 +79,6 @@
               "name": "After You Apply",
               "value": "After You Apply"
             },
-
             {
               "name": "Operating and Renewing",
               "value": "Operating and Renewing"
@@ -106,6 +89,7 @@
           "component": "select",
           "name": "tab-section-name",
           "label": "Tab Section Name",
+          "hidden": true,
           "options": [
             {
               "name": "Section Description",
@@ -116,6 +100,83 @@
               "value": "Additional"
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "section-model-additional",
+      "fields": [
+        {
+          "component": "text",
+          "name": "name",
+          "label": "Section Name",
+          "description": "The label shown for this section in the Content Tree"
+        },
+        {
+          "component": "select",
+          "name": "tab-name",
+          "label": "Tab Name",
+          "description": "Helper Metadata",
+          "options": [
+            {
+              "name": "About",
+              "value": "About"
+            },
+            {
+              "name": "How To Apply",
+              "value": "How To Apply"
+            },
+            {
+              "name": "After You Apply",
+              "value": "After You Apply"
+            },
+            {
+              "name": "Operating and Renewing",
+              "value": "Operating and Renewing"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "tab-section-name",
+          "label": "Tab Section Name",
+          "hidden": true,
+          "options": [
+            {
+              "name": "Section Description",
+              "value": "Description"
+            },
+            {
+              "name": "Section Additional",
+              "value": "Additional"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "accordionIcon",
+          "label": "Icon",
+          "description": "If there is an accordion for this section, specify the icon here.",
+          "options": [
+            {
+              "name": "Online",
+              "value": "icon-online"
+            },
+            {
+              "name": "Person",
+              "value": "icon-person"
+            },
+            {
+              "name": "Mail",
+              "value": "icon-mail"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "titleAccordion",
+          "label": "Title",
+          "description": "If there is an accordion for this section, specify the title here."
         }
       ]
     }
