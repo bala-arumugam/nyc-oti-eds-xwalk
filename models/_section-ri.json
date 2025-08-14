@@ -49,22 +49,6 @@
           }
         }
       }
-    },
-    {
-      "title": "Section Process Step",
-      "id": "section-process-step",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/section/v1/section",
-            "template": {
-              "model": "section-model",
-              "filter": "section-process-step",
-              "name": "Section Process Step"
-            }
-          }
-        }
-      }
     }
   ],
   "models": [
@@ -106,6 +90,7 @@
           "component": "select",
           "name": "tab-section-name",
           "label": "Tab Section Name",
+          "hidden": true,
           "options": [
             {
               "name": "Section Description",
@@ -156,6 +141,7 @@
           "component": "select",
           "name": "tab-section-name",
           "label": "Tab Section Name",
+          "hidden":true,
           "options": [
             {
               "name": "Section Description",
