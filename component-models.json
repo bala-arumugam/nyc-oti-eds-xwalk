@@ -169,6 +169,10 @@
         "description": "Helper Metadata",
         "options": [
           {
+            "name": "Body",
+            "value": ""
+          },
+          {
             "name": "About",
             "value": "About"
           },
