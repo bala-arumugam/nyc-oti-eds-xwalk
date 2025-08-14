@@ -20,6 +20,18 @@
         "name": "keywords",
         "multi": true,
         "label": "Keywords"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "url",
+        "label": "URL"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "jcr:createdBy",
+        "label": "Created By"
       }
     ]
   },
