@@ -254,30 +254,37 @@
         ]
       },
       {
-        "component": "select",
-        "name": "accordionIcon",
-        "label": "Accordion Icon",
-        "description": "If there is an accordion for this section, specify the icon here.",
-        "options": [
+        "component": "fieldset",
+        "name": "accordion",
+        "label": "Accordion Settings",
+        "fields": [
           {
-            "name": "Online",
-            "value": "icon-online"
+            "component": "select",
+            "name": "accordionIcon",
+            "label": "Icon",
+            "description": "If there is an accordion for this section, specify the icon here.",
+            "options": [
+              {
+                "name": "Online",
+                "value": "icon-online"
+              },
+              {
+                "name": "Person",
+                "value": "icon-person"
+              },
+              {
+                "name": "Mail",
+                "value": "icon-mail"
+              }
+            ]
           },
           {
-            "name": "Person",
-            "value": "icon-person"
-          },
-          {
-            "name": "Mail",
-            "value": "icon-mail"
+            "component": "text",
+            "name": "accordionTitle",
+            "label": "Title",
+            "description": "If there is an accordion for this section, specify the title here."
           }
         ]
-      },
-      {
-        "component": "text",
-        "name": "accordion_title",
-        "label": "Accordion Title",
-        "description": "If there is an accordion for this section, specify the title here."
       }
     ]
   },
