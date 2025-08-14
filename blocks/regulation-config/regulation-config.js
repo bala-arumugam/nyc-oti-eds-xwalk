@@ -58,16 +58,12 @@ function menuMobileComponent() {
 
 function createAccordion(element) {
 
-
   function openCloseAction(ev){
     const accordionItem = ev.target.closest('.accordion-item');
     if (accordionItem) {
       accordionItem.classList.toggle('close');
     }
-  
-
   }
-
 
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = `
@@ -77,11 +73,11 @@ function createAccordion(element) {
             <div class="accordion-content">
             </div>
           </div>
-          `;
-
+  `;
+  
   tempDiv.querySelector(".accordion-title").onclick = openCloseAction;
-
   tempDiv.querySelector(".accordion-content").appendChild(element)
+  
   return tempDiv.firstElementChild;
 }
 
@@ -405,7 +401,7 @@ export default async function decorate(doc) {
 
   const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operate-&-renew']; const menuToDisplay = {};
 
-  const mobileButtonTitle = _mobileButtonTitle.querySelector('p').innerText || 'NAVIGATION';
+  const mobileButtonTitle = _mobileButtonTitle?.querySelector('p')?.innerText || 'NAVIGATION';
 
   booleans.forEach((d, idx) => {
     const el = d.querySelector('p');
