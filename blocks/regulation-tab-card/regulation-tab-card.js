@@ -1,3 +1,5 @@
+import getContentFragment from '../../scripts/regulation-page-labels.js';
+
 export default function decorate(doc) {
   const data = (idx) => {
     const dataList = doc.children;
@@ -56,11 +58,35 @@ export default function decorate(doc) {
       <div class="tab-main-card-card">
       ${Object.keys(contentCard).map((key) => {
     const KEY = contentCard[key];
-    const { title, link } = KEY;
+
+    const { link } = KEY;
+
+    // Use different getContentFragment.getWord calls based on the card type
+    let labelKey = 'applicationFees';
+    if (key === 'application-fees') {
+      labelKey = 'applicationFees';
+    } else if (key === 'application-reviewed-within') {
+      labelKey = 'applicationReviewedWithin';
+    } else if (key === 'renewal-fees') {
+      labelKey = 'renewalFees';
+    } else if (key === 'renewal-cycle') {
+      labelKey = 'renewalCycle';
+    }
+
+    // Set the button text based on the key
+    let buttonKey = 'howToApplyTab';
+    if (key === 'application-fees') {
+      buttonKey = 'howToApplyTab';
+    } else if (key === 'application-reviewed-within') {
+      buttonKey = 'afterYouApplyTab';
+    } else if (key === 'renewal-fees' || key === 'renewal-cycle') {
+      buttonKey = 'operatingAndRenewingTab';
+    }
+
     return `
         <div>
-        <h3>${title} <span>${values[key]}</span></h3>
-        <p><a href="${link.url}">${link.text} <span class="icon icon-arrow-right"></span></a> </p>
+        <h3>${getContentFragment.getWord(labelKey)}: <span>${values[key]}</span></h3>
+        <p><a href="${link.url}">${getContentFragment.getWord(buttonKey)} <span class="icon icon-arrow-right"></span></a> </p>
         </div>
       `;
   }).join('')}

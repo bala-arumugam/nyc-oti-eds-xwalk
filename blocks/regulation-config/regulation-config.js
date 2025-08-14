@@ -1,6 +1,7 @@
 import {
   createElement, detachAndReattach, detachAndReattachAll, shadeBackground,
 } from '../../scripts/util.js';
+import getContentFragment from '../../scripts/regulation-page-labels.js';
 
 function showHideTab(name) {
   const tabs = document.querySelector('main').querySelector('.tabs').querySelectorAll('.tab');
@@ -55,6 +56,70 @@ function menuMobileComponent() {
   };
 }
 
+function addTabSectionHeaders(tabType, descriptionContainer) {
+  // Map tab types to their corresponding content fragment keys
+  const tabHeaderMapping = {
+    'how-to-apply': 'reviewTheseStepsBeforeYouSubmitYourApplication',
+    'after-you-apply': 'afterYouSubmitYourApplicationReviewTheseItems',
+    'operate-&-renew': 'operatingRequirements',
+  };
+  // Check if this tab type needs a special header
+  const labelKey = tabHeaderMapping[tabType];
+  if (!labelKey) return;
+  // Get the text from content fragment
+  const headerText = getContentFragment.getWord(labelKey);
+  if (!headerText) return;
+  // Find the section element in the description container
+  // First try to find a process-step-container section (prioritize this)
+  let section = descriptionContainer.querySelector('.section.process-step-container[data-tab-section-name="Description"]');
+  // If not found, try to find a standard section with Description tab section name
+  if (!section) {
+    section = descriptionContainer.querySelector('.section[data-tab-section-name="Description"]');
+  }
+  // If still not found, look for any section with Description tab section name
+  if (!section) {
+    section = descriptionContainer.querySelector('[data-tab-section-name="Description"]');
+  }
+  if (!section) return;
+  // Check for existing h3 anywhere in the section
+  const existingH3 = Array.from(section.querySelectorAll('h3'))
+    .find((h) => h.textContent.includes(headerText));
+  if (existingH3) {
+    // If h3 exists but isn't at the top, move it to the top
+    if (section.firstChild !== existingH3) {
+      section.insertBefore(existingH3, section.firstChild);
+    }
+    return;
+  }
+  // Create the h3 element with an ID
+  const h3 = createElement('h3', { props: {} });
+  h3.textContent = headerText;
+  h3.id = headerText.toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-');
+  // For process-step-container, insert h3 directly at the beginning of the section
+  if (section.classList.contains('process-step-container')) {
+    // Create a default-content-wrapper if needed
+    let contentWrapper = section.querySelector('.default-content-wrapper');
+    if (!contentWrapper) {
+      contentWrapper = createElement('div', { props: { className: 'default-content-wrapper' } });
+      // Insert the wrapper at the beginning of the section
+      section.insertBefore(contentWrapper, section.firstChild);
+    }
+    // Add h3 to the content wrapper
+    contentWrapper.appendChild(h3);
+  } else {
+    // Standard section handling
+    let contentWrapper = section.querySelector('.default-content-wrapper');
+    if (!contentWrapper) {
+      contentWrapper = createElement('div', { props: { className: 'default-content-wrapper' } });
+      section.appendChild(contentWrapper);
+    }
+    // Insert the h3 at the beginning of content wrapper
+    contentWrapper.insertBefore(h3, contentWrapper.firstChild);
+  }
+}
+
 function createMenu(main, menuToDisplay, mobileButtonTitle) {
   const mComponent = menuMobileComponent();
 
@@ -70,6 +135,13 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
 
     // Remove active class from all menu items
     const menuItems = document.querySelectorAll('li.menu-item');
+    menuItems.forEach((li) => {
+      li.classList.remove('menu-item-active');
+      li.setAttribute('aria-selected', 'false');
+      li.setAttribute('tabindex', '0');
+    });
+
+    // Add active class to all menu items
     menuItems.forEach((li) => {
       li.classList.remove('menu-item-active');
       li.setAttribute('aria-selected', 'false');
@@ -113,7 +185,19 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
           className: `menu-item ${classWithTheTabName}`,
         },
       });
-      li.textContent = item;
+      // Use getContentFragment.getWord() to get the translated text based on tab name
+      if (classWithTheTabName === 'about') {
+        li.textContent = getContentFragment.getWord('aboutTab');
+      } else if (classWithTheTabName === 'how-to-apply') {
+        li.textContent = getContentFragment.getWord('howToApplyTab');
+      } else if (classWithTheTabName === 'after-you-apply') {
+        li.textContent = getContentFragment.getWord('afterYouApplyTab');
+      } else if (classWithTheTabName === 'operate-&-renew') {
+        li.textContent = getContentFragment.getWord('operatingAndRenewingTab');
+      } else {
+        li.textContent = item; // Fallback to the original text if no match
+      }
+
       li.style.display = (menuToDisplay[classWithTheTabName]) ? 'block' : 'none';
 
       li.onclick = clickHandler;
@@ -214,7 +298,22 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
 
     // Create a header element for the tab name
     const tabHeader = createElement('h2', { props: { className: 'tab-header' } });
-    tabHeader.textContent = tabName;
+
+    // Map tab names to their corresponding label keys and use getContentFragment.getWord()
+    // to get the appropriate text for each tab
+    const tabNameLower = tabName.toLowerCase().replace(/\s+/g, '-');
+    if (tabNameLower === 'about') {
+      tabHeader.textContent = getContentFragment.getWord('aboutTab');
+    } else if (tabNameLower === 'how-to-apply') {
+      tabHeader.textContent = getContentFragment.getWord('howToApplyTab');
+    } else if (tabNameLower === 'after-you-apply') {
+      tabHeader.textContent = getContentFragment.getWord('afterYouApplyTab');
+    } else if (tabNameLower === 'operate-&-renew') {
+      tabHeader.textContent = getContentFragment.getWord('operatingAndRenewingTab');
+    } else {
+      tabHeader.textContent = tabName; // Fallback to the original tab name
+    }
+
     newTab.appendChild(tabHeader);
 
     // Create containers for this tab's content
@@ -231,6 +330,9 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
         }
       });
     });
+
+    // Add section headers to descriptions based on tab type
+    addTabSectionHeaders(tabNameLower, descriptionContent);
 
     // Add both sections to the tab
     newTab.appendChild(descriptionContent);
