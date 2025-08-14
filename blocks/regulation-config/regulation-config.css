@@ -53,7 +53,6 @@ h1.regulation-index-hero-text {
   }
 }
 
-
 /* Tabs */
 .regulation-index {
   display: grid;
@@ -163,3 +162,40 @@ h1.regulation-index-hero-text {
 }
 
 /* Removing commented out code */
+
+/* Accordion */
+.accordion-item{
+  border-radius: 4px 4px 0 0 ;
+  border: 1px solid #D4D7DC;
+  margin-bottom: 16px;
+}
+.accordion-item .accordion-title{
+  padding: 25px;
+  cursor: pointer;
+}
+.accordion-item .accordion-content{
+  border-top: 1px solid #D4D7DC;
+  padding: 25px;
+  max-height: 1000px;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  overflow: hidden;
+}
+
+.accordion-item.close{
+  border-radius: 4px;
+}
+
+.accordion-item.close .accordion-content{
+  max-height: 0;
+  padding: 0 25px;
+  border-top: 0;
+  transition: max-height 0.3s ease, padding 0.3s ease, border-top 0s ease 0.3s;
+  overflow: hidden;
+  border-radius: 0 0 4px 4px;
+}
+
+/* Hide accordion items with empty content */
+.accordion-item:has(.accordion-content:empty) {
+  display: none;
+}
+

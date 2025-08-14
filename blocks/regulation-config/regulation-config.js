@@ -56,6 +56,35 @@ function menuMobileComponent() {
   };
 }
 
+function createAccordion(element) {
+
+
+  function openCloseAction(ev){
+    const accordionItem = ev.target.closest('.accordion-item');
+    if (accordionItem) {
+      accordionItem.classList.toggle('close');
+    }
+  
+
+  }
+
+
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = `
+          <div class="accordion-item close">
+            <div class="accordion-title">
+            </div>
+            <div class="accordion-content">
+            </div>
+          </div>
+          `;
+
+  tempDiv.querySelector(".accordion-title").onclick = openCloseAction;
+
+  tempDiv.querySelector(".accordion-content").appendChild(element)
+  return tempDiv.firstElementChild;
+}
+
 function addTabSectionHeaders(tabType, descriptionContainer) {
   // Map tab types to their corresponding content fragment keys
   const tabHeaderMapping = {
@@ -320,13 +349,19 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     const descriptionContent = createElement('div', { props: { className: 'tab-description' } });
     const additionalContent = createElement('div', { props: { className: 'tab-additional' } });
 
+
     // Add content to the appropriate sections
     Object.entries(sections).forEach(([sectionName, elements]) => {
       elements.forEach((element) => {
         if (sectionName === 'Description') {
           descriptionContent.appendChild(element);
         } else if (sectionName === 'Additional') {
-          additionalContent.appendChild(element);
+          if(false){
+            additionalContent.appendChild(element);
+          }else{
+            additionalContent.appendChild(createAccordion(element));
+          }
+
         }
       });
     });
