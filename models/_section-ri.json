@@ -44,7 +44,7 @@
               "model": "section-model-additional",
               "filter": "section-additional",
               "tab-section-name": "Additional",
-              "name":"Section Additional"
+              "name": "Section Additional"
             }
           }
         }
@@ -79,7 +79,6 @@
               "name": "After You Apply",
               "value": "After You Apply"
             },
-
             {
               "name": "Operating and Renewing",
               "value": "Operating and Renewing"
@@ -103,7 +102,8 @@
           ]
         }
       ]
-    },{
+    },
+    {
       "id": "section-model-additional",
       "fields": [
         {
@@ -130,7 +130,6 @@
               "name": "After You Apply",
               "value": "After You Apply"
             },
-
             {
               "name": "Operating and Renewing",
               "value": "Operating and Renewing"
@@ -141,7 +140,7 @@
           "component": "select",
           "name": "tab-section-name",
           "label": "Tab Section Name",
-          "hidden":true,
+          "hidden": true,
           "options": [
             {
               "name": "Section Description",
@@ -154,41 +153,33 @@
           ]
         },
         {
-          "component": "fieldset",
-          "name": "accordion",
-          "label": "Accordion Settings",
-          "fields": [
+          "component": "select",
+          "name": "accordionIcon",
+          "label": "Icon",
+          "description": "If there is an accordion for this section, specify the icon here.",
+          "options": [
             {
-              "component": "select",
-              "name": "accordionIcon",
-              "label": "Icon",
-              "description": "If there is an accordion for this section, specify the icon here.",
-              "options":[
-                {
-                  "name": "Online",
-                  "value": "icon-online"
-                },
-                {
-                  "name": "Person",
-                  "value": "icon-person"
-                },
-                {
-                  "name": "Mail",
-                  "value": "icon-mail"
-                }
-              ]
+              "name": "Online",
+              "value": "icon-online"
             },
             {
-              "component": "text",
-              "name": "accordionTitle",
-              "label": "Title",
-              "description": "If there is an accordion for this section, specify the title here."
+              "name": "Person",
+              "value": "icon-person"
+            },
+            {
+              "name": "Mail",
+              "value": "icon-mail"
             }
           ]
+        },
+        {
+          "component": "text",
+          "name": "titleAccordion",
+          "label": "Title",
+          "description": "If there is an accordion for this section, specify the title here."
         }
       ]
     }
-    
   ],
   "filters": [
     {
