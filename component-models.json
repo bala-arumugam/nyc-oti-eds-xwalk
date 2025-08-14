@@ -163,10 +163,28 @@
         "description": "The label shown for this section in the Content Tree"
       },
       {
-        "component": "text",
+        "component": "select",
         "name": "tab-name",
         "label": "Tab Name",
-        "description": "Helper Metadata"
+        "description": "Helper Metadata",
+        "options": [
+          {
+            "name": "About",
+            "value": "About"
+          },
+          {
+            "name": "How To Apply",
+            "value": "How To Apply"
+          },
+          {
+            "name": "After You Apply",
+            "value": "After You Apply"
+          },
+          {
+            "name": "Operating and Renewing",
+            "value": "Operating and Renewing"
+          }
+        ]
       },
       {
         "component": "select",
