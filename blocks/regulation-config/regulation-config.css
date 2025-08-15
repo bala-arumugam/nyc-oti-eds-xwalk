@@ -14,7 +14,7 @@
   contain-intrinsic-height: 182px;
 }
 
-.regulation-index-hero {
+.regulation-page-hero {
   width: 100%;
   position: relative;
   height: 182px;
@@ -31,7 +31,7 @@
   contain-intrinsic-height: 182px;
 }
 
-h1.regulation-index-hero-text {
+h1.regulation-page-hero-text {
   position: relative;
   z-index: 10;
   color: var(--text-color-dark);
@@ -41,43 +41,42 @@ h1.regulation-index-hero-text {
 
 
 @media (width >=810px) {
-  h1.regulation-index-hero-text {
+  h1.regulation-page-hero-text {
     font-weight: 700;
     font-size: 48px;
     line-height: 62px;
   }
 
-  .regulation-index-hero {
+  .regulation-page-hero {
     background: var(--blue-filter), var(--regulation-hero-image-desktop), #d3d3d3;
     background-position: center center;
   }
 }
 
-
 /* Tabs */
-.regulation-index {
+.regulation-page {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
 }
 
 @media (width >=810px) {
-  .regulation-index {
+  .regulation-page {
     grid-template-columns: 1fr 3fr;
     gap: 30px;
   }
 }
 
-.regulation-index .tabs {
+.regulation-page .tabs {
   width: 100%;
 }
 
 /* Menu */
-.menu-regulation-index ul {
+.menu-regulation-page ul {
   display: none;
 }
 
-.menu-regulation-index ul.mobile {
+.menu-regulation-page ul.mobile {
   display: block;
   position: fixed;
   z-index: 1010;
@@ -88,7 +87,7 @@ h1.regulation-index-hero-text {
 
 }
 
-.menu-regulation-index ul.mobile li {
+.menu-regulation-page ul.mobile li {
   display: block;
   background-color: white;
   font-weight: var(--bold-400);
@@ -98,17 +97,25 @@ h1.regulation-index-hero-text {
   border-radius: 4px 0 0 4px;
 }
 
-.menu-regulation-index ul.mobile li:first-child {
+.menu-regulation-page ul.mobile li:first-child {
   border-radius: 16px 16px 0 0;
   padding-top: 34px;
 }
 
-.menu-regulation-index ul.mobile li:last-child {
+.menu-regulation-page ul.mobile li:last-child {
   border-radius: 0 0 16px 16px;
   padding-bottom: 34px;
 }
 
-.menu-regulation-index .mobile-button-menu {
+.menu-regulation-page ul.mobile li:only-child {
+  border-radius: 16px;
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+
+
+.menu-regulation-page .mobile-button-menu {
   display: block;
   border: 2px solid var(--pink-03);
   color: var(--pink-03);
@@ -119,19 +126,19 @@ h1.regulation-index-hero-text {
 }
 
 @media (width >=810px) {
-  .regulation-index-hero {
+  .regulation-page-hero {
     max-height: 182px;
     display: block;
   }
 
-  .menu-regulation-index ul {
+  .menu-regulation-page ul {
     display: block;
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .menu-regulation-index ul li {
+  .menu-regulation-page ul li {
     gap: 8px;
     padding: 16px;
     border-bottom: 1px solid var(--color-5);
@@ -142,7 +149,7 @@ h1.regulation-index-hero-text {
     color: var(--color-13)
   }
 
-  .menu-regulation-index ul li.menu-item-active {
+  .menu-regulation-page ul li.menu-item-active {
     border-left: 4px solid var(--color-14);
     font-weight: 700;
     font-size: 18px;
@@ -150,7 +157,7 @@ h1.regulation-index-hero-text {
     color: var(--off-black)
   }
 
-  .menu-regulation-index .mobile-button-menu {
+  .menu-regulation-page .mobile-button-menu {
     display: none;
   }
 
@@ -158,8 +165,135 @@ h1.regulation-index-hero-text {
 
 /* tabpanel */
 
-.regulation-index .tabs .tab .tab-description {
+.regulation-page .tabs .tab .tab-description {
   padding: 40px 0;
 }
 
-/* Removing commented out code */
+.regulation-page .tabs .tab .tab-description .sub-title-description-section{
+  margin-bottom: 16px;
+}
+
+/* Accordion */
+.accordion-item{
+  border-radius: 4px 4px 0 0 ;
+  border: 1px solid #D4D7DC;
+  margin-bottom: 16px;
+}
+
+.accordion-item .accordion-header{
+  padding: 25px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordion-item .accordion-header .accordion-title{
+  font-family: var(--body-font-family);
+  font-weight: var(--bold-700);
+  font-size: 20px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.accordion-item .accordion-header .accordion-caret{
+  display: inline-block;
+  background-image: url('/icons/caret.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+  transform: rotate(0deg); 
+}
+
+.accordion-item.close .accordion-header .accordion-caret {
+  transform: rotate(180deg);
+}
+
+
+.accordion-item .accordion-content{
+  border-top: 1px solid #D4D7DC;
+  padding: 25px;
+  max-height: none;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  overflow: hidden;
+}
+
+.accordion-item .accordion-content .accordion-content-header h4{
+  margin-bottom: 16px;
+}
+
+
+.accordion-item.close{
+  border-radius: 4px;
+}
+
+
+.accordion-item.close .accordion-content {
+  max-height: 0;
+  padding: 0 25px;
+  border-top: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, padding 0.3s ease, border-top 0s ease 0.3s, opacity 0.3s ease;
+  overflow: hidden;
+  border-radius: 0 0 4px 4px;
+  animation: accordion-close 0.3s ease forwards;
+}
+
+@keyframes accordion-open {
+  from {
+    transform: scaleY(0.95);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes accordion-close {
+  from {
+    transform: scaleY(1);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: scaleY(0.95);
+    opacity: 0;
+  }
+}
+
+
+/* icons */
+
+/* Icon styles */
+.icon-mail {
+  display: inline-block;
+  background-image: url('/icons/icon-mail.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+}
+
+.icon-person {
+  display: inline-block;
+  background-image: url('/icons/icon-person.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+}
+
+.icon-online {
+  display: inline-block;
+  background-image: url('/icons/icon-online.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+}

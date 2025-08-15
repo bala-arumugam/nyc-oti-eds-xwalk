@@ -10,7 +10,8 @@
             "template": {
               "model": "contact-info",
               "filter": "contact-info",
-              "name": "Contact Info"
+              "name": "Contact Info",
+              "classes": ["contact-info-component"]
             }
           }
         }

@@ -20,7 +20,7 @@ function menuMobileComponent() {
 
   // Function to check if screen is mobile size and apply necessary changes
   function handleScreenSizeChange(e) {
-    const menuA = document.querySelector('.menu-regulation-index ul');
+    const menuA = document.querySelector('.menu-regulation-page ul');
     if (!menuA) return;
 
     if (e.matches) {
@@ -40,13 +40,13 @@ function menuMobileComponent() {
   mediaQuery.addEventListener('change', handleScreenSizeChange);
 
   function onclick() {
-    const menu = document.querySelector('.menu-regulation-index ul');
+    const menu = document.querySelector('.menu-regulation-page ul');
     show();
     menu.classList.add('mobile');
   }
 
   function clean() {
-    const menu = document.querySelector('.menu-regulation-index ul');
+    const menu = document.querySelector('.menu-regulation-page ul');
     destroy();
     menu.classList.remove('mobile');
   }
@@ -56,18 +56,104 @@ function menuMobileComponent() {
   };
 }
 
+const additionalTitleLabels = {
+  about: {
+    title: getContentFragment.getLabel('readyToApply'),
+  },
+};
+
+const accordionLabels = {
+  applyOnline: {
+    title: getContentFragment.getLabel('applyOnline'),
+    heading: getContentFragment.getLabel('stepsToApplyOnline'),
+    button: 'applyOnlineButton',
+    icon: 'icon-online',
+  },
+  applyInPerson: {
+    title: getContentFragment.getLabel('applyInPerson'),
+    heading: getContentFragment.getLabel('stepsToApplyInPerson'),
+    icon: 'icon-person',
+  },
+  applyByMail: {
+    title: getContentFragment.getLabel('applyByMail'),
+    heading: getContentFragment.getLabel('stepsToApplyByMail'),
+    icon: 'icon-mail',
+  },
+  readyToRenew: {
+    title: getContentFragment.getLabel('readyToRenew'),
+    heading: getContentFragment.getLabel('optionsToReview'),
+    icon: 'icon-online',
+  },
+  renewOnline: {
+    title: getContentFragment.getLabel('renewOnline'),
+    heading: getContentFragment.getLabel('stepsToRenewOnline'),
+    icon: 'icon-online',
+  },
+  renewInPerson: {
+    title: getContentFragment.getLabel('renewInPerson'),
+    heading: getContentFragment.getLabel('stepsToRenewInPerson'),
+    icon: 'icon-person',
+  },
+  renewByMail: {
+    title: getContentFragment.getLabel('renewByMail'),
+    heading: getContentFragment.getLabel('stepsToRenewByMail'),
+    button: 'renewOnlineButton',
+    icon: 'icon-mail',
+  },
+};
+
+function createAccordion(element) {
+  function openCloseAction(ev) {
+    const accordionItem = ev.target.closest('.accordion-item');
+    if (accordionItem) {
+      const isExpanded = !accordionItem.classList.contains('close');
+      accordionItem.classList.toggle('close');
+
+      // Update ARIA attributes
+      const header = accordionItem.querySelector('.accordion-header');
+      // Toggle aria-expanded based on the new state
+      header.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+    }
+  }
+
+  const { accordionTitle } = element.dataset;
+
+  const contentAccordion = accordionLabels[accordionTitle] || {};
+
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = `
+    <div class="accordion-item close" role="region" aria-label="${contentAccordion.title}">
+      <div class="accordion-header" role="button" aria-expanded="false" tabindex="0">
+        <div class="accordion-title">
+          ${contentAccordion.icon ? `<span class="${contentAccordion.icon}" aria-hidden="true"></span>` : ''}
+          ${contentAccordion.title}
+        </div>
+        <div class="accordion-caret" aria-hidden="true"></div>
+      </div>
+      <div class="accordion-content" ${contentAccordion.button ? `data-accordion-button="${contentAccordion.button}"` : ''} id="accordion-content-${accordionTitle}">
+          ${contentAccordion.heading ? `<div class="accordion-content-header"><h4>${contentAccordion.heading}</h4></div>` : ''}
+      </div>
+    </div>
+  `;
+
+  tempDiv.querySelector('.accordion-header').onclick = openCloseAction;
+  tempDiv.querySelector('.accordion-content').appendChild(element);
+
+  return tempDiv.firstElementChild;
+}
+
 function addTabSectionHeaders(tabType, descriptionContainer) {
   // Map tab types to their corresponding content fragment keys
   const tabHeaderMapping = {
     'how-to-apply': 'reviewTheseStepsBeforeYouSubmitYourApplication',
     'after-you-apply': 'afterYouSubmitYourApplicationReviewTheseItems',
-    'operate-&-renew': 'operatingRequirements',
+    'operating-and-renewing': 'operatingRequirements',
   };
   // Check if this tab type needs a special header
   const labelKey = tabHeaderMapping[tabType];
   if (!labelKey) return;
   // Get the text from content fragment
-  const headerText = getContentFragment.getWord(labelKey);
+  const headerText = getContentFragment.getLabel(labelKey);
   if (!headerText) return;
   // Find the section element in the description container
   // First try to find a process-step-container section (prioritize this)
@@ -81,23 +167,23 @@ function addTabSectionHeaders(tabType, descriptionContainer) {
     section = descriptionContainer.querySelector('[data-tab-section-name="Description"]');
   }
   if (!section) return;
-  // Check for existing h3 anywhere in the section
-  const existingH3 = Array.from(section.querySelectorAll('h3'))
+  // Check for existing h4 anywhere in the section
+  const existingH4 = Array.from(section.querySelectorAll('h4'))
     .find((h) => h.textContent.includes(headerText));
-  if (existingH3) {
-    // If h3 exists but isn't at the top, move it to the top
-    if (section.firstChild !== existingH3) {
-      section.insertBefore(existingH3, section.firstChild);
+  if (existingH4) {
+    // If h4 exists but isn't at the top, move it to the top
+    if (section.firstChild !== existingH4) {
+      section.insertBefore(existingH4, section.firstChild);
     }
     return;
   }
-  // Create the h3 element with an ID
-  const h3 = createElement('h3', { props: {} });
-  h3.textContent = headerText;
-  h3.id = headerText.toLowerCase()
+  // Create the h4 element with an ID
+  const h4 = createElement('h4', { props: { className: 'sub-title-description-section' } });
+  h4.textContent = headerText;
+  h4.id = headerText.toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-');
-  // For process-step-container, insert h3 directly at the beginning of the section
+  // For process-step-container, insert h4 directly at the beginning of the section
   if (section.classList.contains('process-step-container')) {
     // Create a default-content-wrapper if needed
     let contentWrapper = section.querySelector('.default-content-wrapper');
@@ -106,8 +192,8 @@ function addTabSectionHeaders(tabType, descriptionContainer) {
       // Insert the wrapper at the beginning of the section
       section.insertBefore(contentWrapper, section.firstChild);
     }
-    // Add h3 to the content wrapper
-    contentWrapper.appendChild(h3);
+    // Add h4 to the content wrapper
+    contentWrapper.appendChild(h4);
   } else {
     // Standard section handling
     let contentWrapper = section.querySelector('.default-content-wrapper');
@@ -116,7 +202,7 @@ function addTabSectionHeaders(tabType, descriptionContainer) {
       section.appendChild(contentWrapper);
     }
     // Insert the h3 at the beginning of content wrapper
-    contentWrapper.insertBefore(h3, contentWrapper.firstChild);
+    contentWrapper.insertBefore(h4, contentWrapper.firstChild);
   }
 }
 
@@ -170,7 +256,7 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
     const orderArray = Array.from(order);
 
     // Create the menu container
-    const menu = createElement('div', { props: { className: 'menu-regulation-index' } });
+    const menu = createElement('div', { props: { className: 'menu-regulation-page' } });
 
     // Create the unordered list
     const ul = createElement('ul');
@@ -185,15 +271,15 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
           className: `menu-item ${classWithTheTabName}`,
         },
       });
-      // Use getContentFragment.getWord() to get the translated text based on tab name
+      // Use getContentFragment.getLabel() to get the translated text based on tab name
       if (classWithTheTabName === 'about') {
-        li.textContent = getContentFragment.getWord('aboutTab');
+        li.textContent = getContentFragment.getLabel('aboutTab');
       } else if (classWithTheTabName === 'how-to-apply') {
-        li.textContent = getContentFragment.getWord('howToApplyTab');
+        li.textContent = getContentFragment.getLabel('howToApplyTab');
       } else if (classWithTheTabName === 'after-you-apply') {
-        li.textContent = getContentFragment.getWord('afterYouApplyTab');
-      } else if (classWithTheTabName === 'operate-&-renew') {
-        li.textContent = getContentFragment.getWord('operatingAndRenewingTab');
+        li.textContent = getContentFragment.getLabel('afterYouApplyTab');
+      } else if (classWithTheTabName === 'operating-and-renewing') {
+        li.textContent = getContentFragment.getLabel('operatingAndRenewingTab');
       } else {
         li.textContent = item; // Fallback to the original text if no match
       }
@@ -243,7 +329,8 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
 function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   const list = {};
 
-  document.querySelector('main').querySelectorAll('[data-tab-name]').forEach((t) => {
+  const main = document.querySelector('main');
+  main.querySelectorAll('[data-tab-name]').forEach((t) => {
     const { tabSectionName, tabName } = t.dataset;
     if (tabName in list) {
       if (tabSectionName in list[tabName]) {
@@ -259,28 +346,8 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   });
 
   // Save all elements with data-tab-name attribute in a variable
-  const tabElements = document.querySelectorAll('[data-tab-name][data-tab-section-name]');
+
   const sectionsWithoutTabName = document.querySelectorAll('.section:not([data-tab-name])');
-
-  // Detach all tab elements from the DOM to reattach them later
-  tabElements.forEach((t) => {
-    // Detach the element (don't reattach yet)
-    detachAndReattach(t);
-
-    const { tabSectionName, tabName } = t.dataset;
-
-    if (tabName in list) {
-      if (tabSectionName in list[tabName]) {
-        list[tabName][tabSectionName].push(t);
-      } else {
-        list[tabName][tabSectionName] = [t];
-      }
-    } else {
-      list[tabName] = {
-        [tabSectionName]: [t],
-      };
-    }
-  });
 
   // Create the tabs container structure as shown in the comment
   const tabsContainer = createElement('div', { props: { className: 'tabs' } });
@@ -299,17 +366,17 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     // Create a header element for the tab name
     const tabHeader = createElement('h2', { props: { className: 'tab-header' } });
 
-    // Map tab names to their corresponding label keys and use getContentFragment.getWord()
+    // Map tab names to their corresponding label keys and use getContentFragment.getLabel()
     // to get the appropriate text for each tab
     const tabNameLower = tabName.toLowerCase().replace(/\s+/g, '-');
     if (tabNameLower === 'about') {
-      tabHeader.textContent = getContentFragment.getWord('aboutTab');
+      tabHeader.textContent = getContentFragment.getLabel('aboutTab');
     } else if (tabNameLower === 'how-to-apply') {
-      tabHeader.textContent = getContentFragment.getWord('howToApplyTab');
+      tabHeader.textContent = getContentFragment.getLabel('howToApplyTab');
     } else if (tabNameLower === 'after-you-apply') {
-      tabHeader.textContent = getContentFragment.getWord('afterYouApplyTab');
-    } else if (tabNameLower === 'operate-&-renew') {
-      tabHeader.textContent = getContentFragment.getWord('operatingAndRenewingTab');
+      tabHeader.textContent = getContentFragment.getLabel('afterYouApplyTab');
+    } else if (tabNameLower === 'operating-and-renewing') {
+      tabHeader.textContent = getContentFragment.getLabel('operatingAndRenewingTab');
     } else {
       tabHeader.textContent = tabName; // Fallback to the original tab name
     }
@@ -326,7 +393,14 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
         if (sectionName === 'Description') {
           descriptionContent.appendChild(element);
         } else if (sectionName === 'Additional') {
-          additionalContent.appendChild(element);
+          if (tabNameLower === 'about') { // Render Normal
+            additionalContent.appendChild(element);
+          } else { // Render as accordion
+            if (additionalTitleLabels[tabNameLower]) { // Add the title for the rendered accordion
+              additionalContent.appendChild(additionalTitleLabels[tabNameLower].title);
+            }
+            additionalContent.appendChild(createAccordion(element));
+          }
         }
       });
     });
@@ -342,10 +416,10 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     tabsContainer.appendChild(newTab);
   });
 
-  // Create a wrapper with the class "regulation-index"
-  const regulationIndexWrapper = createElement('div', { props: { className: 'page-container regulation-index' } });
+  // Create a wrapper with the class "regulation-page"
+  const regulationIndexWrapper = createElement('div', { props: { className: 'page-container regulation-page' } });
 
-  // Append the menu to the regulation-index wrapper (if it exists)
+  // Append the menu to the regulation-page wrapper (if it exists)
   const menu = createMenu(tabsContainer, menuToDisplay, mobileButtonTitle);
 
   if (menu) {
@@ -353,8 +427,8 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   }
   regulationIndexWrapper.appendChild(tabsContainer);
 
-  // Append the regulation-index wrapper to the main element
-  const pageRegulationIndexPage = createElement('div', { props: { className: 'page page-regulation-index' } });
+  // Append the regulation-page wrapper to the main element
+  const pageRegulationIndexPage = createElement('div', { props: { className: 'page page-regulation-page' } });
 
   // Detach all elements without tab names and reattach them to the page regulation index
   detachAndReattachAll(sectionsWithoutTabName, pageRegulationIndexPage);
@@ -368,9 +442,10 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
 export default async function decorate(doc) {
   const [image, text, _mobileButtonTitle, ...booleans] = doc.children;
 
-  const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operate-&-renew']; const menuToDisplay = {};
+  const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operating-and-renewing'];
+  const menuToDisplay = {};
 
-  const mobileButtonTitle = _mobileButtonTitle.querySelector('p').innerText || 'NAVIGATION';
+  const mobileButtonTitle = _mobileButtonTitle?.querySelector('p')?.innerText || 'NAVIGATION';
 
   booleans.forEach((d, idx) => {
     const el = d.querySelector('p');
@@ -381,7 +456,7 @@ export default async function decorate(doc) {
     d.remove();
   });
 
-  const div = createElement('div', { props: { className: 'regulation-index-hero' } });
+  const div = createElement('div', { props: { className: 'regulation-page-hero' } });
 
   // Extract the image URL from the image element
   const imageDesktop = image.querySelector('source[type="image/webp"][media]')?.srcset;
@@ -394,7 +469,7 @@ export default async function decorate(doc) {
   const pText = pElement.textContent.trim();
 
   h1.textContent = pText;
-  h1.className = 'page-container regulation-index-hero-text';
+  h1.className = 'page-container regulation-page-hero-text';
   div.appendChild(h1);
 
   detachAndReattach(text.firstElementChild, div);
@@ -420,7 +495,7 @@ export default async function decorate(doc) {
 
   main.appendChild(pageRegulationIndexPage);
 
-  const name = main.querySelector('.menu-regulation-index')?.querySelector('li.menu-item-active')?.classList[1];
+  const name = main.querySelector('.menu-regulation-page')?.querySelector('li.menu-item-active')?.classList[1];
   if (name) {
     showHideTab(name);
   }
