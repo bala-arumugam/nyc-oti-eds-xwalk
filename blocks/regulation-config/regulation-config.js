@@ -74,7 +74,7 @@ function createAccordion(element) {
 
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = `
-    <div class="accordion-item close" role="region" aria-label="${accordionTitle}">
+    <div class="accordion-item close" role="region" aria-label="${getContentFragment.getWord('applyOnline') || accordionTitle}">
       <div class="accordion-header" role="button" aria-expanded="false" tabindex="0">
         <div class="accordion-title">
           ${accordionIcon ? `<span class="${accordionIcon}" aria-hidden="true"></span>` : ''}
@@ -235,7 +235,7 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
         li.textContent = item; // Fallback to the original text if no match
       }
 
-      li.style.display = (!!menuToDisplay[classWithTheTabName]) ? 'block' : 'none';
+      li.style.display = (menuToDisplay[classWithTheTabName]) ? 'block' : 'none';
 
       li.onclick = clickHandler;
       li.setAttribute('role', 'tab');
