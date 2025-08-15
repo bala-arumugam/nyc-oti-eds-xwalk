@@ -74,11 +74,11 @@ function createAccordion(element) {
 
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = `
-    <div class="accordion-item close" role="region" aria-label="${getContentFragment.getWord('applyOnline') || accordionTitle}">
+    <div class="accordion-item close" role="region" aria-label="${getContentFragment.getLabel('applyOnline')}">
       <div class="accordion-header" role="button" aria-expanded="false" tabindex="0">
         <div class="accordion-title">
           ${accordionIcon ? `<span class="${accordionIcon}" aria-hidden="true"></span>` : ''}
-          ${accordionTitle || '[Add The Title]'}
+          ${getContentFragment.getLabel('applyOnline') || '[Add The Title]'}
         </div>
         <div class="accordion-caret" aria-hidden="true"></div>
       </div>
@@ -104,7 +104,7 @@ function addTabSectionHeaders(tabType, descriptionContainer) {
   const labelKey = tabHeaderMapping[tabType];
   if (!labelKey) return;
   // Get the text from content fragment
-  const headerText = getContentFragment.getWord(labelKey);
+  const headerText = getContentFragment.getLabel(labelKey);
   if (!headerText) return;
   // Find the section element in the description container
   // First try to find a process-step-container section (prioritize this)
@@ -222,15 +222,15 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
           className: `menu-item ${classWithTheTabName}`,
         },
       });
-      // Use getContentFragment.getWord() to get the translated text based on tab name
+      // Use getContentFragment.getLabel() to get the translated text based on tab name
       if (classWithTheTabName === 'about') {
-        li.textContent = getContentFragment.getWord('aboutTab');
+        li.textContent = getContentFragment.getLabel('aboutTab');
       } else if (classWithTheTabName === 'how-to-apply') {
-        li.textContent = getContentFragment.getWord('howToApplyTab');
+        li.textContent = getContentFragment.getLabel('howToApplyTab');
       } else if (classWithTheTabName === 'after-you-apply') {
-        li.textContent = getContentFragment.getWord('afterYouApplyTab');
+        li.textContent = getContentFragment.getLabel('afterYouApplyTab');
       } else if (classWithTheTabName === 'operating-and-renewing') {
-        li.textContent = getContentFragment.getWord('operatingAndRenewingTab');
+        li.textContent = getContentFragment.getLabel('operatingAndRenewingTab');
       } else {
         li.textContent = item; // Fallback to the original text if no match
       }
@@ -317,17 +317,17 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     // Create a header element for the tab name
     const tabHeader = createElement('h2', { props: { className: 'tab-header' } });
 
-    // Map tab names to their corresponding label keys and use getContentFragment.getWord()
+    // Map tab names to their corresponding label keys and use getContentFragment.getLabel()
     // to get the appropriate text for each tab
     const tabNameLower = tabName.toLowerCase().replace(/\s+/g, '-');
     if (tabNameLower === 'about') {
-      tabHeader.textContent = getContentFragment.getWord('aboutTab');
+      tabHeader.textContent = getContentFragment.getLabel('aboutTab');
     } else if (tabNameLower === 'how-to-apply') {
-      tabHeader.textContent = getContentFragment.getWord('howToApplyTab');
+      tabHeader.textContent = getContentFragment.getLabel('howToApplyTab');
     } else if (tabNameLower === 'after-you-apply') {
-      tabHeader.textContent = getContentFragment.getWord('afterYouApplyTab');
+      tabHeader.textContent = getContentFragment.getLabel('afterYouApplyTab');
     } else if (tabNameLower === 'operating-and-renewing') {
-      tabHeader.textContent = getContentFragment.getWord('operatingAndRenewingTab');
+      tabHeader.textContent = getContentFragment.getLabel('operatingAndRenewingTab');
     } else {
       tabHeader.textContent = tabName; // Fallback to the original tab name
     }

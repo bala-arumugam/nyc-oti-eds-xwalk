@@ -61,7 +61,7 @@ export default function decorate(doc) {
 
     const { link } = KEY;
 
-    // Use different getContentFragment.getWord calls based on the card type
+    // Use different getContentFragment.getLabel calls based on the card type
     let labelKey = 'applicationFees';
     if (key === 'application-fees') {
       labelKey = 'applicationFees';
@@ -85,8 +85,8 @@ export default function decorate(doc) {
 
     return `
         <div>
-        <h3>${getContentFragment.getWord(labelKey)}: <span>${values[key]}</span></h3>
-        <p><a href="${link.url}">${getContentFragment.getWord(buttonKey)} <span class="icon icon-arrow-right"></span></a> </p>
+        <h3>${getContentFragment.getLabel(labelKey)}: <span>${values[key]}</span></h3>
+        <p><a href="${link.url}">${getContentFragment.getLabel(buttonKey)} <span class="icon icon-arrow-right"></span></a> </p>
         </div>
       `;
   }).join('')}

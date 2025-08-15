@@ -116,7 +116,7 @@ async function call() {
     data = defaultData;
   }
 
-  function getWord(str) {
+  function getLabel(str) {
     if (!str) {
       return null;
     }
@@ -136,7 +136,7 @@ async function call() {
   }
 
   return {
-    getWord,
+    getLabel,
   };
 }
 
