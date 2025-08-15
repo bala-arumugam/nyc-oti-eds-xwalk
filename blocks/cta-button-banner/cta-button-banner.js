@@ -1,5 +1,4 @@
-import { createElement, appendChild } from "../../scripts/util";
-
+import { createElement } from "../../scripts/util";
 
 export default function decorate(doc) {
   // Get Data
@@ -23,6 +22,6 @@ export default function decorate(doc) {
 
 
 
-  doc.appendChild(div)
+  doc.appendChild(div);
 
 }
