@@ -259,7 +259,7 @@
       },
       {
         "component": "select",
-        "name": "accordionIcon",
+        "name": "accordion-icon",
         "label": "Icon",
         "description": "If there is an accordion for this section, specify the icon here.",
         "options": [
@@ -279,7 +279,7 @@
       },
       {
         "component": "text",
-        "name": "titleAccordion",
+        "name": "accordion-icon",
         "label": "Title",
         "description": "If there is an accordion for this section, specify the title here."
       }

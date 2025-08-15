@@ -65,6 +65,9 @@ function createAccordion(element) {
     }
   }
 
+
+  const {} = element.dataset
+
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = `
           <div class="accordion-item close">
@@ -284,28 +287,8 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   });
 
   // Save all elements with data-tab-name attribute in a variable
-  const tabElements = document.querySelectorAll('[data-tab-name][data-tab-section-name]');
+  
   const sectionsWithoutTabName = document.querySelectorAll('.section:not([data-tab-name])');
-
-  // Detach all tab elements from the DOM to reattach them later
-  tabElements.forEach((t) => {
-    // Detach the element (don't reattach yet)
-    detachAndReattach(t);
-
-    const { tabSectionName, tabName } = t.dataset;
-
-    if (tabName in list) {
-      if (tabSectionName in list[tabName]) {
-        list[tabName][tabSectionName].push(t);
-      } else {
-        list[tabName][tabSectionName] = [t];
-      }
-    } else {
-      list[tabName] = {
-        [tabSectionName]: [t],
-      };
-    }
-  });
 
   // Create the tabs container structure as shown in the comment
   const tabsContainer = createElement('div', { props: { className: 'tabs' } });
@@ -399,7 +382,8 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
 export default async function decorate(doc) {
   const [image, text, _mobileButtonTitle, ...booleans] = doc.children;
 
-  const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operate-&-renew']; const menuToDisplay = {};
+  const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operate-&-renew']; 
+  const menuToDisplay = {};
 
   const mobileButtonTitle = _mobileButtonTitle?.querySelector('p')?.innerText || 'NAVIGATION';
 
