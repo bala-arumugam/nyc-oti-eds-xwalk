@@ -279,7 +279,7 @@
       },
       {
         "component": "text",
-        "name": "accordion-icon",
+        "name": "accordion-title",
         "label": "Title",
         "description": "If there is an accordion for this section, specify the title here."
       }
