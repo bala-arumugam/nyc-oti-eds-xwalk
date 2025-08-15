@@ -107,6 +107,14 @@ h1.regulation-page-hero-text {
   padding-bottom: 34px;
 }
 
+.menu-regulation-page ul.mobile li:only-child {
+  border-radius: 16px;
+  padding-top: 34px;
+  padding-bottom: 34px;
+}
+
+
+
 .menu-regulation-page .mobile-button-menu {
   display: block;
   border: 2px solid var(--pink-03);
