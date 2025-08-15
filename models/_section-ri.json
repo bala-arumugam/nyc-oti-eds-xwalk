@@ -158,29 +158,39 @@
         },
         {
           "component": "select",
-          "name": "accordion-icon",
-          "label": "Icon",
-          "description": "If there is an accordion for this section, specify the icon here.",
-          "options": [
-            {
-              "name": "Online",
-              "value": "icon-online"
-            },
-            {
-              "name": "Person",
-              "value": "icon-person"
-            },
-            {
-              "name": "Mail",
-              "value": "icon-mail"
-            }
-          ]
-        },
-        {
-          "component": "text",
           "name": "accordion-title",
           "label": "Title",
-          "description": "If there is an accordion for this section, specify the title here."
+          "description": "If there is an accordion for this section, specify the title here.",
+           "options": [
+            {
+              "name": "Apply Online",
+              "value": "applyOnline"
+            },
+            {
+              "name": "Apply in person",
+              "value": "applyInPerson"
+            },
+            {
+              "name": "Apply by Mail",
+              "value": "applyByMail"
+            },
+            {
+              "name": "Ready to Renew",
+              "value": "readyToRenew"
+            },
+            {
+              "name": "Renew Online",
+              "value": "renewOnline"
+            },
+            {
+              "name": "Renew in person",
+              "value": "renewInPerson"
+            },
+            {
+              "name": "Renew by Mail",
+              "value": "renewByMail"
+            }
+          ]
         }
       ]
     }
