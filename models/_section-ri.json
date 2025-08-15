@@ -159,7 +159,7 @@
         {
           "component": "select",
           "name": "accordion-title",
-          "label": "Title",
+          "label": "Accordion",
           "description": "If there is an accordion for this section, specify the title here.",
            "options": [
             {
