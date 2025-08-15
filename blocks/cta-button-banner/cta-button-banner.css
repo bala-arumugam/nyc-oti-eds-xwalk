@@ -10,7 +10,7 @@
 
 
   .cta-button-banner{
-    box-shadow: 0px 2px 2px 0px #ADB2B94D;
+    box-shadow: 0 2px 2px 0 #ADB2B94D;
     background-color: var(--color-15);
     padding: 24px;
     margin-top: 16px;
@@ -29,6 +29,7 @@
   .cta-button-banner .cta-banner-button-action .button-container{
     margin: 0;
   }
+
   .cta-button-banner .cta-banner-button-action .button-container a{
     padding: 17px 70px;
     background-color: var(--color-13);

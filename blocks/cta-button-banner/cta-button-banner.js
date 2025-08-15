@@ -1,4 +1,4 @@
-import { createElement } from "../../scripts/util.js";
+import { createElement } from '../../scripts/util.js';
 
 export default function decorate(doc) {
   // Get Data
@@ -10,7 +10,7 @@ export default function decorate(doc) {
     doc.removeChild(doc.firstChild);
   }
 
-  const template =   `
+  const template = `
     <div class="cta-banner-button-text">
       <h5 class="cta-banner-button-text-title">${title}</h5>
       <div class="cta-banner-button-text-description">${description}</div>
@@ -20,7 +20,7 @@ export default function decorate(doc) {
     </div>
   `;
 
-  const div = createElement("div")
+  const div = createElement('div');
   div.innerHTML = template;
   doc.appendChild(div);
 }
