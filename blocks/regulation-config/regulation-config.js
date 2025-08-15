@@ -57,30 +57,39 @@ function menuMobileComponent() {
 }
 
 function createAccordion(element) {
-
-  function openCloseAction(ev){
+  function openCloseAction(ev) {
     const accordionItem = ev.target.closest('.accordion-item');
     if (accordionItem) {
+      const isExpanded = !accordionItem.classList.contains('close');
       accordionItem.classList.toggle('close');
+
+      // Update ARIA attributes
+      const header = accordionItem.querySelector('.accordion-header');
+      // Toggle aria-expanded based on the new state
+      header.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
     }
   }
 
-
-  const {} = element.dataset
+  const { accordionIcon, accordionTitle } = element.dataset;
 
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = `
-          <div class="accordion-item close">
-            <div class="accordion-title">
-            </div>
-            <div class="accordion-content">
-            </div>
-          </div>
+    <div class="accordion-item close" role="region" aria-label="${accordionTitle}">
+      <div class="accordion-header" role="button" aria-expanded="false" tabindex="0">
+        <div class="accordion-title">
+          ${accordionIcon ? `<span class="${accordionIcon}" aria-hidden="true"></span>` : ''}
+          ${accordionTitle || '[Add The Title]'}
+        </div>
+        <div class="accordion-caret" aria-hidden="true"></div>
+      </div>
+      <div class="accordion-content" id="accordion-content-${Math.floor(Math.random() * 10000)}">
+      </div>
+    </div>
   `;
-  
-  tempDiv.querySelector(".accordion-title").onclick = openCloseAction;
-  tempDiv.querySelector(".accordion-content").appendChild(element)
-  
+
+  tempDiv.querySelector('.accordion-header').onclick = openCloseAction;
+  tempDiv.querySelector('.accordion-content').appendChild(element);
+
   return tempDiv.firstElementChild;
 }
 
@@ -271,7 +280,8 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
 function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   const list = {};
 
-  document.querySelector('main').querySelectorAll('[data-tab-name]').forEach((t) => {
+  const main = document.querySelector('main');
+  main.querySelectorAll('[data-tab-name]').forEach((t) => {
     const { tabSectionName, tabName } = t.dataset;
     if (tabName in list) {
       if (tabSectionName in list[tabName]) {
@@ -287,7 +297,7 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   });
 
   // Save all elements with data-tab-name attribute in a variable
-  
+
   const sectionsWithoutTabName = document.querySelectorAll('.section:not([data-tab-name])');
 
   // Create the tabs container structure as shown in the comment
@@ -328,19 +338,17 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     const descriptionContent = createElement('div', { props: { className: 'tab-description' } });
     const additionalContent = createElement('div', { props: { className: 'tab-additional' } });
 
-
     // Add content to the appropriate sections
     Object.entries(sections).forEach(([sectionName, elements]) => {
       elements.forEach((element) => {
         if (sectionName === 'Description') {
           descriptionContent.appendChild(element);
         } else if (sectionName === 'Additional') {
-          if(false){
+          if (tabNameLower === 'about') {
             additionalContent.appendChild(element);
-          }else{
+          } else {
             additionalContent.appendChild(createAccordion(element));
           }
-
         }
       });
     });
@@ -382,7 +390,7 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
 export default async function decorate(doc) {
   const [image, text, _mobileButtonTitle, ...booleans] = doc.children;
 
-  const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operate-&-renew']; 
+  const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operate-&-renew'];
   const menuToDisplay = {};
 
   const mobileButtonTitle = _mobileButtonTitle?.querySelector('p')?.innerText || 'NAVIGATION';

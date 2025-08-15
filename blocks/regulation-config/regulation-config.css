@@ -169,10 +169,41 @@ h1.regulation-index-hero-text {
   border: 1px solid #D4D7DC;
   margin-bottom: 16px;
 }
-.accordion-item .accordion-title{
+
+.accordion-item .accordion-header{
   padding: 25px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.accordion-item .accordion-header .accordion-title{
+  font-family: var(--body-font-family);
+  font-weight: var(--bold-700);
+  font-size: 20px;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.accordion-item .accordion-header .accordion-caret{
+  display: inline-block;
+  background-image: url('/icons/caret.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+  transform: rotate(0deg); 
+}
+
+.accordion-item.close .accordion-header .accordion-caret {
+  transform: rotate(180deg);
+}
+
+
 .accordion-item .accordion-content{
   border-top: 1px solid #D4D7DC;
   padding: 25px;
@@ -185,17 +216,69 @@ h1.regulation-index-hero-text {
   border-radius: 4px;
 }
 
-.accordion-item.close .accordion-content{
+
+.accordion-item.close .accordion-content {
   max-height: 0;
   padding: 0 25px;
   border-top: 0;
-  transition: max-height 0.3s ease, padding 0.3s ease, border-top 0s ease 0.3s;
+  opacity: 0;
+  transition: max-height 0.3s ease, padding 0.3s ease, border-top 0s ease 0.3s, opacity 0.3s ease;
   overflow: hidden;
   border-radius: 0 0 4px 4px;
+  animation: accordion-close 0.3s ease forwards;
 }
 
-/* Hide accordion items with empty content */
-.accordion-item:has(.accordion-content:empty) {
-  display: none;
+@keyframes accordion-open {
+  from {
+    transform: scaleY(0.95);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 
+@keyframes accordion-close {
+  from {
+    transform: scaleY(1);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: scaleY(0.95);
+    opacity: 0;
+  }
+}
+
+
+/* icons */
+
+/* Icon styles */
+.icon-mail {
+  display: inline-block;
+  background-image: url('/icons/icon-mail.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+}
+
+.icon-person {
+  display: inline-block;
+  background-image: url('/icons/icon-person.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+}
+
+.icon-online {
+  display: inline-block;
+  background-image: url('/icons/icon-online.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 24px;
+  height: 24px;
+}
