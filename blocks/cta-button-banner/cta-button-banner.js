@@ -20,8 +20,5 @@ export default function decorate(doc) {
   const div = createElement("div", {props:{className:"cta-banner-button"}})
   div.innerHTML = template;
 
-
-
   doc.appendChild(div);
-
 }
