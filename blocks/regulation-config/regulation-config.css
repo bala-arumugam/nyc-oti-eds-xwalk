@@ -169,7 +169,9 @@ h1.regulation-page-hero-text {
   padding: 40px 0;
 }
 
-/* Removing commented out code */
+.regulation-page .tabs .tab .tab-description .sub-title-description-section{
+  margin-bottom: 16px;
+}
 
 /* Accordion */
 .accordion-item{
@@ -215,10 +217,15 @@ h1.regulation-page-hero-text {
 .accordion-item .accordion-content{
   border-top: 1px solid #D4D7DC;
   padding: 25px;
-  max-height: 1000px;
+  max-height: none;
   transition: max-height 0.3s ease, padding 0.3s ease;
   overflow: hidden;
 }
+
+.accordion-item .accordion-content .accordion-content-header h4{
+  margin-bottom: 16px;
+}
+
 
 .accordion-item.close{
   border-radius: 4px;

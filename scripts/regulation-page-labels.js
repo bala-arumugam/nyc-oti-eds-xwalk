@@ -6,68 +6,68 @@ async function call() {
       regulationPageLabelsConfigList: {
         items: [
           {
-            //about tab
+            // about tab
             aboutTab: 'About',
-            //sub title
+            // sub title
             contactInfo: 'Contact Info',
-            //sub title
+            // sub title
             additionalResources: 'Additional Resources',
 
-            //card titles
+            // card titles
             applicationFees: 'Application Fees',
             applicationReviewedWithin: 'Application Reviewed',
             renewalFees: 'Renewal Fees',
             renewalCycle: 'Renewal Cycle',
 
-            //how to apply tab
+            // how to apply tab
             howToApplyTab: 'How To Apply',
             reviewTheseStepsBeforeYouSubmitYourApplication: 'Review these steps before you submit your application:',
 
-            //title for acc section
+            // title for acc section
             readyToApply: 'Ready to Apply?',
-            //sub heading
+            // sub heading
             optionsToApply: 'Option(s) to Apply',
-            //acc title
+            // acc title
             applyOnline: 'Apply Online',
-            //acc sub heading in acc
+            // acc sub heading in acc
             stepsToApplyOnline: 'Steps to apply online',
-            //acc sub text button (blue button)
+            // acc sub text button (blue button)
             applyOnlineButton: 'Apply online ',
-            //acc title
+            // acc title
             applyInPerson: 'Apply in person',
-            //acc sub heading in acc
+            // acc sub heading in acc
             stepsToApplyInPerson: 'Steps to apply in person',
-            //acc title
+            // acc title
             applyByMail: 'Apply by Mail',
-            //acc sub heading in acc
+            // acc sub heading in acc
             stepsToApplyByMail: 'Steps to apply by mail',
 
-            //after you apply tab
+            // after you apply tab
             afterYouApplyTab: 'After You Apply',
             afterYouSubmitYourApplicationReviewTheseItems: 'After you submit your application, review these items:',
             checkStatusButton: 'Check Status',
 
-            //operating and renewing tab
+            // operating and renewing tab
             operatingAndRenewingTab: 'Operating and Renewing',
             operatingRequirements: 'Operating Requirements:',
 
-            //acc title
+            // acc title
             readyToRenew: 'Ready to Renew',
-            //acc sub heading in acc
+            // acc sub heading in acc
             optionsToReview: 'Option(s) to review',
-            //acc title
+            // acc title
             renewOnline: 'Renew Online',
-            //acc sub heading in acc
+            // acc sub heading in acc
             stepsToRenewOnline: 'Steps to renew online',
-            //acc title
+            // acc title
             renewInPerson: 'Renew in person',
-            //acc sub heading in acc
+            // acc sub heading in acc
             stepsToRenewInPerson: 'Steps to renew in person',
-            //acc title
+            // acc title
             renewByMail: 'Renew by Mail',
-            //acc sub heading in acc,
+            // acc sub heading in acc,
             stepsToRenewByMail: 'Steps to renew by mail',
-            //acc sub text button (blue button)
+            // acc sub text button (blue button)
             renewOnlineButton: 'Renew Online',
           },
         ],

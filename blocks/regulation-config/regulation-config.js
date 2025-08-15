@@ -56,6 +56,52 @@ function menuMobileComponent() {
   };
 }
 
+const additionalTitleLabels = {
+  about: {
+    title: getContentFragment.getLabel('readyToApply'),
+  },
+};
+
+const accordionLabels = {
+  applyOnline: {
+    title: getContentFragment.getLabel('applyOnline'),
+    heading: getContentFragment.getLabel('stepsToApplyOnline'),
+    button: 'applyOnlineButton',
+    icon: 'icon-online',
+  },
+  applyInPerson: {
+    title: getContentFragment.getLabel('applyInPerson'),
+    heading: getContentFragment.getLabel('stepsToApplyInPerson'),
+    icon: 'icon-person',
+  },
+  applyByMail: {
+    title: getContentFragment.getLabel('applyByMail'),
+    heading: getContentFragment.getLabel('stepsToApplyByMail'),
+    icon: 'icon-mail',
+  },
+  readyToRenew: {
+    title: getContentFragment.getLabel('readyToRenew'),
+    heading: getContentFragment.getLabel('optionsToReview'),
+    icon: 'icon-online',
+  },
+  renewOnline: {
+    title: getContentFragment.getLabel('renewOnline'),
+    heading: getContentFragment.getLabel('stepsToRenewOnline'),
+    icon: 'icon-online',
+  },
+  renewInPerson: {
+    title: getContentFragment.getLabel('renewInPerson'),
+    heading: getContentFragment.getLabel('stepsToRenewInPerson'),
+    icon: 'icon-person',
+  },
+  renewByMail: {
+    title: getContentFragment.getLabel('renewByMail'),
+    heading: getContentFragment.getLabel('stepsToRenewByMail'),
+    button: 'renewOnlineButton',
+    icon: 'icon-mail',
+  },
+};
+
 function createAccordion(element) {
   function openCloseAction(ev) {
     const accordionItem = ev.target.closest('.accordion-item');
@@ -72,47 +118,7 @@ function createAccordion(element) {
 
   const { accordionTitle } = element.dataset;
 
-  const labels = {
-    applyOnline:{
-      title: getContentFragment.getLabel('applyOnline'),
-      heading:getContentFragment.getLabel('stepsToApplyOnline'),
-      button: 'applyOnlineButton',
-      icon: "icon-online"
-    },
-    applyInPerson:{
-      title: getContentFragment.getLabel('applyInPerson'),
-      heading: getContentFragment.getLabel('stepsToApplyInPerson'),
-      icon:"icon-person"
-    },
-    applyByMail:{
-      title: getContentFragment.getLabel('applyByMail'),
-      heading: getContentFragment.getLabel('stepsToApplyByMail'),
-      icon:"icon-mail"
-    },
-    readyToRenew:{
-      title: getContentFragment.getLabel('readyToRenew'),
-      heading: getContentFragment.getLabel('optionsToReview'),
-      icon:"icon-online"
-    },
-    renewOnline:{
-      title: getContentFragment.getLabel('renewOnline'),
-      heading: getContentFragment.getLabel('stepsToRenewOnline'),
-      icon:"icon-online"
-    },
-    renewInPerson:{
-      title: getContentFragment.getLabel('renewInPerson'),
-      heading: getContentFragment.getLabel('stepsToRenewInPerson'),
-      icon:"icon-person"
-    },
-    renewByMail:{
-      title: getContentFragment.getLabel('renewByMail'),
-      heading: getContentFragment.getLabel('stepsToRenewByMail'),
-      button: 'renewOnlineButton',
-      icon:"icon-mail"
-    }
-  }
-
-  const contentAccordion = labels[accordionTitle] || {};
+  const contentAccordion = accordionLabels[accordionTitle] || {};
 
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = `
@@ -124,7 +130,9 @@ function createAccordion(element) {
         </div>
         <div class="accordion-caret" aria-hidden="true"></div>
       </div>
-      <div class="accordion-content" ${contentAccordion.button ? `data-accordion-button="${contentAccordion.button}"` : ''} id="accordion-content-${accordionTitle}"></div>
+      <div class="accordion-content" ${contentAccordion.button ? `data-accordion-button="${contentAccordion.button}"` : ''} id="accordion-content-${accordionTitle}">
+          ${contentAccordion.heading ? `<div class="accordion-content-header"><h4>${contentAccordion.heading}</h4></div>` : ''}
+      </div>
     </div>
   `;
 
@@ -159,23 +167,23 @@ function addTabSectionHeaders(tabType, descriptionContainer) {
     section = descriptionContainer.querySelector('[data-tab-section-name="Description"]');
   }
   if (!section) return;
-  // Check for existing h3 anywhere in the section
-  const existingH3 = Array.from(section.querySelectorAll('h3'))
+  // Check for existing h4 anywhere in the section
+  const existingH4 = Array.from(section.querySelectorAll('h4'))
     .find((h) => h.textContent.includes(headerText));
-  if (existingH3) {
-    // If h3 exists but isn't at the top, move it to the top
-    if (section.firstChild !== existingH3) {
-      section.insertBefore(existingH3, section.firstChild);
+  if (existingH4) {
+    // If h4 exists but isn't at the top, move it to the top
+    if (section.firstChild !== existingH4) {
+      section.insertBefore(existingH4, section.firstChild);
     }
     return;
   }
-  // Create the h3 element with an ID
-  const h3 = createElement('h3', { props: {} });
-  h3.textContent = headerText;
-  h3.id = headerText.toLowerCase()
+  // Create the h4 element with an ID
+  const h4 = createElement('h4', { props: { className: 'sub-title-description-section' } });
+  h4.textContent = headerText;
+  h4.id = headerText.toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-');
-  // For process-step-container, insert h3 directly at the beginning of the section
+  // For process-step-container, insert h4 directly at the beginning of the section
   if (section.classList.contains('process-step-container')) {
     // Create a default-content-wrapper if needed
     let contentWrapper = section.querySelector('.default-content-wrapper');
@@ -184,8 +192,8 @@ function addTabSectionHeaders(tabType, descriptionContainer) {
       // Insert the wrapper at the beginning of the section
       section.insertBefore(contentWrapper, section.firstChild);
     }
-    // Add h3 to the content wrapper
-    contentWrapper.appendChild(h3);
+    // Add h4 to the content wrapper
+    contentWrapper.appendChild(h4);
   } else {
     // Standard section handling
     let contentWrapper = section.querySelector('.default-content-wrapper');
@@ -194,7 +202,7 @@ function addTabSectionHeaders(tabType, descriptionContainer) {
       section.appendChild(contentWrapper);
     }
     // Insert the h3 at the beginning of content wrapper
-    contentWrapper.insertBefore(h3, contentWrapper.firstChild);
+    contentWrapper.insertBefore(h4, contentWrapper.firstChild);
   }
 }
 
@@ -385,9 +393,12 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
         if (sectionName === 'Description') {
           descriptionContent.appendChild(element);
         } else if (sectionName === 'Additional') {
-          if (tabNameLower === 'about') {
+          if (tabNameLower === 'about') { // Render Normal
             additionalContent.appendChild(element);
-          } else {
+          } else { // Render as accordion
+            if (additionalTitleLabels[tabNameLower]) { // Add the title for the rendered accordion
+              additionalContent.appendChild(additionalTitleLabels[tabNameLower].title);
+            }
             additionalContent.appendChild(createAccordion(element));
           }
         }
