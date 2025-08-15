@@ -702,9 +702,16 @@
     "fields": [
       {
         "component": "text",
-        "name": "fullname",
+        "name": "title",
         "value": "",
-        "label": "Full Name",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "value": "",
+        "label": "Description",
         "valueType": "string"
       }
     ]

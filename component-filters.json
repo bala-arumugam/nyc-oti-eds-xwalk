@@ -41,7 +41,8 @@
       "button",
       "title",
       "process-step",
-      "contact-info"
+      "contact-info",
+      "cta-button-banner"
     ]
   },
   {
@@ -49,16 +50,6 @@
     "components": [
       "regulation-config",
       "step-by-step-cta"
-    ]
-  },
-  {
-    "id": "section-process-step",
-    "components": [
-      "text",
-      "image",
-      "button",
-      "title",
-      "process-step"
     ]
   },
   {
