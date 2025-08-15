@@ -70,20 +70,61 @@ function createAccordion(element) {
     }
   }
 
-  const { accordionIcon, accordionTitle } = element.dataset;
+  const { accordionTitle } = element.dataset;
+
+  const labels = {
+    applyOnline:{
+      title: getContentFragment.getLabel('applyOnline'),
+      heading:getContentFragment.getLabel('stepsToApplyOnline'),
+      button: 'applyOnlineButton',
+      icon: "icon-online"
+    },
+    applyInPerson:{
+      title: getContentFragment.getLabel('applyInPerson'),
+      heading: getContentFragment.getLabel('stepsToApplyInPerson'),
+      icon:"icon-person"
+    },
+    applyByMail:{
+      title: getContentFragment.getLabel('applyByMail'),
+      heading: getContentFragment.getLabel('stepsToApplyByMail'),
+      icon:"icon-mail"
+    },
+    readyToRenew:{
+      title: getContentFragment.getLabel('readyToRenew'),
+      heading: getContentFragment.getLabel('optionsToReview'),
+      icon:"icon-online"
+    },
+    renewOnline:{
+      title: getContentFragment.getLabel('renewOnline'),
+      heading: getContentFragment.getLabel('stepsToRenewOnline'),
+      icon:"icon-online"
+    },
+    renewInPerson:{
+      title: getContentFragment.getLabel('renewInPerson'),
+      heading: getContentFragment.getLabel('stepsToRenewInPerson'),
+      icon:"icon-person"
+    },
+    renewByMail:{
+      title: getContentFragment.getLabel('renewByMail'),
+      heading: getContentFragment.getLabel('stepsToRenewByMail'),
+      button: 'renewOnlineButton',
+      icon:"icon-mail"
+    }
+  }
+
+  const contentAccordion = labels[accordionTitle] || {};
 
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = `
-    <div class="accordion-item close" role="region" aria-label="${getContentFragment.getLabel('applyOnline')}">
+    <div class="accordion-item close" role="region" aria-label="${contentAccordion.title}">
       <div class="accordion-header" role="button" aria-expanded="false" tabindex="0">
         <div class="accordion-title">
-          ${accordionIcon ? `<span class="${accordionIcon}" aria-hidden="true"></span>` : ''}
-          ${getContentFragment.getLabel('applyOnline') || '[Add The Title]'}
+          ${contentAccordion.icon ? `<span class="${contentAccordion.icon}" aria-hidden="true"></span>` : ''}
+          ${contentAccordion.title}
         </div>
         <div class="accordion-caret" aria-hidden="true"></div>
       </div>
-      <div class="accordion-content" id="accordion-content-${Math.floor(Math.random() * 10000)}">
-      </div>
+      <div class="accordion-content" ${contentAccordion.button ? `data-accordion-button="${contentAccordion.button}"` : ''} id="accordion-content-${accordionTitle}"></div>
     </div>
   `;
 
