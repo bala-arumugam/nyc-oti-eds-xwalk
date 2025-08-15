@@ -14,7 +14,7 @@
   contain-intrinsic-height: 182px;
 }
 
-.regulation-index-hero {
+.regulation-page-hero {
   width: 100%;
   position: relative;
   height: 182px;
@@ -31,7 +31,7 @@
   contain-intrinsic-height: 182px;
 }
 
-h1.regulation-index-hero-text {
+h1.regulation-page-hero-text {
   position: relative;
   z-index: 10;
   color: var(--text-color-dark);
@@ -41,42 +41,42 @@ h1.regulation-index-hero-text {
 
 
 @media (width >=810px) {
-  h1.regulation-index-hero-text {
+  h1.regulation-page-hero-text {
     font-weight: 700;
     font-size: 48px;
     line-height: 62px;
   }
 
-  .regulation-index-hero {
+  .regulation-page-hero {
     background: var(--blue-filter), var(--regulation-hero-image-desktop), #d3d3d3;
     background-position: center center;
   }
 }
 
 /* Tabs */
-.regulation-index {
+.regulation-page {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
 }
 
 @media (width >=810px) {
-  .regulation-index {
+  .regulation-page {
     grid-template-columns: 1fr 3fr;
     gap: 30px;
   }
 }
 
-.regulation-index .tabs {
+.regulation-page .tabs {
   width: 100%;
 }
 
 /* Menu */
-.menu-regulation-index ul {
+.menu-regulation-page ul {
   display: none;
 }
 
-.menu-regulation-index ul.mobile {
+.menu-regulation-page ul.mobile {
   display: block;
   position: fixed;
   z-index: 1010;
@@ -87,7 +87,7 @@ h1.regulation-index-hero-text {
 
 }
 
-.menu-regulation-index ul.mobile li {
+.menu-regulation-page ul.mobile li {
   display: block;
   background-color: white;
   font-weight: var(--bold-400);
@@ -97,17 +97,17 @@ h1.regulation-index-hero-text {
   border-radius: 4px 0 0 4px;
 }
 
-.menu-regulation-index ul.mobile li:first-child {
+.menu-regulation-page ul.mobile li:first-child {
   border-radius: 16px 16px 0 0;
   padding-top: 34px;
 }
 
-.menu-regulation-index ul.mobile li:last-child {
+.menu-regulation-page ul.mobile li:last-child {
   border-radius: 0 0 16px 16px;
   padding-bottom: 34px;
 }
 
-.menu-regulation-index .mobile-button-menu {
+.menu-regulation-page .mobile-button-menu {
   display: block;
   border: 2px solid var(--pink-03);
   color: var(--pink-03);
@@ -118,19 +118,19 @@ h1.regulation-index-hero-text {
 }
 
 @media (width >=810px) {
-  .regulation-index-hero {
+  .regulation-page-hero {
     max-height: 182px;
     display: block;
   }
 
-  .menu-regulation-index ul {
+  .menu-regulation-page ul {
     display: block;
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .menu-regulation-index ul li {
+  .menu-regulation-page ul li {
     gap: 8px;
     padding: 16px;
     border-bottom: 1px solid var(--color-5);
@@ -141,7 +141,7 @@ h1.regulation-index-hero-text {
     color: var(--color-13)
   }
 
-  .menu-regulation-index ul li.menu-item-active {
+  .menu-regulation-page ul li.menu-item-active {
     border-left: 4px solid var(--color-14);
     font-weight: 700;
     font-size: 18px;
@@ -149,7 +149,7 @@ h1.regulation-index-hero-text {
     color: var(--off-black)
   }
 
-  .menu-regulation-index .mobile-button-menu {
+  .menu-regulation-page .mobile-button-menu {
     display: none;
   }
 
@@ -157,7 +157,7 @@ h1.regulation-index-hero-text {
 
 /* tabpanel */
 
-.regulation-index .tabs .tab .tab-description {
+.regulation-page .tabs .tab .tab-description {
   padding: 40px 0;
 }
 

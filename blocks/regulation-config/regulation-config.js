@@ -20,7 +20,7 @@ function menuMobileComponent() {
 
   // Function to check if screen is mobile size and apply necessary changes
   function handleScreenSizeChange(e) {
-    const menuA = document.querySelector('.menu-regulation-index ul');
+    const menuA = document.querySelector('.menu-regulation-page ul');
     if (!menuA) return;
 
     if (e.matches) {
@@ -40,13 +40,13 @@ function menuMobileComponent() {
   mediaQuery.addEventListener('change', handleScreenSizeChange);
 
   function onclick() {
-    const menu = document.querySelector('.menu-regulation-index ul');
+    const menu = document.querySelector('.menu-regulation-page ul');
     show();
     menu.classList.add('mobile');
   }
 
   function clean() {
-    const menu = document.querySelector('.menu-regulation-index ul');
+    const menu = document.querySelector('.menu-regulation-page ul');
     destroy();
     menu.classList.remove('mobile');
   }
@@ -98,7 +98,7 @@ function addTabSectionHeaders(tabType, descriptionContainer) {
   const tabHeaderMapping = {
     'how-to-apply': 'reviewTheseStepsBeforeYouSubmitYourApplication',
     'after-you-apply': 'afterYouSubmitYourApplicationReviewTheseItems',
-    'operate-&-renew': 'operatingRequirements',
+    'operating-and-renewing': 'operatingRequirements',
   };
   // Check if this tab type needs a special header
   const labelKey = tabHeaderMapping[tabType];
@@ -207,7 +207,7 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
     const orderArray = Array.from(order);
 
     // Create the menu container
-    const menu = createElement('div', { props: { className: 'menu-regulation-index' } });
+    const menu = createElement('div', { props: { className: 'menu-regulation-page' } });
 
     // Create the unordered list
     const ul = createElement('ul');
@@ -229,13 +229,13 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
         li.textContent = getContentFragment.getWord('howToApplyTab');
       } else if (classWithTheTabName === 'after-you-apply') {
         li.textContent = getContentFragment.getWord('afterYouApplyTab');
-      } else if (classWithTheTabName === 'operate-&-renew') {
+      } else if (classWithTheTabName === 'operating-and-renewing') {
         li.textContent = getContentFragment.getWord('operatingAndRenewingTab');
       } else {
         li.textContent = item; // Fallback to the original text if no match
       }
 
-      li.style.display = (menuToDisplay[classWithTheTabName]) ? 'block' : 'none';
+      li.style.display = (!!menuToDisplay[classWithTheTabName]) ? 'block' : 'none';
 
       li.onclick = clickHandler;
       li.setAttribute('role', 'tab');
@@ -326,7 +326,7 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
       tabHeader.textContent = getContentFragment.getWord('howToApplyTab');
     } else if (tabNameLower === 'after-you-apply') {
       tabHeader.textContent = getContentFragment.getWord('afterYouApplyTab');
-    } else if (tabNameLower === 'operate-&-renew') {
+    } else if (tabNameLower === 'operating-and-renewing') {
       tabHeader.textContent = getContentFragment.getWord('operatingAndRenewingTab');
     } else {
       tabHeader.textContent = tabName; // Fallback to the original tab name
@@ -364,10 +364,10 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     tabsContainer.appendChild(newTab);
   });
 
-  // Create a wrapper with the class "regulation-index"
-  const regulationIndexWrapper = createElement('div', { props: { className: 'page-container regulation-index' } });
+  // Create a wrapper with the class "regulation-page"
+  const regulationIndexWrapper = createElement('div', { props: { className: 'page-container regulation-page' } });
 
-  // Append the menu to the regulation-index wrapper (if it exists)
+  // Append the menu to the regulation-page wrapper (if it exists)
   const menu = createMenu(tabsContainer, menuToDisplay, mobileButtonTitle);
 
   if (menu) {
@@ -375,8 +375,8 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   }
   regulationIndexWrapper.appendChild(tabsContainer);
 
-  // Append the regulation-index wrapper to the main element
-  const pageRegulationIndexPage = createElement('div', { props: { className: 'page page-regulation-index' } });
+  // Append the regulation-page wrapper to the main element
+  const pageRegulationIndexPage = createElement('div', { props: { className: 'page page-regulation-page' } });
 
   // Detach all elements without tab names and reattach them to the page regulation index
   detachAndReattachAll(sectionsWithoutTabName, pageRegulationIndexPage);
@@ -390,7 +390,7 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
 export default async function decorate(doc) {
   const [image, text, _mobileButtonTitle, ...booleans] = doc.children;
 
-  const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operate-&-renew'];
+  const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operating-and-renewing'];
   const menuToDisplay = {};
 
   const mobileButtonTitle = _mobileButtonTitle?.querySelector('p')?.innerText || 'NAVIGATION';
@@ -404,7 +404,7 @@ export default async function decorate(doc) {
     d.remove();
   });
 
-  const div = createElement('div', { props: { className: 'regulation-index-hero' } });
+  const div = createElement('div', { props: { className: 'regulation-page-hero' } });
 
   // Extract the image URL from the image element
   const imageDesktop = image.querySelector('source[type="image/webp"][media]')?.srcset;
@@ -417,7 +417,7 @@ export default async function decorate(doc) {
   const pText = pElement.textContent.trim();
 
   h1.textContent = pText;
-  h1.className = 'page-container regulation-index-hero-text';
+  h1.className = 'page-container regulation-page-hero-text';
   div.appendChild(h1);
 
   detachAndReattach(text.firstElementChild, div);
@@ -443,7 +443,7 @@ export default async function decorate(doc) {
 
   main.appendChild(pageRegulationIndexPage);
 
-  const name = main.querySelector('.menu-regulation-index')?.querySelector('li.menu-item-active')?.classList[1];
+  const name = main.querySelector('.menu-regulation-page')?.querySelector('li.menu-item-active')?.classList[1];
   if (name) {
     showHideTab(name);
   }
