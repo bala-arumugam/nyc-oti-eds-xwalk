@@ -6,13 +6,13 @@
         "component": "text",
         "valueType": "string",
         "name": "jcr:title",
-        "label": "Title"
+        "label": "Page Name"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "jcr:description",
-        "label": "Description"
+        "name": "url",
+        "label": "URL"
       },
       {
         "component": "text",
@@ -24,14 +24,366 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "url",
-        "label": "URL"
+        "name": "jcr:description",
+        "label": "Page Summary"
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "jcr:createdBy",
-        "label": "Created By"
+        "component": "select",
+        "name": "government-Level",
+        "label": "Government Level",
+        "options": [
+          {
+            "name": "New York City",
+            "value": "NewYorkCity"
+          },
+          {
+            "name": "County",
+            "value": "County"
+          },
+          {
+            "name": "New York State",
+            "value": "NewYorkState"
+          },
+          {
+            "name": "Federal (U.S.)",
+            "value": "Federal"
+          },
+          {
+            "name": "Other (Non-Gov)",
+            "value": "Other"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "agency",
+        "label": "Agency",
+        "options": [
+          {
+            "name": "Alcohol and Tobacco Tax and Trade Bureau",
+            "value": "alcohol-and-tobacco-tax-and-trade-bureau"
+          },
+          {
+            "name": "Alcohol, Tobacco and Firearms, Bureau of",
+            "value": "alcohol-tobacco-and-firearms-bureau-of"
+          },
+          {
+            "name": "Equal Employment Opportunity Commission",
+            "value": "equal-employment-opportunity-commission"
+          },
+          {
+            "name": "Housing and Urban Development, Department of",
+            "value": "housing-and-urban-development-department-of"
+          },
+          {
+            "name": "Internal Revenue Service",
+            "value": "internal-revenue-service"
+          },
+          {
+            "name": "Labor, Department of",
+            "value": "labor-department-of"
+          },
+          {
+            "name": "Small Business Administration",
+            "value": "small-business-administration"
+          },
+          {
+            "name": "Treasury, Department of",
+            "value": "treasury-department-of"
+          },
+          {
+            "name": "Drug Enforcement Administration",
+            "value": "drug-enforcement-administration"
+          },
+          {
+            "name": "Transportation, U.S. Department of",
+            "value": "transportation-us-department-of"
+          },
+          {
+            "name": "Agriculture, U.S. Department of",
+            "value": "agriculture-us-department-of"
+          },
+          {
+            "name": "Army Corps of Engineers",
+            "value": "army-corps-of-engineers"
+          },
+          {
+            "name": "Justice, U.S. Department of",
+            "value": "justice-us-department-of"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "industry",
+        "label": "Industry",
+        "options": [
+          {
+            "name": "Accommodations",
+            "value": "accommodations"
+          },
+          {
+            "name": "Administrative and Support Services",
+            "value": "administrative-and-support-services"
+          },
+          {
+            "name": "Arts, Entertainment, and Recreation",
+            "value": "arts-entertainment-and-recreation"
+          },
+          {
+            "name": "Christmas Lantern Making",
+            "value": "christmas-lantern-making"
+          },
+          {
+            "name": "Construction",
+            "value": "construction"
+          },
+          {
+            "name": "Educational Services",
+            "value": "educational-services"
+          },
+          {
+            "name": "Finance and Insurance",
+            "value": "finance-and-insurance"
+          },
+          {
+            "name": "Food and Beverage Services",
+            "value": "food-and-beverage-services"
+          },
+          {
+            "name": "Health Care",
+            "value": "health-care"
+          },
+          {
+            "name": "Information",
+            "value": "information"
+          },
+          {
+            "name": "Management of Companies and Enterprises",
+            "value": "management-of-companies-and-enterprises"
+          },
+          {
+            "name": "Manufacturing",
+            "value": "manufacturing"
+          },
+          {
+            "name": "Real Estate",
+            "value": "real-estate"
+          },
+          {
+            "name": "Rental and Leasing",
+            "value": "rental-and-leasing"
+          },
+          {
+            "name": "Retail",
+            "value": "retail"
+          },
+          {
+            "name": "Services",
+            "value": "services"
+          },
+          {
+            "name": "Social Assistance",
+            "value": "social-assistance"
+          },
+          {
+            "name": "Transportation",
+            "value": "transportation"
+          },
+          {
+            "name": "Unassigned",
+            "value": "unassigned"
+          },
+          {
+            "name": "Warehousing",
+            "value": "warehousing"
+          },
+          {
+            "name": "Waste Management and Remediation",
+            "value": "waste-mnagement-and-remediation"
+          },
+          {
+            "name": "Wholesale Trade",
+            "value": "wholesale-trade"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "regulation-type",
+        "label": "Regulation Type",
+        "options": [
+          {
+            "name": "Certificates",
+            "value": "certificates"
+          },
+          {
+            "name": "Incentives",
+            "value": "incentives"
+          },
+          {
+            "name": "Inspections",
+            "value": "inspections"
+          },
+          {
+            "name": "License (Business)",
+            "value": "license-business"
+          },
+          {
+            "name": "Licenses (Individual)",
+            "value": "licenses-individual"
+          },
+          {
+            "name": "Online Tools & Resources",
+            "value": "online-tools-and-resources"
+          },
+          {
+            "name": "Permits",
+            "value": "permits"
+          },
+          {
+            "name": "Programs",
+            "value": "programs"
+          },
+          {
+            "name": "Registrations",
+            "value": "registrations"
+          },
+          {
+            "name": "Resources",
+            "value": "resources"
+          },
+          {
+            "name": "Rules and Regulations",
+            "value": "rules-and-regulations"
+          },
+          {
+            "name": "Signage Requirements",
+            "value": "signage-requirements"
+          },
+          {
+            "name": "Taxes",
+            "value": "taxes"
+          },
+          {
+            "name": "Training or Course Accreditation",
+            "value": "training-or-course-accreditation"
+          },
+          {
+            "name": "Unassigned",
+            "value": "unassigned"
+          },
+          {
+            "name": "Violations",
+            "value": "violations"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "category",
+        "label": "Category",
+        "options": [
+          {
+            "name": "Access Useful Information",
+            "value": "access-useful-information"
+          },
+          {
+            "name": "Comply with Regulations",
+            "value": "comply-with-regulations"
+          },
+          {
+            "name": "Create Your Business",
+            "value": "create-your-business"
+          },
+          {
+            "name": "Create a Business Plan",
+            "value": "create-a-business-plan"
+          },
+          {
+            "name": "Finance Your Business",
+            "value": "finance-your-business"
+          },
+          {
+            "name": "Find and Plan Your Space",
+            "value": "find-and-plan-your-space"
+          },
+          {
+            "name": "Hire a Team",
+            "value": "hire-a-team"
+          },
+          {
+            "name": "Identify Incentives",
+            "value": "identify-incentives"
+          },
+          {
+            "name": "Learn About Taxes",
+            "value": "learn-about-taxes"
+          },
+          {
+            "name": "Open and Operate",
+            "value": "open-and-operate"
+          },
+          {
+            "name": "Prepare to Open",
+            "value": "prepare-to-open"
+          },
+          {
+            "name": "Register Your Business",
+            "value": "register-your-business"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "name": "type",
+        "label": "Type",
+        "options": [
+          {
+            "name": "Activity",
+            "value": "activity"
+          },
+          {
+            "name": "Assistance",
+            "value": "assistance"
+          },
+          {
+            "name": "Business",
+            "value": "business"
+          },
+          {
+            "name": "Incentive",
+            "value": "incentive"
+          },
+          {
+            "name": "Individual",
+            "value": "individual"
+          },
+          {
+            "name": "Inspection",
+            "value": "inspection"
+          },
+          {
+            "name": "Job (Work)",
+            "value": "job-work"
+          },
+          {
+            "name": "Other",
+            "value": "other"
+          },
+          {
+            "name": "Regulations and Registrations",
+            "value": "regulations-and-registrations"
+          },
+          {
+            "name": "Space, Place, or Equipment",
+            "value": "space-place-or-equipment"
+          },
+          {
+            "name": "Tax",
+            "value": "tax"
+          }
+        ]
       }
     ]
   },
@@ -177,7 +529,7 @@
             "value": "About"
           },
           {
-            "name": "How To Apply",
+            "name": "How to Apply",
             "value": "How to Apply"
           },
           {
@@ -350,9 +702,16 @@
     "fields": [
       {
         "component": "text",
-        "name": "fullname",
+        "name": "title",
         "value": "",
-        "label": "Full Name",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "value": "",
+        "label": "Description",
         "valueType": "string"
       }
     ]

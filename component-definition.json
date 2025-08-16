@@ -157,7 +157,11 @@
                 "template": {
                   "model": "cta-button-banner",
                   "filter": "cta-button-banner",
-                  "name": "CTA Button Banner"
+                  "name": "CTA Button Banner",
+                  "button": {
+                    "name": "CTA Button Banner",
+                    "model": "button"
+                  }
                 }
               }
             }

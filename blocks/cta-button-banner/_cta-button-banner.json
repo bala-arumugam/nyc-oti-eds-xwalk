@@ -10,7 +10,11 @@
             "template": {
               "model": "cta-button-banner",
               "filter": "cta-button-banner",
-              "name": "CTA Button Banner"
+              "name": "CTA Button Banner",
+              "button": {
+                "name":"CTA Button Banner",
+                "model":"button"
+              }
             }
           }
         }
@@ -23,9 +27,16 @@
       "fields": [
         {
           "component": "text",
-          "name": "fullname",
+          "name": "title",
           "value": "",
-          "label": "Full Name",
+          "label": "Title",
+          "valueType": "string"
+        },
+         {
+          "component": "richtext",
+          "name": "description",
+          "value": "",
+          "label": "Description",
           "valueType": "string"
         }
       ]
