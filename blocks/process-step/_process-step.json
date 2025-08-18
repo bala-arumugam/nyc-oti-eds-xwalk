@@ -26,10 +26,7 @@
             "template":{
               "model": "cta-button-banner",
               "name": "Process Step - CTA Button Banner",
-              "button": {
-                "name": "CTA Button Banner",
-                "model": "button"
-              }
+              "classes":["cta-button-banner-item"]
             }
           }
         }
@@ -44,7 +41,8 @@
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
               "model": "contact-info",
-              "name": "Process Step - Contact Info"
+              "name": "Process Step - Contact Info",
+               "classes":["contact-info-item"]
             }
           }
         }
