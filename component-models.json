@@ -6,7 +6,8 @@
         "component": "text",
         "valueType": "string",
         "name": "page-property-name",
-        "label": "Page Name"
+        "label": "Page Name",
+        "required": true
       },
       {
         "component": "text",
@@ -796,13 +797,6 @@
         "name": "imageAlt",
         "label": "Alt",
         "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
       },
       {
         "component": "text",

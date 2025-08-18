@@ -7,7 +7,8 @@
           "component": "text",
           "valueType": "string",
           "name": "page-property-name",
-          "label": "Page Name"
+          "label": "Page Name",
+          "required": true
         },
         {
           "component": "text",
