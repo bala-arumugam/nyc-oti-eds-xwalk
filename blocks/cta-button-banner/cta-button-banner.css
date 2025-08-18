@@ -1,4 +1,55 @@
-/* 
- * This CSS file is intentionally empty.
- * It exists as a placeholder for future styling needs.
- */
+/* <div class="cta-button-banner block" data-block-name="cta-button-banner" data-block-status="loaded"><div>
+    <div class="cta-banner-button-text">
+      <div class="cta-banner-button-text-title">Check on the status of your application</div>
+      <div class="cta-banner-button-text-description">Allow 3 business days after application submission</div>
+    </div>
+    <div class="cta-banner-button-action">
+      <div><p class="button-container"><a href="https://google.com" title="CHECK STATUS" class="button">check status</a></p></div>
+    </div>
+  </div></div> */
+
+
+  .cta-button-banner{
+    box-shadow: 0 2px 2px 0 #ADB2B94D;
+    background-color: var(--color-15);
+    padding: 24px;
+    margin-top: 16px;
+  }
+
+  .cta-button-banner>div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cta-button-banner .cta-banner-button-text .cta-banner-button-text-title{
+    margin-bottom: 8px;
+  }
+
+  .cta-button-banner .cta-banner-button-action .button-container{
+    margin: 0;
+  }
+
+  .cta-button-banner .cta-banner-button-action .button-container a{
+    padding: 17px 70px;
+    background-color: var(--color-13);
+    color:var(--white);
+    text-align: center;
+    border-radius: 4px;
+    text-transform: uppercase;
+    display: block;
+  }
+
+.cta-button-banner .cta-banner-button-action .button-container a::after{
+  content: '';
+  background-image: url("../../icons/open_in_new.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+  margin-left: 8px;
+  margin-top: 1px;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+

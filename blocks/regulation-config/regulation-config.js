@@ -131,7 +131,7 @@ function createAccordion(element) {
         <div class="accordion-caret" aria-hidden="true"></div>
       </div>
       <div class="accordion-content" ${contentAccordion.button ? `data-accordion-button="${contentAccordion.button}"` : ''} id="accordion-content-${accordionTitle}">
-          ${contentAccordion.heading ? `<div class="accordion-content-header"><h4>${contentAccordion.heading}</h4></div>` : ''}
+          ${contentAccordion.heading ? `<div class="accordion-content-header"><h5>${contentAccordion.heading}</h5></div>` : ''}
       </div>
     </div>
   `;
@@ -464,14 +464,15 @@ export default async function decorate(doc) {
 
   const h1 = createElement('h1', {});
 
-  // Add the text content to the hero div
-  const pElement = text.firstElementChild;
-  const pText = pElement.textContent.trim();
-
-  h1.textContent = pText;
+  // Get the page metadata for jcr:title instead of using the text from pElement
+  // This will use the "Page Name" from the page metadata
+  const pageTitle = document.querySelector('meta[property="page-title"]')?.content;
+  h1.textContent = pageTitle;
   h1.className = 'page-container regulation-page-hero-text';
   div.appendChild(h1);
 
+  // Still need to handle the original text element for cleanup
+  const pElement = text.firstElementChild;
   detachAndReattach(text.firstElementChild, div);
 
   pElement.remove();

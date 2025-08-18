@@ -12,25 +12,29 @@
         "component": "text",
         "valueType": "string",
         "name": "url",
-        "label": "URL"
+        "label": "URL",
+        "required": true
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "keywords",
         "multi": true,
-        "label": "Keywords"
+        "label": "Keywords",
+        "required": true
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "jcr:description",
-        "label": "Page Summary"
+        "label": "Page Summary",
+        "required": true
       },
       {
         "component": "select",
         "name": "government-Level",
         "label": "Government Level",
+        "required": true,
         "options": [
           {
             "name": "New York City",
@@ -58,6 +62,7 @@
         "component": "select",
         "name": "agency",
         "label": "Agency",
+        "required": true,
         "options": [
           {
             "name": "Alcohol and Tobacco Tax and Trade Bureau",
@@ -117,6 +122,7 @@
         "component": "select",
         "name": "industry",
         "label": "Industry",
+        "required": true,
         "options": [
           {
             "name": "Accommodations",
@@ -212,6 +218,7 @@
         "component": "select",
         "name": "regulation-type",
         "label": "Regulation Type",
+        "required": true,
         "options": [
           {
             "name": "Certificates",
@@ -283,6 +290,7 @@
         "component": "select",
         "name": "category",
         "label": "Category",
+        "required": true,
         "options": [
           {
             "name": "Access Useful Information",
@@ -338,6 +346,7 @@
         "component": "select",
         "name": "type",
         "label": "Type",
+        "required": true,
         "options": [
           {
             "name": "Activity",
