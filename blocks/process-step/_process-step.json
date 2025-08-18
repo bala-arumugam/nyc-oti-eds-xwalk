@@ -46,8 +46,8 @@
         "text",
         "image",
         "button",
-        "contact-info",
-        "cta-button-banner"
+        "contact-info-item",
+        "cta-button-banner-item"
       ]
     }
   ]

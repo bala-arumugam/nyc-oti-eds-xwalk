@@ -16,6 +16,23 @@
           }
         }
       }
+    },
+     {
+      "title": "Contact Info",
+      "id": "contact-info-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "model": "contact-info",
+              "filter": "contact-info",
+              "name": "Contact Info",
+              "classes": ["contact-info-component"]
+            }
+          }
+        }
+      }
     }
   ],
   "models": [

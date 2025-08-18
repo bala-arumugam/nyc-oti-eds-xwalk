@@ -55,8 +55,7 @@
   {
     "id": "cards",
     "components": [
-      "card",
-      "card-contact-info"
+      "card"
     ]
   },
   {
@@ -99,8 +98,8 @@
       "text",
       "image",
       "button",
-      "contact-info",
-      "cta-button-banner"
+      "contact-info-item",
+      "cta-button-banner-item"
     ]
   },
   {
