@@ -5,7 +5,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "jcr:title",
+        "name": "pageTitle",
         "label": "Page Name",
         "required": true
       },
