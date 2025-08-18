@@ -15,6 +15,41 @@
           }
         }
       }
+    },{
+      "title": "CTA Button Banner",
+      "id": "cta-button-banner-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "model": "cta-button-banner",
+              "filter": "cta-button-banner",
+              "name": "Process Step - CTA Button Banner",
+              "button": {
+                "name":"CTA Button Banner",
+                "model":"button"
+              }
+            }
+          }
+        }
+      }
+    },
+     {
+      "title": "Contact Info",
+      "id": "contact-info-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "model": "contact-info",
+              "filter": "contact-info",
+              "name": "Process Step - Contact Info"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
