@@ -131,7 +131,7 @@ function createAccordion(element) {
         <div class="accordion-caret" aria-hidden="true"></div>
       </div>
       <div class="accordion-content" ${contentAccordion.button ? `data-accordion-button="${contentAccordion.button}"` : ''} id="accordion-content-${accordionTitle}">
-          ${contentAccordion.heading ? `<div class="accordion-content-header"><h4>${contentAccordion.heading}</h4></div>` : ''}
+          ${contentAccordion.heading ? `<div class="accordion-content-header"><h5>${contentAccordion.heading}</h5></div>` : ''}
       </div>
     </div>
   `;
