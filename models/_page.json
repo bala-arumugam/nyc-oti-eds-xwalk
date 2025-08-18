@@ -6,7 +6,7 @@
         {
           "component": "text",
           "valueType": "string",
-          "name": "pageTitle",
+          "name": "page-title",
           "label": "Page Name",
           "required": true
         },
