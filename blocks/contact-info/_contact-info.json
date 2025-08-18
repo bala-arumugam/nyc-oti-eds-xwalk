@@ -35,11 +35,7 @@
   "filters": [
     {
       "id": "contact-info",
-      "components": [
-        "text",
-        "title",
-        "button"
-      ]
+      "components": []
     }
   ]
 }

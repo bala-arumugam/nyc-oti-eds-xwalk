@@ -76,11 +76,7 @@
   },
   {
     "id": "contact-info",
-    "components": [
-      "text",
-      "title",
-      "button"
-    ]
+    "components": []
   },
   {
     "id": "cta-button-banner",

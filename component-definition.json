@@ -217,7 +217,7 @@
           }
         },
         {
-          "title": "CTA Button Banner",
+          "title": "CTA Button Banner Item",
           "id": "cta-button-banner-item",
           "plugins": {
             "xwalk": {
@@ -237,7 +237,7 @@
           }
         },
         {
-          "title": "Contact Info",
+          "title": "Contact Info Item",
           "id": "contact-info-item",
           "plugins": {
             "xwalk": {
