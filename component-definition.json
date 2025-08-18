@@ -114,6 +114,21 @@
           }
         },
         {
+          "title": "Contact Info",
+          "id": "card-contact-info",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Contact Info",
+                  "model": "contact-info"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Columns",
           "id": "columns",
           "plugins": {
