@@ -217,6 +217,25 @@
           }
         },
         {
+          "title": "CTA Button Banner Item",
+          "id": "cta-button-banner-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "model": "cta-button-banner",
+                  "name": "Process Step - CTA Button Banner",
+                  "button": {
+                    "name": "CTA Button Banner",
+                    "model": "button"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Contact Info Item",
           "id": "contact-info-item",
           "plugins": {
@@ -225,7 +244,6 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "model": "contact-info",
-                  "filter": "contact-info",
                   "name": "Process Step - Contact Info"
                 }
               }
