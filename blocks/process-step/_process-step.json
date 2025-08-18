@@ -77,10 +77,6 @@
     {
       "id": "process-step",
       "components": [
-        "title",
-        "text",
-        "image",
-        "button",
         "contact-info-item",
         "cta-button-banner-item"
       ]
