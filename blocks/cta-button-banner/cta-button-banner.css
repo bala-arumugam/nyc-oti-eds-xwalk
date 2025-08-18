@@ -16,6 +16,10 @@
     margin-top: 16px;
   }
 
+  .cta-button-banner-wrapper:not(:last-child){
+    margin-bottom: 16px;
+  }
+
   .cta-button-banner>div{
     display: flex;
     justify-content: space-between;
