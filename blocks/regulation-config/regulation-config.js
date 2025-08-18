@@ -466,9 +466,9 @@ export default async function decorate(doc) {
 
   // Get the page metadata for jcr:title instead of using the text from pElement
   // This will use the "Page Name" from the page metadata
-  const pageTitle = document.querySelector('meta[property="page-property-name"]')?.content ||
-                    document.querySelector('meta[property="title"]')?.content ||
-                    document.title;
+  const pageTitle = document.querySelector('meta[property="page-property-name"]')?.content
+                    || document.querySelector('meta[property="title"]')?.content
+                    || document.title;
   h1.textContent = pageTitle;
   h1.className = 'page-container regulation-page-hero-text';
   div.appendChild(h1);
