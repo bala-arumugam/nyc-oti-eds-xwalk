@@ -470,9 +470,9 @@ export default async function decorate(doc) {
                   || document.querySelector('meta[name="page-property-name"]')?.content
                   || document.querySelector('meta[property="title"]')?.content
                   || document.title;
-    h1.textContent = pageTitle;
-    h1.className = 'page-container regulation-page-hero-text';
-    div.appendChild(h1);
+  h1.textContent = pageTitle;
+  h1.className = 'page-container regulation-page-hero-text';
+  div.appendChild(h1);
 
   // Still need to handle the original text element for cleanup
   const pElement = text.firstElementChild;
