@@ -25,8 +25,8 @@
           {
           "component": "text",
           "name": "component",
-          "value": "contact-info",
-          "label": "Full Name",
+          "value": "",
+          "label": "Component",
           "valueType": "string",
           "hidden": true
         },

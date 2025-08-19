@@ -28,8 +28,8 @@
           {
           "component": "text",
           "name": "component",
-          "value": "cta-button-banner",
-          "label": "Full Name",
+          "value": "",
+          "label": "Component",
           "valueType": "string",
           "hidden": true
         },
