@@ -55,7 +55,8 @@
   {
     "id": "cards",
     "components": [
-      "card"
+      "card",
+      "card-contact-info"
     ]
   },
   {
