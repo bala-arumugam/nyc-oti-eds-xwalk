@@ -22,6 +22,14 @@
     {
       "id": "contact-info",
       "fields": [
+          {
+          "component": "text",
+          "name": "component",
+          "value": "contact-info",
+          "label": "Full Name",
+          "valueType": "string",
+          "hidden": true
+        },
         {
           "component": "text",
           "name": "fullname",

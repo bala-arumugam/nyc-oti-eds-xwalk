@@ -140,7 +140,7 @@ function createAccordion(element) {
   tempDiv.querySelector('.accordion-header').onclick = openCloseAction;
   tempDiv.querySelector('.accordion-content').appendChild(element);
 
-  decorateIcons(tempDiv)
+  decorateIcons(tempDiv);
 
   return tempDiv.firstElementChild;
 }

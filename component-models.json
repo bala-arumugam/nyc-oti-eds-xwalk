@@ -700,6 +700,14 @@
     "fields": [
       {
         "component": "text",
+        "name": "component",
+        "value": "contact-info",
+        "label": "Full Name",
+        "valueType": "string",
+        "hidden": true
+      },
+      {
+        "component": "text",
         "name": "fullname",
         "value": "",
         "label": "Full Name",
@@ -710,6 +718,14 @@
   {
     "id": "cta-button-banner",
     "fields": [
+      {
+        "component": "text",
+        "name": "component",
+        "value": "cta-button-banner",
+        "label": "Full Name",
+        "valueType": "string",
+        "hidden": true
+      },
       {
         "component": "text",
         "name": "title",
@@ -765,13 +781,6 @@
   {
     "id": "process-step",
     "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "value": "",
-        "label": "Title",
-        "valueType": "string"
-      },
       {
         "component": "richtext",
         "name": "step",

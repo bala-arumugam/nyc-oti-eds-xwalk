@@ -1,42 +1,42 @@
-// import { createElement } from '../../scripts/util.js';
-import { moveInstrumentation } from '../../scripts/scripts.js';
+import { decorateButtons } from '../../scripts/aem.js';
+import { createElement, detachAndReattach } from '../../scripts/util.js';
 
 export default function decorate(block) {
-  const ul = document.createElement('ul');
+  const [titleElement, stepElement, ...others] = block.children;
 
-  [...block.children].forEach((row) => {
-    const li = document.createElement('li');
-    moveInstrumentation(row, li);
+  const title = titleElement.textContent.trim();
 
-    ul.append(li);
-  });
+  const template = createElement('div', { props: { className: 'process-step-content' } });
+  const newTitle = createElement('div', { props: { className: 'process-step-title' } });
 
-  block.textContent = '';
-  block.append(ul);
+  if (title) {
+    newTitle.innerText = title;
+  }
 
-  // // Get data
-  // const [titleElement, stepElement] = doc.children;
+  template.appendChild(newTitle);
+  template.appendChild(stepElement.children[0]);
 
-  // const title = titleElement.textContent.trim();
+  // Clear the content of doc
+  while (block.firstChild) {
+    block.removeChild(block.firstChild);
+  }
 
-  // const template = createElement('div', { props: { className: 'process-step-content' } });
-  // const newTitle = createElement('div', { props: { className: 'process-step-title' } });
+  // Create and append the process step template
+  const processStep = template.cloneNode(true);
+  block.appendChild(processStep);
 
-  // if (title) {
-  //   newTitle.innerText(title);
-  // }
+  if (others.length) {
+    const div = createElement('div', { props: { className: 'process-step-components' } });
 
-  // template.appendChild(newTitle);
-  // template.appendChild(stepElement.children[0]);
+    others.forEach((element) => {
+      const divElement = createElement('div', { props: { className: 'component-item' } });
+      // moveInstrumentation(element, divElement);
+      detachAndReattach(element, divElement);
 
-  // // Clear the content of doc
-  // while (doc.firstChild) {
-  //   doc.removeChild(doc.firstChild);
-  // }
+      div.append(divElement);
+    });
 
-  // // Create and append the process step template
-  // const processStep = template.cloneNode(true);
-  // doc.appendChild(processStep);
-
-  // return processStep;
+    decorateButtons(div);
+    block.appendChild(div);
+  }
 }

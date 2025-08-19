@@ -25,6 +25,14 @@
     {
       "id": "cta-button-banner",
       "fields": [
+          {
+          "component": "text",
+          "name": "component",
+          "value": "cta-button-banner",
+          "label": "Full Name",
+          "valueType": "string",
+          "hidden": true
+        },
         {
           "component": "text",
           "name": "title",
