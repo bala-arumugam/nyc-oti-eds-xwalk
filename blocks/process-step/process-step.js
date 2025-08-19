@@ -2,19 +2,17 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
-
-    const ul = document.createElement('ul');
+  const ul = document.createElement('ul');
 
   [...block.children].forEach((row) => {
-      const li = document.createElement('li');
-      moveInstrumentation(row, li);
-      
-      ul.append(li);
-    });
+    const li = document.createElement('li');
+    moveInstrumentation(row, li);
+
+    ul.append(li);
+  });
 
   block.textContent = '';
   block.append(ul);
-
 
   // // Get data
   // const [titleElement, stepElement] = doc.children;
@@ -41,12 +39,4 @@ export default function decorate(block) {
   // doc.appendChild(processStep);
 
   // return processStep;
-  
-
-  
-
-
-
-
-
 }
