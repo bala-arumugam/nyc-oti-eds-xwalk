@@ -24,13 +24,9 @@
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template":{
-              "model": "cta-button-banner",
               "name": "Process Step - CTA Button Banner",
-              "component": "cta-button-banner-item",
-              "button": {
-                "name":"CTA Button Banner",
-                "model":"button"
-              }
+              "model": "cta-button-banner",
+              "component": "cta-button-banner-item"
             }
           }
         }
@@ -44,8 +40,8 @@
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "model": "contact-info",
               "name": "Process Step - Contact Info",
+              "model": "contact-info",
               "component": "content-info-info"
             }
           }

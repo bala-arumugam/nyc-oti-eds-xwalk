@@ -27,7 +27,6 @@
           "name": "component",
           "value": "",
           "label": "Component",
-          "valueType": "string",
           "hidden": true
         },
         {
