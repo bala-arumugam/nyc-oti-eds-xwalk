@@ -2,6 +2,7 @@ import {
   createElement, detachAndReattach, detachAndReattachAll, shadeBackground,
 } from '../../scripts/util.js';
 import getContentFragment from '../../scripts/regulation-page-labels.js';
+import { decorateIcons } from '../../scripts/aem.js';
 
 function showHideTab(name) {
   const tabs = document.querySelector('main').querySelector('.tabs').querySelectorAll('.tab');
@@ -138,6 +139,8 @@ function createAccordion(element) {
 
   tempDiv.querySelector('.accordion-header').onclick = openCloseAction;
   tempDiv.querySelector('.accordion-content').appendChild(element);
+
+  decorateIcons(tempDiv)
 
   return tempDiv.firstElementChild;
 }
