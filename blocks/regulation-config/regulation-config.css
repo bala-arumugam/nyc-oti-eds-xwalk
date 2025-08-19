@@ -273,7 +273,7 @@ h1.regulation-page-hero-text {
 /* Icon styles */
 .icon-mail {
   display: inline-block;
-  background-image: url('/icons/icon-mail.svg');
+  background-image: url('/icons/mail.svg');
   background-repeat: no-repeat;
   background-position: center;
   width: 24px;
@@ -282,7 +282,7 @@ h1.regulation-page-hero-text {
 
 .icon-person {
   display: inline-block;
-  background-image: url('/icons/icon-person.svg');
+  background-image: url('/icons/person.svg');
   background-repeat: no-repeat;
   background-position: center;
   width: 24px;
@@ -291,7 +291,7 @@ h1.regulation-page-hero-text {
 
 .icon-online {
   display: inline-block;
-  background-image: url('/icons/icon-online.svg');
+  background-image: url('/icons/online.svg');
   background-repeat: no-repeat;
   background-position: center;
   width: 24px;

@@ -125,7 +125,7 @@ function createAccordion(element) {
     <div class="accordion-item close" role="region" aria-label="${contentAccordion.title}">
       <div class="accordion-header" role="button" aria-expanded="false" tabindex="0">
         <div class="accordion-title">
-          ${contentAccordion.icon ? `<span class="${contentAccordion.icon}" aria-hidden="true"></span>` : ''}
+          ${contentAccordion.icon ? `<span class="icon ${contentAccordion.icon}" aria-hidden="true"></span>` : ''}
           ${contentAccordion.title}
         </div>
         <div class="accordion-caret" aria-hidden="true"></div>
