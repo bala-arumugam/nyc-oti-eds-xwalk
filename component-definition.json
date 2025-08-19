@@ -241,7 +241,7 @@
                 "template": {
                   "model": "cta-button-banner",
                   "name": "Process Step - CTA Button Banner",
-                  "component": "cta-button-banner",
+                  "component": "cta-button-banner-item",
                   "button": {
                     "name": "CTA Button Banner",
                     "model": "button"
@@ -261,7 +261,7 @@
                 "template": {
                   "model": "contact-info",
                   "name": "Process Step - Contact Info",
-                  "component": "content-info"
+                  "component": "content-info-info"
                 }
               }
             }
