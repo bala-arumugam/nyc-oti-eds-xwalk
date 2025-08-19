@@ -1,29 +1,52 @@
-import { createElement } from '../../scripts/util.js';
+// import { createElement } from '../../scripts/util.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
-export default function decorate(doc) {
-  // Get data
-  const [titleElement, stepElement] = doc.children;
+export default function decorate(block) {
 
-  const title = titleElement.textContent.trim();
+    const ul = document.createElement('ul');
 
-  const template = createElement('div', { props: { className: 'process-step-content' } });
-  const newTitle = createElement('div', { props: { className: 'process-step-title' } });
+  [...block.children].forEach((row) => {
+      const li = document.createElement('li');
+      moveInstrumentation(row, li);
+      
+      ul.append(li);
+    });
 
-  if (title) {
-    newTitle.innerText(title);
-  }
+  block.textContent = '';
+  block.append(ul);
 
-  template.appendChild(newTitle);
-  template.appendChild(stepElement.children[0]);
 
-  // Clear the content of doc
-  while (doc.firstChild) {
-    doc.removeChild(doc.firstChild);
-  }
+  // // Get data
+  // const [titleElement, stepElement] = doc.children;
 
-  // Create and append the process step template
-  const processStep = template.cloneNode(true);
-  doc.appendChild(processStep);
+  // const title = titleElement.textContent.trim();
 
-  return processStep;
+  // const template = createElement('div', { props: { className: 'process-step-content' } });
+  // const newTitle = createElement('div', { props: { className: 'process-step-title' } });
+
+  // if (title) {
+  //   newTitle.innerText(title);
+  // }
+
+  // template.appendChild(newTitle);
+  // template.appendChild(stepElement.children[0]);
+
+  // // Clear the content of doc
+  // while (doc.firstChild) {
+  //   doc.removeChild(doc.firstChild);
+  // }
+
+  // // Create and append the process step template
+  // const processStep = template.cloneNode(true);
+  // doc.appendChild(processStep);
+
+  // return processStep;
+  
+
+  
+
+
+
+
+
 }
