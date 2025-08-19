@@ -397,6 +397,47 @@
           ]
         }
       ]
+    },
+    {
+      "id": "did-you-mean-section",
+      "fields": [
+        {
+          "component": "checkbox",
+          "valueType": "boolean",
+          "name": "button-display",
+          "label": "Did you Mean section",
+          "description": "When checked, this will add a 'Did you mean' section under header",
+          "defaultValue": false
+        },
+        {
+          "component": "collection",
+          "name": "related-buttons",
+          "label": "Related Buttons",
+          "description": "Add up to 5 links",
+          "itemName": "Button",
+          "minItems": 0,
+          "maxItems": 5,
+          "visible": "${button-display}",
+          "fields": [
+            {
+              "component": "text",
+              "valueType": "string",
+              "name": "button-text",
+              "label": "Button Text",
+              "description": "Text to display on the button",
+              "required": true
+            },
+            {
+              "component": "text",
+              "valueType": "string",
+              "name": "button-url",
+              "label": "Button URL",
+              "description": "URL that the button will link to",
+              "required": true
+            }
+          ]
+        }
+      ]
     }
   ]
 }
