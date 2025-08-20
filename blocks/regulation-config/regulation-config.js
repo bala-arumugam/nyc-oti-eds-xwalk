@@ -485,6 +485,91 @@ export default async function decorate(doc) {
   div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
   div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
 
+  // Check if "Did you Mean section" is enabled from the page metadata
+  const didYouMeanEnabled = document.querySelector('meta[name="button-display"]')?.content === 'true';
+
+  // Create the "Did you mean" section (will be inserted into DOM later)
+  let didYouMeanSection;
+  if (didYouMeanEnabled) {
+    // Create outer container first
+    const didYouMeanContainer = createElement('div', {
+      props: {
+        className: 'did-you-mean-container',
+      },
+    });
+
+    // Create inner section
+    didYouMeanSection = createElement('div', {
+      props: {
+        className: 'did-you-mean-section page-container',
+      },
+    });
+
+    // Add section to container
+    didYouMeanContainer.appendChild(didYouMeanSection);
+
+    // Reassign didYouMeanSection to the container for proper insertion later
+    didYouMeanSection = didYouMeanContainer;
+
+    // Get reference to inner section
+    const innerSection = didYouMeanSection.querySelector('.did-you-mean-section');
+
+    const didYouMeanTitle = createElement('h3', {});
+    didYouMeanTitle.textContent = 'Did you mean:';
+    innerSection.appendChild(didYouMeanTitle);
+
+    const didYouMeanContent = createElement('div', {
+      props: {
+        className: 'did-you-mean-content',
+      },
+    });
+
+    // Add buttons container as UL for better stacking
+    const buttonsContainer = createElement('ul', {
+      props: {
+        className: 'did-you-mean-buttons',
+      },
+    });
+
+    // Get button text and URLs from meta tags
+    const buttonTextMeta = document.querySelector('meta[name="did-you-mean-button-text"]')?.content || '';
+    const buttonURLMeta = document.querySelector('meta[name="did-you-mean-button-url"]')?.content || '';
+
+    // Split the meta values by comma to get arrays of button text and URLs
+    const buttonTexts = buttonTextMeta.split(',').map((text) => text.trim());
+    const buttonURLs = buttonURLMeta.split(',').map((url) => url.trim());
+
+    // Limit to maximum 5 buttons
+    const maxButtons = 5;
+    const limitedButtonTexts = buttonTexts.slice(0, maxButtons);
+
+    // Create buttons based on the available text values (max 5)
+    limitedButtonTexts.forEach((buttonText, index) => {
+      // Only create a button if we have text
+      if (buttonText) {
+        const listItem = createElement('li', {
+          props: {
+            className: 'did-you-mean-button-item',
+          },
+        });
+
+        const link = createElement('a', {
+          props: {
+            className: 'did-you-mean-button',
+            href: buttonURLs[index] || '#', // Use corresponding URL or fallback to '#'
+          },
+        });
+        link.textContent = buttonText;
+
+        listItem.appendChild(link);
+        buttonsContainer.appendChild(listItem);
+      }
+    });
+
+    didYouMeanContent.appendChild(buttonsContainer);
+    innerSection.appendChild(didYouMeanContent);
+  }
+
   doc.innerHTML = '';
   doc.style.display = 'none';
   doc.appendChild(div);
@@ -507,4 +592,29 @@ export default async function decorate(doc) {
 
   doc.style.display = 'block';
   pageRegulationIndexPage.style.display = 'block';
+
+  // Add the "Did you mean" section in the right position
+  if (didYouMeanEnabled) {
+    // Find the section regulation-config-container and page-container regulation-page elements
+    const regulationConfigContainer = document.querySelector('.section.regulation-config-container');
+    const regulationPage = document.querySelector('.page-container.regulation-page');
+
+    // Insert the section after regulation-config-container and
+    // before page-container regulation-page
+    if (regulationConfigContainer && regulationPage) {
+      regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
+    } else if (regulationPage) {
+      // If container not found, insert before regulation page
+      regulationPage.insertAdjacentElement('beforebegin', didYouMeanSection);
+    } else if (regulationConfigContainer) {
+      // If regulation page not found, insert after container
+      regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
+    } else {
+      // Fallback: insert after the hero element
+      const heroSection = document.querySelector('.regulation-page-hero');
+      if (heroSection) {
+        heroSection.insertAdjacentElement('afterend', didYouMeanSection);
+      }
+    }
+  }
 }

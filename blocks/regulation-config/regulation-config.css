@@ -53,6 +53,84 @@ h1.regulation-page-hero-text {
   }
 }
 
+/* Did you mean container */
+.did-you-mean-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  background-color: #f8f8f8;
+}
+
+.did-you-mean-section.page-container{
+  width: auto;
+}
+/* Did you mean section */
+.did-you-mean-section {
+  background-color: #f8f8f8;
+  padding: 24px;
+  margin-bottom: 24px;
+  border-radius: 4px;
+}
+
+.did-you-mean-section h3 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.did-you-mean-content >ul>li>a{
+  text-decoration: none;
+      height: 24px;
+    display: flex;
+}
+
+.did-you-mean-content >ul>li>a::after{
+  content: "";
+  background-image: url("/icons/arrow_right_alt.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
+}
+
+
+.did-you-mean-buttons {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.did-you-mean-button-item {
+  margin: 0;
+  padding: 0;
+}
+
+.did-you-mean-button{
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+
+
+.did-you-mean-button:hover {
+  color: var(--accent-color-dark, #005fa3);
+  text-decoration: underline;
+}
+
+@media (width < 768px) {
+  .did-you-mean-buttons {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
 /* Tabs */
 .regulation-page {
   display: grid;
