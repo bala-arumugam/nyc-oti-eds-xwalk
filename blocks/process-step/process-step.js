@@ -5,14 +5,15 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 import { createElement, detachAndReattach } from '../../scripts/util.js';
 
 export default async function decorate(block) {
- const [data, ...datab] = block.children;
+  const [data, ...dataB] = block.children;
 
   const isEmpty = !data.textContent.trim();
 
-  let stepElement=data, others=datab;
-  
-  if(isEmpty){
-    stepElement = datab;
+  let stepElement = data; let
+    others = dataB;
+
+  if (isEmpty) {
+    stepElement = dataB;
     others = [];
   }
 
