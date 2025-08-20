@@ -2,7 +2,7 @@ import {
   loadBlock,
 } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import { createElement } from '../../scripts/util.js';
+import { createElement, detachAndReattach } from '../../scripts/util.js';
 
 export default async function decorate(block) {
   const [stepElement, ...others] = block.children;
@@ -36,7 +36,7 @@ export default async function decorate(block) {
       element.children[0].remove();
 
       const divElement = createElement('div', { props: { className: componentType } });
-      // detachAndReattach(element, divElement);
+      detachAndReattach(element, divElement);
       moveInstrumentation(element, divElement);
       divElement.dataset.blockStatus = 'ini';
       divElement.dataset.blockName = componentType;
