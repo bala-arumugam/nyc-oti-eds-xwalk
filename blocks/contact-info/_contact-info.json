@@ -104,6 +104,14 @@
         },
         {
           "component": "text",
+          "name": "phone",
+          "value": "",
+          "label": "Phone",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
           "name": "keyword",
           "value": "",
           "label": "311 Keyword",
