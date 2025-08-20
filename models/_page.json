@@ -395,17 +395,14 @@
               "value": "tax"
             }
           ]
-        }
-      ]
-    },
-    {
-      "id": "did-you-mean-section",
-      "fields": [
+        },
         {
           "component": "boolean",
           "valueType": "boolean",
           "name": "button-display",
-          "label": "Did you Mean section"
+          "label": "Did you Mean section",
+          "description": "When checked, this will add a 'Did you mean' section under header",
+          "defaultValue": false
         }
       ]
     }
