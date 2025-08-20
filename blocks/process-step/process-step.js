@@ -27,7 +27,7 @@ export default async function decorate(block) {
   }
 
   template.appendChild(newTitle);
-  
+
   let step;
   if (Array.isArray(stepElement) && stepElement.length > 0) {
     const [firstElement] = stepElement;
