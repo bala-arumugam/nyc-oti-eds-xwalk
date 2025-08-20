@@ -26,12 +26,7 @@
             "template":{
               "name": "Process Step - CTA Button Banner",
               "model": "cta-button-banner",
-              "filter": "cta-button-banner",
-              "component": "cta-button-banner",
-               "button": {
-                "name":"CTA Button Banner",
-                "model":"button"
-              }
+              "component": "cta-button-banner"
             }
           }
         }
