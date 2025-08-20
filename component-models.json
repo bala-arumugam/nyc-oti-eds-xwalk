@@ -407,15 +407,10 @@
         "component": "collection",
         "name": "related-buttons",
         "label": "Related Buttons",
-        "description": "Add buttons that will appear in the 'Did you mean' section",
+        "description": "Add buttons that will appear in the 'Did you mean' section (max 5)",
         "itemName": "Button",
         "minItems": 0,
         "maxItems": 5,
-        "visible": {
-          "condition": {
-            "fieldName": "button-display"
-          }
-        },
         "fields": [
           {
             "component": "text",
