@@ -27,11 +27,19 @@ export default async function decorate(block) {
   }
 
   template.appendChild(newTitle);
-  const step = Array.isArray(stepElement) && stepElement.length > 0 
-    ? stepElement[0].children[0] 
-    : stepElement && stepElement.children 
-     ? stepElement.children[0] 
-     : stepElement;
+  
+  let step;
+  if (Array.isArray(stepElement) && stepElement.length > 0) {
+    const [firstElement] = stepElement;
+    const [firstChild] = firstElement.children;
+    step = firstChild;
+  } else if (stepElement && stepElement.children) {
+    const [firstChild] = stepElement.children;
+    step = firstChild;
+  } else {
+    step = stepElement;
+  }
+
   template.appendChild(step);
 
   // Clear the content of doc
