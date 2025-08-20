@@ -82,9 +82,6 @@
   {
     "id": "cta-button-banner",
     "components": [
-      "text",
-      "title",
-      "image",
       "button"
     ]
   },

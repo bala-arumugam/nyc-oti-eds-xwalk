@@ -12,8 +12,8 @@
               "filter": "cta-button-banner",
               "name": "CTA Button Banner",
               "button": {
-                "name":"CTA Button Banner",
-                "model":"button"
+                "name": "CTA Button Banner",
+                "model": "button"
               }
             }
           }
@@ -25,7 +25,7 @@
     {
       "id": "cta-button-banner",
       "fields": [
-          {
+        {
           "component": "text",
           "name": "component",
           "value": "",
@@ -39,12 +39,42 @@
           "label": "Title",
           "valueType": "string"
         },
-         {
+        {
           "component": "richtext",
           "name": "description",
           "value": "",
           "label": "Description",
           "valueType": "string"
+        },
+        {
+          "component": "container",
+          "label": "Button",
+          "name": "container",
+          "valueType": "string",
+          "collapsible": true,
+          "fields": [
+            {
+              "component": "aem-content",
+              "name": "link",
+              "label": "Link"
+            },
+            {
+              "component": "text",
+              "name": "linkText",
+              "label": "Text"
+            },
+            {
+              "component": "text",
+              "name": "linkTitle",
+              "label": "Title"
+            },
+            {
+              "component": "select",
+              "name": "linkType",
+              "label": "Type",
+              "value":""
+            }
+          ]
         }
       ]
     }
@@ -53,9 +83,6 @@
     {
       "id": "cta-button-banner",
       "components": [
-        "text",
-        "title",
-        "image",
         "button"
       ]
     }

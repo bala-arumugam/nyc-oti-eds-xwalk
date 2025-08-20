@@ -33,7 +33,7 @@ export default async function decorate(block) {
 
     others.forEach(async (element) => {
       const componentType = element.children[0].textContent.trim();
-      element.children[0].remove();
+      element.children[0].textContent = '';
 
       const divElement = createElement('div', { props: { className: componentType } });
       detachAndReattach(element, divElement);
