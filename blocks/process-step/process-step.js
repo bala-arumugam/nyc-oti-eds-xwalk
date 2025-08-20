@@ -5,7 +5,7 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 import { createElement, detachAndReattach } from '../../scripts/util.js';
 
 export default async function decorate(block) {
-  const [, stepElement, ...others] = block.children;
+  const [stepElement, ...others] = block.children;
 
   const title = undefined;
 
