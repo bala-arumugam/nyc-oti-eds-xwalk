@@ -38,9 +38,6 @@ export default async function decorate(block) {
       detachAndReattach(element, divElement);
       divElement.dataset.blockStatus = 'ini';
       divElement.dataset.blockName = componentType;
-      if (componentType === 'cta-button-banner') {
-        decorateButtons(divElement);
-      }
       await loadBlock(divElement);
       div.append(divElement);
     });
