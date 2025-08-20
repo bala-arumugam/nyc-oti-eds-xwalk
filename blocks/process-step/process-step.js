@@ -2,9 +2,9 @@ import { decorateButtons } from '../../scripts/aem.js';
 import { createElement, detachAndReattach } from '../../scripts/util.js';
 
 export default function decorate(block) {
-  const [titleElement, stepElement, ...others] = block.children;
+  const [stepElement, ...others] = block.children;
 
-  const title = titleElement.textContent.trim();
+  const title = undefined;
 
   const template = createElement('div', { props: { className: 'process-step-content' } });
   const newTitle = createElement('div', { props: { className: 'process-step-title' } });
@@ -29,12 +29,15 @@ export default function decorate(block) {
     const div = createElement('div', { props: { className: 'process-step-components' } });
 
     others.forEach((element) => {
+      const componentType = element.children[0].textContent.trim();
+      element.children[0].remove();
+
       const divElement = createElement('div', { props: { className: 'component-item' } });
-      // moveInstrumentation(element, divElement);
       detachAndReattach(element, divElement);
 
       div.append(divElement);
     });
+
 
     decorateButtons(div);
     block.appendChild(div);
