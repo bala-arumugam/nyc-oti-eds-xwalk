@@ -1,7 +1,7 @@
 import {
-  decorateButtons, loadBlock,
+ moveInstrumentation , loadBlock,
 } from '../../scripts/aem.js';
-import { createElement, detachAndReattach } from '../../scripts/util.js';
+import { createElement } from '../../scripts/util.js';
 
 export default async function decorate(block) {
   const [stepElement, ...others] = block.children;
@@ -32,10 +32,10 @@ export default async function decorate(block) {
 
     others.forEach(async (element) => {
       const componentType = element.children[0].textContent.trim();
-      element.children[0].remove();
+      // element.children[0].remove();
 
       const divElement = createElement('div', { props: { className: componentType } });
-      detachAndReattach(element, divElement);
+      moveInstrumentation(element, divElement);
       divElement.dataset.blockStatus = 'ini';
       divElement.dataset.blockName = componentType;
       await loadBlock(divElement);
