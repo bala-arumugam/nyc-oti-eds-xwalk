@@ -8,9 +8,13 @@ export default function decorate(doc) {
     [docInternal] = doc.children;
   }
 
-  const title = docInternal.children[0].textContent.trim();
-  const description = docInternal.children[1].textContent.trim();
-  const button = docInternal.children[2]?.firstElementChild || '';
+  // eslint-disable-next-line no-unused-vars
+  const type = docInternal.children[0].textContent.trim();
+
+  const title = docInternal.children[1].textContent.trim();
+  const description = docInternal.children[2].textContent.trim();
+  const button = docInternal.children[3]?.firstElementChild || '';
+
   // Clear the contents of the doc element
   while (doc.firstChild) {
     doc.removeChild(doc.firstChild);
