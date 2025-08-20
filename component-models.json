@@ -411,7 +411,12 @@
         "itemName": "Button",
         "minItems": 0,
         "maxItems": 5,
-        "visible": "${button-display}",
+        "visible": {
+          "condition": {
+            "fieldName": "button-display",
+            "equals": true
+          }
+        },
         "fields": [
           {
             "component": "text",
