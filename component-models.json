@@ -413,8 +413,7 @@
         "maxItems": 5,
         "visible": {
           "condition": {
-            "fieldName": "button-display",
-            "equals": true
+            "fieldName": "button-display"
           }
         },
         "fields": [
