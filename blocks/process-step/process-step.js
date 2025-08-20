@@ -1,8 +1,7 @@
 import {
   loadBlock,
 } from '../../scripts/aem.js';
-import { moveInstrumentation } from '../../scripts/scripts.js';
-import { createElement, detachAndReattach} from '../../scripts/util.js';
+import { createElement, detachAndReattach } from '../../scripts/util.js';
 
 export default async function decorate(block) {
   const [stepElement, ...others] = block.children;
