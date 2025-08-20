@@ -408,7 +408,7 @@
           "component": "collection",
           "name": "related-buttons",
           "label": "Related Buttons",
-          "description": "Add up to 5 links",
+          "description": "Add buttons that will appear in the 'Did you mean' section",
           "itemName": "Button",
           "minItems": 0,
           "maxItems": 5,
@@ -429,6 +429,27 @@
               "label": "Button URL",
               "description": "URL that the button will link to",
               "required": true
+            },
+            {
+              "component": "select",
+              "name": "button-style",
+              "label": "Button Style",
+              "description": "Visual style of the button",
+              "defaultValue": "primary",
+              "options": [
+                {
+                  "value": "primary",
+                  "name": "Primary"
+                },
+                {
+                  "value": "secondary",
+                  "name": "Secondary"
+                },
+                {
+                  "value": "tertiary",
+                  "name": "Tertiary"
+                }
+              ]
             }
           ]
         }
