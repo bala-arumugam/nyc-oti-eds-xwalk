@@ -1,6 +1,7 @@
 import {
- moveInstrumentation , loadBlock,
+  loadBlock,
 } from '../../scripts/aem.js';
+import { moveInstrumentation } from '../../scripts/scripts.js';
 import { createElement } from '../../scripts/util.js';
 
 export default async function decorate(block) {
@@ -32,7 +33,7 @@ export default async function decorate(block) {
 
     others.forEach(async (element) => {
       const componentType = element.children[0].textContent.trim();
-      // element.children[0].remove();
+      element.children[0].remove();
 
       const divElement = createElement('div', { props: { className: componentType } });
       moveInstrumentation(element, divElement);
