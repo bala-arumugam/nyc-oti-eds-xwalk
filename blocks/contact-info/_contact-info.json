@@ -34,7 +34,7 @@
           "component": "text",
           "name": "agencyName",
           "value": "",
-          "label": "Full Name",
+          "label": "Agency Name",
           "valueType": "string",
           "required": true
         },
