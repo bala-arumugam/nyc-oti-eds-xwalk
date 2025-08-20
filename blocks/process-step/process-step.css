@@ -2,14 +2,11 @@
   counter-reset: step;
 }
 
-.process-step {
-  display: flex;
-}
-
 /* Move counter from process-step to process-step-content */
 .process-step-content {
   flex: 1;
   display: flex;
+  margin-bottom: 16px;
 }
 
 .process-step-content::before {

@@ -1,7 +1,9 @@
-import { decorateButtons } from '../../scripts/aem.js';
+import {
+  decorateButtons, loadBlock,
+} from '../../scripts/aem.js';
 import { createElement, detachAndReattach } from '../../scripts/util.js';
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const [stepElement, ...others] = block.children;
 
   const title = undefined;
@@ -28,18 +30,21 @@ export default function decorate(block) {
   if (others.length) {
     const div = createElement('div', { props: { className: 'process-step-components' } });
 
-    others.forEach((element) => {
+    others.forEach(async (element) => {
       const componentType = element.children[0].textContent.trim();
       element.children[0].remove();
 
-      const divElement = createElement('div', { props: { className: 'component-item' } });
+      const divElement = createElement('div', { props: { className: componentType } });
       detachAndReattach(element, divElement);
-
+      divElement.dataset.blockStatus = 'ini';
+      divElement.dataset.blockName = componentType;
+      if (componentType === 'cta-button-banner') {
+        decorateButtons(divElement);
+      }
+      await loadBlock(divElement);
       div.append(divElement);
     });
 
-
-    decorateButtons(div);
     block.appendChild(div);
   }
 }

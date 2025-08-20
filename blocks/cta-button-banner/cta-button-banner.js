@@ -2,9 +2,15 @@ import { createElement } from '../../scripts/util.js';
 
 export default function decorate(doc) {
   // Get Data
-  const title = doc.children[0].textContent.trim();
-  const description = doc.children[1].textContent.trim();
-  const button = doc.children[2]?.firstElementChild;
+  let docInternal = doc;
+
+  if (doc.children.length === 1) {
+    [docInternal] = doc.children;
+  }
+
+  const title = docInternal.children[0].textContent.trim();
+  const description = docInternal.children[1].textContent.trim();
+  const button = docInternal.children[2]?.firstElementChild || '';
   // Clear the contents of the doc element
   while (doc.firstChild) {
     doc.removeChild(doc.firstChild);
