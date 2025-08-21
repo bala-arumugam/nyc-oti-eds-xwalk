@@ -486,6 +486,91 @@ export default async function decorate(doc) {
   div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
   div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
 
+  // Check if "Did you Mean section" is enabled from the page metadata
+  const didYouMeanEnabled = document.querySelector('meta[name="button-display"]')?.content === 'true';
+
+  // Create the "Did you mean" section (will be inserted into DOM later)
+  let didYouMeanSection;
+  if (didYouMeanEnabled) {
+    // Create outer container first
+    const didYouMeanContainer = createElement('div', {
+      props: {
+        className: 'did-you-mean-container',
+      },
+    });
+
+    // Create inner section
+    didYouMeanSection = createElement('div', {
+      props: {
+        className: 'did-you-mean-section page-container',
+      },
+    });
+
+    // Add section to container
+    didYouMeanContainer.appendChild(didYouMeanSection);
+
+    // Reassign didYouMeanSection to the container for proper insertion later
+    didYouMeanSection = didYouMeanContainer;
+
+    // Get reference to inner section
+    const innerSection = didYouMeanSection.querySelector('.did-you-mean-section');
+
+    const didYouMeanTitle = createElement('h3', {});
+    didYouMeanTitle.textContent = 'Did you mean:';
+    innerSection.appendChild(didYouMeanTitle);
+
+    const didYouMeanContent = createElement('div', {
+      props: {
+        className: 'did-you-mean-content',
+      },
+    });
+
+    // Add buttons container as UL for better stacking
+    const buttonsContainer = createElement('ul', {
+      props: {
+        className: 'did-you-mean-buttons',
+      },
+    });
+
+    // Get button text and URLs from meta tags
+    const buttonTextMeta = document.querySelector('meta[name="did-you-mean-button-text"]')?.content || '';
+    const buttonURLMeta = document.querySelector('meta[name="did-you-mean-button-url"]')?.content || '';
+
+    // Split the meta values by comma to get arrays of button text and URLs
+    const buttonTexts = buttonTextMeta.split(',').map((buttonText) => buttonText.trim());
+    const buttonURLs = buttonURLMeta.split(',').map((url) => url.trim());
+
+    // Limit to maximum 5 buttons
+    const maxButtons = 5;
+    const limitedButtonTexts = buttonTexts.slice(0, maxButtons);
+
+    // Create buttons based on the available text values (max 5)
+    limitedButtonTexts.forEach((buttonText, index) => {
+      // Only create a button if we have text
+      if (buttonText) {
+        const listItem = createElement('li', {
+          props: {
+            className: 'did-you-mean-button-item',
+          },
+        });
+
+        const link = createElement('a', {
+          props: {
+            className: 'did-you-mean-button',
+            href: buttonURLs[index] || '#', // Use corresponding URL or fallback to '#'
+          },
+        });
+        link.textContent = buttonText;
+
+        listItem.appendChild(link);
+        buttonsContainer.appendChild(listItem);
+      }
+    });
+
+    didYouMeanContent.appendChild(buttonsContainer);
+    innerSection.appendChild(didYouMeanContent);
+  }
+
   doc.innerHTML = '';
   doc.style.display = 'none';
   doc.appendChild(div);
@@ -499,7 +584,16 @@ export default async function decorate(doc) {
   // Clear any existing content from main if needed
   main.innerHTML = ''; // Uncomment if you want to clear main first
 
-  main.appendChild(pageRegulationIndexPage);
+  moveInstrumentation(doc, pageRegulationIndexPage);
+
+  // Create a wrapper for mobile layout ordering
+  const mobileRegulationWrapper = createElement('div', { props: { className: 'mobile-regulation-wrapper' } });
+
+  // Add the page regulation index page to the wrapper
+  mobileRegulationWrapper.appendChild(pageRegulationIndexPage);
+
+  // Add the wrapper to the main element
+  main.appendChild(mobileRegulationWrapper);
 
   const name = main.querySelector('.menu-regulation-page')?.querySelector('li.menu-item-active')?.classList[1];
   if (name) {
@@ -508,4 +602,46 @@ export default async function decorate(doc) {
 
   doc.style.display = 'block';
   pageRegulationIndexPage.style.display = 'block';
+
+  // Function to position elements based on screen size -
+  // moved out of if statement to comply with linting rules
+  function positionDidYouMeanSection() {
+    // Only run if Did You Mean section is enabled
+    if (!didYouMeanEnabled || !didYouMeanSection) return;
+
+    // Find relevant elements
+    const regulationConfigContainer = document.querySelector('.section.regulation-config-container');
+    const regulationPage = document.querySelector('.page-container.regulation-page');
+    const menuRegulationPage = document.querySelector('.menu-regulation-page');
+    const isMobile = window.matchMedia('(max-width: 810px)').matches;
+
+    // For mobile view
+    if (isMobile && menuRegulationPage) {
+      // Place it after the menu for mobile
+      menuRegulationPage.insertAdjacentElement('afterend', didYouMeanSection);
+    } else if (regulationConfigContainer && regulationPage) {
+      regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
+    } else if (regulationPage) {
+      // If container not found, insert before regulation page
+      regulationPage.insertAdjacentElement('beforebegin', didYouMeanSection);
+    } else if (regulationConfigContainer) {
+      // If regulation page not found, insert after container
+      regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
+    } else {
+      // Fallback: insert after the hero element
+      const heroSection = document.querySelector('.regulation-page-hero');
+      if (heroSection) {
+        heroSection.insertAdjacentElement('afterend', didYouMeanSection);
+      }
+    }
+  }
+
+  // Add the "Did you mean" section in the right position
+  if (didYouMeanEnabled) {
+    // Initial positioning
+    positionDidYouMeanSection();
+
+    // Reposition on window resize
+    window.addEventListener('resize', positionDidYouMeanSection);
+  }
 }
