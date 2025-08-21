@@ -5,7 +5,17 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 import { createElement, detachAndReattach } from '../../scripts/util.js';
 
 export default async function decorate(block) {
-  const [stepElement, ...others] = block.children;
+  const [data, ...dataB] = block.children;
+
+  const isEmpty = !data.textContent.trim();
+
+  let stepElement = data; let
+    others = dataB;
+
+  if (isEmpty) {
+    stepElement = dataB;
+    others = [];
+  }
 
   const title = undefined;
 
@@ -17,7 +27,20 @@ export default async function decorate(block) {
   }
 
   template.appendChild(newTitle);
-  template.appendChild(stepElement.children[0]);
+
+  let step;
+  if (Array.isArray(stepElement) && stepElement.length > 0) {
+    const [firstElement] = stepElement;
+    const [firstChild] = firstElement.children;
+    step = firstChild;
+  } else if (stepElement && stepElement.children) {
+    const [firstChild] = stepElement.children;
+    step = firstChild;
+  } else {
+    step = stepElement;
+  }
+
+  template.appendChild(step);
 
   // Clear the content of doc
   while (block.firstChild) {

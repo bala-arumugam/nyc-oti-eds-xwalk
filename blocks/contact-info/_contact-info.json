@@ -9,9 +9,10 @@
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "model": "contact-info",
-              "filter": "contact-info",
               "name": "Contact Info",
-              "classes": ["contact-info-component"]
+              "classes": [
+                "contact-info-component"
+              ]
             }
           }
         }
@@ -22,7 +23,7 @@
     {
       "id": "contact-info",
       "fields": [
-          {
+        {
           "component": "text",
           "name": "component",
           "value": "",
@@ -31,18 +32,102 @@
         },
         {
           "component": "text",
-          "name": "fullname",
+          "name": "agencyName",
           "value": "",
-          "label": "Full Name",
-          "valueType": "string"
+          "label": "Agency Name",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "officeDepartment",
+          "value": "",
+          "label": "Office/Department",
+          "valueType": "string",
+          "required": false
+        },
+        {
+          "component": "text",
+          "name": "streetOne",
+          "value": "",
+          "label": "Street 1",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "streetTwo",
+          "value": "",
+          "label": "Street 2",
+          "valueType": "string",
+          "required": false
+        },
+        {
+          "component": "text",
+          "name": "city",
+          "value": "",
+          "label": "City",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "state",
+          "value": "",
+          "label": "State",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "zipCode",
+          "value": "",
+          "label": "Zip Code",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "email",
+          "value": "",
+          "label": "Email",
+          "valueType": "string",
+          "required": false
+        },
+        {
+          "component": "text",
+          "name": "website",
+          "value": "",
+          "label": "Website",
+          "valueType": "string",
+          "required": false
+        },
+        {
+          "component": "text",
+          "name": "phone",
+          "value": "",
+          "label": "Phone",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "keyword",
+          "value": "",
+          "label": "311 Keyword",
+          "valueType": "string",
+          "required": false
+        },
+        {
+          "component": "text",
+          "name": "instructional",
+          "value": "",
+          "label": "Instructional Text",
+          "valueType": "string",
+          "required": false
         }
       ]
     }
   ],
-  "filters": [
-    {
-      "id": "contact-info",
-      "components": []
-    }
-  ]
+  "filters": []
 }

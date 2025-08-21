@@ -47,34 +47,26 @@
           "valueType": "string"
         },
         {
-          "component": "container",
-          "label": "Button",
-          "name": "container",
-          "valueType": "string",
-          "collapsible": true,
-          "fields": [
-            {
-              "component": "aem-content",
-              "name": "link",
-              "label": "Link"
-            },
-            {
-              "component": "text",
-              "name": "linkText",
-              "label": "Text"
-            },
-            {
-              "component": "text",
-              "name": "linkTitle",
-              "label": "Title"
-            },
-            {
-              "component": "select",
-              "name": "linkType",
-              "label": "Type",
-              "value":""
-            }
-          ]
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link"
+        },
+        {
+          "component": "text",
+          "name": "linkText",
+          "label": "Text"
+        },
+        {
+          "component": "text",
+          "name": "linkTitle",
+          "label": "Title"
+        },
+        {
+          "component": "select",
+          "name": "linkType",
+          "label": "Type",
+          "value": "",
+          "hidden":true
         }
       ]
     }

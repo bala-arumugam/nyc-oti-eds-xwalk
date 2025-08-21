@@ -402,6 +402,22 @@
         "label": "Did you Mean section",
         "description": "When checked, this will add a 'Did you mean' section under header",
         "defaultValue": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "did-you-mean-button-text",
+        "label": "Did you mean Button Text",
+        "description": "Text to display on the buttons (up to 5)",
+        "multi": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "did-you-mean-button-url",
+        "label": "Did you mean Button URL",
+        "description": "URLs that the buttons will link to (should match number of texts)",
+        "multi": true
       }
     ]
   },
@@ -715,10 +731,99 @@
       },
       {
         "component": "text",
-        "name": "fullname",
+        "name": "agencyName",
         "value": "",
-        "label": "Full Name",
-        "valueType": "string"
+        "label": "Agency Name",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "officeDepartment",
+        "value": "",
+        "label": "Office/Department",
+        "valueType": "string",
+        "required": false
+      },
+      {
+        "component": "text",
+        "name": "streetOne",
+        "value": "",
+        "label": "Street 1",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "streetTwo",
+        "value": "",
+        "label": "Street 2",
+        "valueType": "string",
+        "required": false
+      },
+      {
+        "component": "text",
+        "name": "city",
+        "value": "",
+        "label": "City",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "state",
+        "value": "",
+        "label": "State",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "zipCode",
+        "value": "",
+        "label": "Zip Code",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "email",
+        "value": "",
+        "label": "Email",
+        "valueType": "string",
+        "required": false
+      },
+      {
+        "component": "text",
+        "name": "website",
+        "value": "",
+        "label": "Website",
+        "valueType": "string",
+        "required": false
+      },
+      {
+        "component": "text",
+        "name": "phone",
+        "value": "",
+        "label": "Phone",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "keyword",
+        "value": "",
+        "label": "311 Keyword",
+        "valueType": "string",
+        "required": false
+      },
+      {
+        "component": "text",
+        "name": "instructional",
+        "value": "",
+        "label": "Instructional Text",
+        "valueType": "string",
+        "required": false
       }
     ]
   },
@@ -747,34 +852,26 @@
         "valueType": "string"
       },
       {
-        "component": "container",
-        "label": "Button",
-        "name": "container",
-        "valueType": "string",
-        "collapsible": true,
-        "fields": [
-          {
-            "component": "aem-content",
-            "name": "link",
-            "label": "Link"
-          },
-          {
-            "component": "text",
-            "name": "linkText",
-            "label": "Text"
-          },
-          {
-            "component": "text",
-            "name": "linkTitle",
-            "label": "Title"
-          },
-          {
-            "component": "select",
-            "name": "linkType",
-            "label": "Type",
-            "value": ""
-          }
-        ]
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Text"
+      },
+      {
+        "component": "text",
+        "name": "linkTitle",
+        "label": "Title"
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "label": "Type",
+        "value": "",
+        "hidden": true
       }
     ]
   },
