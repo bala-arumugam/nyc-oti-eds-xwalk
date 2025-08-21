@@ -499,7 +499,7 @@ export default async function decorate(doc) {
   // Clear any existing content from main if needed
   main.innerHTML = ''; // Uncomment if you want to clear main first
 
-  moveInstrumentation(doc, pageRegulationIndexPage);
+  // moveInstrumentation(doc, pageRegulationIndexPage);
 
   main.appendChild(pageRegulationIndexPage);
 
