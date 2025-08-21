@@ -583,7 +583,6 @@ export default async function decorate(doc) {
   // Clear any existing content from main if needed
   main.innerHTML = ''; // Uncomment if you want to clear main first
 
-
   // Create a wrapper for mobile layout ordering
   const mobileRegulationWrapper = createElement('div', { props: { className: 'mobile-regulation-wrapper' } });
 

@@ -87,14 +87,5 @@
       "contact-info-item",
       "cta-button-banner-item"
     ]
-  },
-  {
-    "id": "step-by-step-cta",
-    "components": [
-      "text",
-      "title",
-      "image",
-      "button"
-    ]
   }
 ]
