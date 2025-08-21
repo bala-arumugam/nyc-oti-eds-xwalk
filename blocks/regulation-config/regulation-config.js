@@ -499,8 +499,6 @@ export default async function decorate(doc) {
   // Clear any existing content from main if needed
   main.innerHTML = ''; // Uncomment if you want to clear main first
 
-  // moveInstrumentation(doc, pageRegulationIndexPage);
-
   main.appendChild(pageRegulationIndexPage);
 
   const name = main.querySelector('.menu-regulation-page')?.querySelector('li.menu-item-active')?.classList[1];
