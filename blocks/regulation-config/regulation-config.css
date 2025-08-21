@@ -57,7 +57,7 @@ h1.regulation-page-hero-text {
 .did-you-mean-container {
   margin: 0 auto;
   padding: 0 16px;
-  background-color: #EAEEF1;
+  background-color: var( --gray-02);
 }
 
 .did-you-mean-section.page-container{
@@ -66,13 +66,13 @@ h1.regulation-page-hero-text {
 
 /* Did you mean section */
 .did-you-mean-section {
-  background-color: #EAEEF1;
+  background-color: var( --gray-02);
   padding: 24px;
   border-radius: 4px;
 }
 
 .did-you-mean-section h3 {
-  font-size: 18px;
+  font-size: var(--heading-font-size-s);
   margin-top: 0;
   margin-bottom: 16px;
   font-weight: 600;
@@ -81,7 +81,7 @@ h1.regulation-page-hero-text {
 .did-you-mean-content >ul>li>a{
   text-decoration: none;
   display: flex;
-  font-size: 16px;
+  font-size: var(--heading-font-size-xs);
 }
 
 .did-you-mean-content >ul>li>a::after{
@@ -95,7 +95,6 @@ h1.regulation-page-hero-text {
   height: 24px;
   margin-left: 8px;
 }
-
 
 .did-you-mean-buttons {
   list-style: none;
@@ -116,7 +115,7 @@ h1.regulation-page-hero-text {
 }
 
 .did-you-mean-button:hover {
-  color: var(--accent-color-dark, #005fa3);
+  color: var(--color-14);
   text-decoration: underline;
 }
 
@@ -136,7 +135,7 @@ h1.regulation-page-hero-text {
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    background-color: #EAEEF1;
+    background-color: var( --gray-02);
   }
   
   .did-you-mean-section {
