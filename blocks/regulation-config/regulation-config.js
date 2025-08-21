@@ -3,7 +3,6 @@ import {
 } from '../../scripts/util.js';
 import getContentFragment from '../../scripts/regulation-page-labels.js';
 import { decorateIcons } from '../../scripts/aem.js';
-import { moveInstrumentation } from '../../scripts/scripts.js';
 
 function showHideTab(name) {
   const tabs = document.querySelector('main').querySelector('.tabs').querySelectorAll('.tab');
@@ -584,7 +583,6 @@ export default async function decorate(doc) {
   // Clear any existing content from main if needed
   main.innerHTML = ''; // Uncomment if you want to clear main first
 
-  moveInstrumentation(doc, pageRegulationIndexPage);
 
   // Create a wrapper for mobile layout ordering
   const mobileRegulationWrapper = createElement('div', { props: { className: 'mobile-regulation-wrapper' } });
