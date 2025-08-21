@@ -19,7 +19,8 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "step-by-step-cta"
     ]
   },
   {
@@ -48,8 +49,7 @@
   {
     "id": "section-body",
     "components": [
-      "regulation-config",
-      "step-by-step-cta"
+      "regulation-config"
     ]
   },
   {
