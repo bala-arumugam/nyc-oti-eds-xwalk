@@ -1,4 +1,41 @@
-/* 
- * This CSS file is intentionally empty.
- * It exists as a placeholder for future styling needs.
- */
+.contact-info{
+  margin-top: 40px;
+}
+
+.contact-info .contact-info-container .contact-info-header{
+  margin-bottom: 24px;
+}
+
+.contact-info .contact-info-container .contact-info-content h5{
+    margin-bottom: 8px;
+}
+
+.contact-info .contact-info-container .contact-info-content h4{
+    margin-bottom: 8px;
+}
+
+.contact-info .contact-info-container .contact-info-content p{
+  line-height: 24px;
+  font-weight: var(--bold-500);
+  margin-bottom: 8px;
+}
+
+.contact-info .contact-info-container .contact-info-content p a span::after {
+    content: '';
+    background-image: url("/icons/outlink.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+    margin-left: 8px;
+    margin-top: 1px;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+  }
+.section .contact-info .contact-info-header{
+  display: none;
+}
+
+.section .contact-info:first-of-type .contact-info-header{
+  display: block;
+}

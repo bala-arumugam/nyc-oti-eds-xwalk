@@ -1,9 +1,59 @@
 import getContentFragment from '../../scripts/regulation-page-labels.js';
+import { createElement } from '../../scripts/util.js';
 
 export default function decorate(block) {
   // Clear existing content to rebuild it properly
   const originalContent = Array.from(block.children);
   block.innerHTML = '';
+
+  const v = [
+    "none",
+    "agencyName",
+    "officeDepartment",
+    "streetOne",
+    "streetTwo",
+    "city",
+    "state",
+    "zipCode",
+    "email",
+    "website",
+    "phone",
+    "keyword",
+    "instructional"
+  ];
+
+  const m = {};  
+  const list = originalContent[0].children
+  Array.from(list).forEach((row, idx) => {
+      const value = row?.textContent.trim() || '';
+      m[v[idx]] = value;
+  });
+
+  const formatPhoneNumber = (phone) => {
+    // Remove all non-numeric characters
+    const cleaned = phone.replace(/\D/g, '');
+    
+    // Check if we have a valid 10-digit number
+    if (cleaned.length === 10) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6)}`;
+    }
+    
+    // Return original if not a standard 10-digit number
+    return phone;
+  };
+
+  const template = `
+  ${m.agencyName ? '<h5>'+m.agencyName+'</h5>':""}
+  ${m.officeDepartment ? '<p>'+m.officeDepartment+'</p>':""}
+  ${'<p>' + m.streetOne } ${m.streetTwo ? ',<br/>'+m.streetTwo+'</p>':"</p>"}
+  <p>${m.city} ${m.state} ${m.zipCode}</p>
+  ${m.email? "<h6>Email:</h6><p><a href='mailto:"+m.email+"'>"+m.email+"</a></p>":""}
+  ${m.website? "<h6>Website:</h6><p><a href='"+m.website+"' target='_blank' rel='noopener noreferrer'>"+m.website+"<span class='icon icon-outlink'></span></a></p>":""}
+  ${m.phone? "<h6>Phone:</h6><p>"+formatPhoneNumber(m.phone)+"</p>":""}
+  ${m.keyword ? "<p>"+m.keyword+"</p>":""}
+  ${m.instructional ? "<p>"+m.instructional+"</p>":""}
+  `
+
 
   // Create a proper structured container for contact info
   const container = document.createElement('div');
@@ -36,6 +86,11 @@ export default function decorate(block) {
 
     container.appendChild(contentContainer);
   }
+
+  const div = createElement("div",{props:{className:"contact-info-content"}})
+  div.innerHTML = template;
+
+  container.appendChild(div)
 
   // Append the fully built container to the block
   block.appendChild(container);
