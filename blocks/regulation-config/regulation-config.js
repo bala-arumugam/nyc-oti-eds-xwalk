@@ -536,7 +536,7 @@ export default async function decorate(doc) {
     const buttonURLMeta = document.querySelector('meta[name="did-you-mean-button-url"]')?.content || '';
 
     // Split the meta values by comma to get arrays of button text and URLs
-    const buttonTexts = buttonTextMeta.split(',').map((text) => text.trim());
+    const buttonTexts = buttonTextMeta.split(',').map((buttonText) => buttonText.trim());
     const buttonURLs = buttonURLMeta.split(',').map((url) => url.trim());
 
     // Limit to maximum 5 buttons
@@ -583,7 +583,14 @@ export default async function decorate(doc) {
   // Clear any existing content from main if needed
   main.innerHTML = ''; // Uncomment if you want to clear main first
 
-  main.appendChild(pageRegulationIndexPage);
+  // Create a wrapper for mobile layout ordering
+  const mobileRegulationWrapper = createElement('div', { props: { className: 'mobile-regulation-wrapper' } });
+
+  // Add the page regulation index page to the wrapper
+  mobileRegulationWrapper.appendChild(pageRegulationIndexPage);
+
+  // Add the wrapper to the main element
+  main.appendChild(mobileRegulationWrapper);
 
   const name = main.querySelector('.menu-regulation-page')?.querySelector('li.menu-item-active')?.classList[1];
   if (name) {
@@ -593,15 +600,23 @@ export default async function decorate(doc) {
   doc.style.display = 'block';
   pageRegulationIndexPage.style.display = 'block';
 
-  // Add the "Did you mean" section in the right position
-  if (didYouMeanEnabled) {
-    // Find the section regulation-config-container and page-container regulation-page elements
+  // Function to position elements based on screen size -
+  // moved out of if statement to comply with linting rules
+  function positionDidYouMeanSection() {
+    // Only run if Did You Mean section is enabled
+    if (!didYouMeanEnabled || !didYouMeanSection) return;
+
+    // Find relevant elements
     const regulationConfigContainer = document.querySelector('.section.regulation-config-container');
     const regulationPage = document.querySelector('.page-container.regulation-page');
+    const menuRegulationPage = document.querySelector('.menu-regulation-page');
+    const isMobile = window.matchMedia('(max-width: 810px)').matches;
 
-    // Insert the section after regulation-config-container and
-    // before page-container regulation-page
-    if (regulationConfigContainer && regulationPage) {
+    // For mobile view
+    if (isMobile && menuRegulationPage) {
+      // Place it after the menu for mobile
+      menuRegulationPage.insertAdjacentElement('afterend', didYouMeanSection);
+    } else if (regulationConfigContainer && regulationPage) {
       regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
     } else if (regulationPage) {
       // If container not found, insert before regulation page
@@ -616,5 +631,14 @@ export default async function decorate(doc) {
         heroSection.insertAdjacentElement('afterend', didYouMeanSection);
       }
     }
+  }
+
+  // Add the "Did you mean" section in the right position
+  if (didYouMeanEnabled) {
+    // Initial positioning
+    positionDidYouMeanSection();
+
+    // Reposition on window resize
+    window.addEventListener('resize', positionDidYouMeanSection);
   }
 }
