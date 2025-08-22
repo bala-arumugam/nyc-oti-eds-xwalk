@@ -464,7 +464,7 @@ export default async function decorate(doc) {
   // Extract the image URL from the image element
   const imageDesktop = image.querySelector('source[type="image/webp"][media]')?.srcset;
   const imageMobile = image.querySelector('source[type="image/webp"]:not([media])')?.srcset;
-  
+
   // Create and set the h1 first to avoid CLS during rendering
   const h1 = createElement('h1', {});
 
@@ -611,25 +611,25 @@ export default async function decorate(doc) {
     const regulationPage = document.querySelector('.page-container.regulation-page');
     const menuRegulationPage = document.querySelector('.menu-regulation-page');
     const isMobile = window.matchMedia('(max-width: 810px)').matches;
-    
+
     // Add a placeholder height before repositioning to prevent layout shift
     // Check if already in DOM
     const isInDOM = didYouMeanSection.parentNode !== null;
-    
+
     if (isInDOM) {
       // Store current height before moving
       const currentHeight = didYouMeanSection.offsetHeight;
-      
+
       // Create placeholder with same dimensions to prevent layout shifts
       const placeholder = document.createElement('div');
       placeholder.style.height = `${currentHeight}px`;
       placeholder.style.width = '100%';
       placeholder.style.opacity = '0';
       placeholder.style.pointerEvents = 'none';
-      
+
       // Insert placeholder before removing element
       didYouMeanSection.parentNode.insertBefore(placeholder, didYouMeanSection);
-      
+
       // Use requestAnimationFrame for smoother transitions
       requestAnimationFrame(() => {
         // For mobile view
@@ -651,7 +651,7 @@ export default async function decorate(doc) {
             heroSection.insertAdjacentElement('afterend', didYouMeanSection);
           }
         }
-        
+
         // Remove placeholder after repositioning
         placeholder.remove();
       });

@@ -4,7 +4,7 @@ export default function decorate(block) {
   const [titleElement, descriptionElement, buttonElement, pictureElement] = block.children;
 
   const a = createElement('div', { props: { className: 'step-by-step-cta-picture' } });
-  const b = createElement('div', { props: { className: 'step-by-step-cta-content', style:"contain-intrinsic-size: 100% 468px" } });
+  const b = createElement('div', { props: { className: 'step-by-step-cta-content', style: 'contain-intrinsic-size: 100% 468px' } });
   const img = pictureElement.querySelector('img');
   if (img) {
     // Set explicit width/height attributes to reduce CLS
