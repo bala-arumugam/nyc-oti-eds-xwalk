@@ -58,6 +58,7 @@ h1.regulation-page-hero-text {
   margin: 0 auto;
   padding: 0 16px;
   background-color: var( --gray-02);
+  min-height: 113px;
 }
 
 .did-you-mean-section.page-container{
