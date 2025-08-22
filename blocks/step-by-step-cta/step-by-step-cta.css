@@ -89,20 +89,10 @@
     min-height: 468px; /* Consistent height on desktop */
   }
 
-  .step-by-step-cta .step-by-step-cta-picture {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 468px;
-
-    /* Set explicit dimensions to prevent CLS */
-    min-height: 468px;
-    height: 100%;
-    aspect-ratio: auto;
-  }
-
   .step-by-step-cta .step-by-step-cta-picture,
   .step-by-step-cta .step-by-step-cta-picture div,
   .step-by-step-cta .step-by-step-cta-picture div img {
-    height: 468px;
+    min-height: 468px;
     width: 100%;
     object-fit: cover;
   }
