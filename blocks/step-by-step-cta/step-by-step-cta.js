@@ -1,18 +1,4 @@
 import { createElement } from '../../scripts/util.js';
-import { createOptimizedPicture } from '../../scripts/aem.js';
-
-/**
- * Checks if an element is likely to be in the viewport on initial load
- * @param {HTMLElement} el - The element to check
- * @return {boolean} - True if element is likely in viewport
- */
-function isLikelyInViewport(el) {
-  const rect = el.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 1.5
-  );
-}
 
 export default function decorate(block) {
   const [titleElement, descriptionElement, buttonElement, pictureElement] = block.children;
@@ -21,29 +7,9 @@ export default function decorate(block) {
   const b = createElement('div', { props: { className: 'step-by-step-cta-content' } });
   const img = pictureElement.querySelector('img');
   if (img) {
-    // Determine if image should load eagerly based on viewport position
-    const isEager = isLikelyInViewport(pictureElement);
-    
-    // Define responsive breakpoints for better performance
-    const breakpoints = [
-      { media: '(min-width: 900px)', width: '1200' },
-      { media: '(min-width: 600px)', width: '900' },
-      { width: '600' }
-    ];
-    
-    // Create optimized picture element
-    const optimizedPicture = createOptimizedPicture(img.src, img.alt, isEager, breakpoints);
-    
-    // Apply styles to the new optimized image
-    const newImg = optimizedPicture.querySelector('img');
-    newImg.style.width = '100%';
-    newImg.style.height = '100%';
-    newImg.style.objectFit = 'cover';
-    newImg.decoding = 'async';
-    
-    // Replace original image with optimized picture
-    pictureElement.innerHTML = '';
-    pictureElement.appendChild(optimizedPicture);
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'cover';
   }
   a.appendChild(pictureElement);
 

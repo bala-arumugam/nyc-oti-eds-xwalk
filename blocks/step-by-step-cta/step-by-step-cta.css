@@ -89,12 +89,19 @@
     min-height: 468px; /* Consistent height on desktop */
   }
 
+  .step-by-step-cta .step-by-step-cta-picture {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: none;
+
+  /* Reserve space for image to avoid layout shift */
+  min-height: 468px;
+}
+
   .step-by-step-cta .step-by-step-cta-picture,
   .step-by-step-cta .step-by-step-cta-picture div,
   .step-by-step-cta .step-by-step-cta-picture div img {
     min-height: 468px;
-    width: 100%;
-    object-fit: cover;
   }
 }
 
