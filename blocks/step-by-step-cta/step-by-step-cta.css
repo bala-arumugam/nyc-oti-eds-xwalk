@@ -1,4 +1,105 @@
-/* 
- * This CSS file is intentionally empty.
- * It exists as a placeholder for future styling needs.
- */
+.step-by-step-cta {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* Define aspect ratio to maintain consistent layout */
+  min-height: 627px; /* Total height at mobile (159px image + 468px content) */
+}
+
+.step-by-step-cta .step-by-step-cta-picture {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  /* Reserve space for image to avoid layout shift */
+  min-height: 159px;
+}
+
+.step-by-step-cta .step-by-step-cta-picture,
+.step-by-step-cta .step-by-step-cta-picture div,
+.step-by-step-cta .step-by-step-cta-picture div img {
+  height: 159px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.step-by-step-cta .step-by-step-cta-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: var(--color-14);
+  padding: 64px 40px;
+  height: 468px; /* Fixed height instead of max-height */
+  min-height: 468px; /* Ensure minimum height */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 468px;
+  box-sizing: border-box; /* Include padding in height calculation */
+}
+
+.step-by-step-cta .step-by-step-cta-content>div {
+  max-width: 544px;
+  color: var(--white);
+}
+
+.step-by-step-cta .step-by-step-cta-content>div h3 {
+  line-height: 40px;
+}
+
+.step-by-step-cta .step-by-step-cta-content .description {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
+  margin-bottom: 32px;
+}
+
+.step-by-step-cta .step-by-step-cta-content .button-container a {
+  color: var(--white);
+  border: 2px solid var(--white);
+  padding: 17px 24px;
+  max-width: 200px;
+}
+
+.icon.icon-arrow-right-white {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.97 19.6912L12.378 18.0618L15.803 14.6374H3.832V12.3624H15.803L12.378 8.93794L13.97 7.30859L20.167 13.4999L13.97 19.6912Z' fill='white'/%3E%3C/svg%3E");
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+  margin-left: 4px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin-bottom: 5px;
+}
+
+/* Add CSS to prevent Cumulative Layout Shift */
+.step-by-step-cta img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (width >=810px) {
+  .step-by-step-cta {
+    grid-template-columns: 1fr 1fr;
+    height: 468px;
+    min-height: 468px; /* Consistent height on desktop */
+  }
+
+  .step-by-step-cta .step-by-step-cta-picture {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 468px;
+    /* Set explicit dimensions to prevent CLS */
+    min-height: 468px;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .step-by-step-cta .step-by-step-cta-picture,
+  .step-by-step-cta .step-by-step-cta-picture div,
+  .step-by-step-cta .step-by-step-cta-picture div img {
+    height: 468px;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
