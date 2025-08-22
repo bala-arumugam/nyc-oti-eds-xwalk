@@ -7,9 +7,15 @@ export default function decorate(block) {
   const b = createElement('div', { props: { className: 'step-by-step-cta-content' } });
   const img = pictureElement.querySelector('img');
   if (img) {
+    // Set explicit width/height attributes to reduce CLS
+    if (!img.hasAttribute('width')) img.setAttribute('width', '100%');
+    if (!img.hasAttribute('height')) img.setAttribute('height', 'auto');
+    // Set CSS properties after attributes are defined
     img.style.width = '100%';
     img.style.height = '100%';
     img.style.objectFit = 'cover';
+    // Add loading attribute if not already present
+    if (!img.hasAttribute('loading')) img.setAttribute('loading', 'eager');
   }
   a.appendChild(pictureElement);
 

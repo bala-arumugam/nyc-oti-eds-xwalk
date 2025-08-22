@@ -464,7 +464,8 @@ export default async function decorate(doc) {
   // Extract the image URL from the image element
   const imageDesktop = image.querySelector('source[type="image/webp"][media]')?.srcset;
   const imageMobile = image.querySelector('source[type="image/webp"]:not([media])')?.srcset;
-
+  
+  // Create and set the h1 first to avoid CLS during rendering
   const h1 = createElement('h1', {});
 
   // Get the page metadata for jcr:title instead of using the text from pElement
@@ -478,9 +479,27 @@ export default async function decorate(doc) {
   // Still need to handle the original text element for cleanup
   const pElement = text.firstElementChild;
   detachAndReattach(text.firstElementChild, div);
-
   pElement.remove();
 
+  // Preload hero images to reduce CLS
+  if (imageDesktop) {
+    const linkDesktop = document.createElement('link');
+    linkDesktop.rel = 'preload';
+    linkDesktop.href = imageDesktop;
+    linkDesktop.as = 'image';
+    linkDesktop.media = '(min-width: 810px)';
+    document.head.appendChild(linkDesktop);
+  }
+  
+  if (imageMobile) {
+    const linkMobile = document.createElement('link');
+    linkMobile.rel = 'preload';
+    linkMobile.href = imageMobile;
+    linkMobile.as = 'image';
+    linkMobile.media = '(max-width: 809px)';
+    document.head.appendChild(linkMobile);
+  }
+  
   // Apply the image as a background to the hero div
   div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
   div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
@@ -611,24 +630,70 @@ export default async function decorate(doc) {
     const regulationPage = document.querySelector('.page-container.regulation-page');
     const menuRegulationPage = document.querySelector('.menu-regulation-page');
     const isMobile = window.matchMedia('(max-width: 810px)').matches;
-
-    // For mobile view
-    if (isMobile && menuRegulationPage) {
-      // Place it after the menu for mobile
-      menuRegulationPage.insertAdjacentElement('afterend', didYouMeanSection);
-    } else if (regulationConfigContainer && regulationPage) {
-      regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
-    } else if (regulationPage) {
-      // If container not found, insert before regulation page
-      regulationPage.insertAdjacentElement('beforebegin', didYouMeanSection);
-    } else if (regulationConfigContainer) {
-      // If regulation page not found, insert after container
-      regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
+    
+    // Add a placeholder height before repositioning to prevent layout shift
+    // Check if already in DOM
+    const isInDOM = didYouMeanSection.parentNode !== null;
+    
+    if (isInDOM) {
+      // Store current height before moving
+      const currentHeight = didYouMeanSection.offsetHeight;
+      
+      // Create placeholder with same dimensions to prevent layout shifts
+      const placeholder = document.createElement('div');
+      placeholder.style.height = `${currentHeight}px`;
+      placeholder.style.width = '100%';
+      placeholder.style.opacity = '0';
+      placeholder.style.pointerEvents = 'none';
+      
+      // Insert placeholder before removing element
+      didYouMeanSection.parentNode.insertBefore(placeholder, didYouMeanSection);
+      
+      // Use requestAnimationFrame for smoother transitions
+      requestAnimationFrame(() => {
+        // For mobile view
+        if (isMobile && menuRegulationPage) {
+          // Place it after the menu for mobile
+          menuRegulationPage.insertAdjacentElement('afterend', didYouMeanSection);
+        } else if (regulationConfigContainer && regulationPage) {
+          regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
+        } else if (regulationPage) {
+          // If container not found, insert before regulation page
+          regulationPage.insertAdjacentElement('beforebegin', didYouMeanSection);
+        } else if (regulationConfigContainer) {
+          // If regulation page not found, insert after container
+          regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
+        } else {
+          // Fallback: insert after the hero element
+          const heroSection = document.querySelector('.regulation-page-hero');
+          if (heroSection) {
+            heroSection.insertAdjacentElement('afterend', didYouMeanSection);
+          }
+        }
+        
+        // Remove placeholder after repositioning
+        placeholder.remove();
+      });
     } else {
-      // Fallback: insert after the hero element
-      const heroSection = document.querySelector('.regulation-page-hero');
-      if (heroSection) {
-        heroSection.insertAdjacentElement('afterend', didYouMeanSection);
+      // If not in DOM yet, simply position it
+      // For mobile view
+      if (isMobile && menuRegulationPage) {
+        // Place it after the menu for mobile
+        menuRegulationPage.insertAdjacentElement('afterend', didYouMeanSection);
+      } else if (regulationConfigContainer && regulationPage) {
+        regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
+      } else if (regulationPage) {
+        // If container not found, insert before regulation page
+        regulationPage.insertAdjacentElement('beforebegin', didYouMeanSection);
+      } else if (regulationConfigContainer) {
+        // If regulation page not found, insert after container
+        regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
+      } else {
+        // Fallback: insert after the hero element
+        const heroSection = document.querySelector('.regulation-page-hero');
+        if (heroSection) {
+          heroSection.insertAdjacentElement('afterend', didYouMeanSection);
+        }
       }
     }
   }

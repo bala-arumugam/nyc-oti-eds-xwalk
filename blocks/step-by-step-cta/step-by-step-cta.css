@@ -1,26 +1,39 @@
 .step-by-step-cta {
   display: grid;
   grid-template-columns: 1fr;
-
-  /* Define aspect ratio to maintain consistent layout */
-  min-height: 627px; /* Total height at mobile (159px image + 468px content) */
+  
+  /* Define fixed height to maintain consistent layout and prevent CLS */
+  height: 627px; /* Total height at mobile (159px image + 468px content) */
+  min-height: 627px;
+  contain: layout size;
 }
 
 .step-by-step-cta .step-by-step-cta-picture {
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-
-  /* Reserve space for image to avoid layout shift */
-  min-height: 159px;
+  
+  /* Use fixed height instead of min-height for more reliable CLS prevention */
+  height: 159px;
+  contain: layout size paint;
+  
+  /* Add placeholder background color while image loads */
+  background-color: #f0f0f0;
 }
 
 /* Add CSS to prevent Cumulative Layout Shift */
 .step-by-step-cta img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
+  aspect-ratio: 16/9;
+  
+  /* Reserve space even before image loads */
+  min-height: 100%;
+  
+  /* Ensure smooth transitions for better UX */
+  transition: opacity 0.2s ease;
 }
 
 
