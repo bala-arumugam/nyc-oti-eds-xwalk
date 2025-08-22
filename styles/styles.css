@@ -231,9 +231,6 @@ main .section.highlight {
   padding: 24px 16px;
   margin-left: auto;
   margin-right: auto;
-  contain: layout style;
-  content-visibility: auto;
-  contain-intrinsic-size: 0 auto;
 }
 
 .shade-background {
@@ -280,7 +277,5 @@ main .section.highlight {
     max-width: var(--max-with);
     width: var(--width);
     padding-bottom: 60px;
-    contain: layout style;
-    content-visibility: auto;
   }
 }
