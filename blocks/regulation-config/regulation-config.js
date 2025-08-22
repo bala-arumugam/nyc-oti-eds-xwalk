@@ -481,28 +481,9 @@ export default async function decorate(doc) {
   detachAndReattach(text.firstElementChild, div);
   pElement.remove();
 
-  // Preload hero images to reduce CLS
-  if (imageDesktop) {
-    const linkDesktop = document.createElement('link');
-    linkDesktop.rel = 'preload';
-    linkDesktop.href = imageDesktop;
-    linkDesktop.as = 'image';
-    linkDesktop.media = '(min-width: 810px)';
-    document.head.appendChild(linkDesktop);
-  }
-  
-  if (imageMobile) {
-    const linkMobile = document.createElement('link');
-    linkMobile.rel = 'preload';
-    linkMobile.href = imageMobile;
-    linkMobile.as = 'image';
-    linkMobile.media = '(max-width: 809px)';
-    document.head.appendChild(linkMobile);
-  }
-  
   // Apply the image as a background to the hero div
-  div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
-  div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
+  div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop.replace("png","webp")})`);
+  div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile.replace("png","webp")}})`);
 
   // Check if "Did you Mean section" is enabled from the page metadata
   const didYouMeanEnabled = document.querySelector('meta[name="button-display"]')?.content === 'true';

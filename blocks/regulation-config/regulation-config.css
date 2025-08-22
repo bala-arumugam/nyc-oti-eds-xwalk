@@ -31,7 +31,17 @@
   min-height: 182px;
   
   /* Use placeholder color while background image loads */
-  background: var(--blue-filter), var(--regulation-hero-image-mobile, none), #d3d3d3;
+  background-color: #d3d3d3; /* Immediate color display during load */
+  background-image: 
+    var(--blue-filter), 
+    var(--regulation-hero-image-mobile, none);
+  /* Use separate properties for better progressive rendering */
+  /* Added default background color for instant display */
+
+      /* Add content-visibility to defer off-screen rendering */
+    content-visibility: auto;
+    /* Add image loading hint */
+    will-change: background-image;
   
   background-size: cover;
   background-position: center;
@@ -60,11 +70,19 @@ h1.regulation-page-hero-text {
     font-weight: 700;
     font-size: 48px;
     line-height: 62px;
+    /* Prevent text layout shift during font loading */
+    font-display: swap;
   }
 
   .regulation-page-hero {
-    background: var(--blue-filter), var(--regulation-hero-image-desktop), #d3d3d3;
-    background-position: center center;
+    /* Simplified background declaration with fallback color first */
+    background-color: #d3d3d3; /* Immediate display while image loads */
+    background-image: var(--blue-filter), var(--regulation-hero-image-desktop);
+    background-position: center;
+    /* Add content-visibility to defer off-screen rendering */
+    content-visibility: auto;
+    /* Add image loading hint */
+    will-change: background-image;
   }
 }
 
@@ -85,8 +103,6 @@ h1.regulation-page-hero-text {
 
 .did-you-mean-section.page-container{
   width: auto;
-  
-  /* Avoid shifts during rendering */
   contain: layout style;
 }
 
@@ -175,6 +191,7 @@ h1.regulation-page-hero-text {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
+    contain: layout style;
 }
 
 @media (width >=810px) {
