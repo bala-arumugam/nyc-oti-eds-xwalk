@@ -603,7 +603,7 @@ export default async function decorate(doc) {
   main.innerHTML = ''; // Uncomment if you want to clear main first
 
   // Create a wrapper for mobile layout ordering
-  const mobileRegulationWrapper = createElement('div', { props: { className: 'mobile-regulation-wrapper' } });
+  const mobileRegulationWrapper = createElement('div');
 
   // Add the page regulation index page to the wrapper
   mobileRegulationWrapper.appendChild(pageRegulationIndexPage);
