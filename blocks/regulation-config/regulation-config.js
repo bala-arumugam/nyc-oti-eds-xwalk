@@ -482,8 +482,8 @@ export default async function decorate(doc) {
   pElement.remove();
 
   // Apply the image as a background to the hero div
-  div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop.replace("png","webp")})`);
-  div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile.replace("png","webp")}})`);
+  div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
+  div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile}})`);
 
   // Check if "Did you Mean section" is enabled from the page metadata
   const didYouMeanEnabled = document.querySelector('meta[name="button-display"]')?.content === 'true';
