@@ -1,6 +1,7 @@
 .step-by-step-cta {
   display: grid;
   grid-template-columns: 1fr;
+
   /* Define aspect ratio to maintain consistent layout */
   min-height: 627px; /* Total height at mobile (159px image + 468px content) */
 }
@@ -9,9 +10,19 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 9;
+
   /* Reserve space for image to avoid layout shift */
   min-height: 159px;
 }
+
+/* Add CSS to prevent Cumulative Layout Shift */
+.step-by-step-cta img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
 
 .step-by-step-cta .step-by-step-cta-picture,
 .step-by-step-cta .step-by-step-cta-picture div,
@@ -70,13 +81,6 @@
   margin-bottom: 5px;
 }
 
-/* Add CSS to prevent Cumulative Layout Shift */
-.step-by-step-cta img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
 
 @media (width >=810px) {
   .step-by-step-cta {
@@ -88,6 +92,7 @@
   .step-by-step-cta .step-by-step-cta-picture {
     content-visibility: auto;
     contain-intrinsic-size: auto 468px;
+
     /* Set explicit dimensions to prevent CLS */
     min-height: 468px;
     height: 100%;
