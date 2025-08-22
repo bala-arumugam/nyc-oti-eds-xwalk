@@ -92,7 +92,7 @@
   .step-by-step-cta .step-by-step-cta-picture {
   position: relative;
   overflow: hidden;
-  aspect-ratio: none;
+  aspect-ratio: auto;
 
   /* Reserve space for image to avoid layout shift */
   min-height: 468px;
