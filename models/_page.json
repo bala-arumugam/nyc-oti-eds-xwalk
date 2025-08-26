@@ -4,6 +4,14 @@
       "id": "page-metadata",
       "fields": [
         {
+          "component": "boolean",
+          "valueType": "boolean",
+          "name": "isVisible",
+          "label": "Is Visible",
+          "description": "Check on when page will be visible",
+          "defaultValue": true
+        },
+        {
           "component": "text",
           "valueType": "string",
           "name": "page-property-name",
