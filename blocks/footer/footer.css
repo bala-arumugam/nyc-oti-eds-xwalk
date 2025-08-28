@@ -109,7 +109,7 @@ footer .footer-disclaimer-section summary::after {
 }
 
 footer .footer-disclaimer-section details[open] summary::after {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 footer .footer-disclaimer-section summary h6 {
