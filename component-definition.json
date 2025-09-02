@@ -93,7 +93,8 @@
                 "template": {
                   "name": "Additional Resources",
                   "model": "additional-resources",
-                  "title": "Additional Resources"
+                  "title": "Additional Resources",
+                  "title_titleType": "h3"
                 }
               }
             }
