@@ -128,3 +128,33 @@ export function shadeBackground() {
     destroy,
   };
 }
+
+
+  export function getKeyValueData(block, format={}){
+  const data = [...block.children];
+  const r = {}
+
+  data.forEach(function(ele){
+    const [keyContent, valueContent] = [...ele.children];
+    const key = keyContent.textContent.trim();
+
+    const f= format[key] || 'default';
+
+    // if(key in keys){
+        switch (f) {
+          case 'html':
+            r[key] = valueContent.children
+            break;
+          default:
+           r[key] = valueContent.textContent.trim();
+            break;
+        }
+    // }
+    
+    
+  });
+
+
+
+  return r;
+}
