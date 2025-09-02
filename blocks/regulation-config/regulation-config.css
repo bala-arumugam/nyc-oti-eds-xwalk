@@ -35,14 +35,16 @@
   background-image: 
     var(--blue-filter), 
     var(--regulation-hero-image-mobile, none);
+
   /* Use separate properties for better progressive rendering */
+
   /* Added default background color for instant display */
 
       /* Add content-visibility to defer off-screen rendering */
     content-visibility: auto;
+
     /* Add image loading hint */
     will-change: background-image;
-  
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -53,7 +55,7 @@
   contain: layout size;
   
   /* Avoid shifts during text rendering */
-  text-rendering: optimizeSpeed;
+  text-rendering: optimizespeed;
 }
 
 h1.regulation-page-hero-text {
@@ -70,6 +72,7 @@ h1.regulation-page-hero-text {
     font-weight: 700;
     font-size: 48px;
     line-height: 62px;
+
     /* Prevent text layout shift during font loading */
     font-display: swap;
   }
@@ -79,8 +82,10 @@ h1.regulation-page-hero-text {
     background-color: #d3d3d3; /* Immediate display while image loads */
     background-image: var(--blue-filter), var(--regulation-hero-image-desktop);
     background-position: center;
+
     /* Add content-visibility to defer off-screen rendering */
     content-visibility: auto;
+
     /* Add image loading hint */
     will-change: background-image;
   }
@@ -392,7 +397,6 @@ h1.regulation-page-hero-text {
               padding 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
               opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
               border-top 0s ease 0.3s;
-  
   overflow: hidden;
   border-radius: 0 0 4px 4px;
   animation: accordion-close 0.3s ease forwards;

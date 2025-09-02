@@ -4,6 +4,7 @@
 
   /* Define fixed height to maintain consistent layout and prevent CLS */
   height: 627px;
+
   /* Total height at mobile (159px image + 468px content) */
   min-height: 627px;
   contain: layout size;
@@ -16,6 +17,7 @@
 
   /* Reserve space for image to avoid layout shift */
   min-height: 159px;
+
   /* Add explicit width to better reserve space */
   width: 100%;
 }
@@ -26,6 +28,7 @@
   width: 100%;
   height: 100%; /* Change from auto to 100% */
   object-fit: cover;
+
   /* Add loading attribute in HTML: loading="lazy" */
 }
 
@@ -94,6 +97,7 @@
   .step-by-step-cta {
     grid-template-columns: 1fr 1fr;
     min-height: 468px;
+
     /* Consistent height on desktop */
   }
 
@@ -110,6 +114,7 @@
   .step-by-step-cta .step-by-step-cta-picture div,
   .step-by-step-cta .step-by-step-cta-picture div img {
     height: 100%;
+
     /* Change from fixed height to 100% */
     min-height: 468px;
     width: 100%;

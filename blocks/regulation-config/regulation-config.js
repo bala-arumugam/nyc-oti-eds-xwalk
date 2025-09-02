@@ -655,26 +655,24 @@ export default async function decorate(doc) {
         // Remove placeholder after repositioning
         placeholder.remove();
       });
-    } else {
+    } else if (isMobile && menuRegulationPage) {
       // If not in DOM yet, simply position it
       // For mobile view
-      if (isMobile && menuRegulationPage) {
-        // Place it after the menu for mobile
-        menuRegulationPage.insertAdjacentElement('afterend', didYouMeanSection);
-      } else if (regulationConfigContainer && regulationPage) {
-        regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
-      } else if (regulationPage) {
-        // If container not found, insert before regulation page
-        regulationPage.insertAdjacentElement('beforebegin', didYouMeanSection);
-      } else if (regulationConfigContainer) {
-        // If regulation page not found, insert after container
-        regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
-      } else {
-        // Fallback: insert after the hero element
-        const heroSection = document.querySelector('.regulation-page-hero');
-        if (heroSection) {
-          heroSection.insertAdjacentElement('afterend', didYouMeanSection);
-        }
+      // Place it after the menu for mobile
+      menuRegulationPage.insertAdjacentElement('afterend', didYouMeanSection);
+    } else if (regulationConfigContainer && regulationPage) {
+      regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
+    } else if (regulationPage) {
+      // If container not found, insert before regulation page
+      regulationPage.insertAdjacentElement('beforebegin', didYouMeanSection);
+    } else if (regulationConfigContainer) {
+      // If regulation page not found, insert after container
+      regulationConfigContainer.insertAdjacentElement('afterend', didYouMeanSection);
+    } else {
+      // Fallback: insert after the hero element
+      const heroSection = document.querySelector('.regulation-page-hero');
+      if (heroSection) {
+        heroSection.insertAdjacentElement('afterend', didYouMeanSection);
       }
     }
   }
