@@ -111,6 +111,10 @@ async function loadEager(doc) {
   } catch (e) {
     // do nothing
   }
+  // Load footer last for better user experience
+  // Added here since footer data is coming from
+  // an experience fragment
+  loadFooter(doc.querySelector('footer'));
 }
 
 /**
@@ -128,7 +132,7 @@ async function loadLazy(doc) {
   // Old location of when header is supposed to be initiaded
   // moved to line 96
   // loadHeader(doc.querySelector('header'));
-  loadFooter(doc.querySelector('footer'));
+  // loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
