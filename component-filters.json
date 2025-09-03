@@ -20,7 +20,8 @@
       "cards",
       "columns",
       "fragment",
-      "step-by-step-cta"
+      "step-by-step-cta",
+      "did-you-mean"
     ]
   },
   {
@@ -88,6 +89,12 @@
     "components": [
       "contact-info-item",
       "cta-button-banner-item"
+    ]
+  },
+  {
+    "id": "did-you-mean",
+    "components": [
+      "button"
     ]
   }
 ]
