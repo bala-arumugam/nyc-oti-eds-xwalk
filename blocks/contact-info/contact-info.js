@@ -18,12 +18,13 @@ export default function decorate(block) {
     'email',
     'website',
     'phone',
+    'fax',
     'keyword',
     'instructional',
   ];
 
   const m = {};
-  const list = originalContent.length  == 1 ? originalContent[0].children : [...originalContent];
+  const list = originalContent.length === 1 ? originalContent[0].children : [...originalContent];
   Array.from(list).forEach((row, idx) => {
     const value = row?.textContent.trim() || '';
     m[v[idx]] = value;
@@ -50,6 +51,7 @@ export default function decorate(block) {
     ${m.email ? `<h6>Email:</h6><p><a href='mailto:${m.email}'>${m.email}</a></p>` : ''}
     ${m.website ? `<h6>Website:</h6><p><a href='${m.website}' target='_blank' rel='noopener noreferrer'>${m.website}<span class='icon icon-outlink'></span></a></p>` : ''}
     ${m.phone ? `<h6>Phone:</h6><p>${formatPhoneNumber(m.phone)}</p>` : ''}
+    ${m.fax ? `<h6>Fax:</h6><p>${formatPhoneNumber(m.fax)}</p>` : ''}
     ${m.keyword ? `<p class="italic">For further assistance, please call 311 and ask for: ${m.keyword}</p>` : ''}
     ${m.instructional ? `<p class="italic">${m.instructional}</p>` : ''}
   `;
@@ -58,7 +60,7 @@ export default function decorate(block) {
   const container = document.createElement('div');
   container.className = 'contact-info-container';
 
-  if(originalContent.length > 1){
+  if (originalContent.length > 1) {
     // Create the header with translated text
     const header = document.createElement('h3');
     header.className = 'contact-info-header';

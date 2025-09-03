@@ -827,6 +827,14 @@
       },
       {
         "component": "text",
+        "name": "fax",
+        "value": "",
+        "label": "Fax",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
         "name": "keyword",
         "value": "",
         "label": "311 Keyword",
@@ -894,21 +902,6 @@
   {
     "id": "did-you-mean",
     "fields": []
-  },
-  {
-    "id": "did-you-mean-item",
-    "fields": [
-      {
-        "component": "aem-content",
-        "name": "link",
-        "label": "Link"
-      },
-      {
-        "component": "text",
-        "name": "linkText",
-        "label": "Text"
-      }
-    ]
   },
   {
     "id": "fragment",
