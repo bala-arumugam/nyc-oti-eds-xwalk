@@ -89,5 +89,11 @@
       "contact-info-item",
       "cta-button-banner-item"
     ]
+  },
+  {
+    "id": "did-you-mean",
+    "components": [
+      "button"
+    ]
   }
 ]
