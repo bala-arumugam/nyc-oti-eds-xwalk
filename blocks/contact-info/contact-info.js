@@ -60,15 +60,12 @@ export default function decorate(block) {
   const container = document.createElement('div');
   container.className = 'contact-info-container';
 
+
   if (originalContent.length > 1) {
-    // Create the header with translated text
     const header = document.createElement('h3');
     header.className = 'contact-info-header';
     header.textContent = getContentFragment.getLabel('contactInfo');
     container.appendChild(header);
-  }
-  // Process the content div if it exists (second div in the original block)
-  if (originalContent.length > 1) {
     const contentDiv = originalContent[1];
 
     // Create content container
