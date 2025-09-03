@@ -39,7 +39,7 @@
         "options": [
           {
             "name": "New York City",
-            "value": "NewYorkCity"
+            "value": "City"
           },
           {
             "name": "County",
@@ -47,7 +47,7 @@
           },
           {
             "name": "New York State",
-            "value": "NewYorkState"
+            "value": "State"
           },
           {
             "name": "Federal (U.S.)",
@@ -66,56 +66,344 @@
         "required": true,
         "options": [
           {
-            "name": "Alcohol and Tobacco Tax and Trade Bureau",
-            "value": "alcohol-and-tobacco-tax-and-trade-bureau"
+            "name": "Administrative and Support Services",
+            "value": "Administrative and Support Services"
           },
           {
-            "name": "Alcohol, Tobacco and Firearms, Bureau of",
-            "value": "alcohol-tobacco-and-firearms-bureau-of"
+            "name": "Administrative Trials and Hearing, Office Of",
+            "value": "Administrative Trials and Hearing, Office Of"
           },
           {
-            "name": "Equal Employment Opportunity Commission",
-            "value": "equal-employment-opportunity-commission"
-          },
-          {
-            "name": "Housing and Urban Development, Department of",
-            "value": "housing-and-urban-development-department-of"
-          },
-          {
-            "name": "Internal Revenue Service",
-            "value": "internal-revenue-service"
-          },
-          {
-            "name": "Labor, Department of",
-            "value": "labor-department-of"
-          },
-          {
-            "name": "Small Business Administration",
-            "value": "small-business-administration"
-          },
-          {
-            "name": "Treasury, Department of",
-            "value": "treasury-department-of"
-          },
-          {
-            "name": "Drug Enforcement Administration",
-            "value": "drug-enforcement-administration"
-          },
-          {
-            "name": "Transportation, U.S. Department of",
-            "value": "transportation-us-department-of"
+            "name": "Agriculture and Markets, Department of",
+            "value": "Agriculture and Markets, Department of"
           },
           {
             "name": "Agriculture, U.S. Department of",
-            "value": "agriculture-us-department-of"
+            "value": "Agriculture, U.S. Department of"
+          },
+          {
+            "name": "Alcohol and Tobacco Tax and Trade Bureau",
+            "value": "Alcohol and Tobacco Tax and Trade Bureau"
+          },
+          {
+            "name": "Alcohol, Tobacco and Firearms, Bureau of",
+            "value": "Alcohol, Tobacco and Firearms, Bureau of"
           },
           {
             "name": "Army Corps of Engineers",
-            "value": "army-corps-of-engineers"
+            "value": "Army Corps of Engineers"
+          },
+          {
+            "name": "Art Commission, New York City's",
+            "value": "Art Commission, New York City's"
+          },
+          {
+            "name": "Banking Department",
+            "value": "Banking Department"
+          },
+          {
+            "name": "Bar Association, New York State",
+            "value": "Bar Association, New York State"
+          },
+          {
+            "name": "Board of Standards and Appeals",
+            "value": "Board of Standards and Appeals"
+          },
+          {
+            "name": "Bronx Overall Economic Development Corporation",
+            "value": "Bronx Overall Economic Development Corporation"
+          },
+          {
+            "name": "Buildings, Department of",
+            "value": "Buildings, Department of"
+          },
+          {
+            "name": "Business Integrity Commission",
+            "value": "Business Integrity Commission"
+          },
+          {
+            "name": "Chief Medical Examiner",
+            "value": "Chief Medical Examiner"
+          },
+          {
+            "name": "Children and Family Services, Office of",
+            "value": "Children and Family Services, Office of"
+          },
+          {
+            "name": "City Clerk, Office of the",
+            "value": "City Clerk, Office of the"
+          },
+          {
+            "name": "City Planning, Department of",
+            "value": "City Planning, Department of"
+          },
+          {
+            "name": "Citywide Event Coordination and Management, Mayor's Office of",
+            "value": "Citywide Event Coordination and Management, Mayor's Office of"
+          },
+          {
+            "name": "Climate and Sustainability, Mayor's Office of",
+            "value": "Climate and Sustainability, Mayor's Office of"
+          },
+          {
+            "name": "Community Assistance Unit, Mayor's",
+            "value": "Community Assistance Unit, Mayor's"
+          },
+          {
+            "name": "Con Edison",
+            "value": "Con Edison"
+          },
+          {
+            "name": "Consumer and Worker Protection, Department of",
+            "value": "Consumer and Worker Protection, Department of"
+          },
+          {
+            "name": "County Clerk's Office",
+            "value": "County Clerk's Office"
+          },
+          {
+            "name": "Drug Enforcement Administration",
+            "value": "Drug Enforcement Administration"
+          },
+          {
+            "name": "Economic Development Corporation",
+            "value": "Economic Development Corporation"
+          },
+          {
+            "name": "Education, Department of",
+            "value": "Education, Department of"
+          },
+          {
+            "name": "Empire State Development",
+            "value": "Empire State Development"
+          },
+          {
+            "name": "Energy Research and Development Authority",
+            "value": "Energy Research and Development Authority"
+          },
+          {
+            "name": "Environmental Conservation, Department of",
+            "value": "Environmental Conservation, Department of"
+          },
+          {
+            "name": "Environmental Control Board",
+            "value": "Environmental Control Board"
+          },
+          {
+            "name": "Environmental Protection, Department of",
+            "value": "Environmental Protection, Department of"
+          },
+          {
+            "name": "Environmental Remediation, Mayor's Office Of",
+            "value": "Environmental Remediation, Mayor's Office Of"
+          },
+          {
+            "name": "Equal Employment Opportunity Commission",
+            "value": "Equal Employment Opportunity Commission"
+          },
+          {
+            "name": "Film Office, New York State",
+            "value": "Film Office, New York State"
+          },
+          {
+            "name": "Film, Theatre & Broadcasting, Office of",
+            "value": "Film, Theatre & Broadcasting, Office of"
+          },
+          {
+            "name": "Finance, Department of",
+            "value": "Finance, Department of"
+          },
+          {
+            "name": "Financial Services, Department Of",
+            "value": "Financial Services, Department Of"
+          },
+          {
+            "name": "Fire Department",
+            "value": "Fire Department"
+          },
+          {
+            "name": "Food & Drug Administration",
+            "value": "Food & Drug Administration"
+          },
+          {
+            "name": "Health and Mental Hygiene, Department of",
+            "value": "Health and Mental Hygiene, Department of"
+          },
+          {
+            "name": "Health, Department of",
+            "value": "Health, Department of"
+          },
+          {
+            "name": "Housing and Urban Development, Department of",
+            "value": "Housing and Urban Development, Department of"
+          },
+          {
+            "name": "Housing Preservation Development",
+            "value": "Housing Preservation Development"
+          },
+          {
+            "name": "Human Resources Administration",
+            "value": "Human Resources Administration"
+          },
+          {
+            "name": "Industrial and Manufacturing Businesses, Mayor's Office for",
+            "value": "Industrial and Manufacturing Businesses, Mayor's Office for"
+          },
+          {
+            "name": "Insurance Department",
+            "value": "Insurance Department"
+          },
+          {
+            "name": "Internal Revenue Service",
+            "value": "Internal Revenue Service"
           },
           {
             "name": "Justice, U.S. Department of",
-            "value": "justice-us-department-of"
+            "value": "Justice, U.S. Department of"
+          },
+          {
+            "name": "Labor, Department of",
+            "value": "Labor, Department of"
+          },
+          {
+            "name": "Labor, U.S. Department of",
+            "value": "Labor, U.S. Department of"
+          },
+          {
+            "name": "Landmark Preservation Commission",
+            "value": "Landmark Preservation Commission"
+          },
+          {
+            "name": "Law, Department of",
+            "value": "Law, Department of"
+          },
+          {
+            "name": "Liquor Authority",
+            "value": "Liquor Authority"
+          },
+          {
+            "name": "Lottery, Division of",
+            "value": "Lottery, Division of"
+          },
+          {
+            "name": "Media and Entertainment, Mayor's Office of",
+            "value": "Media and Entertainment, Mayor's Office of"
+          },
+          {
+            "name": "Motor Vehicles, Department of",
+            "value": "Motor Vehicles, Department of"
+          },
+          {
+            "name": "National Grid",
+            "value": "National Grid"
+          },
+          {
+            "name": "New Business Acceleration Team",
+            "value": "New Business Acceleration Team"
+          },
+          {
+            "name": "New York City Housing Authority",
+            "value": "New York City Housing Authority"
+          },
+          {
+            "name": "New York City Industrial Development Agency",
+            "value": "New York City Industrial Development Agency"
+          },
+          {
+            "name": "New York Empowerment Zone, Mayor's Office of the",
+            "value": "New York Empowerment Zone, Mayor's Office of the"
+          },
+          {
+            "name": "New York State Restaurant Association",
+            "value": "New York State Restaurant Association"
+          },
+          {
+            "name": "NYC Business Express",
+            "value": "NYC Business Express"
+          },
+          {
+            "name": "Parks and Recreation, Department of",
+            "value": "Parks and Recreation, Department of"
+          },
+          {
+            "name": "People with Disabilities, Mayor's Office for",
+            "value": "People with Disabilities, Mayor's Office for"
+          },
+          {
+            "name": "Police Department, New York",
+            "value": "Police Department, New York"
+          },
+          {
+            "name": "Racing and Wagering Board, New York State",
+            "value": "Racing and Wagering Board, New York State"
+          },
+          {
+            "name": "Sanitation, Department of",
+            "value": "Sanitation, Department of"
+          },
+          {
+            "name": "Small Business Administration",
+            "value": "Small Business Administration"
+          },
+          {
+            "name": "Small Business Services, Department of",
+            "value": "Small Business Services, Department of"
+          },
+          {
+            "name": "State Comptroller, New York State Office of",
+            "value": "State Comptroller, New York State Office of"
+          },
+          {
+            "name": "State, Department of",
+            "value": "State, Department of"
+          },
+          {
+            "name": "Tax Appeals Tribunal",
+            "value": "Tax Appeals Tribunal"
+          },
+          {
+            "name": "Tax Commission",
+            "value": "Tax Commission"
+          },
+          {
+            "name": "Taxation and Finance, Department of",
+            "value": "Taxation and Finance, Department of"
+          },
+          {
+            "name": "Taxi and Limousine Commission",
+            "value": "Taxi and Limousine Commission"
+          },
+          {
+            "name": "Temporary and Disability Assistance, Office of",
+            "value": "Temporary and Disability Assistance, Office of"
+          },
+          {
+            "name": "Thruway Authority",
+            "value": "Thruway Authority"
+          },
+          {
+            "name": "Transportation, Department of",
+            "value": "Transportation, Department of"
+          },
+          {
+            "name": "Transportation, U.S. Department of",
+            "value": "Transportation, U.S. Department of"
+          },
+          {
+            "name": "Treasury, Department of",
+            "value": "Treasury, Department of"
+          },
+          {
+            "name": "Upper Manhattan Empowerment Zone",
+            "value": "Upper Manhattan Empowerment Zone"
+          },
+          {
+            "name": "Various Agencies / Organizations",
+            "value": "Various Agencies / Organizations"
+          },
+          {
+            "name": "Workers' Compensation Board",
+            "value": "Workers' Compensation Board"
           }
         ]
       },
@@ -126,92 +414,140 @@
         "required": true,
         "options": [
           {
+            "name": "A test1",
+            "value": "A test1"
+          },
+          {
             "name": "Accommodations",
-            "value": "accommodations"
+            "value": "Accommodations"
           },
           {
             "name": "Administrative and Support Services",
-            "value": "administrative-and-support-services"
+            "value": "Administrative and Support Services"
           },
           {
             "name": "Arts, Entertainment, and Recreation",
-            "value": "arts-entertainment-and-recreation"
+            "value": "Arts, Entertainment, and Recreation"
           },
           {
-            "name": "Christmas Lantern Making",
-            "value": "christmas-lantern-making"
+            "name": "BD Test 1",
+            "value": "BD Test 1"
+          },
+          {
+            "name": "BD Test 2",
+            "value": "BD Test 2"
+          },
+          {
+            "name": "BD Test 3",
+            "value": "BD Test 3"
+          },
+          {
+            "name": "chris update",
+            "value": "chris update"
+          },
+          {
+            "name": "chris update fix #1",
+            "value": "chris update fix #1"
+          },
+          {
+            "name": "chris update fix #2",
+            "value": "chris update fix #2"
           },
           {
             "name": "Construction",
-            "value": "construction"
+            "value": "Construction"
           },
           {
             "name": "Educational Services",
-            "value": "educational-services"
+            "value": "Educational Services"
           },
           {
             "name": "Finance and Insurance",
-            "value": "finance-and-insurance"
+            "value": "Finance and Insurance"
           },
           {
             "name": "Food and Beverage Services",
-            "value": "food-and-beverage-services"
+            "value": "Food and Beverage Services"
           },
           {
             "name": "Health Care",
-            "value": "health-care"
+            "value": "Health Care"
+          },
+          {
+            "name": "Industry Test Larisa 1",
+            "value": "Industry Test Larisa 1"
+          },
+          {
+            "name": "Industry Test Larisa 2",
+            "value": "Industry Test Larisa 2"
+          },
+          {
+            "name": "Industry Test Larisa 3",
+            "value": "Industry Test Larisa 3"
+          },
+          {
+            "name": "Industry Test Larisa 4",
+            "value": "Industry Test Larisa 4"
+          },
+          {
+            "name": "Industry Test Larisa 5",
+            "value": "Industry Test Larisa 5"
           },
           {
             "name": "Information",
-            "value": "information"
+            "value": "Information"
           },
           {
             "name": "Management of Companies and Enterprises",
-            "value": "management-of-companies-and-enterprises"
+            "value": "Management of Companies and Enterprises"
           },
           {
             "name": "Manufacturing",
-            "value": "manufacturing"
+            "value": "Manufacturing"
           },
           {
             "name": "Real Estate",
-            "value": "real-estate"
+            "value": "Real Estate"
           },
           {
             "name": "Rental and Leasing",
-            "value": "rental-and-leasing"
+            "value": "Rental and Leasing"
           },
           {
             "name": "Retail",
-            "value": "retail"
+            "value": "Retail"
           },
           {
             "name": "Services",
-            "value": "services"
+            "value": "Services"
+          },
+          {
+            "name": "Services and Social Assistance",
+            "value": "Services and Social Assistance"
           },
           {
             "name": "Social Assistance",
-            "value": "social-assistance"
+            "value": "Social Assistance"
           },
           {
             "name": "Transportation",
-            "value": "transportation"
+            "value": "Transportation"
           },
           {
             "name": "Unassigned",
-            "value": "unassigned"
+            "value": "Unassigned"
           },
           {
             "name": "Warehousing",
-            "value": "warehousing"
+            "value": "Warehousing"
           },
           {
             "name": "Waste Management and Remediation",
-            "value": "waste-mnagement-and-remediation"
+            "value": "Waste Management and Remediation"
           },
           {
             "name": "Wholesale Trade",
-            "value": "wholesale-trade"
+            "value": "Wholesale Trade"
           }
         ]
       },
@@ -222,68 +558,180 @@
         "required": true,
         "options": [
           {
+            "name": "Alcoholic Beverages",
+            "value": "Alcoholic Beverages"
+          },
+          {
+            "name": "Animals",
+            "value": "Animals"
+          },
+          {
+            "name": "Banking",
+            "value": "Banking"
+          },
+          {
+            "name": "Business Filings",
+            "value": "Business Filings"
+          },
+          {
             "name": "Certificates",
-            "value": "certificates"
+            "value": "Certificates"
+          },
+          {
+            "name": "Children and Family Services",
+            "value": "Children and Family Services"
+          },
+          {
+            "name": "Cigarette & Tobacco Products",
+            "value": "Cigarette & Tobacco Products"
+          },
+          {
+            "name": "Construction / Abatement",
+            "value": "Construction / Abatement"
+          },
+          {
+            "name": "Environmental",
+            "value": "Environmental"
+          },
+          {
+            "name": "Equipment",
+            "value": "Equipment"
+          },
+          {
+            "name": "Facilities",
+            "value": "Facilities"
+          },
+          {
+            "name": "Firearms",
+            "value": "Firearms"
+          },
+          {
+            "name": "Food Preparation",
+            "value": "Food Preparation"
+          },
+          {
+            "name": "Gambling",
+            "value": "Gambling"
+          },
+          {
+            "name": "Hazardous Materials",
+            "value": "Hazardous Materials"
+          },
+          {
+            "name": "Health and Wellness",
+            "value": "Health and Wellness"
+          },
+          {
+            "name": "Historical research",
+            "value": "Historical research"
           },
           {
             "name": "Incentives",
-            "value": "incentives"
+            "value": "Incentives"
           },
           {
             "name": "Inspections",
-            "value": "inspections"
+            "value": "Inspections"
           },
           {
-            "name": "License (Business)",
-            "value": "license-business"
+            "name": "Insurance",
+            "value": "Insurance"
+          },
+          {
+            "name": "Licenses (Business)",
+            "value": "Licenses (Business)"
           },
           {
             "name": "Licenses (Individual)",
-            "value": "licenses-individual"
+            "value": "Licenses (Individual)"
+          },
+          {
+            "name": "Occupational / Professional License",
+            "value": "Occupational / Professional License"
           },
           {
             "name": "Online Tools & Resources",
-            "value": "online-tools-and-resources"
+            "value": "Online Tools & Resources"
+          },
+          {
+            "name": "Other",
+            "value": "Other"
           },
           {
             "name": "Permits",
-            "value": "permits"
+            "value": "Permits"
           },
           {
             "name": "Programs",
-            "value": "programs"
+            "value": "Programs"
+          },
+          {
+            "name": "Public Wholesale Market",
+            "value": "Public Wholesale Market"
           },
           {
             "name": "Registrations",
-            "value": "registrations"
+            "value": "Registrations"
+          },
+          {
+            "name": "Regulations",
+            "value": "Regulations"
           },
           {
             "name": "Resources",
-            "value": "resources"
+            "value": "Resources"
           },
           {
             "name": "Rules and Regulations",
-            "value": "rules-and-regulations"
+            "value": "Rules and Regulations"
+          },
+          {
+            "name": "School Credentials",
+            "value": "School Credentials"
           },
           {
             "name": "Signage Requirements",
-            "value": "signage-requirements"
+            "value": "Signage Requirements"
+          },
+          {
+            "name": "Special Events",
+            "value": "Special Events"
+          },
+          {
+            "name": "Streets & Sidewalks",
+            "value": "Streets & Sidewalks"
+          },
+          {
+            "name": "Support and Assistance",
+            "value": "Support and Assistance"
           },
           {
             "name": "Taxes",
-            "value": "taxes"
+            "value": "Taxes"
           },
           {
             "name": "Training or Course Accreditation",
-            "value": "training-or-course-accreditation"
+            "value": "Training or Course Accreditation"
           },
           {
             "name": "Unassigned",
-            "value": "unassigned"
+            "value": "Unassigned"
+          },
+          {
+            "name": "Vehicles",
+            "value": "Vehicles"
           },
           {
             "name": "Violations",
-            "value": "violations"
+            "value": "Violations"
+          },
+          {
+            "name": "Waste Disposal",
+            "value": "Waste Disposal"
+          },
+          {
+            "name": "Zoning",
+            "value": "Zoning"
           }
         ]
       },
@@ -295,51 +743,55 @@
         "options": [
           {
             "name": "Access Useful Information",
-            "value": "access-useful-information"
+            "value": "Access Useful Information"
           },
           {
             "name": "Comply with Regulations",
-            "value": "comply-with-regulations"
+            "value": "Comply with Regulations"
           },
           {
             "name": "Create Your Business",
-            "value": "create-your-business"
+            "value": "Create Your Business"
           },
           {
             "name": "Create a Business Plan",
-            "value": "create-a-business-plan"
+            "value": "Create a Business Plan"
+          },
+          {
+            "name": "Create Your Business (DO NOT USE)",
+            "value": "Create Your Business (DO NOT USE)"
           },
           {
             "name": "Finance Your Business",
-            "value": "finance-your-business"
+            "value": "Finance Your Business"
           },
           {
-            "name": "Find and Plan Your Space",
-            "value": "find-and-plan-your-space"
+            "name": "Find, Plan, and Build Out Your Space",
+            "value": "Find, Plan, and Build Out Your Space"
           },
           {
             "name": "Hire a Team",
-            "value": "hire-a-team"
-          },
-          {
-            "name": "Identify Incentives",
-            "value": "identify-incentives"
+            "value": "Hire a Team"
           },
           {
             "name": "Learn About Taxes",
-            "value": "learn-about-taxes"
+            "value": "Learn About Taxes"
           },
           {
-            "name": "Open and Operate",
-            "value": "open-and-operate"
+            "name": "Open and Operate (DO NOT USE)",
+            "value": "Open and Operate (DO NOT USE)"
           },
           {
             "name": "Prepare to Open",
-            "value": "prepare-to-open"
+            "value": "Prepare to Open"
+          },
+          {
+            "name": "Prepare to Open (DO NOT USE)",
+            "value": "Prepare to Open (DO NOT USE)"
           },
           {
             "name": "Register Your Business",
-            "value": "register-your-business"
+            "value": "Register Your Business"
           }
         ]
       },
@@ -351,73 +803,49 @@
         "options": [
           {
             "name": "Activity",
-            "value": "activity"
-          },
-          {
-            "name": "Assistance",
-            "value": "assistance"
-          },
-          {
-            "name": "Business",
-            "value": "business"
-          },
-          {
-            "name": "Incentive",
-            "value": "incentive"
-          },
-          {
-            "name": "Individual",
-            "value": "individual"
-          },
-          {
-            "name": "Inspection",
-            "value": "inspection"
-          },
-          {
-            "name": "Job (Work)",
-            "value": "job-work"
+            "value": "Activity"
           },
           {
             "name": "Other",
-            "value": "other"
+            "value": "Other"
           },
           {
             "name": "Regulations and Registrations",
-            "value": "regulations-and-registrations"
+            "value": "Regulations and Registrations"
+          },
+          {
+            "name": "Incentive",
+            "value": "Incentive"
           },
           {
             "name": "Space, Place, or Equipment",
-            "value": "space-place-or-equipment"
+            "value": "Space, Place, or Equipment"
+          },
+          {
+            "name": "Individual",
+            "value": "Individual"
           },
           {
             "name": "Tax",
-            "value": "tax"
+            "value": "Tax"
+          },
+          {
+            "name": "Job (Work)",
+            "value": "Job (Work)"
+          },
+          {
+            "name": "Inspection",
+            "value": "Inspection"
+          },
+          {
+            "name": "Business",
+            "value": "Business"
+          },
+          {
+            "name": "Assistance",
+            "value": "Assistance"
           }
         ]
-      },
-      {
-        "component": "boolean",
-        "valueType": "boolean",
-        "name": "button-display",
-        "label": "Did you Mean section",
-        "description": "When checked, this will add a 'Did you mean' section under header",
-        "defaultValue": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "did-you-mean-button-text",
-        "label": "Did you mean Button Text",
-        "description": "Text to display on the buttons (up to 5)",
-        "multi": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "did-you-mean-button-url",
-        "label": "Did you mean Button URL",
-        "description": "URLs that the buttons will link to (should match number of texts)",
-        "multi": true
       }
     ]
   },
