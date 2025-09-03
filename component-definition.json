@@ -76,6 +76,22 @@
               }
             }
           }
+        },
+        {
+          "title": "Did You Mean",
+          "id": "did-you-mean",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/section/v1/section",
+                "template": {
+                  "model": "did-you-mean",
+                  "name": "Did You Mean",
+                  "filter": "did-you-mean"
+                }
+              }
+            }
+          }
         }
       ]
     },
@@ -328,22 +344,6 @@
                 "template": {
                   "model": "step-by-step-cta",
                   "name": "Step by step CTA"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "Did You Mean",
-          "id": "did-you-mean",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/section/v1/section",
-                "template": {
-                  "model": "did-you-mean",
-                  "name": "Did You Mean",
-                  "filter": "did-you-mean"
                 }
               }
             }
