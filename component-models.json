@@ -892,6 +892,29 @@
     ]
   },
   {
+    "id": "did-you-mean",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Text"
+      }
+    ]
+  },
+  {
+    "id": "did-you-mean-item",
+    "fields": [
+      {
+        "maxSize": 5
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
