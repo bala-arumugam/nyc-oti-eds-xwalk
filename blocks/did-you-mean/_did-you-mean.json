@@ -22,7 +22,10 @@
       "id": "did-you-mean",
       "fields": [
         {
-          "maxSize": 5
+          "component": "container",
+          "name": "items",
+          "label": "Items",
+          "maxItems": 5
         }
       ]
     }
