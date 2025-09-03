@@ -6,8 +6,7 @@
       "section-body",
       "section-description",
       "section-additional",
-      "section-process-step",
-      "did-you-mean"
+      "section-process-step"
     ]
   },
   {
@@ -21,7 +20,8 @@
       "cards",
       "columns",
       "fragment",
-      "step-by-step-cta"
+      "step-by-step-cta",
+      "did-you-mean"
     ]
   },
   {
