@@ -47,7 +47,6 @@
             "template": {
               "name": "Process Step - Contact Info",
               "model": "contact-info",
-              "key-value": true,
               "component": "contact-info"
             }
           }
