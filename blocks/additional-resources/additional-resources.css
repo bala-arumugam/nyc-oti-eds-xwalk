@@ -1,1 +1,33 @@
 /* Additional Resources block styles */
+
+.additional-resources{
+  border-top: 4px solid var(--color-5);
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+
+.additional-resources .button-container{
+
+}
+
+.additional-resources .button-container a{
+  padding: 0;
+  display: inline-flex;
+  text-transform: none;
+  font-size: 16px;
+  text-decoration: underline;
+}
+
+
+.additional-resources .button-container a .icon {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  width: 24px;
+}
+
+.additional-resources .button-container a .icon img {
+  height: 16px;
+  width: 16px;
+}
