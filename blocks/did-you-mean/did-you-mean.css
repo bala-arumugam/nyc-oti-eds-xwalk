@@ -1,0 +1,7 @@
+.did-you-mean-wrapper{
+    background-color: var(--gray-02);
+}
+
+.did-you-mean.block{
+    background-color: red;
+}
