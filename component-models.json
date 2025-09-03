@@ -904,6 +904,21 @@
     "fields": []
   },
   {
+    "id": "did-you-mean-item",
+    "fields": [
+      {
+        "component": "aem-content",
+        "name": "link",
+        "label": "Link"
+      },
+      {
+        "component": "text",
+        "name": "linkText",
+        "label": "Text"
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
