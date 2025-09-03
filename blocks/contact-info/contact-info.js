@@ -60,7 +60,6 @@ export default function decorate(block) {
   const container = document.createElement('div');
   container.className = 'contact-info-container';
 
-
   if (originalContent.length > 1) {
     const header = document.createElement('h3');
     header.className = 'contact-info-header';
