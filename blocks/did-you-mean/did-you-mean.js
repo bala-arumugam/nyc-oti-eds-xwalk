@@ -28,7 +28,6 @@ export default function decorate(block) {
   rows.forEach((row) => {
     // Enforce maximum of 5 buttons
     if (buttonCount >= maxButtons) {
-      console.warn(`Did You Mean block: Maximum of ${maxButtons} buttons allowed. Additional buttons will be ignored.`);
       return;
     }
 
@@ -49,7 +48,7 @@ export default function decorate(block) {
 
         listItem.appendChild(link);
         buttonsList.appendChild(listItem);
-        buttonCount++;
+        buttonCount += 1;
       }
     }
   });
