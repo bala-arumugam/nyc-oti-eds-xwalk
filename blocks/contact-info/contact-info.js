@@ -61,6 +61,7 @@ export default function decorate(block) {
   container.className = 'contact-info-container';
 
   if (originalContent.length > 1) {
+    // Create the header with translated text
     const header = document.createElement('h3');
     header.className = 'contact-info-header';
     header.textContent = getContentFragment.getLabel('contactInfo');

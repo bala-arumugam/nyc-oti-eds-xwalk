@@ -1,5 +1,7 @@
 .contact-info{
-  margin-top: 40px;
+  border-top: 4px solid var(--color-5);
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .contact-info .contact-info-container .contact-info-header{
