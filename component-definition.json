@@ -216,6 +216,21 @@
           }
         },
         {
+          "title": "Did You Mean Item",
+          "id": "did-you-mean-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Did You Mean Item",
+                  "model": "did-you-mean-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Fragment",
           "id": "fragment",
           "plugins": {

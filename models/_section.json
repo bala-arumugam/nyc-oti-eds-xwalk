@@ -51,7 +51,8 @@
         "cards",
         "columns",
         "fragment",
-        "step-by-step-cta"
+        "step-by-step-cta",
+        "did-you-mean"
       ]
     }
   ]

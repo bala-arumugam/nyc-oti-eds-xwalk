@@ -18,6 +18,7 @@ export default function decorate(block) {
     'email',
     'website',
     'phone',
+    'fax',
     'keyword',
     'instructional',
   ];
@@ -50,6 +51,7 @@ export default function decorate(block) {
     ${m.email ? `<h6>Email:</h6><p><a href='mailto:${m.email}'>${m.email}</a></p>` : ''}
     ${m.website ? `<h6>Website:</h6><p><a href='${m.website}' target='_blank' rel='noopener noreferrer'>${m.website}<span class='icon icon-outlink'></span></a></p>` : ''}
     ${m.phone ? `<h6>Phone:</h6><p>${formatPhoneNumber(m.phone)}</p>` : ''}
+    ${m.fax ? `<h6>Fax:</h6><p>${formatPhoneNumber(m.fax)}</p>` : ''}
     ${m.keyword ? `<p class="italic">For further assistance, please call 311 and ask for: ${m.keyword}</p>` : ''}
     ${m.instructional ? `<p class="italic">${m.instructional}</p>` : ''}
   `;
@@ -64,9 +66,6 @@ export default function decorate(block) {
     header.className = 'contact-info-header';
     header.textContent = getContentFragment.getLabel('contactInfo');
     container.appendChild(header);
-  }
-  // Process the content div if it exists (second div in the original block)
-  if (originalContent.length > 1) {
     const contentDiv = originalContent[1];
 
     // Create content container

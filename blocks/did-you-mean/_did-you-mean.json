@@ -15,12 +15,42 @@
           }
         }
       }
+    },
+    {
+      "title": "Did You Mean Item",
+      "id": "did-you-mean-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Did You Mean Item",
+              "model": "did-you-mean-item"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
     {
       "id": "did-you-mean",
       "fields": []
+    },
+    {
+      "id": "did-you-mean-item",
+      "fields": [
+        {
+          "component": "aem-content",
+          "name": "link",
+          "label": "Link"
+        },
+        {
+          "component": "text",
+          "name": "linkText",
+          "label": "Text"
+        }
+      ]
     }
   ],
   "filters": [
