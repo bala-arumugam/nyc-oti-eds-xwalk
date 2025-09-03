@@ -1,33 +1,11 @@
 import getContentFragment from '../../scripts/regulation-page-labels.js';
-import { createElement } from '../../scripts/util.js';
+import { createElement, getKeyValueData } from '../../scripts/util.js';
 
 export default function decorate(block) {
-  // Clear existing content to rebuild it properly
   const originalContent = Array.from(block.children);
+  const m = getKeyValueData(block);
+
   block.innerHTML = '';
-
-  const v = [
-    'none',
-    'agencyName',
-    'officeDepartment',
-    'streetOne',
-    'streetTwo',
-    'city',
-    'state',
-    'zipCode',
-    'email',
-    'website',
-    'phone',
-    'keyword',
-    'instructional',
-  ];
-
-  const m = {};
-  const list = originalContent[0].children;
-  Array.from(list).forEach((row, idx) => {
-    const value = row?.textContent.trim() || '';
-    m[v[idx]] = value;
-  });
 
   const formatPhoneNumber = (phone) => {
     // Remove all non-numeric characters
@@ -45,13 +23,13 @@ export default function decorate(block) {
   const template = `
   ${m.agencyName ? `<h5>${m.agencyName}</h5>` : ''}
   ${m.officeDepartment ? `<p>${m.officeDepartment}</p>` : ''}
-  ${`<p>${m.streetOne}`} ${m.streetTwo ? `,<br/>${m.streetTwo}</p>` : '</p>'}
+  ${`<p>${m.streetOne}`} ${m.streetTwo ? `, ${m.streetTwo}</p>` : '</p>'}
   <p>${m.city} ${m.state} ${m.zipCode}</p>
   ${m.email ? `<h6>Email:</h6><p><a href='mailto:${m.email}'>${m.email}</a></p>` : ''}
   ${m.website ? `<h6>Website:</h6><p><a href='${m.website}' target='_blank' rel='noopener noreferrer'>${m.website}<span class='icon icon-outlink'></span></a></p>` : ''}
   ${m.phone ? `<h6>Phone:</h6><p>${formatPhoneNumber(m.phone)}</p>` : ''}
-  ${m.keyword ? `<p>${m.keyword}</p>` : ''}
-  ${m.instructional ? `<p>${m.instructional}</p>` : ''}
+  ${m.keyword ? `<p class="italic">For further assistance, please call 311 and ask for: ${m.keyword}</p>` : ''}
+  ${m.instructional ? `<p class="italic">${m.instructional}</p>` : ''}
   `;
 
   // Create a proper structured container for contact info

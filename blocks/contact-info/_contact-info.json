@@ -10,7 +10,7 @@
             "template": {
               "model": "contact-info",
               "name": "Contact Info",
-              "key-value":true,
+              "key-value": true,
               "classes": [
                 "contact-info-component"
               ]

@@ -20,6 +20,12 @@
   margin-bottom: 8px;
 }
 
+.contact-info .contact-info-container .contact-info-content p.italic{
+  font-style: italic;
+}
+
+
+
 .contact-info .contact-info-container .contact-info-content p a span::after {
     content: '';
     background-image: url("/icons/outlink.svg");
@@ -36,6 +42,7 @@
 .section .contact-info .contact-info-header{
   display: none;
 }
+
 
 .section .contact-info:first-of-type .contact-info-header{
   display: block;
