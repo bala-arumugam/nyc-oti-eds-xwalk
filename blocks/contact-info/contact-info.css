@@ -19,7 +19,10 @@
 .contact-info .contact-info-container .contact-info-content p{
   line-height: 24px;
   font-weight: var(--bold-500);
-  margin-bottom: 8px;
+
+  /* margin-bottom: 8px; */
+  padding: 0;
+  margin: 0 0 8px;
 }
 
 .contact-info .contact-info-container .contact-info-content p.italic{
