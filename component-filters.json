@@ -31,7 +31,8 @@
       "button",
       "title",
       "process-step",
-      "regulation-tab-card"
+      "regulation-tab-card",
+      "additional-resources"
     ]
   },
   {
@@ -43,7 +44,8 @@
       "title",
       "process-step",
       "contact-info",
-      "cta-button-banner"
+      "cta-button-banner",
+      "additional-resources"
     ]
   },
   {
@@ -79,6 +81,12 @@
     "id": "cta-button-banner",
     "components": [
       "button"
+    ]
+  },
+  {
+    "id": "did-you-mean",
+    "components": [
+      "did-you-mean-item"
     ]
   },
   {

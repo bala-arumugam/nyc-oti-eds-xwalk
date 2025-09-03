@@ -204,7 +204,8 @@
         "button",
         "title",
         "process-step",
-        "regulation-tab-card"
+        "regulation-tab-card",
+        "additional-resources"
       ]
     },
     {
@@ -216,7 +217,8 @@
         "title",
         "process-step",
         "contact-info",
-        "cta-button-banner"
+        "cta-button-banner",
+        "additional-resources"
       ]
     },
     {

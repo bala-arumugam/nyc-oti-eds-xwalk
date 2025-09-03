@@ -1,20 +1,234 @@
 footer {
-  background-color: var(--light-color);
+  background-color: var(--gray-02);
   font-size: var(--body-font-size-xs);
+  color: #000;
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
 }
 
-footer .footer > div {
+footer .footer-section {
   margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
-footer .footer p {
+footer .footer-links-section {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ccc;
+  gap: 116px;
+}
+
+footer .footer-link-container {
+  flex-shrink: 0;
+}
+
+footer .footer-link-header {
+  font-weight: 700;
+  font-size: var(--heading-font-size-m);
+  line-height: var(--line-height-m);
+  color: #000;
+  margin-bottom: 24px;
+  font-family: var(--body-font-family);
+}
+
+footer .footer-links-list-container {
+  display: flex;
+  gap: 48px;
+  flex-wrap: nowrap;
+}
+
+footer .footer-nyc-links,
+footer .business-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 160px;
+}
+
+footer .footer-nyc-links li,
+footer .business-links li {
+  margin-bottom: 12px;
+}
+
+footer .footer-nyc-links li:last-child,
+footer .business-links li:last-child {
+  margin-bottom: 0;
+}
+
+footer .ui-content-small-link {
+  color: #000;
+  text-decoration: underline;
+  font-weight: 400;
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  display: block;
+  transition: color 0.2s ease;
+}
+
+footer .ui-content-small-link:hover {
+  color: #06c;
+}
+
+footer .footer-disclaimer-section {
+  margin-bottom: 0;
+}
+
+footer .footer-disclaimer-section details {
+  border: none;
+  padding: 0;
+}
+
+footer .footer-disclaimer-section summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+footer .footer-disclaimer-section summary::-webkit-details-marker {
+  display: none;
+}
+
+footer .footer-disclaimer-section summary::after {
+  content: '';
+  background-image: url("/icons/caret.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
+  display: inline-block;
+  transform: rotate(180deg); 
+  transition: transform 0.2s ease;
+}
+
+footer .footer-disclaimer-section details[open] summary::after {
+  transform: rotate(0deg);
+}
+
+footer .footer-disclaimer-section summary h6 {
+  color: #000;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: underline;
   margin: 0;
 }
 
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+footer .footer-disclaimer-section .ui-content-caption {
+  color: #666;
+  font-size: 12px;
+  line-height: 18px;
+  margin: 16px 0 0;
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+footer .footer-trademark-section {
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ccc;
+}
+
+footer .nav-logo-img {
+  width: 72px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+footer .footer-trademark-layout {
+  flex: 1;
+  display: flex;
+  padding-top: 24px;
+}
+
+footer .footer-content-text {
+  color: #000;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+  font-family: Montserrat, "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+footer .footer-content-text p {
+  margin: 0;
+}
+
+footer .hidden-content {
+  display: none;
+}
+
+footer .hidden-text {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Responsive styles */
+@media (width <= 810px) {
+  footer .footer-section {
+    padding: 40px 24px;
   }
+  
+  footer .footer-links-section {
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 0;
+  }
+  
+  footer .footer-links-list-container {
+    gap: 24px;
+  }
+  
+  footer .footer-nyc-links,
+  footer .business-links {
+    min-width: auto;
+  }
+  
+  footer .footer-trademark-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    text-align: left;
+  }
+  
+  footer .nav-logo-img {
+    width: 60px;
+  }
+
+  footer .footer-trademark-layout {
+    display: block;
+  }
+}
+
+
+
+@media (width > 810px) {
+  footer .footer-section {
+    padding: 40px 64px;
+  }
+  
+  footer .footer-links-list-container {
+    gap: 60px;
+  }
+
+  footer .footer-copyright {
+  border-right: 1px solid #ADB2B9;
+  padding-right: 16px;
+  font-size: var(--body-font-size-m);
+}
+
+footer .footer-trademark-info {
+  padding-left: 16px;
+  font-size: var(--body-font-size-m);
+}
 }

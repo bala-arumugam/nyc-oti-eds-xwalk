@@ -682,6 +682,22 @@
     ]
   },
   {
+    "id": "additional-resources",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "hidden": true
+      },
+      {
+        "component": "richtext",
+        "name": "richtext",
+        "label": "RTE"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -874,6 +890,10 @@
         "hidden": true
       }
     ]
+  },
+  {
+    "id": "did-you-mean",
+    "fields": []
   },
   {
     "id": "fragment",
