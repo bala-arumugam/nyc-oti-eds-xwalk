@@ -23,7 +23,7 @@ export default function decorate(block) {
   ];
 
   const m = {};
-  const list = originalContent.length  == 1 ? originalContent[0].children : [...originalContent];
+  const list = originalContent.length === 1 ? originalContent[0].children : [...originalContent];
   Array.from(list).forEach((row, idx) => {
     const value = row?.textContent.trim() || '';
     m[v[idx]] = value;
@@ -58,7 +58,7 @@ export default function decorate(block) {
   const container = document.createElement('div');
   container.className = 'contact-info-container';
 
-  if(originalContent.length > 1){
+  if (originalContent.length > 1) {
     // Create the header with translated text
     const header = document.createElement('h3');
     header.className = 'contact-info-header';
