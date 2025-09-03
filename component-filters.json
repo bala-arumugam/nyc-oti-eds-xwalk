@@ -95,7 +95,6 @@
     "id": "did-you-mean",
     "components": [
       "button"
-    ],
-    "maxItems": 5
+    ]
   }
 ]
