@@ -893,14 +893,7 @@
   },
   {
     "id": "did-you-mean",
-    "fields": [
-      {
-        "component": "container",
-        "name": "items",
-        "label": "Items",
-        "maxItems": 5
-      }
-    ]
+    "fields": []
   },
   {
     "id": "did-you-mean-item",
