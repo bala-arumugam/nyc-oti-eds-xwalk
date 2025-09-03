@@ -84,6 +84,12 @@
     ]
   },
   {
+    "id": "did-you-mean",
+    "components": [
+      "button"
+    ]
+  },
+  {
     "id": "process-step",
     "components": [
       "contact-info-item",
