@@ -514,5 +514,4 @@ export default async function decorate(doc) {
 
   doc.style.display = 'block';
   pageRegulationIndexPage.style.display = 'block';
-
 }
