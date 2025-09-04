@@ -1,5 +1,21 @@
 import getContentFragment from '../../scripts/regulation-page-labels.js';
 
+function whatToShow() {
+  const r = {};
+  const listOfTabs = document.querySelectorAll('.menu-regulation-page ul li');
+
+  listOfTabs.forEach((li) => {
+    const tab = li.classList[1];
+    const isDisplay = !(li.style.display === 'none');
+
+    if (isDisplay) {
+      r[tab] = true;
+    }
+  });
+
+  return r;
+}
+
 export default function decorate(doc) {
   const data = (idx) => {
     const dataList = doc.children;
@@ -7,6 +23,8 @@ export default function decorate(doc) {
     const d = dataList[idx];
     return d;
   };
+
+  const visibleTabs = whatToShow();
 
   // - getValues
   const values = {
@@ -33,13 +51,13 @@ export default function decorate(doc) {
     'renewal-fees': {
       title: 'Renewal Fees:',
       link: {
-        text: 'Operating & Renewing', url: '/',
+        text: 'Operating and Renewing', url: '/',
       },
     },
     'renewal-cycle': {
       title: 'Renewal cycle:',
       link: {
-        text: 'Operating & Renewing',
+        text: 'Operating and Renewing',
         url: '/',
       },
     },
@@ -49,7 +67,14 @@ export default function decorate(doc) {
   const template = `
     <div class="tab-main-card">
       <div class="tab-main-card-card">
-      ${Object.keys(contentCard).map((key) => {
+      ${Object.keys(contentCard).filter((el) => {
+    const l = contentCard[el].link.text;
+    const property = l.toLowerCase().replace(/\s+/g, '-');
+    if (visibleTabs[property]) {
+      return true;
+    }
+    return false;
+  }).map((key) => {
     const KEY = contentCard[key];
 
     const { link } = KEY;

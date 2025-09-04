@@ -1416,7 +1416,8 @@
         "name": "mobileButtonName",
         "label": "Text for Mobile button",
         "valueType": "string",
-        "value": "NAVIGATION"
+        "value": "NAVIGATION",
+        "hidden": true
       },
       {
         "component": "boolean",
