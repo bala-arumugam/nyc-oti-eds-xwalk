@@ -1,7 +1,7 @@
 export default function decorate(block) {
   // Create the main container structure
   const container = document.createElement('div');
-  container.className = 'did-you-mean-container';
+  container.className = 'did-you-mean-container-inner';
 
   // Create and add the "Did you mean:" heading
   const heading = document.createElement('h3');
@@ -25,15 +25,14 @@ export default function decorate(block) {
   rows.forEach((row) => {
     // Enforce maximum of 5 buttons
     if (buttonCount >= maxButtons) {
-      console.warn(`Did You Mean block: Maximum of ${maxButtons} buttons allowed. Additional buttons will be ignored.`);
       return;
     }
 
     // Look for button in the row - handle different possible structures
     const buttonContainer = row.querySelector('.button-container');
-    const button = buttonContainer ? 
-      buttonContainer.querySelector('a.button, a[href]') : 
-      row.querySelector('a.button, a[href]');
+    const button = buttonContainer
+      ? buttonContainer.querySelector('a.button, a[href]')
+      : row.querySelector('a.button, a[href]');
 
     if (button && button.href) {
       // Create list item
