@@ -1259,7 +1259,7 @@
         "value": "",
         "label": "Fax",
         "valueType": "string",
-        "required": true
+        "required": false
       },
       {
         "component": "text",
@@ -1447,13 +1447,6 @@
   {
     "id": "regulation-tab-card",
     "fields": [
-      {
-        "component": "richtext",
-        "name": "description",
-        "value": "",
-        "label": "Description",
-        "valueType": "string"
-      },
       {
         "component": "text",
         "valueType": "string",

@@ -116,7 +116,7 @@
           "value": "",
           "label": "Fax",
           "valueType": "string",
-          "required": true
+          "required": false
         },
         {
           "component": "text",

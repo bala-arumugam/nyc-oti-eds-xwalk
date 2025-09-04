@@ -19,27 +19,27 @@
 .contact-info .contact-info-container .contact-info-content p{
   line-height: 24px;
   font-weight: var(--bold-500);
-  margin-bottom: 8px;
+  margin: 0 0 8px 0;
 }
 
 .contact-info .contact-info-container .contact-info-content p.italic{
   font-style: italic;
 }
 
+.contact-info .contact-info-container .contact-info-content p a {
+  display: inline-flex;
+  align-items: center;
+}
 
+.contact-info .contact-info-container .contact-info-content p a .icon{
+  margin-left: 8px;
+  padding-top: 8px;
+}
 
-.contact-info .contact-info-container .contact-info-content p a span::after {
-    content: '';
-    background-image: url("/icons/outlink.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    display: inline-block;
-    margin-left: 8px;
-    margin-top: 1px;
-    width: 16px;
-    height: 16px;
-    vertical-align: middle;
-  }
+.contact-info .contact-info-container .contact-info-content p a .icon img{
+  height: 16px;
+  width: 16px;
+}
 
 .section .contact-info .contact-info-header{
   display: none;
