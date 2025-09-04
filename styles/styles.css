@@ -11,7 +11,9 @@
   --color-16: #F9FEFF;
   --pink-03: #C46;
   --text-color-dark: #FFF;
-  --gray-02: #EAEEF1; /* Light gray color background */
+  --gray-02: #EAEEF1;
+
+  /* Light gray color background */
   --gray-3: #ddd;
   --off-black: #080707;
   --black: #000;
@@ -233,7 +235,7 @@ main .section.highlight {
 }
 
 .shade-background {
-  z-index: 1000; 
+  z-index: 1000;
   top: 0;
   left: 0;
   bottom: 0;
@@ -272,9 +274,9 @@ main .section.highlight {
   }
 
   .page-container {
+    padding-top: 60px;
     max-width: var(--max-with);
     width: var(--width);
-    padding-top: 60px;
     padding-bottom: 60px;
   }
 }

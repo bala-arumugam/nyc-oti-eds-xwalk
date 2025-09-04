@@ -1,8 +1,13 @@
 .regulation-config-container{
   height: 182px;
   min-height: 182px;
-  content-visibility: auto;
-  contain-intrinsic-size: 0 182px;
+  
+  /* Use more modern containment for better CLS handling */
+  contain: layout size;
+  
+  /* Set fixed dimensions to prevent shifts */
+  aspect-ratio: auto;
+  box-sizing: border-box;
 }
 
 
@@ -10,8 +15,13 @@
 .regulation-config-wrapper{
   height: 182px;
   min-height: 182px;
-  content-visibility: auto;
-  contain-intrinsic-height: 182px;
+  contain: layout size paint;
+  
+  /* Ensure consistent sizing */
+  box-sizing: border-box;
+  
+  /* Define placeholder background while hero loads */
+  background-color: #f0f0f0;
 }
 
 .regulation-page-hero {
@@ -19,7 +29,22 @@
   position: relative;
   height: 182px;
   min-height: 182px;
-  background: var(--blue-filter), var(--regulation-hero-image-mobile), #d3d3d3;
+  
+  /* Use placeholder color while background image loads */
+  background-color: #d3d3d3; /* Immediate color display during load */
+  background-image: 
+    var(--blue-filter), 
+    var(--regulation-hero-image-mobile, none);
+
+  /* Use separate properties for better progressive rendering */
+
+  /* Added default background color for instant display */
+
+      /* Add content-visibility to defer off-screen rendering */
+    content-visibility: auto;
+
+    /* Add image loading hint */
+    will-change: background-image;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -27,8 +52,10 @@
   display: grid;
   align-items: center;
   justify-content: start;
-  content-visibility: auto;
-  contain-intrinsic-height: 182px;
+  contain: layout size;
+  
+  /* Avoid shifts during text rendering */
+  text-rendering: optimizespeed;
 }
 
 h1.regulation-page-hero-text {
@@ -45,11 +72,22 @@ h1.regulation-page-hero-text {
     font-weight: 700;
     font-size: 48px;
     line-height: 62px;
+
+    /* Prevent text layout shift during font loading */
+    font-display: swap;
   }
 
   .regulation-page-hero {
-    background: var(--blue-filter), var(--regulation-hero-image-desktop), #d3d3d3;
-    background-position: center center;
+    /* Simplified background declaration with fallback color first */
+    background-color: #d3d3d3; /* Immediate display while image loads */
+    background-image: var(--blue-filter), var(--regulation-hero-image-desktop);
+    background-position: center;
+
+    /* Add content-visibility to defer off-screen rendering */
+    content-visibility: auto;
+
+    /* Add image loading hint */
+    will-change: background-image;
   }
 }
 
@@ -58,10 +96,19 @@ h1.regulation-page-hero-text {
   margin: 0 auto;
   padding: 0 16px;
   background-color: var( --gray-02);
+  height: 113px;
+  min-height: 113px;
+  
+  /* Use contain property to avoid layout shifts */
+  contain: layout size;
+  
+  /* Reserve exact space to prevent layout shifts */
+  box-sizing: border-box;
 }
 
 .did-you-mean-section.page-container{
   width: auto;
+  contain: layout style;
 }
 
 /* Did you mean section */
@@ -149,6 +196,7 @@ h1.regulation-page-hero-text {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
+    contain: layout style;
 }
 
 @media (width >=810px) {
@@ -311,6 +359,15 @@ h1.regulation-page-hero-text {
   max-height: none;
   transition: max-height 0.3s ease, padding 0.3s ease;
   overflow: hidden;
+  
+  /* Set a fixed min-height for consistent space reservation */
+  min-height: 0;
+  
+  /* Prevent CLS by using contain property */
+  contain: layout paint style;
+  
+  /* Use transform instead of height for smoother animations with less CLS */
+  transform-origin: top;
 }
 
 .accordion-item .accordion-content .accordion-content-header h5{
@@ -320,6 +377,9 @@ h1.regulation-page-hero-text {
 
 .accordion-item.close{
   border-radius: 4px;
+  
+  /* Improve rendering performance */
+  contain: layout paint;
 }
 
 
@@ -328,7 +388,15 @@ h1.regulation-page-hero-text {
   padding: 0 25px;
   border-top: 0;
   opacity: 0;
-  transition: max-height 0.3s ease, padding 0.3s ease, border-top 0s ease 0.3s, opacity 0.3s ease;
+  
+  /* Use will-change for browser optimization hints */
+  will-change: transform, max-height, opacity;
+  
+  /* Ensure smoother transitions with less CLS */
+  transition: max-height 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+              padding 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+              border-top 0s ease 0.3s;
   overflow: hidden;
   border-radius: 0 0 4px 4px;
   animation: accordion-close 0.3s ease forwards;
