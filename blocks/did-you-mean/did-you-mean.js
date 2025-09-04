@@ -1,6 +1,7 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
+  // Create the wrapper structure first
   const wrapper = document.createElement('div');
   wrapper.className = 'did-you-mean-wrapper';
 
@@ -15,8 +16,9 @@ export default function decorate(block) {
   const content = document.createElement('div');
   content.className = 'did-you-mean-content';
 
-  const buttonsList = document.createElement('ul');
-  buttonsList.className = 'did-you-mean-buttons';
+  // Change to ul, li structure like cards
+  const ul = document.createElement('ul');
+  ul.className = 'did-you-mean-buttons';
 
   const maxButtons = 5;
   let buttonCount = 0;
@@ -26,31 +28,33 @@ export default function decorate(block) {
       return;
     }
 
-    const listItem = document.createElement('li');
-    listItem.className = 'did-you-mean-button-item';
+    const li = document.createElement('li');
+    li.className = 'did-you-mean-button-item';
+    
+    moveInstrumentation(row, li);
+    
+    while (row.firstElementChild) {
+      li.append(row.firstElementChild);
+    }
 
-    moveInstrumentation(row, listItem);
-
-    [...row.children].forEach((cell) => {
-      const linkElement = cell.querySelector('a[href]');
+    [...li.children].forEach((div) => {
+      const linkElement = div.querySelector('a[href]');
       if (linkElement) {
-        moveInstrumentation(cell, linkElement);
         linkElement.className = 'did-you-mean-button';
-        listItem.appendChild(linkElement);
-      } else if (cell.textContent.trim()) {
-        cell.className = 'did-you-mean-text';
-        moveInstrumentation(cell, cell);
-        listItem.appendChild(cell);
+        div.className = 'did-you-mean-link-container';
+      } else if (div.textContent.trim()) {
+        // For text content
+        div.className = 'did-you-mean-text';
       }
     });
 
-    if (listItem.children.length > 0) {
-      buttonsList.append(listItem);
+    if (li.children.length > 0) {
+      ul.append(li);
       buttonCount += 1;
     }
   });
 
-  content.appendChild(buttonsList);
+  content.appendChild(ul);
   container.appendChild(content);
   wrapper.appendChild(container);
 
