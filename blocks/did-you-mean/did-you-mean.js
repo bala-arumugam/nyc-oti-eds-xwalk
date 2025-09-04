@@ -30,7 +30,6 @@ export default function decorate(block) {
     const li = document.createElement('li');
     li.className = 'did-you-mean-button-item';
     moveInstrumentation(row, li);
-    
     while (row.firstElementChild) {
       li.append(row.firstElementChild);
     }
@@ -41,7 +40,6 @@ export default function decorate(block) {
         linkElement.className = 'did-you-mean-button';
         div.className = 'did-you-mean-link-container';
       } else if (div.textContent.trim()) {
-        // For text content
         div.className = 'did-you-mean-text';
       }
     });
