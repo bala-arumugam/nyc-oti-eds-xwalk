@@ -443,12 +443,15 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
 }
 
 export default async function decorate(doc) {
-  const [image, text, _mobileButtonTitle, ...booleans] = doc.children;
+  const [image, text, ...booleans] = doc.children;
 
   const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operating-and-renewing'];
   const menuToDisplay = {};
 
-  const mobileButtonTitle = _mobileButtonTitle?.querySelector('p')?.innerText || 'NAVIGATION';
+  // const mobileButtonTitle = _mobileButtonTitle?.querySelector('p')?.innerText || 'NAVIGATION';
+  // going to be modify next
+
+  const mobileButtonTitle = 'NAVIGATION';
 
   booleans.forEach((d, idx) => {
     const el = d.querySelector('p');
