@@ -35,13 +35,13 @@ export default function decorate(block) {
       listItem.append(row.firstElementChild);
     }
 
-    [...listItem.children].forEach((div) => {
+    const childDivs = [...listItem.children];
+    childDivs.forEach((div) => {
       const linkElement = div.querySelector('a[href]');
       if (linkElement) {
         div.className = 'did-you-mean-link';
         linkElement.className = 'did-you-mean-button';
         listItem.appendChild(linkElement);
-
         div.remove();
       } else if (div.textContent.trim()) {
         div.className = 'did-you-mean-text';
