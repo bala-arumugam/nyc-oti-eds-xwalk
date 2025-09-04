@@ -28,22 +28,43 @@ export default function decorate(block) {
       return;
     }
 
-    // Look for button in the row - handle different possible structures
-    const buttonContainer = row.querySelector('.button-container');
-    const button = buttonContainer
-      ? buttonContainer.querySelector('a.button, a[href]')
-      : row.querySelector('a.button, a[href]');
+    // Handle did-you-mean-item structure
+    const linkElement = row.querySelector('a[href]');
+    const textElement = row.querySelector('p, div');
+    
+    let button;
+    let buttonText;
 
-    if (button && button.href) {
+    if (linkElement) {
+      // Direct link found
+      button = linkElement;
+      buttonText = linkElement.textContent;
+    } else {
+      // Look for did-you-mean-item structure with separate link and text
+      const linkField = row.querySelector('[data-aue-prop="link"]');
+      const textField = row.querySelector('[data-aue-prop="linkText"]');
+      
+      if (linkField && textField) {
+        button = { href: linkField.textContent || linkField.innerText };
+        buttonText = textField.textContent || textField.innerText;
+      } else {
+        // Fallback to original button structure
+        const buttonContainer = row.querySelector('.button-container');
+        button = buttonContainer ? buttonContainer.querySelector('a.button, a[href]') : row.querySelector('a.button, a[href]');
+        buttonText = button ? button.textContent : null;
+      }
+    }
+
+    if (button && (button.href || (typeof button === 'object' && button.href)) && buttonText) {
       // Create list item
       const listItem = document.createElement('li');
       listItem.className = 'did-you-mean-button-item';
 
       // Create the link with proper classes
       const link = document.createElement('a');
-      link.href = button.href;
-      link.title = button.title || button.textContent;
-      link.textContent = button.textContent;
+      link.href = typeof button === 'object' ? button.href : button.href;
+      link.title = button.title || buttonText;
+      link.textContent = buttonText;
       link.className = 'did-you-mean-button';
 
       listItem.appendChild(link);
