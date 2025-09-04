@@ -1,7 +1,74 @@
 .did-you-mean-wrapper{
     background-color: var(--gray-02);
+} 
+
+.did-you-mean-title {
+  font-size: var(--heading-font-size-s);
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-weight: 600;
 }
 
-.did-you-mean.block{
-    background-color: red;
+.did-you-mean-content >ul>li>a{
+  text-decoration: none;
+  display: flex;
+  font-size: var(--body-font-size-m);
+}
+
+.did-you-mean-content >ul>li>a::after{
+  content: "";
+  background-image: url("/icons/arrow_right_alt.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
+}
+
+.did-you-mean-buttons {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.did-you-mean-button-item {
+  margin: 0;
+  padding: 0;
+  display: flex
+;
+}
+
+.did-you-mean-button{
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.did-you-mean-button:hover {
+  color: var(--color-14);
+  text-decoration: underline;
+}
+
+
+@media (width < 810px) {
+    main > .section > div:has(.did-you-mean) {
+        padding: 24px;
+    }
+    
+}
+
+@media (width >= 810px) {
+    .did-you-mean-container-inner {
+        max-width: 1224px;
+        margin: 0 auto;
+        padding: 24px;
+    }
+
+    .did-you-mean-wrapper{
+    background-color: var(--gray-02);
+          padding: 0 !important;
+          max-width: none !important;
+    }    
 }
