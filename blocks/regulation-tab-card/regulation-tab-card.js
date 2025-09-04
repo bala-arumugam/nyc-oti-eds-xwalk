@@ -8,10 +8,6 @@ export default function decorate(doc) {
     return d;
   };
 
-  // get content
-  // - getDescriptions
-  const descriptionHtml = data(0)?.children[0]?.innerHTML || '<div></div>';
-
   // - getValues
   const values = {
     'application-fees': data(1)?.innerText.trim() || '',
@@ -52,9 +48,6 @@ export default function decorate(doc) {
   // Add structure
   const template = `
     <div class="tab-main-card">
-      <div class="tab-main-card-description">
-      ${descriptionHtml}
-      </div>
       <div class="tab-main-card-card">
       ${Object.keys(contentCard).map((key) => {
     const KEY = contentCard[key];
@@ -84,11 +77,11 @@ export default function decorate(doc) {
     }
 
     return `
-        <div>
-        <h3>${getContentFragment.getLabel(labelKey)}: <span>${values[key]}</span></h3>
-        <p><a href="${link.url}">${getContentFragment.getLabel(buttonKey)} <span class="icon icon-arrow-right"></span></a> </p>
-        </div>
-      `;
+              <div>
+              <h3>${getContentFragment.getLabel(labelKey)}: <span>${values[key]}</span></h3>
+              <p><a href="${link.url}">${getContentFragment.getLabel(buttonKey)} <span class="icon icon-arrow-right"></span></a> </p>
+              </div>
+            `;
   }).join('')}
       </div>
     </div>

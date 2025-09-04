@@ -67,7 +67,6 @@ export default function decorate(block) {
     header.className = 'contact-info-header';
     header.textContent = getContentFragment.getLabel('contactInfo');
     container.appendChild(header);
-    const contentDiv = originalContent[1];
 
     // Create content container
     const contentContainer = document.createElement('div');
@@ -80,7 +79,7 @@ export default function decorate(block) {
 
   container.appendChild(div);
 
-  decorateIcons(container)
+  decorateIcons(container);
 
   // Append the fully built container to the block
   block.appendChild(container);
