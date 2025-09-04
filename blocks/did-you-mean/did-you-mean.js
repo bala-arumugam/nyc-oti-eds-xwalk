@@ -27,10 +27,8 @@ export default function decorate(block) {
     if (buttonCount >= maxButtons) {
       return;
     }
-
     const li = document.createElement('li');
     li.className = 'did-you-mean-button-item';
-    
     moveInstrumentation(row, li);
     
     while (row.firstElementChild) {
