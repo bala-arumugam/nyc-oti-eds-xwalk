@@ -31,3 +31,8 @@
 
 /* Removing commented out code */
 
+.process-step .contact-info{
+  border-top: none;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
