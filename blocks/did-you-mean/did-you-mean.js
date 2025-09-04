@@ -30,8 +30,7 @@ export default function decorate(block) {
 
     // Handle did-you-mean-item structure
     const linkElement = row.querySelector('a[href]');
-    const textElement = row.querySelector('p, div');
-    
+
     let button;
     let buttonText;
 
@@ -43,7 +42,6 @@ export default function decorate(block) {
       // Look for did-you-mean-item structure with separate link and text
       const linkField = row.querySelector('[data-aue-prop="link"]');
       const textField = row.querySelector('[data-aue-prop="linkText"]');
-      
       if (linkField && textField) {
         button = { href: linkField.textContent || linkField.innerText };
         buttonText = textField.textContent || textField.innerText;
