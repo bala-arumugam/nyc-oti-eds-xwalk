@@ -31,25 +31,20 @@ export default function decorate(block) {
 
     moveInstrumentation(row, listItem);
 
-    while (row.firstElementChild) {
-      listItem.append(row.firstElementChild);
-    }
-
-    const childDivs = [...listItem.children];
-    childDivs.forEach((div) => {
-      const linkElement = div.querySelector('a[href]');
+    [...row.children].forEach((cell) => {
+      const linkElement = cell.querySelector('a[href]');
       if (linkElement) {
-        div.className = 'did-you-mean-link';
+        moveInstrumentation(cell, linkElement);
         linkElement.className = 'did-you-mean-button';
         listItem.appendChild(linkElement);
-        div.remove();
-      } else if (div.textContent.trim()) {
-        div.className = 'did-you-mean-text';
+      } else if (cell.textContent.trim()) {
+        cell.className = 'did-you-mean-text';
+        moveInstrumentation(cell, cell);
+        listItem.appendChild(cell);
       }
     });
 
-    const hasLink = listItem.querySelector('a[href]');
-    if (hasLink) {
+    if (listItem.children.length > 0) {
       buttonsList.append(listItem);
       buttonCount += 1;
     }
@@ -57,7 +52,6 @@ export default function decorate(block) {
 
   content.appendChild(buttonsList);
   container.appendChild(content);
-
   wrapper.appendChild(container);
 
   block.textContent = '';
