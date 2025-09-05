@@ -1398,49 +1398,29 @@
     "id": "regulation-config",
     "fields": [
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "name": "mobileButtonName",
-        "label": "Text for Mobile button",
-        "valueType": "string",
-        "value": "NAVIGATION",
-        "hidden": true
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "About ",
+        "name": "about",
+        "value": true,
+        "disabled": true
       },
       {
         "component": "boolean",
         "valueType": "boolean",
-        "label": "Show About ",
-        "name": "about"
-      },
-      {
-        "component": "boolean",
-        "valueType": "boolean",
-        "label": "Show the How to Apply",
+        "label": "How to Apply",
         "name": "how-to-apply"
       },
       {
         "component": "boolean",
         "valueType": "boolean",
-        "label": "Show After You Apply",
+        "label": "After You Apply",
         "name": "after-you-apply"
       },
       {
         "component": "boolean",
         "valueType": "boolean",
-        "label": "Show Operating & Renewing",
+        "label": "Operating & Renewing",
         "name": "operating-renewing"
       }
     ]
