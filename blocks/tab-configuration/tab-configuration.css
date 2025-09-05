@@ -10,6 +10,17 @@
     grid-template-columns: 1fr 3fr;
     gap: 30px;
   }
+
+  .regulation-page.just-about{
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .regulation-page.just-about .menu-regulation-page {
+    display: none;
+  }
+    
+
 }
 
 .regulation-page .tabs {

@@ -67,7 +67,7 @@ export default function decorate(doc) {
   const template = `
     <div class="tab-main-card">
       <div class="tab-main-card-card">
-      ${Object.keys(contentCard).filter((el) => {
+        ${Object.keys(contentCard).filter((el) => {
     const l = contentCard[el].link.text;
     const property = l.toLowerCase().replace(/\s+/g, '-');
     if (visibleTabs[property]) {
@@ -102,11 +102,11 @@ export default function decorate(doc) {
     }
 
     return `
-              <div>
-              <h3>${getContentFragment.getLabel(labelKey)}: <span>${values[key]}</span></h3>
-              <p><a href="${link.url}">${getContentFragment.getLabel(buttonKey)} <span class="icon icon-arrow-right"></span></a> </p>
-              </div>
-            `;
+                    <div>
+                    <h3>${getContentFragment.getLabel(labelKey)}: <span>${values[key]}</span></h3>
+                    <p><a href="${link.url}">${getContentFragment.getLabel(buttonKey)} <span class="icon icon-arrow-right"></span></a> </p>
+                    </div>
+                  `;
   }).join('')}
       </div>
     </div>

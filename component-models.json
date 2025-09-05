@@ -1395,37 +1395,6 @@
     ]
   },
   {
-    "id": "regulation-config",
-    "fields": [
-      {
-        "component": "boolean",
-        "valueType": "boolean",
-        "label": "About ",
-        "name": "about",
-        "value": true,
-        "disabled": true
-      },
-      {
-        "component": "boolean",
-        "valueType": "boolean",
-        "label": "How to Apply",
-        "name": "how-to-apply"
-      },
-      {
-        "component": "boolean",
-        "valueType": "boolean",
-        "label": "After You Apply",
-        "name": "after-you-apply"
-      },
-      {
-        "component": "boolean",
-        "valueType": "boolean",
-        "label": "Operating & Renewing",
-        "name": "operating-renewing"
-      }
-    ]
-  },
-  {
     "id": "regulation-tab-card",
     "fields": [
       {
@@ -1507,6 +1476,37 @@
         "component": "text",
         "name": "imageAlt",
         "label": "Image Alt Text"
+      }
+    ]
+  },
+  {
+    "id": "tab-configuration",
+    "fields": [
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "About ",
+        "name": "about",
+        "value": true,
+        "disabled": true
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "How to Apply",
+        "name": "how-to-apply"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "After You Apply",
+        "name": "after-you-apply"
+      },
+      {
+        "component": "boolean",
+        "valueType": "boolean",
+        "label": "Operating & Renewing",
+        "name": "operating-renewing"
       }
     ]
   }
