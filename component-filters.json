@@ -52,7 +52,7 @@
   {
     "id": "section-body",
     "components": [
-      "regulation-config"
+      "tab-configuration"
     ]
   },
   {
