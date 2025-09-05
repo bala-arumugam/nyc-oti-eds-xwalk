@@ -457,9 +457,9 @@ export default async function decorate(doc) {
   [...doc.children].forEach((d, idx) => {
     const el = d.querySelector('p');
     const bool = el?.innerText === 'true';
-    if (el) {
-      menuToDisplay[menuOrden[idx]] = bool;
-    }
+
+    menuToDisplay[menuOrden[idx]] = idx === 0 ? true : bool;
+
     d.remove();
   });
 
