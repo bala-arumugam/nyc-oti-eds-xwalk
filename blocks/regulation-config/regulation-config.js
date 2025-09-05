@@ -329,32 +329,7 @@ function createMenu(main, menuToDisplay, mobileButtonTitle) {
   return null;
 }
 
-function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
-  const list = {};
-
-  const main = document.querySelector('main');
-  main.querySelectorAll('[data-tab-name]').forEach((t) => {
-    const { tabSectionName, tabName } = t.dataset;
-    if (tabName in list) {
-      if (tabSectionName in list[tabName]) {
-        list[tabName][tabSectionName].push(t);
-      } else {
-        list[tabName][tabSectionName] = [t];
-      }
-    } else {
-      list[tabName] = {
-        [tabSectionName]: [t],
-      };
-    }
-  });
-
-  // Save all elements with data-tab-name attribute in a variable
-
-  const sectionsWithoutTabName = document.querySelectorAll('.section:not([data-tab-name])');
-
-  // Create the tabs container structure as shown in the comment
-  const tabsContainer = createElement('div', { props: { className: 'tabs' } });
-
+function iterateTabsList(list, tabsContainer) {
   // Iterate through the tabs list
   Object.entries(list).forEach(([tabName, sections]) => {
     // Create a new tab for each entry in the list
@@ -418,9 +393,43 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
     // Add the tab to the tabs container
     tabsContainer.appendChild(newTab);
   });
+}
+
+function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
+  const list = {};
+
+  const isJustAbout = menuToDisplay.about && !(menuToDisplay['how-to-apply'] || menuToDisplay['after-you-apply'] || menuToDisplay['operating-and-renewing']);
+
+  const main = document.querySelector('main');
+
+  main.querySelectorAll('[data-tab-name]').forEach((t) => {
+    const { tabSectionName, tabName } = t.dataset;
+    if (tabName in list) {
+      if (tabSectionName in list[tabName]) {
+        list[tabName][tabSectionName].push(t);
+      } else {
+        list[tabName][tabSectionName] = [t];
+      }
+    } else {
+      list[tabName] = {
+        [tabSectionName]: [t],
+      };
+    }
+  });
+
+  // Save all elements with data-tab-name attribute in a variable
+  const sectionsWithoutTabName = document.querySelectorAll('.section:not([data-tab-name])');
+
+  // Append the regulation-page wrapper to the main element
+  const pageRegulationIndexPage = createElement('div', { props: { className: 'page page-regulation-page' } });
+
+  // Create the tabs container structure as shown in the comment
+  const tabsContainer = createElement('div', { props: { className: 'tabs' } });
+
+  iterateTabsList(list, tabsContainer);
 
   // Create a wrapper with the class "regulation-page"
-  const regulationIndexWrapper = createElement('div', { props: { className: 'page-container regulation-page' } });
+  const regulationIndexWrapper = createElement('div', { props: { className: `page-container regulation-page ${isJustAbout ? 'just-about' : ''}` } });
 
   // Append the menu to the regulation-page wrapper (if it exists)
   const menu = createMenu(tabsContainer, menuToDisplay, mobileButtonTitle);
@@ -428,16 +437,13 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
   if (menu) {
     regulationIndexWrapper.appendChild(menu);
   }
-  regulationIndexWrapper.appendChild(tabsContainer);
 
-  // Append the regulation-page wrapper to the main element
-  const pageRegulationIndexPage = createElement('div', { props: { className: 'page page-regulation-page' } });
+  regulationIndexWrapper.appendChild(tabsContainer);
 
   // Detach all elements without tab names and reattach them to the page regulation index
   detachAndReattachAll(sectionsWithoutTabName, pageRegulationIndexPage);
 
   pageRegulationIndexPage.appendChild(regulationIndexWrapper);
-  // main.appendChild(pageRegulationIndexPage);
 
   return pageRegulationIndexPage;
 }
@@ -476,6 +482,7 @@ export default async function decorate(doc) {
   main.appendChild(mobileRegulationWrapper);
 
   const name = main.querySelector('.menu-regulation-page')?.querySelector('li.menu-item-active')?.classList[1];
+
   if (name) {
     showHideTab(name);
   }
