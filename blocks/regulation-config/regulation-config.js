@@ -1,5 +1,5 @@
 import {
-  createElement, detachAndReattach, detachAndReattachAll, shadeBackground,
+  createElement, detachAndReattachAll, shadeBackground,
 } from '../../scripts/util.js';
 import getContentFragment from '../../scripts/regulation-page-labels.js';
 import { decorateIcons } from '../../scripts/aem.js';
@@ -443,17 +443,12 @@ function decorateRegulationPage(menuToDisplay, mobileButtonTitle) {
 }
 
 export default async function decorate(doc) {
-  const [image, text, ...booleans] = doc.children;
-
   const menuOrden = ['about', 'how-to-apply', 'after-you-apply', 'operating-and-renewing'];
   const menuToDisplay = {};
 
-  // const mobileButtonTitle = _mobileButtonTitle?.querySelector('p')?.innerText || 'NAVIGATION';
-  // going to be modify next
-
   const mobileButtonTitle = 'NAVIGATION';
 
-  booleans.forEach((d, idx) => {
+  [...doc.children].forEach((d, idx) => {
     const el = d.querySelector('p');
     const bool = el?.innerText === 'true';
     if (el) {
@@ -461,36 +456,6 @@ export default async function decorate(doc) {
     }
     d.remove();
   });
-
-  const div = createElement('div', { props: { className: 'regulation-page-hero' } });
-
-  // Extract the image URL from the image element
-  const imageDesktop = image.querySelector('source[type="image/webp"][media]')?.srcset;
-  const imageMobile = image.querySelector('source[type="image/webp"]:not([media])')?.srcset;
-
-  const h1 = createElement('h1', {});
-
-  // Get the page metadata for jcr:title instead of using the text from pElement
-  // This will use the "Page Name" from the page metadata
-  const pageTitle = document.querySelector('meta[name="page-property-name"]')?.content
-                  || document.title;
-  h1.textContent = pageTitle;
-  h1.className = 'page-container regulation-page-hero-text';
-  div.appendChild(h1);
-
-  // Still need to handle the original text element for cleanup
-  const pElement = text.firstElementChild;
-  detachAndReattach(text.firstElementChild, div);
-
-  pElement.remove();
-
-  // Apply the image as a background to the hero div
-  div.style.setProperty('--regulation-hero-image-desktop', `url(${imageDesktop})`);
-  div.style.setProperty('--regulation-hero-image-mobile', `url(${imageMobile})`);
-
-  doc.innerHTML = '';
-  doc.style.display = 'none';
-  doc.appendChild(div);
 
   const pageRegulationIndexPage = decorateRegulationPage(menuToDisplay, mobileButtonTitle);
   pageRegulationIndexPage.style.display = 'none';

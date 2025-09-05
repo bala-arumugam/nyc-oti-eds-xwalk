@@ -1,58 +1,3 @@
-.regulation-config-container{
-  height: 182px;
-  min-height: 182px;
-  content-visibility: auto;
-  contain-intrinsic-size: 0 182px;
-}
-
-
-/* hero */
-.regulation-config-wrapper{
-  height: 182px;
-  min-height: 182px;
-  content-visibility: auto;
-  contain-intrinsic-height: 182px;
-}
-
-.regulation-page-hero {
-  width: 100%;
-  position: relative;
-  height: 182px;
-  min-height: 182px;
-  background: var(--blue-filter), var(--regulation-hero-image-mobile), #d3d3d3;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-blend-mode: multiply;
-  display: grid;
-  align-items: center;
-  justify-content: start;
-  content-visibility: auto;
-  contain-intrinsic-height: 182px;
-}
-
-h1.regulation-page-hero-text {
-  position: relative;
-  z-index: 10;
-  color: var(--text-color-dark);
-  font-size: 32px;
-  line-height: 48px;
-}
-
-
-@media (width >=810px) {
-  h1.regulation-page-hero-text {
-    font-weight: 700;
-    font-size: 48px;
-    line-height: 62px;
-  }
-
-  .regulation-page-hero {
-    background: var(--blue-filter), var(--regulation-hero-image-desktop), #d3d3d3;
-    background-position: center center;
-  }
-}
-
 /* Did you mean container */
 .did-you-mean-container {
   margin: 0 auto;
@@ -357,7 +302,6 @@ h1.regulation-page-hero-text {
     opacity: 0;
   }
 }
-
 
 /* icons */
 
